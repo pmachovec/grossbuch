@@ -1,5 +1,6 @@
 # IntelliJ
-.idea
+.idea/*
+!.idea/dictionaries
 *.iml
 
 # Latex

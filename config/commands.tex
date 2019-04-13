@@ -1,0 +1,23 @@
+\newcommand{\newchapter}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
+
+\newcommand{\newsection}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
+
+\newcommand{\newsubsection}[1]{\subsection*{#1}\addcontentsline{toc}{subsection}{#1}}
+
+\newcommand{\addchapter}[2]{\newchapter{#1}\input{chapters/#2}}
+
+\newcommand{\highlight}[2]{\vspace{\baselineskip}\noindent\textcolor{#2}{\textbf{#1}}}
+
+\newcommand{\warning}{\highlight{WARNING! }{red}}
+
+\newcommand{\note}{\highlight{NOTE: }{ForestGreen}}
+
+\newcommand{\todo}{\highlight{TODO }{blue}}
+
+\newcommand{\example}{\highlight{Example: }{black}}
+
+\newcommand{\textbfcolor}[2]{\textcolor{#1}{\textbf{#2}}}
+
+\NewDocumentCommand{\tikzmarknodebf}{m m O{black}}{\tikzmarknode{#1}{\textbfcolor{#3}{#2}}}
+
+\NewDocumentCommand{\drawarrow}{m m O{black} O{.3} O{}}{\draw[stealth-stealth,line width=.6mm,shorten <=2pt,shorten >=2pt,#3,opacity=#4] (#1) to[#5] (#2);}

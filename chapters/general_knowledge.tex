@@ -1,0 +1,117 @@
+\newsection{Object--Oriented Programming}
+\index{Object--oriented programming}
+\label{objectorientedprogramming}
+It's a programming paradigm in which data are encapsulated into objects together with tools for manipulating these data. An object holds data in fields (also called attributes) and provides methods (also called functions) for manipulating with these data (typically from other objects). Java and~most other languages using the~object paradigm like C\# or C++ are~not~pure object languages, because they contain primitive data types like \textit{int} or \textit{boolean}. In~pure object languages all~data (each variable) must be object. An~example of a~pure object language is Smalltalk (and~there is~probably no~other).
+
+\warning Object--oriented programming is~not contradictory to~\hyperref[imperativeprogramming]{imperative programming} (or~even \hyperref[declarativeprogramming]{declarative programming}, see further).
+
+\newsection{Basic Concepts of Object--Oriented Programming}
+
+\newsubsection{Encapsulation}
+\index{Encapsulation}
+
+\newsubsection{Inheritance}
+\index{Inheritance}
+
+\newsubsection{Polymorphism}
+\index{Polymorphism}
+
+\newsubsection{Abstraction}
+\index{Abstraction}
+
+\newsection{Object VS Data Structure}
+
+\newsection{Object--Oriented VS Procedural Programming}
+\index{Procedural programming}
+
+\newsection{Imperative Programming}
+\index{Imperative programming}
+\label{imperativeprogramming}
+It's a~programming paradigm in which a~program behavior is changed by~specified statements. It's opposite of~\hyperref[declarativeprogramming]{declarative programming}.
+
+\warning It is \textbf{not} contradictory to \hyperref[objectorientedprogramming]{object--oriented programming}, imperative languages can be object--oriented. Actually, today's most used object--oriented languages (Java, C\#, C++) are imperative.
+
+\newsection{Declarative Programming}
+\index{Declarative programming}
+\label{declarativeprogramming}
+It's a~programming paradigm in which programs describe their desired results without explicitly listing commands or steps that must be performed. It's opposite~of~\hyperref[imperativeprogramming]{imperative programming}. Typical examples of~declarative languages are~SQL or~Prolog. Oracle's PL/SQL is a~kind of~hybrid language using imperative statements combined with declarative SQL. Even declarative languages can be \hyperref[objectorientedprogramming]{object--oriented} (there~is an~object extension for~Prolog).
+
+\newsection{Compiled VS Interpreted Languages}
+\index{Compiled language}
+\index{Interpreted language}
+
+\newsection{Variable VS Field VS Property}
+\index{Variable}
+\index{Field}
+\index{Property}
+\label{variablefieldproperty}
+\begin{itemize}
+    \item \textbf{Variable} is a~general term denoting data with named identifier.
+    \item \textbf{Field} is a~variable defined in~a~class outside any~method. Fields store parts of~class instance states. Class constants are~fields, variables defined inside \mbox{methods/functions} and~cycles are~not.
+    \item \textbf{Property} is a~field that is~exposed to~outside of~the~class, typically by~getters and~setters.
+\end{itemize}
+
+\section*{\fontsize{17}{17} \selectfont Application VS Process VS Program VS Service VS Thread}
+\addcontentsline{toc}{section}{Application VS Process VS Program VS Service VS Thread}
+\index{Application}
+\index{Process}
+\index{Program}
+\index{Service}
+\index{Thread}
+\index{Computer program}
+\label{applicationprocessprogramservicethread}
+\begin{itemize}
+    \item \textbf{Program} is the~most general term of these. It's included in all others. A~computer program is a~set of~instructions that can be executed on a~computer.
+    \item \textbf{Application} is a~computer program with which, when it's executed, users actively interact.
+    \item \textbf{Process} is a~particular executed and~running instance of a~program.
+    \item \textbf{Service} is a~process that runs continuously in the~background without active interaction with a~user. I.e., it's the opposite of application.
+    \item \textbf{Thread} is a~set of consecutive steps performed one by~one in a~process. A~process can be separated to~more threads which can run in~parallel (if~the~program implementation supports~it).
+\end{itemize}
+
+\newsubsection{Web Servive}
+\index{Web service}
+\label{webservice}
+It's any~program executed or~continuously running on a~remote computer, with which programs on~other computers communicate over the~\hyperref[internetweb]{Web}, i.e.,~using the~\hyperref[http]{HTTP} protocol. A~program called \hyperref[clientserverarchitecture]{client}, running on a~user's computer, sends a~request to~another~program called \hyperref[clientserverarchitecture]{server} running on~the~remote computer (the~same computer as the~target remote program), the~server delegates the~request to~the~remote program, the~remote program prosesses the~request and~sends a~response to~the~server, which then delegates it back to~the~client.
+
+\warning The~term \textit{web service} is~ambiguous. Sometimes it denotes solely the~remote program, sometimes it includes even the~server. Also, opposite to~a~standard \hyperref[applicationprocessprogramservicethread]{service} the~remote program doesn't have to run continuously. Only the~server does.
+
+\newsection{32b VS 64b}
+\index{32b}
+\index{64b}
+\label{32bvs64b}
+
+\newsection{Distributed System}
+\index{Distributed system}
+\label{distributedsystem}
+It's a~system whose components are~located on~different networked computers, which communicate and~coordinate their actions by~passing messages to~one~another. All~components communicate to~achieve a~common goal. Distributed systems have three main characteristics:
+\begin{itemize}
+    \item Components work \hyperref[concurrency]{concurrently}.
+    \item There is no global clock\,--\,no~time synchronization among components.
+    \item Components fail independently\,--\,if~one~component fails, other components are~not~affected.
+\end{itemize}
+\noindent Examples are~computer networks (including the~\hyperref[internetweb]{Internet}) or~telephone networks.
+
+\newsubsection{Distributed Version Control System}
+\index{Distributed version control system}
+\label{distributedversioncontrolsystem}
+It's~a~version control system where each user owns a~copy (mirror) of~the~whole code base including the~whole history. The~typical example of~such system is~\hyperref[git]{Git}.
+
+\newsection{Multitasking}
+\index{Multitasking}
+
+\newsection{Concurrency}
+\index{Concurrency}
+\label{concurrency}
+
+\newsection{Loose Coupling VS Tight Coupling}
+\index{Loose coupling}
+\index{tightcoupling}
+\label{loosetightcoupling}
+
+\newsection{Base64}
+\index{Base64}
+\label{base64}
+It's an~encoding used for~representation of~any array of~bytes as an~ASCII string. The~name refers to the~size of~the~set of~resulting characters, which is~64. It~encodes always three bytes to~four characters. If~the~length of~the~input byte array is~not~divisible by~three, one or~two special bytes are~added to~its~end. This results in~one or~two equals signs at~the~end of~the~resulting string.
+
+\newsection{Null Design Pattern}
+\index{Null design pattern}

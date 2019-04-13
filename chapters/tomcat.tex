@@ -1,0 +1,26 @@
+\index{Tomcat}
+\label{tomcat}
+Tomcat is the~most widely used \hyperref[applicationserver]{application server} software for~Java. I.e.,~if some Java implementation on a~remote computer is to be initiated through web, most likely there is a~Tomcat instance running on~that computer and triggering the~implementation.
+
+\newsection{Installation and configuration}
+Simply download the~correct zip or~tar archive and~extract its content (one~folder) anywhere on~your computer. The~folder you~extracted is further referenced as~the~Tomcat folder. You~don't have to~set~up any special configuration, Tomcat automatically uses the~Java version referenced by~the~JAVA~HOME and~ports are~already configured in~\textit{TOMCAT\_FOLDER/conf/server.xml}.
+
+\warning In~Windows you can also download and~run the~installer. However, be~aware that by~this approach Tomcat becomes one~of~your Windows \hyperref[applicationprocessprogramservicethread]{services}, which starts automatically on~Windows startup, i.e.,~it~consumes performance continuously. And~it~isn't so~easy to~remove the~service later.
+
+\todo Do I need to set up the admin user?
+
+\newsection{Setting Up in IntelliJ Idea}
+First (if you don't use a~remote Tomcat) you have to tell IntelliJ where Tomcat is installed on~your computer. Go~to \textit{File $\rightarrow$ Settings $\rightarrow$ Build,~Execution,~Deployment $\rightarrow$ Application~Servers}, click on~the~\textit{plus} symbol and~set the~path to~the~Tomcat folder.
+
+As~IntelliJ is more focused to~have projects separated (opposite to~Eclipse, where you can have all projects in one window), you need a~project created and~you assign a~Tomcat installation to~that project. With a~project opened in~IntelliJ go~to \textit{Run $\rightarrow$ Edit~Configurations}, click on~the~\textit{plus} symbol, from displayed dropdown menu select \textit{Tomcat Server} $\rightarrow$ \textit{Local} (no~problem setting remote if you have~one), fill the~configuration form (it's~quite intuitive) and~click~\textit{OK}.
+
+\warning You~need the~ultimate edition of~IntelliJ. The~community (free) version doesn't support application server integration. So~basically if~you don't get a~license from your employer, you're screwed.
+
+\newsection{Shutdown Port}
+\index{Shutdown port of Tomcat}
+
+\newsection{Catalina}
+\index{Catalina}
+
+\newsection{Coyote}
+\index{Coyote}

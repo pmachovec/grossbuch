@@ -1,0 +1,142 @@
+\newsection{Bytecode}
+\index{Bytecode}
+\label{bytecode}
+Bytecode is the result of compilation of Java code. It's stored in \textit{.class} files. For~people it's an unreadable mess (it's a type of \hyperref[bytecodebinarycode]{binary code}), however it isn't the machine code which a processor can read. It must be read and further transformed to the machine code by JVM, i.e.,~it's a~middle step between written Java code and its execution. The reason of this approach is that bytecode is transferable between platforms (that's why sometimes it's called \textit{portable code})\,--\,no~matter on what platform (platform\,=\,OS\,+\,hardware, hardware\,=\,\hyperref[32bvs64b]{32b~VS~64b}) the original Java code was written and compiled, the resulting bytecode will be executable on any other platform. The~thing which is different for each platform is \hyperref[jdkjrejvm]{JRE}.
+
+For comparison consider C++. In this programming language the result of compilation is directly the machine code, which must be different for each platform, i.e.,~the thing in C++ which is different for each platform is the compiler.
+
+By the way the approach with millde--step code is used also by C\#, which is compiled to~so~called CIL (Common Intermediate Language). The~main difference of CIL from bytecode is that CIL is human--readable, although it's quite complicated (and~useless).
+
+\newsubsection{Bytecode VS Binary Code}
+\index{Binary code}
+\label{bytecodebinarycode}
+Binary code is generally any code in a~form readable for a~computer. It can be machine code read by processors, bytecode read by JVMs, stored database data read by database software etc. The typical sign of binary code is that it can't be read by humans. By this definition the~C\#'s~CIL mentioned earlier is not a~binary code.
+
+When working with Java, you can meet the~term \textit{Java~binaries}. This refers to \textit{.class} files with bytecode, because the bytecode is~a~form of~binary code.
+
+\newsection{JDK VS JRE VS JVM}
+\index{JDK}
+\index{Java Development Kit}
+\index{JRE}
+\index{Java Runtime Environment}
+\index{JVM}
+\index{Java Virtual Machine}
+\label{jdkjrejvm}
+\begin{itemize}
+    \item \textbf{JDK}~stands for~\textit{Java Development Kit}. It's a set of tools for development and running Java applications.
+    \item \textbf{JRE}~stands for~\textit{Java Runtime Environment}. It's~the~most important part of~JDK, which serves for running already compiled code, i.e.,~it's the software transforming \hyperref[bytecode]{bytecode} to machine code.
+    \item \textbf{JVM}~stands for~\textit{Java Virtual Machine}. It's~the~most important part of JRE, which actually runs the code (transfers \hyperref[bytecode]{bytecode} to machine code), however it can't work alone\,--\,it requires additional tools provided~by~JRE.
+\end{itemize}
+
+\noindent JDK,~JRE and~JVM are platform--dependent, i.e.,~you~need these things different for~Windows, different for~Linux etc. The~thing which is~portable is~only the~\hyperref[bytecode]{bytecode}. When you only want to run Java programs, it's~OK to~install only~JRE, which is~smaller. However, when you intend to develop Java applications, you of~course need to install~JDK. Be~aware that when installing JDK (from Oracle), it~also installs a~separate JRE and computers tend to use this JRE by~default. You should completely ignore this separate JRE. To~do~it you~must set the~environment variable \textit{JAVA\_HOME} to~the~folder of~JDK (not~its~subfolder \textit{bin}, that's added to~the~\textit{Path} variable).
+
+\newsubsection{Typical parts of JDK, that are not included in JRE}
+\begin{itemize}
+    \item Compiler (the \textit{javac} command)
+    \item JavaDoc generator (the \textit{javadoc} command)
+    \item Debugger (the \textit{jdb} command)
+\end{itemize}
+
+\newsubsection{Typical parts of JRE, that are not included in JVM}
+\begin{itemize}
+    \item Native \textit{.class} files, i.e.,~binaries of~all~default Java classes (ArrayList, Runtime, Thread, \dots)
+    \item Java execution command (the \textit{java} command)
+    \item \hyperref[classloaders]{Classloader}
+\end{itemize}
+
+\newsection{Primitive and Reference Data Types}
+\index{Data type}
+\index{Primitive data type}
+\index{Reference data type}
+
+\newsection{Serialization}
+\index{Serialization}
+\index{Serializable}
+\label{serialization}
+
+\newsection{POJO}
+\index{POJO}
+\label{pojo}
+The~abbreviation stands for~\textit{Plain Old Java Object}. It~denotes \textbf{an~instance~of} a~Java Class not~bound by any~restriction other than those given~by basic Java specification. There~are three basic rules for~a~POJO class:
+\begin{itemize}
+    \item It~can't extend any~prespecified class.
+    \item It~can't implement any~prespecified interface.
+    \item It~can't contain any~prespecified \hyperref[annotation]{annotation}.
+\end{itemize}
+\noindent The~word \textit{prespecified} denotes any~component (interface, class, \dots) that is directly defined in~the~code or loaded from a~third--party framework. For~example, instances of~\hyperref[javabeans]{Java Beans} are~POJOs, although \hyperref[javabeans]{Java Beans} implement the~interface \hyperref[serialization]{\textit{Serializable}}, because the~interface comes from the~default~\hyperref[jdkjrejvm]{JRE}.
+
+\warning Only first two rules are strict. The~rule forbidding prespecified annotations is~softened when working with some frameworks, typically some persistence. The~softened version says that if~a~class is a~POJO class before adding framework annotations and~become POJO class after removing framework annotations is still a~POJO class.
+
+\warning You~can also meet claims that all variables must be accessible by getters or there should be no behavior, i.e., that POJOs contain only private variables, getters and setters (not~necessarily for~all variables). All~claims at~least agree on~that POJOs can have parametrical constructors (opposite to~\hyperref[javabeans]{Java Beans}).
+
+\newsection{Java Beans}
+\index{Beans}
+\index{Java beans}
+\label{javabeans}
+Java Bean is every~class that follows these three~restrictions:
+\begin{itemize}
+    \item It~implements the~interface \hyperref[serialization]{\textit{Serializable}}, i.e.,~its instances are~serializable.
+    \item All its \hyperref[variablefieldproperty]{properties} are~private variables accessible by~getters and~setters in~the~form \textit{get\dots} and~\textit{set\dots}
+    \item It has a~public zero--argument constructor.
+\end{itemize}
+\noindent Following these restrictions enables libraries to~process instances of~beans in~a~predefined way. For~example, if~a~library wants to~stream an~instance passed into the~library, the~library knows it~can do~it because the~instance is~serializable.
+
+\warning Similarly to~\hyperref[pojo]{POJO} classes there can~be claims that Java Beans don't contain any~behavior, i.e., they contain only properties, zero--argument constructor, getters and~setters (for~all variables).
+
+\newsection{Enterprise Java Beans}
+\index{EJB}
+\index{Enterprise Java Beans}
+\label{enterprisejavabeans}
+An~Enterprise Java Bean, often denoted by~the~abbreviation \textit{EJB}, is~a~server--side run component performing a~specific task. EJBs~form huge \hyperref[distributedsystem]{distributed} server--side systems handling security, transaction processing, persistence etc. One~EJB can~consist of~more classes and~interfaces (one~EJB\,=\,more files). The~code uses special \hyperref[annotation]{annotations} provided by~Java~EE libraries. EJBs must be~deployed on a~specialized \hyperref[applicationserver]{application servers} like JBoss or~Glassfish. EJB~specification was extensively enhanced in~last years, but~it still is quite a~challenging topic.
+
+In~the~past there were no~annotations. The~specification was~given by~interfaces. This lead to~a~\hyperref[loosetightcoupling]{tight coupling} between Java~EE libraries and~the~written code, lots~of useless methods enforced by~interfaces, hard implementation, hard maintenance and~overall mess in~the~code. Furthermore, EJB systems were extremely slow. That's why the~\hyperref[springframework]{Spring framework} was~introduced by~the~developers community. Although there was the~mentioned extensive enhancement of~EJB specification, it~still caries the~stigma of~unusable crap and~the~\hyperref[springframework]{Spring framework} remains much more popular.
+
+\warning EJB classes are \textbf{not} \hyperref[javabeans]{Java beans}. However, with respect to~Java~EE, they're \hyperref[pojo]{POJOs}\,--\,they use only Java~EE default annotations. In~the~dark past they weren't even that.
+
+\warning The~most popular \hyperref[applicationserver]{application server}\,--\,\hyperref[tomcat]{Tomcat}\,--\,doesn't support EJBs.
+
+\newsection{Checked VS Unchecked Exceptions}
+\index{Exception}
+\index{Checked exception}
+\index{Unchecked exception}
+
+\newsection{Array Length}
+\index{Array}
+\index{Array length}
+
+\newsection{Classpath}
+\index{Classpath}
+\label{classpath}
+
+\newsection{Classloaders}
+\index{Classloader}
+\label{classloaders}
+
+\newsection{Servlets}
+\index{Servlet}
+
+\newsection{JSP}
+\index{JSP}
+
+\newsection{Attribute VS Parameter}
+\index{Attribute}
+\index{Parameter}
+
+\newsection{Namespaces}
+\index{Namespace}
+
+
+\newchapter{Java Programming Features}
+
+\newsection{Enumeration}
+\index{Enumeration}
+
+\newsection{Annotation}
+\index{Annotation}
+\index{Java annotation}
+\label{annotation}
+
+\newsection{String VS StringBuilder VS StringBuffer}
+\index{String}
+\index{StringBuilder}
+\index{StringBuffer}

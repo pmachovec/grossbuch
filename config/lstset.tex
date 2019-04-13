@@ -1,0 +1,35 @@
+% Code listings global settings
+\lstset{
+    alsoletter={/"},
+    basicstyle=\fontsize{10.5}{\baselineskip}\selectfont\ttfamily,
+    breakindent=0pt,
+    breaklines=true,
+    breakatwhitespace=true,
+    escapeinside={(*}{*)},
+    frame=single,
+    gobble=4,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}},
+    rulecolor=\color{black},
+    showstringspaces=false,
+    upquote = true
+}
+
+% Java code listings settings
+\lstdefinelanguage{Java}{
+    commentstyle=\color{ForestGreen},
+    keywordstyle=\color{blue},
+    stringstyle=\color{ForestGreen},
+    morekeywords={class,public,private,protected,static,this},
+    morestring=[b]"
+}
+
+% XML code listings settings
+\lstdefinelanguage{XML}{
+    alsoletter={:},
+    commentstyle=\color{gray},
+    keywordstyle=\color{blue},
+    stringstyle=\color{ForestGreen},
+    morecomment=[s]{<?}{?>},
+    morekeywords={class,id,ref,xmlns,xmlns:context,xsi},
+    morestring=[b]"
+}
