@@ -35,8 +35,9 @@ Objects created by~Spring containers using the~inversion of~control are~called \
     \drawarrow{ioc1xml1beanid}{ioc1java1beanid}
 \end{tikzpicture}
 
-\vspace{\baselineskip}
-\noindent Note that the~only common thing of~the~XML and~the~Java code is the~bean~ID. The~wanted class is~specified only in~the~XML. In~the~Java code only the~interface, which the~class implements, is~used. The~class \textit{ClassPathXmlApplicationContext} comes from the~Spring package \textit{org.springframework.context.support}.
+\noindent You can specify even more XML configuration files (or~even none at~all), the~constructor \textit{ClassPathXmlApplicationContext} accepts any~number of~(string) agruments (even zero).
+
+Notice that the~only common thing of~the~XML and~the~Java code is the~bean~ID. The~wanted class is~specified only in~the~XML. In~the~Java code only the~interface, which the~class implements, is~used. The~class \textit{ClassPathXmlApplicationContext} comes from the~Spring package \textit{org.springframework.context.support}.
 
 \note You~don't have to~always define and~use interfaces for~beans in~the~Java code. You~can use even the~class directly.
 \begin{lstlisting}[language=XML, title={Configuration XML}]
@@ -324,3 +325,20 @@ Values set in~the~\textit{.properties} file can be then referenced as attribute 
     \drawarrow{[xshift=-4mm] di6xml1floatvaluefield.south}{di6java1floatvaluefield}[BurntOrange]
     \drawarrow{di6xml1stringvaluefield}{[xshift=3mm] di6java1stringvaluefield.north}
 \end{tikzpicture}
+
+\newsection{Bean Scope}
+\index{Bean scope}
+\index{Spring bean scope}
+By default beans are singletons. That means whenever you call the~bean retrieval (\textit{context.getBean("wantedBeanId", ...)}), you~always get a~reference to~the same object. This~is OK when you~have stateless beans, it's memory--effective. However, when your beans holds some states in~their variables that affect their methods behavior, it~can~get pretty messy. For~this situation it's better to~always create a~new instance of~the~bean class. This~can~be achieved by~specifying the~attribute \textit{scope} with the~value \textit{prototype} in~the~\textit{bean} element.
+
+\example
+\begin{lstlisting}[language=XML, title={Configuration XML}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans ...>
+      <bean id="someBeanId" class="package.subfolder.{WantedClass}" scope="prototype">
+        ...
+      </bean>
+    </beans>
+\end{lstlisting}
+
+\note You can even specify the~singleton behavior by~\textit{scope="singleton"}, but~that's an~equivalent of~writing nothing, therefore, it's~useless.
