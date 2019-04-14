@@ -5,6 +5,12 @@ floatvaluefield
 intelli
 intvalue
 intvaluefield
+protbeanid
+protdestroy
+protinit
+singbeanid
+singdestroy
+singinit
 stringvalue
 stringvaluefield
 usedep

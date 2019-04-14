@@ -35,7 +35,7 @@ Objects created by~Spring containers using the~inversion of~control are~called \
     \drawarrow{ioc1xml1beanid}{ioc1java1beanid}
 \end{tikzpicture}
 
-\noindent You can specify even more XML configuration files (or~even none at~all), the~constructor \textit{ClassPathXmlApplicationContext} accepts any~number of~(string) agruments (even zero).
+\noindent You can specify even more XML configuration files (or~even none at~all), the~constructor \textit{ClassPathXmlApplicationContext} accepts any~number of~(string) arguments (even zero).
 
 Notice that the~only common thing of~the~XML and~the~Java code is the~bean~ID. The~wanted class is~specified only in~the~XML. In~the~Java code only the~interface, which the~class implements, is~used. The~class \textit{ClassPathXmlApplicationContext} comes from the~Spring package \textit{org.springframework.context.support}.
 
@@ -52,8 +52,8 @@ Notice that the~only common thing of~the~XML and~the~Java code is the~bean~ID. T
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{ioc2xml1beanid}{ioc2java1beanid}
-    \drawarrow{ioc2xml1class}{ioc2java1class}[red]
-    \drawarrow{[xshift=6mm] ioc2xml1class.south}{ioc2java1class2}[green]
+    \drawarrow{ioc2xml1class.south}{ioc2java1class}[red]
+    \drawarrow{ioc2xml1class.south}{ioc2java1class2}[red]
 \end{tikzpicture}
 
 \newsection{Dependency Injection}
@@ -251,7 +251,7 @@ Values set in~the~\textit{.properties} file can be then referenced as attribute 
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
     private int intValueField;
-    private float floatValuefield;
+    private float floatValueField;
     private String stringValueField;
 
     public (*\tikzmarknodebf{di5java1class}{WantedClass}*)(int intValue, float floatValue, String stringValue) {
@@ -288,13 +288,13 @@ Values set in~the~\textit{.properties} file can be then referenced as attribute 
       <bean id="someBeanId" class="package.subfolder.(*\tikzmarknodebf{di6xml1class}{WantedClass}[ForestGreen]*)">
         <property name="(*\tikzmarknodebf{di6xml1intvaluefield}{intValueField}[ForestGreen]*)" value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{di6xml1intvalue}{intvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
         <property name="(*\tikzmarknodebf{di6xml1floatvaluefield}{floatValueField}[ForestGreen]*)" value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{di6xml1floatvalue}{floatvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
-        <propertu name="(*\tikzmarknodebf{di6xml1stringvaluefield}{stringValueField}[ForestGreen]*)" value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{di6xml1stringvalue}{stringvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
+        <property name="(*\tikzmarknodebf{di6xml1stringvaluefield}{stringValueField}[ForestGreen]*)" value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{di6xml1stringvalue}{stringvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
       </bean>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and setter methods}]
     private int intValueField;
-    private float floatValuefield;
+    private float floatValueField;
     private String stringValueField;
 
     public (*\tikzmarknodebf{di6java1class}{WantedClass}*)() {}
@@ -329,16 +329,102 @@ Values set in~the~\textit{.properties} file can be then referenced as attribute 
 \newsection{Bean Scope}
 \index{Bean scope}
 \index{Spring bean scope}
-By default beans are singletons. That means whenever you call the~bean retrieval (\textit{context.getBean("wantedBeanId", ...)}), you~always get a~reference to~the same object. This~is OK when you~have stateless beans, it's memory--effective. However, when your beans holds some states in~their variables that affect their methods behavior, it~can~get pretty messy. For~this situation it's better to~always create a~new instance of~the~bean class. This~can~be achieved by~specifying the~attribute \textit{scope} with the~value \textit{prototype} in~the~\textit{bean} element.
+By default beans are~\hyperref[singletondp]{singletons}. That means whenever you call the~bean retrieval (\textit{context.getBean("wantedBeanId", ...)}), you~always get a~reference to~the same object. This~is OK when you~have stateless beans, it's memory--effective. However, when your beans holds some states in~their variables that affect their methods behavior, it~can~get pretty messy. For~this situation it's better to~always create a~new instance of~the~bean class. This~can~be achieved by~specifying the~attribute \textit{scope} with the~value \hyperref[prototypedp]{\textit{prototype}} in~the~\textit{bean} element.
 
 \example
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
-      <bean id="someBeanId" class="package.subfolder.{WantedClass}" scope="prototype">
+      <bean id="(*\tikzmarknodebf{bs1xml1singbeanid}{singletonBeanId}[ForestGreen]*)" class="package.subfolder.SingletonClass">
+        ...
+      </bean>
+      <bean id="(*\tikzmarknodebf{bs1xml1protbeanid}{prototypeBeanId}[ForestGreen]*)" class="package.subfolder.PrototypeClass" scope="prototype">
         ...
       </bean>
     </beans>
 \end{lstlisting}
+\begin{lstlisting}[language=Java, title={Usage}]
+    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
 
-\note You can even specify the~singleton behavior by~\textit{scope="singleton"}, but~that's an~equivalent of~writing nothing, therefore, it's~useless.
+    SingletonClassInterface singletonInstance1 = context.getBean("(*\tikzmarknodebf{bs1java1singbeanid1}{singletonBeanId}[ForestGreen]*)", SingletonClassInterface.class);
+    SingletonClassInterface singletonInstance2 = context.getBean("(*\tikzmarknodebf{bs1java1singbeanid2}{singletonBeanId}[ForestGreen]*)", SingletonClassInterface.class);
+
+    PrototypeClassInterface prototypeInstance1 = context.getBean("(*\tikzmarknodebf{bs1java1protbeanid1}{prototypeBeanId}[ForestGreen]*)", PrototypeClassInterface.class);
+    PrototypeClassInterface prototypeInstance2 = context.getBean("(*\tikzmarknodebf{bs1java1protbeanid2}{prototypeBeanId}[ForestGreen]*)", PrototypeClassInterface.class);
+
+    context.close();
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{[xshift=-6mm]bs1xml1singbeanid.south}{[xshift=-9mm] bs1java1singbeanid1}
+    \drawarrow{[xshift=-6mm]bs1xml1singbeanid.south}{[xshift=-3mm] bs1java1singbeanid2}
+    \drawarrow{[xshift=6mm]bs1xml1protbeanid.south}{[xshift=9mm] bs1java1protbeanid1}[red]
+    \drawarrow{[xshift=6mm]bs1xml1protbeanid.south}{[xshift=3mm] bs1java1protbeanid2}[red]
+\end{tikzpicture}
+
+\noindent Although a~bean is~requested four times, the~code creates only three bean instances. Two~variables of~the~type \textit{SingletonClassInterface} both refer to~the~same object.
+\newpage
+
+\note You~can even use the~same class for~both singleton and prototype. That's absolutely valid. But~it~can~be tricky, try~to avoid~that.
+
+\note You can even specify the~\hyperref[singletondp]{singleton} behavior by setting the~value \textit{singleton} to~the~attribute \textit{scope}, but~that's an~equivalent of~omitting the~\textit{scope} attribute, therefore, it's~useless.
+
+\newsection{Bean Life Cycle Methods}
+\index{Bean life cycle methods}
+\index{Spring bean life cycle methods}
+\index{Initialization method}
+\index{Destroy method}
+In~a~bean class you~can~define a~method that will be~executed after the~bean is~prepared by~a~\hyperref[springcontainrer]{container} (initialization, dependencies and~values injection, internal Spring processing). This method is~called \textit{initialization method}. Similarly you~can~define a~method that will be~executed before the~\hyperref[springcontainrer]{container} is shut~down (the~\textit{context.close()} is~called). This method is~called \textit{destroy method}.
+
+Each~bean can~have only one initialization and~one destroy method. Methods can~have any \hyperref[accessmodifiers]{access modifier} and~any return value. There~is no~use for~it, therefore, it's~convenient to~make methods private and~with \textit{void} return value. Methods must receive no~arguments.
+
+Initialization methods executions depend on~bean initialization points\,--\,they can~be~executed in~various moments. On~the~other hand, destroy methods executions of~all~beans created~by the~same \hyperref[springcontainrer]{container} are~performed in~the~same moment\,--\,when the~\hyperref[springcontainrer]{container} is shut~down.
+
+\warning Destroy methods work only for~\hyperref[singletondp]{singletons}. For~\hyperref[prototypedp]{prototypes} they can~be defined and~configured without any~problem, but~they are never executed.\\
+
+\noindent To~set an~initialization method for a~bean put the~method's name to~the~attribute \textit{init--method} of~the~element \textit{bean}. To~set a~destroy method put the~method's name to~the~attribute \textit{destroy--method} of~the~element \textit{bean}.
+\newpage
+
+\example
+\begin{lstlisting}[language=XML, title={Configuration XML}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans ...>
+      <bean id="(*\tikzmarknodebf{lc1xml1singbeanid}{singletonBeanId}[ForestGreen]*)" class="package.subfolder.CommonClass" init-method="(*\tikzmarknodebf{lc1xml1singinit}{initMethod}[ForestGreen]*)" destroy-method="(*\tikzmarknodebf{lc1xml1singdestroy}{destroyMethod}[ForestGreen]*)">
+        ...
+      </bean>
+      <bean id="(*\tikzmarknodebf{lx1xml1protbeanid}{prototypeBeanId}[ForestGreen]*)" class="package.subfolder.CommonClass" scope="prototype" init-method="(*\tikzmarknodebf{lc1xml1protinit}{initMethod}[ForestGreen]*)" destroy-method="(*\tikzmarknodebf{lc1xml1protdestroy}{destroyMethod}[ForestGreen]*)">
+        ...
+      </bean>
+    </beans>
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Common class for singleton and prototype beans}]
+    private void (*\tikzmarknodebf{lc1java1init}{initMethod}*)() {
+        ...DO SOMETHING...
+    }
+
+    private void (*\tikzmarknodebf{lc1java1destroy}{destroyMethod}*)() {
+        ...DO SOMETHING...
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Usage}]
+    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
+
+    CommonClassInterface singletonInstance1 = context.getBean("(*\tikzmarknodebf{lc1java1singbeanid1}{singletonBeanId}[ForestGreen]*)", CommonClassInterface.class);
+    CommonClassInterface singletonInstance2 = context.getBean("(*\tikzmarknodebf{lc1java1singbeanid2}{singletonBeanId}[ForestGreen]*)", CommonClassInterface.class);
+
+    CommonClassInterface prototypeInstance1 = context.getBean("(*\tikzmarknodebf{lc1java1protbeanid1}{prototypeBeanId}[ForestGreen]*)", CommonClassInterface.class);
+    CommonClassInterface prototypeInstance2 = context.getBean("(*\tikzmarknodebf{lc1java1protbeanid2}{prototypeBeanId}[ForestGreen]*)", CommonClassInterface.class);
+
+    context.close();
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{[xshift=-6mm] lc1xml1singbeanid.south}{[xshift=-9mm] lc1java1singbeanid1.north}
+    \drawarrow{[xshift=-6mm] lc1xml1singbeanid.south}{[xshift=-3mm] lc1java1singbeanid2.north}
+    \drawarrow{[xshift=6mm] lx1xml1protbeanid.south}{[xshift=9mm] lc1java1protbeanid1}[red]
+    \drawarrow{[xshift=6mm] lx1xml1protbeanid.south}{[xshift=3mm] lc1java1protbeanid2}[red]
+    \drawarrow{lc1xml1singinit}{[xshift=-6mm] lc1java1init.north}[green]
+    \drawarrow{lc1xml1protinit}{[xshift=-6mm] lc1java1init.north}[green]
+    \drawarrow{lc1xml1singdestroy}{[xshift=-6mm] lc1java1destroy.north}[blue]
+    \drawarrow{lc1xml1protdestroy}{[xshift=-6mm] lc1java1destroy.north}[blue]
+\end{tikzpicture}
+
+\noindent The~initialization method is~called three times\,--\,once for~the~singleton instance and~twice for~prototype instances. The~destroy method is~called only once\,--\,for~the~singleton instance, although configured even for~prototype beans. Destroy methods of~prototype beans don't work.

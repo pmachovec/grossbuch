@@ -1,10 +1,12 @@
 \newcommand{\newchapter}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
 
+\newcommand{\addchapter}[2]{\newchapter{#1}\input{chapters/#2}}
+
 \newcommand{\newsection}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
 
 \newcommand{\newsubsection}[1]{\subsection*{#1}\addcontentsline{toc}{subsection}{#1}}
 
-\newcommand{\addchapter}[2]{\newchapter{#1}\input{chapters/#2}}
+\newcommand{\newsubsectionit}[1]{\newsubsection{\textit{#1}}}
 
 \newcommand{\highlight}[2]{\vspace{\baselineskip}\noindent\textcolor{#2}{\textbf{#1}}}
 
