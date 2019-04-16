@@ -1,24 +1,26 @@
-\newcommand{\newchapter}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
+\NewDocumentCommand{\newchapter}{m}{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
 
-\newcommand{\addchapter}[2]{\newchapter{#1}\input{chapters/#2}}
+\NewDocumentCommand{\addchapter}{m m}{\newchapter{#1}\input{chapters/#2}}
 
-\newcommand{\newsection}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
+\NewDocumentCommand{\newsection}{m}{\section*{#1}\addcontentsline{toc}{section}{#1}}
 
-\newcommand{\newsubsection}[1]{\subsection*{#1}\addcontentsline{toc}{subsection}{#1}}
+\NewDocumentCommand{\addsection}{m m}{\newsection{#1}\input{chapters/#2}}
 
-\newcommand{\newsubsectionit}[1]{\newsubsection{\textit{#1}}}
+\NewDocumentCommand{\newsubsection}{m}{\subsection*{#1}\addcontentsline{toc}{subsection}{#1}}
 
-\newcommand{\highlight}[2]{\vspace{\baselineskip}\noindent\textcolor{#2}{\textbf{#1}}}
+\RenewDocumentCommand{\newline}{}{\vspace{\baselineskip}}
 
-\newcommand{\warning}{\highlight{WARNING! }{red}}
+\NewDocumentCommand{\textbfcolor}{m m}{\textcolor{#1}{\textbf{#2}}}
 
-\newcommand{\note}{\highlight{NOTE: }{ForestGreen}}
+\NewDocumentCommand{\highlight}{m m}{\newline\noindent\textcolor{#2}{\textbf{#1}}}
 
-\newcommand{\todo}{\highlight{TODO }{blue}}
+\NewDocumentCommand{\warning}{}{\highlight{WARNING! }{red}}
 
-\newcommand{\example}{\highlight{Example: }{black}}
+\NewDocumentCommand{\note}{}{\highlight{NOTE: }{ForestGreen}}
 
-\newcommand{\textbfcolor}[2]{\textcolor{#1}{\textbf{#2}}}
+\NewDocumentCommand{\todo}{}{\highlight{TODO }{blue}}
+
+\NewDocumentCommand{\example}{O{}}{\ifthenelse{\isempty{#1}}{\highlight{Example: }{black}}{\highlight{Example\,--\,#1: }{black}}}
 
 \NewDocumentCommand{\tikzmarknodebf}{m m O{black}}{\tikzmarknode{#1}{\textbfcolor{#3}{#2}}}
 

@@ -5,7 +5,7 @@ Bytecode is the result of compilation of Java code. It's stored in \textit{.clas
 
 For comparison consider C++. In this programming language the result of compilation is directly the machine code, which must be different for each platform, i.e.,~the thing in C++ which is different for each platform is the compiler.
 
-By the way the approach with millde--step code is used also by C\#, which is compiled to~so~called CIL (Common Intermediate Language). The~main difference of CIL from bytecode is that CIL is human--readable, although it's quite complicated (and~useless).
+By the way the approach with middle--step code is used also by C\#, which is compiled to~so~called CIL (Common Intermediate Language). The~main difference of~CIL from bytecode is that CIL is human--readable, although reading it is quite complicated (and~useless).
 
 \newsubsection{Bytecode VS Binary Code}
 \index{Binary code}
@@ -72,7 +72,7 @@ The~abbreviation stands for~\textit{Plain Old Java Object}. It~denotes \textbf{a
 \begin{itemize}
     \item It~can't extend any~prespecified class.
     \item It~can't implement any~prespecified interface.
-    \item It~can't contain any~prespecified \hyperref[annotation]{annotation}.
+    \item It~can't contain any~prespecified \hyperref[javaannotation]{annotation}.
 \end{itemize}
 \noindent The~word \textit{prespecified} denotes any~component (interface, class, \dots) that is directly defined in~the~code or loaded from a~third--party framework. For~example, instances of~\hyperref[javabeans]{Java Beans} are~POJOs, although \hyperref[javabeans]{Java Beans} implement the~interface \hyperref[serialization]{\textit{Serializable}}, because the~interface comes from the~default~\hyperref[jdkjrejvm]{JRE}.
 
@@ -98,7 +98,7 @@ Java Bean is every~class that follows these three~restrictions:
 \index{EJB}
 \index{Enterprise Java Beans}
 \label{enterprisejavabeans}
-An~Enterprise Java Bean, often denoted by~the~abbreviation \textit{EJB}, is~a~server--side run component performing a~specific task. EJBs~form huge \hyperref[distributedsystem]{distributed} server--side systems handling security, transaction processing, persistence etc. One~EJB can~consist of~more classes and~interfaces (one~EJB\,=\,more files). The~code uses special \hyperref[annotation]{annotations} provided by~Java~EE libraries. EJBs must be~deployed on a~specialized \hyperref[applicationserver]{application servers} like JBoss or~Glassfish. EJB~specification was extensively enhanced in~last years, but~it still is quite a~challenging topic.
+An~Enterprise Java Bean, often denoted by~the~abbreviation \textit{EJB}, is~a~server--side run component performing a~specific task. EJBs~form huge \hyperref[distributedsystem]{distributed} server--side systems handling security, transaction processing, persistence etc. One~EJB can~consist of~more classes and~interfaces (one~EJB\,=\,more files). The~code uses special \hyperref[annotations]{annotations} provided by~Java~EE libraries. EJBs must be~deployed on a~specialized \hyperref[applicationserver]{application servers} like JBoss or~Glassfish. EJB~specification was extensively enhanced in~last years, but~it still is quite a~challenging topic.
 
 In~the~past there were no~annotations. The~specification was~given by~interfaces. This lead to~a~\hyperref[loosetightcoupling]{tight coupling} between Java~EE libraries and~the~written code, lots~of useless methods enforced by~interfaces, hard implementation, hard maintenance and~overall mess in~the~code. Furthermore, EJB systems were extremely slow. That's why the~\hyperref[springframework]{Spring framework} was~introduced by~the~developers community. Although there was the~mentioned extensive enhancement of~EJB specification, it~still caries the~stigma of~unusable crap and~the~\hyperref[springframework]{Spring framework} remains much more popular.
 
@@ -135,19 +135,3 @@ In~the~past there were no~annotations. The~specification was~given by~interfaces
 
 \newsection{Namespaces}
 \index{Namespace}
-
-
-\newchapter{Java Programming Features}
-
-\newsection{Enumeration}
-\index{Enumeration}
-
-\newsection{Annotation}
-\index{Annotation}
-\index{Java annotation}
-\label{annotation}
-
-\newsection{String VS StringBuilder VS StringBuffer}
-\index{String}
-\index{StringBuilder}
-\index{StringBuffer}

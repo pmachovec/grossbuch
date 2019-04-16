@@ -1,0 +1,104 @@
+Files with the~\textit{.properties} extension are~popular approach for~dynamic applications configuration. They're simple text files in~which each line has the~form \textit{identifier=value}. When a~\textit{.properties} file is~added to a~Spring application \hyperref[classpath]{classpath}, it~can~be referenced in~the~Spring configuration file, as~well as values specified in~the~file.
+
+The~\textit{.properties} file is~referenced in~the~element \textit{property--placeholder}, attribute \textit{location}, from the~\hyperref[namespaces]{namespace} \textit{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}. The~name of~the~\textit{.properties} file in~the~attribute \textit{location} must~be preceded by the~part referring to~the~\hyperref[classpath]{classpath}, which~is literally "\textit{classpath:}" (with the~colon).
+
+Values set in~the~\textit{.properties} file can be then referenced as attribute values, typically when \hyperref[injectingliteralvalues]{injecting literal values}, but~can~be used also as bean~IDs when injecting complex beans. A~concrete value is~accessed by~the~syntax~\textit{\$\{identifier\}}.
+
+\warning Some IDEs (IntelliJ Idea for example) can~try to~"help" developers by~fake replacing the~dollar syntax with values from the \textit{.properties} file. I.e.,~it~looks like values are~specified directly in~the~XML file. The~indicator of~this "replacement" is that values have different color (gray in IntelliJ). If~you click on~such value, the~original dollar notation will appear.\\
+
+\newline
+\example[passing values to a constructor]
+\begin{lstlisting}[title={A \textit{.properties} file called \tikzmarknodebf{di5prop1filename}{\textit{constructor.properties}}}]
+    (*\tikzmarknodebf{di5prop1intvalue}{intvalue}*)=1
+    (*\tikzmarknodebf{di5prop1floatvalue}{floatvalue}*)=3.14
+    (*\tikzmarknodebf{di5prop1stringvalue}{stringvalue}*)=String value
+\end{lstlisting}
+\begin{lstlisting}[language=XML, title={Configuration XML}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans ...
+           xmlns:context="http://www.springframework.org/schema/context"
+           ...>
+      <(*\textcolor{blue}{context:}*)property-placeholder location="classpath:(*\tikzmarknodebf{di5xml1filename}{constructor.properties}[ForestGreen]*)"/>
+      <bean id="someBeanId" class="package.subfolder.(*\tikzmarknodebf{di5xml1class}{WantedClass}[ForestGreen]*)">
+        <constructor-arg value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{di5xml1intvalue}{intvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
+        <constructor-arg value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{di5xml1floatvalue}{floatvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
+        <constructor-arg value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{di5xml1stringvalue}{stringvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
+      </bean>
+    </beans>
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
+    private int intValueField;
+    private float floatValueField;
+    private String stringValueField;
+
+    public (*\tikzmarknodebf{di5java1class}{WantedClass}*)(int intValue, float floatValue, String stringValue) {
+        intValueField = intValue;
+        floatValueField = floatValue;
+        stringValueField = stringValue;
+    }
+
+    public WHATEVER useValues() {
+        ...DO SOMETHING WITH VALUE FIELDS...
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{di5prop1filename}{[xshift=6mm] di5xml1filename.north}
+    \drawarrow{di5prop1intvalue.south east}{[xshift=-6mm] di5xml1intvalue.north east}[red]
+    \drawarrow{di5prop1floatvalue}{[xshift=-3mm] di5xml1floatvalue.north}[green]
+    \drawarrow{[xshift=6mm] di5prop1stringvalue.south west}{di5xml1stringvalue.north west}[blue]
+    \drawarrow{di5xml1class}{di5java1class}[yellow][.5]
+\end{tikzpicture}
+\newpage
+
+\example[passing values to setters]
+\begin{lstlisting}[title={A \textit{.properties} file called \tikzmarknodebf{di6prop1filename}{\textit{setters.properties}}}]
+    (*\tikzmarknodebf{di6prop1intvalue}{intvalue}*)=1
+    (*\tikzmarknodebf{di6prop1floatvalue}{floatvalue}*)=3.14
+    (*\tikzmarknodebf{di6prop1stringvalue}{stringvalue}*)=String with spaces
+\end{lstlisting}
+\begin{lstlisting}[language=XML, title={Configuration XML}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans ...
+           xmlns:context="http://www.springframework.org/schema/context"
+           ...>
+      <(*\textcolor{blue}{context:}*)property-placeholder location="classpath:(*\tikzmarknodebf{di6xml1filename}{setter.properties}[ForestGreen]*)"/>
+      <bean id="someBeanId" class="package.subfolder.(*\tikzmarknodebf{di6xml1class}{WantedClass}[ForestGreen]*)">
+        <property name="(*\tikzmarknodebf{di6xml1intvaluefield}{intValueField}[ForestGreen]*)" value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{di6xml1intvalue}{intvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
+        <property name="(*\tikzmarknodebf{di6xml1floatvaluefield}{floatValueField}[ForestGreen]*)" value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{di6xml1floatvalue}{floatvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
+        <property name="(*\tikzmarknodebf{di6xml1stringvaluefield}{stringValueField}[ForestGreen]*)" value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{di6xml1stringvalue}{stringvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
+      </bean>
+    </beans>
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and setter methods}]
+    private int intValueField;
+    private float floatValueField;
+    private String stringValueField;
+
+    public (*\tikzmarknodebf{di6java1class}{WantedClass}*)() {}
+
+    public void set(*\tikzmarknodebf{di6java1intvaluefield}{IntValueField}*)(int intValue) {
+        intValueField = intValue;
+    }
+
+    public void set(*\tikzmarknodebf{di6java1floatvaluefield}{FloatValueField}*)(float floatValue) {
+        floatValueField = floatValue;
+    }
+
+    public void set(*\tikzmarknodebf{di6java1stringvaluefield}{StringValueField}*)(string stringValue) {
+        stringValueField = stringValue;
+    }
+
+    public WHATEVER useValues() {
+        ...DO SOMETHING WITH VALUE FIELDS...
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{di6prop1filename}{di6xml1filename}
+    \drawarrow{di6prop1intvalue.south east}{[xshift=-6mm] di6xml1intvalue.north east}[red]
+    \drawarrow{di6prop1floatvalue}{[xshift=-3mm] di6xml1floatvalue.north}[green]
+    \drawarrow{[xshift=6mm] di6prop1stringvalue.south west}{di6xml1stringvalue.north west}[blue]
+    \drawarrow{di6xml1class}{di6java1class}[yellow][.5][bend left=12mm]
+    \drawarrow{[xshift=-6mm] di6xml1intvaluefield.south}{di6java1intvaluefield}[Magenta]
+    \drawarrow{[xshift=-4mm] di6xml1floatvaluefield.south}{di6java1floatvaluefield}[BurntOrange]
+    \drawarrow{di6xml1stringvaluefield}{[xshift=3mm] di6java1stringvaluefield.north}
+\end{tikzpicture}

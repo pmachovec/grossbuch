@@ -1,0 +1,40 @@
+\index{Bean scope}
+\index{Spring bean scope}
+By default beans are~\hyperref[singletondp]{singletons}. That means whenever you call the~bean retrieval (\textit{context.getBean("wantedBeanId", ...)}), you~always get a~reference to~the same object. This~is OK when you~have stateless beans, it's memory--effective. However, when your beans holds some states in~their variables that affect their methods behavior, it~can~get pretty messy. For~this situation it's better to~always create a~new instance of~the~bean class. This~can~be achieved by~specifying the~attribute \textit{scope} with the~value \hyperref[prototypedp]{\textit{prototype}} in~the~\textit{bean} element.
+
+\example
+\begin{lstlisting}[language=XML, title={Configuration XML}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans ...>
+      <bean id="(*\tikzmarknodebf{bs1xml1singbeanid}{singletonBeanId}[ForestGreen]*)" class="package.subfolder.SingletonClass">
+        ...
+      </bean>
+      <bean id="(*\tikzmarknodebf{bs1xml1protbeanid}{prototypeBeanId}[ForestGreen]*)" class="package.subfolder.PrototypeClass" scope="prototype">
+        ...
+      </bean>
+    </beans>
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Usage}]
+    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
+
+    SingletonClassInterface singletonInstance1 = context.getBean("(*\tikzmarknodebf{bs1java1singbeanid1}{singletonBeanId}[ForestGreen]*)", SingletonClassInterface.class);
+    SingletonClassInterface singletonInstance2 = context.getBean("(*\tikzmarknodebf{bs1java1singbeanid2}{singletonBeanId}[ForestGreen]*)", SingletonClassInterface.class);
+
+    PrototypeClassInterface prototypeInstance1 = context.getBean("(*\tikzmarknodebf{bs1java1protbeanid1}{prototypeBeanId}[ForestGreen]*)", PrototypeClassInterface.class);
+    PrototypeClassInterface prototypeInstance2 = context.getBean("(*\tikzmarknodebf{bs1java1protbeanid2}{prototypeBeanId}[ForestGreen]*)", PrototypeClassInterface.class);
+
+    context.close();
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{[xshift=-6mm]bs1xml1singbeanid.south}{[xshift=-9mm] bs1java1singbeanid1}
+    \drawarrow{[xshift=-6mm]bs1xml1singbeanid.south}{[xshift=-3mm] bs1java1singbeanid2}
+    \drawarrow{[xshift=6mm]bs1xml1protbeanid.south}{[xshift=9mm] bs1java1protbeanid1}[red]
+    \drawarrow{[xshift=6mm]bs1xml1protbeanid.south}{[xshift=3mm] bs1java1protbeanid2}[red]
+\end{tikzpicture}
+
+\noindent Although a~bean is~requested four times, the~code creates only three bean instances. Two~variables of~the~type \textit{SingletonClassInterface} both refer to~the~same object.
+\newpage
+
+\note You~can even use the~same class for~both singleton and prototype. That's absolutely valid. But~it~can~be tricky, try~to avoid~that.
+
+\note You can even specify the~\hyperref[singletondp]{singleton} behavior by setting the~value \textit{singleton} to~the~attribute \textit{scope}, but~that's an~equivalent of~omitting the~\textit{scope} attribute, therefore, it's~useless.

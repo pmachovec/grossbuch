@@ -1,0 +1,102 @@
+\index{Inversion of control}
+\index{Spring bean}
+\label{inversionofcontrol}
+It's~a~way of~creating objects with Spring containers. You~don't directly call constructors of~classes, instead you tell a~container what object (class instance) you want and~the~container will provide~it. The~purpose is to~achieve configurable code without a~need of~recompiling when a~behavior change is~needed.
+
+Objects created by~Spring containers using the~inversion of~control are~called \textit{Spring~beans}. You~must provide implementations of~classes and~an~XML configuration file for~a~container. Then~you instantiate a~container of~your choice and~give it the~configuration. The~configuration tells which class the~container will return when requested. And~finally you~request the~container to~give you the~instance\,--\,the~bean.
+
+\warning Spring beans don't strictly follow restrictions of~\hyperref[javabeans]{Java beans}.
+
+\warning The~XML configuration file must~be located on~\hyperref[classpath]{classpath} when the~program is~executed. When you want to~execute the~program as~jar (fat~jar containing all~dependencies, at~least Spring libraries in~this case), it~must contain the~XML file on~the~same level as~the~top package (typically directly the~jar root). Furthermore, you~can't change the~program to~use some copy of~the~XML outside the~archive. Luckily, today's archive--operating software enables editing files inside archives, for~example the~7zip.
+\newpage
+
+\example
+\begin{lstlisting}[language=XML, title={Configuration XML}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans ...>
+      <bean id="(*\tikzmarknodebf{ioc1xml1beanid}{wantedBeanId}[ForestGreen]*)" class="package.subfolder.WantedClass"/>
+    </beans>
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Usage}]
+    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
+    WantedClassInterface wantedClassInstance = context.getBean("(*\tikzmarknodebf{ioc1java1beanid}{wantedBeanId}[ForestGreen]*)", WantedClassInterface.class);
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{ioc1xml1beanid}{ioc1java1beanid}
+\end{tikzpicture}
+
+\noindent You can specify even more XML configuration files (or~even none at~all), the~constructor \textit{ClassPathXmlApplicationContext} accepts any~number of~(string) arguments (even zero).
+
+Notice that the~only common thing of~the~XML and~the~Java code is the~bean~ID. The~wanted class is~specified only in~the~XML. In~the~Java code only the~interface, which the~class implements, is~used. The~class \textit{ClassPathXmlApplicationContext} comes from the~Spring package \textit{org.springframework.context.support}.
+
+\note You~don't have to~always define and~use interfaces for~beans in~the~Java code. You~can use even the~class directly.
+
+\example
+\begin{lstlisting}[language=XML, title={Configuration XML}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans ...>
+      <bean id="(*\tikzmarknodebf{ioc2xml1beanid}{wantedBeanId}[ForestGreen]*)" class="package.subfolder.(*\tikzmarknodebf{ioc2xml1class}{WantedClass}[ForestGreen]*)"/>
+    </beans>
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Usage}]
+    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
+    (*\tikzmarknodebf{ioc2java1class}{WantedClass}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{ioc2java1beanid}{wantedBeanId}[ForestGreen]*)", (*\tikzmarknodebf{ioc2java1class2}{WantedClass}*).class);
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{ioc2xml1beanid}{ioc2java1beanid}
+    \drawarrow{ioc2xml1class.south}{ioc2java1class}[red]
+    \drawarrow{ioc2xml1class.south}{ioc2java1class2}[red]
+\end{tikzpicture}
+\newpage
+
+\newsubsection{Using Java Annotations}
+With growing number of~beans the~XML configuration file becomes too verbose. Therefore, newer versions of~Spring support configuring bean~IDs using \hyperref[javaannotation]{Java annotations} inside bean~classes.
+
+Spring must be told by~the~XML configuration file to~scan classes in~a~particular package for~components. This is done by~the~element \textit{component--scan}, attribute \textit{base--package}, from the~\hyperref[namespaces]{namespace} \textit{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}. The~convention is to~call the namespace as \textit{context} in the~XML file. Bean classes contain bean~IDs as~a~parameter of~the~class annotation \textit{Component}.
+
+\example
+\begin{lstlisting}[language=XML, title={Configuration XML}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans ...
+           xmlns:context="http://www.springframework.org/schema/context"
+           ...>
+      <(*\textcolor{blue}{context:}*)component-scan base-package="package.subfolder"/>
+    </beans>
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Wanted class}]
+    @Component("(*\tikzmarknodebf{ioc3java1beanid}{wantedBeanId}[ForestGreen]*)")
+    public class WantedClass implements (*\tikzmarknodebf{ioc3java1interface}{WantedClassInterface}*) {
+        ...
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Usage}]
+    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
+    (*\tikzmarknodebf{ioc3java2interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{ioc3java2beanid}{wantedBeanId}[ForestGreen]*)", (*\tikzmarknodebf{ioc3java2interface2}{WantedClassInterface}*).class);
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{ioc3java1beanid}{ioc3java2beanid}
+    \drawarrow{ioc3java1interface.south}{ioc3java2interface}[red]
+    \drawarrow{ioc3java1interface.south}{ioc3java2interface2}[red]
+\end{tikzpicture}
+
+\noindent Note that there's no~ID, no~class nor no~interface mentioned in~the~XML file. The~file will never grow. On~the~other hand, this approach  lacks the possibility of~dynamic configuration without recompilation. You~must always consider what fits your requirements the~most.\\
+
+\noindent The~\textit{Component} annotation exists even in~a~zero--parameter form, i.e., the~bean~ID can~be omitted. In~that case the~bean~ID is~the~same as~the~class name with the~first letter in~lowercase.
+\newpage
+
+\example
+\begin{lstlisting}[language=Java, title={Wanted class}]
+    @Component
+    public class (*\tikzmarknodebf{ioc4java1class}{WantedClass}*) implements (*\tikzmarknodebf{ioc4java1interface}{WantedClassInterface}*) {
+        ...
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Usage}]
+    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
+    (*\tikzmarknodebf{ioc4java2interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{ioc4java2beanid}{wantedClass}[ForestGreen]*)", (*\tikzmarknodebf{ioc4java2interface2}{WantedClassInterface}*).class);
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{ioc4java1class}{ioc4java2beanid}
+    \drawarrow{ioc4java1interface.south}{ioc4java2interface}[red]
+    \drawarrow{ioc4java1interface.south}{ioc4java2interface2}[red]
+\end{tikzpicture}

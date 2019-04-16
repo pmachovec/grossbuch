@@ -1,0 +1,162 @@
+\index{Dependency injection}
+\index{Dependency}
+\label{dependencyinjection}
+Spring bean classes usually contain \hyperref[variablefieldproperty]{fields} of~some interface types. \hyperref[springcontainrer]{Spring container} assigns instances of~classes implementing those interfaces to~those fields. And~this assignment\,--\,injecting\,--\,is the~dependency injection.
+
+Instances stored in fields are~called \textit{dependencies}. They mostly serve for~encapsulating configurable dynamic behavior of~Spring beans. The~configuration telling which bean should have assigned which dependency is a~part~of the~XML configuration file.
+
+\note Dependencies are~also Spring beans.
+
+\newsubsection{Constructor Injection}
+\index{Constructor injection}
+\label{constructorinjection}
+One~of basic approaches to~the~dependency injection is to~set the~dependency via the~wanted class constructor. The~constructor must accept a~parameter of a~type of~an~interface, which is~implemented by the~dependency class. The~dependency class instance\,--\,another bean\,--\, is~specified and~injected to~the~wanted bean in~the~XML configuration file by~the~element \textit{constructor--arg}.
+\newpage
+
+\example
+\begin{lstlisting}[language=XML, title={Configuration XML}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans ...>
+      <bean id="(*\tikzmarknodebf{di1xml1depbeanid}{dependencyBeanId}[ForestGreen]*)" class="package.subfolder.DependencyClass"/>
+      <bean id="(*\tikzmarknodebf{di1xml1beanid}{wantedBeanId}[ForestGreen]*)" class="package.subfolder.(*\tikzmarknodebf{di1xml1class}{WantedClass}[ForestGreen]*)">
+        <constructor-arg ref="(*\tikzmarknodebf{di1xml1depbeanid2}{dependencyBeanId}[ForestGreen]*)"/>
+      </bean>
+    </beans>
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
+    private DependencyInterface dependencyField;
+
+    public (*\tikzmarknodebf{di1java1class}{WantedClass}*)(DependencyInterface dependencyValue) {
+        dependencyField = dependencyValue;
+    }
+
+    public WHATEVER (*\tikzmarknodebf{di1java1usedep}{useDependency}[ForestGreen]*)() {
+        ...DO SOMETHING WITH THE DEPENDENCY FIELD...
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Usage}]
+    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
+    WantedClassInterface wantedClassInstance = context.getBean("(*\tikzmarknodebf{di1java2beanid}{wantedBeanId}[ForestGreen]*)", WantedClassInterface.class);
+    wantedClassInstance.(*\tikzmarknodebf{di1java2usedep}{useDependency}*)();
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{di1xml1depbeanid}{di1xml1depbeanid2}
+    \drawarrow{di1xml1beanid}{[xshift=-3mm] di1java2beanid.north}[red]
+    \drawarrow{di1xml1class}{di1java1class}[green]
+    \drawarrow{[xshift=3mm] di1java1usedep.south}{di1java2usedep}[blue]
+\end{tikzpicture}
+
+\newsubsection{Setter Injection}
+\index{Setter injection}
+\label{setterinjection}
+Another basic approach to~the~dependency injection is to~set the~dependency via a~setter method defined in~the~wanted class. The~wanted class must have a~zero--parameter constructor. It's~safer to~always define~it, even~if there is no other constructor (and~therefore the~zero--parameter one is~implicit). There~is nothing wrong with keeping the~constructor body empty. The~injection is~similar to~the~\hyperref[constructorinjection]{constructor} approach. The~dependency class instance\,--\,another bean\,--\, is~specified and~injected to~the~wanted bean in~the~XML configuration file by~the~element \textit{property}.
+
+\warning There is one crucial restriction to~follow. The~\textit{property} element must contain the~attribute \textit{name} with some value, let's say \textit{someName}. The~name of~the~setter method in the~wanted class must then be exactly \textit{setSomeName}. The~name of~the~field variable doesn't matter.
+\newpage
+
+\example
+\begin{lstlisting}[language=XML, title={Configuration XML}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans ...>
+      <bean id="(*\tikzmarknodebf{di2xml1depbeanid}{dependencyBeanId}[ForestGreen]*)" class="package.subfolder.DependencyClass"/>
+      <bean id="(*\tikzmarknodebf{di2xml1beanid}{wantedBeanId}[ForestGreen]*)" class="package.subfolder.(*\tikzmarknodebf{di2xml1class}{WantedClass}[ForestGreen]*)">
+        <property name="(*\tikzmarknodebf{di2xml1depfield}{dependencyField}[ForestGreen]*)" ref="(*\tikzmarknodebf{di2xml1depbeanid2}{dependencyBeanId}[ForestGreen]*)"/>
+      </bean>
+    </beans>
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and the setter method}]
+    private DependencyInterface dependencyField;
+
+    public (*\tikzmarknodebf{di2java1class}{WantedClass}*)() {}
+
+    public void set(*\tikzmarknodebf{di2java1depfield}{DependencyField}*)(DependencyInterface dependencyValue) {
+        dependencyField = dependencyValue;
+    }
+
+    public WHATEVER (*\tikzmarknodebf{di2java1usedep}{useDependency}*)() {
+        ...DO SOMETHING WITH THE DEPENDENCY FIELD...
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Usage}]
+    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
+    WantedClassInterface wantedClassInstance = context.getBean("(*\tikzmarknodebf{di2java2beanid}{wantedBeanId}[ForestGreen]*)", WantedClassInterface.class);
+    wantedClassInstance.(*\tikzmarknodebf{di2java2usedep}{useDependency}[ForestGreen]*)();
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{di2xml1depbeanid}{di2xml1depbeanid2}
+    \drawarrow{[xshift=-3mm] di2xml1beanid.north}{di2java2beanid}[red]
+    \drawarrow{di2xml1class}{di2java1class}[green]
+    \drawarrow{di2xml1depfield}{di2java1depfield}[blue]
+    \drawarrow{[xshift=3mm] di2java1usedep.south}{di2java2usedep}[yellow][.5]
+\end{tikzpicture}
+
+\newsubsection{Injecting literal values}
+\label{injectingliteralvalues}
+You~can inject even values of primitive types and~strings directly. The~approach is the~same, but~instead~of using the~\textit{ref} attribute in~the~\textit{property} element you use the~\textit{value} attribute and~set directly the~value. You~can do it both for~\hyperref[constructorinjection]{constructor} and~\hyperref[setterinjection]{setter} injection.\\
+\newpage
+
+\example[constructor injection]
+\begin{lstlisting}[language=XML, title={Configuration XML}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans ...>
+      <bean id="(*\tikzmarknodebf{di3xml1beanid}{wantedBeanId}[ForestGreen]*)" class="package.subfolder.(*\tikzmarknodebf{di3xml1class}{WantedClass}[ForestGreen]*)">
+        <constructor-arg value="someValue"/>
+      </bean>
+    </beans>
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
+    private String concreteValueField;
+
+    public (*\tikzmarknodebf{di3java1class}{WantedClass}*)(String concreteValue) {
+        concreteValueField = concreteValue;
+    }
+
+    public WHATEVER (*\tikzmarknodebf{di3java1usevalue}{useConcreteValue}*)() {
+        ...DO SOMETHING WITH THE CONCRETE VALUE FIELD...
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Usage}]
+    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
+    WantedClassInterface wantedClassInstance = context.getBean("(*\tikzmarknodebf{di3java2beanid}{wantedBeanId}[ForestGreen]*)", WantedClassInterface.class);
+    wantedClassInstance.(*\tikzmarknodebf{di3java2usevalue}{useConcreteValue}*)();
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{di3xml1beanid}{di3java2beanid}
+    \drawarrow{di3xml1class}{di3java1class}[red]
+    \drawarrow{di3java1usevalue}{di3java2usevalue}[green]
+\end{tikzpicture}
+\newpage
+
+\example[setter injection]
+\begin{lstlisting}[language=XML, title={Configuration XML}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans ...>
+      <bean id="(*\tikzmarknodebf{di4xml1beanid}{wantedBeanId}[ForestGreen]*)" class="package.subfolder.(*\tikzmarknodebf{di4xml1class}{WantedClass}[ForestGreen]*)">
+        <property name="(*\tikzmarknodebf{di4xml1valuefield}{concreteValueField}[ForestGreen]*)" value="someValue"/>
+      </bean>
+    </beans>
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and the setter method}]
+    private String concreteValueField;
+
+    public (*\tikzmarknodebf{di4java1class}{WantedClass}*)() {}
+
+    public void set(*\tikzmarknodebf{di4java1valuefield}{ConcreteValueField}*)(String concreteValue) {
+        concreteValueField = concreteValue;
+    }
+
+    public WHATEVER (*\tikzmarknodebf{di4java1usevalue}{useConcreteValue}*)() {
+        ...DO SOMETHING WITH THE CONCRETE VALUE FIELD...
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Usage}]
+    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
+    WantedClassInterface wantedClassInstance = context.getBean("(*\tikzmarknodebf{di4java2beanid}{wantedBeanId}[ForestGreen]*)", WantedClassInterface.class);
+    wantedClassInstance.(*\tikzmarknodebf{di4java2usevalue}{useConcreteValue}*)();
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{di4xml1beanid}{di4java2beanid}
+    \drawarrow{di4xml1class}{di4java1class}[red]
+    \drawarrow{di4xml1valuefield}{di4java1valuefield}[green]
+    \drawarrow{di4java1usevalue}{di4java2usevalue}[blue]
+\end{tikzpicture}
