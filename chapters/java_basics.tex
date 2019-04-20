@@ -3,7 +3,7 @@
 \label{bytecode}
 Bytecode is the result of compilation of Java code. It's stored in \textit{.class} files. For~people it's an unreadable mess (it's a type of \hyperref[bytecodebinarycode]{binary code}), however it isn't the machine code which a processor can read. It must be read and further transformed to the machine code by JVM, i.e.,~it's a~middle step between written Java code and its execution. The reason of this approach is that bytecode is transferable between platforms (that's why sometimes it's called \textit{portable code})\,--\,no~matter on what platform (platform\,=\,OS\,+\,hardware, hardware\,=\,\hyperref[32bvs64b]{32b~VS~64b}) the original Java code was written and compiled, the resulting bytecode will be executable on any other platform. The~thing which is different for each platform is \hyperref[jdkjrejvm]{JRE}.
 
-For comparison consider C++. In this programming language the result of compilation is directly the machine code, which must be different for each platform, i.e.,~the thing in C++ which is different for each platform is the compiler.
+For comparison consider C++. In this programming language the result of compilation is directly the machine code, which must be different for each platform, i.e.,~the~thing in C++ which is different for each platform is the compiler.
 
 By the way the approach with middle--step code is used also by C\#, which is compiled to~so~called CIL (Common Intermediate Language). The~main difference of~CIL from bytecode is that CIL is human--readable, although reading it is quite complicated (and~useless).
 
@@ -76,9 +76,9 @@ The~abbreviation stands for~\textit{Plain Old Java Object}. It~denotes \textbf{a
 \end{itemize}
 \noindent The~word \textit{prespecified} denotes any~component (interface, class, \dots) that is directly defined in~the~code or loaded from a~third--party framework. For~example, instances of~\hyperref[javabeans]{Java Beans} are~POJOs, although \hyperref[javabeans]{Java Beans} implement the~interface \hyperref[serialization]{\textit{Serializable}}, because the~interface comes from the~default~\hyperref[jdkjrejvm]{JRE}.
 
-\warning Only first two rules are strict. The~rule forbidding prespecified annotations is~softened when working with some frameworks, typically some persistence. The~softened version says that if~a~class is a~POJO class before adding framework annotations and~become POJO class after removing framework annotations is still a~POJO class.
+\newline\warning Only first two rules are strict. The~rule forbidding prespecified annotations is~softened when working with some frameworks, typically some persistence. The~softened version says that if~a~class is a~POJO class before adding framework annotations and~become POJO class after removing framework annotations is still a~POJO class.
 
-\warning You~can also meet claims that all variables must be accessible by getters or there should be no behavior, i.e., that POJOs contain only private variables, getters and setters (not~necessarily for~all variables). All~claims at~least agree on~that POJOs can have parametrical constructors (opposite to~\hyperref[javabeans]{Java Beans}).
+\newline\warning You~can also meet claims that all variables must be accessible by getters or there should be no behavior, i.e., that POJOs contain only private variables, getters and setters (not~necessarily for~all variables). All~claims at~least agree on~that POJOs can have parametrical constructors (opposite to~\hyperref[javabeans]{Java Beans}).
 
 \newsection{Java Beans}
 \index{Beans}
@@ -88,11 +88,11 @@ Java Bean is every~class that follows these three~restrictions:
 \begin{itemize}
     \item It~implements the~interface \hyperref[serialization]{\textit{Serializable}}, i.e.,~its instances are~serializable.
     \item All its \hyperref[variablefieldproperty]{properties} are~private variables accessible by~getters and~setters in~the~form \textit{get\dots} and~\textit{set\dots}
-    \item It has a~public zero--argument constructor.
+    \item It has a~public zero--parameter constructor.
 \end{itemize}
 \noindent Following these restrictions enables libraries to~process instances of~beans in~a~predefined way. For~example, if~a~library wants to~stream an~instance passed into the~library, the~library knows it~can do~it because the~instance is~serializable.
 
-\warning Similarly to~\hyperref[pojo]{POJO} classes there can~be claims that Java Beans don't contain any~behavior, i.e., they contain only properties, zero--argument constructor, getters and~setters (for~all variables).
+\newline\warning Similarly to~\hyperref[pojo]{POJO} classes there can~be claims that Java Beans don't contain any~behavior, i.e., they contain only properties, zero--parameter constructor, getters and~setters (for~all variables).
 
 \newsection{Enterprise Java Beans}
 \index{EJB}
@@ -102,9 +102,9 @@ An~Enterprise Java Bean, often denoted by~the~abbreviation \textit{EJB}, is~a~se
 
 In~the~past there were no~annotations. The~specification was~given by~interfaces. This lead to~a~\hyperref[loosetightcoupling]{tight coupling} between Java~EE libraries and~the~written code, lots~of useless methods enforced by~interfaces, hard implementation, hard maintenance and~overall mess in~the~code. Furthermore, EJB systems were extremely slow. That's why the~\hyperref[springframework]{Spring framework} was~introduced by~the~developers community. Although there was the~mentioned extensive enhancement of~EJB specification, it~still caries the~stigma of~unusable crap and~the~\hyperref[springframework]{Spring framework} remains much more popular.
 
-\warning EJB classes are \textbf{not} \hyperref[javabeans]{Java beans}. However, with respect to~Java~EE, they're \hyperref[pojo]{POJOs}\,--\,they use only Java~EE default annotations. In~the~dark past they weren't even that.
+\newline\warning EJB classes are \textbf{not} \hyperref[javabeans]{Java beans}. However, with respect to~Java~EE, they're \hyperref[pojo]{POJOs}\,--\,they use only Java~EE default annotations. In~the~dark past they weren't even that.
 
-\warning The~most popular \hyperref[applicationserver]{application server}\,--\,\hyperref[tomcat]{Tomcat}\,--\,doesn't support EJBs.
+\newline\warning The~most popular \hyperref[applicationserver]{application server}\,--\,\hyperref[tomcat]{Tomcat}\,--\,doesn't support EJBs.
 
 \newsection{Checked VS Unchecked Exceptions}
 \index{Exception}

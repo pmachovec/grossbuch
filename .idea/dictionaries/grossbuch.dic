@@ -2,6 +2,7 @@ acro
 bytecode
 depbeanid
 depfield
+depinterface
 floatvalue
 floatvaluefield
 intelli
@@ -19,4 +20,5 @@ tasklist
 taskkill
 usedep
 usevalue
+usingjavaannotations
 valuefield
