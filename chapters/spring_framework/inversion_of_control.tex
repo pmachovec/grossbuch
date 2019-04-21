@@ -50,10 +50,11 @@ Notice that the~only common thing of~the~XML and~the~Java code is the~bean~ID. T
 \newpage
 
 \newsubsection{Using Java Annotations}
-\label{usingjavaannotations}
+\index{Component scan}
+\label{iocannotations}
 With growing number of~beans the~XML configuration file becomes too verbose. Therefore, newer versions of~Spring support configuring bean~IDs using \hyperref[javaannotation]{Java annotations} inside bean~classes.
 
-Spring must be told by~the~XML configuration file to~scan classes in~a~particular package for~components. This is done by~the~element \textit{component--scan}, attribute \textit{base--package}, from the~\hyperref[namespaces]{namespace} \textit{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}. The~convention is to~call the namespace as \textit{context} in the~XML file. Bean classes contain bean~IDs as~a~parameter of~the~class annotation \textit{Component}.
+Spring must be told by~the~XML configuration file to~scan classes in~a~particular package for~components. This is done by~the~element \textit{component--scan}, attribute \textit{base--package}, from the~\hyperref[namespaces]{namespace} \textit{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}. The~convention is to~call the namespace as \textit{context} in the~XML file. Bean classes contain bean~IDs as~a~parameter of~the~class annotation \textit{Component}. The~annotation is processed in~runtime, therefore, if~you~make a~mistake in~it, you~won't find~out during application build.
 
 \example
 \begin{lstlisting}[language=XML, title={Configuration XML}]
@@ -82,7 +83,9 @@ Spring must be told by~the~XML configuration file to~scan classes in~a~particula
 
 \noindent Note that there's no~ID, no~class nor no~interface mentioned in~the~XML file. The~file will never grow. On~the~other hand, this approach  lacks the possibility of~dynamic configuration without recompilation. You~must always consider what fits your requirements the~most.\\
 
-\noindent The~\textit{Component} annotation exists even in~a~zero--parameter form, i.e., the~bean~ID can~be omitted. In~that case the~bean~ID is~the~same as~the~class name with the~first letter in~lowercase.
+\noindent The~\textit{Component} annotation exists even in~a~zero--parameter form, i.e., the~bean~ID can~be omitted. In~that case the~bean~ID is~the~same as~the~class name, usually with~the~first letter changed to~lowercase (standard case).
+
+\newline\warning If~the~second letter of~the~bean class name is~in~uppercase (e.g.,~something like \textit{\mbox{RESTService}}), the~first letter of~the~bean~ID is~not changed to~lowercase (it~remains \textit{\mbox{RESTService}}).
 \newpage
 
 \example

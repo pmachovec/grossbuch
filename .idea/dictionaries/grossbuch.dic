@@ -1,6 +1,7 @@
 acro
 bytecode
 depbeanid
+depclass
 depfield
 depinterface
 floatvalue
@@ -11,6 +12,7 @@ intvaluefield
 protbeanid
 protdestroy
 protinit
+readprop
 singbeanid
 singdestroy
 singinit
