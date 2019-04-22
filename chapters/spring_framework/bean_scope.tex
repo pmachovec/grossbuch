@@ -1,8 +1,9 @@
 \index{Bean scope}
 \index{Spring bean scope}
-By default beans are~\hyperref[singletondp]{singletons}. That means whenever you call the~bean retrieval (\textit{context.getBean("wantedBeanId", ...)}), you~always get a~reference to~the same object. This~is OK when you~have stateless beans, it's memory--effective. However, when your beans holds some states in~their variables that affect their methods behavior, it~can~get pretty messy. For~this situation it's better to~always create a~new instance of~the~bean class. This~can~be achieved by~specifying the~attribute \textit{scope} with the~value \hyperref[prototypedp]{\textit{prototype}} in~the~\textit{bean} element.
+\label{beanscope}
+By default Spring beans are~\hyperref[singletondp]{singletons}. That means whenever you call the~bean retrieval (\textit{context.getBean("wantedBeanId", ...)}), you~always get a~reference to~the same object. This~is OK when you~have stateless beans, it's memory--effective. However, when your beans holds some states in~their variables that affect their methods behavior, it~can~get pretty messy. For~this situation it's better to~always create a~new instance of~the~bean class. This~can~be achieved by~specifying the~attribute \textit{scope} with the~value \hyperref[prototypedp]{\textit{prototype}} in~the~\textit{bean} element.
 
-\example
+\newline\example
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
@@ -33,8 +34,21 @@ By default beans are~\hyperref[singletondp]{singletons}. That means whenever you
 \end{tikzpicture}
 
 \noindent Although a~bean is~requested four times, the~code creates only three bean instances. Two~variables of~the~type \textit{SingletonClassInterface} both refer to~the~same object.
-\newpage
 
-\newline\note You~can even use the~same class for~both singleton and prototype. That's absolutely valid. But~it~can~be tricky, try~to avoid~that.
+\note You~can even use the~same class for~both singleton and prototype. That's absolutely valid. But~it~can~be tricky, try~to avoid~that.
 
-\newline\note You can even specify the~\hyperref[singletondp]{singleton} behavior by setting the~value \textit{singleton} to~the~attribute \textit{scope}, but~that's an~equivalent of~omitting the~\textit{scope} attribute, therefore, it's~useless.
+\note You can even specify the~\hyperref[singletondp]{singleton} behavior by setting the~value \textit{singleton} to~the~attribute \textit{scope}, but~that's an~equivalent of~omitting the~\textit{scope} attribute, therefore, it's~useless.
+
+\newsubsection{Using Java Annotations}
+Specifying a~bean scope with \hyperref[javaannotation]{Java annotations} is really simple. The~bean class is~annotated with the~\textit{Scope} annotation with the~desired scope as~argument.
+
+\newline\example
+\begin{lstlisting}[language=Java, title={Bean class with the prototype scope set by the annotation}]
+    @@>@Component<@@("prototypeBeanId")
+    @@>@Scope<@@("prototype")
+    public class PrototypeClass implements PrototypeClassInterface {
+        ...
+    }
+\end{lstlisting}
+
+\warning If~you configure a~bean in~the~XML configuration file, the~scope will be taken from there even when you enable the~component scanning and~use the~\textit{Scope} annotation for~the~bean class. I.e., if~you don't mention the~scope in~the~XML, the~default one\,--\,singleton\,--\,will be used whatever you~put to~the~\textit{Scope} annotation.

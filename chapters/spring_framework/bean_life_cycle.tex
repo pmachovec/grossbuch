@@ -8,7 +8,7 @@ Each~bean can~have only one initialization and~one destroy method. Methods can~h
 
 Initialization methods executions depend on~bean initialization points\,--\,they can~be~executed in~various moments. On~the~other hand, destroy methods executions of~all~beans created~by the~same \hyperref[springcontainrer]{container} are~performed in~the~same moment\,--\,when the~\hyperref[springcontainrer]{container} is shut~down.
 
-\newline\warning Destroy methods work only for~\hyperref[singletondp]{singletons}. For~\hyperref[prototypedp]{prototypes} they can~be defined and~configured without any~problem, but~they are never executed.\\
+\warning Destroy methods work only for~\hyperref[singletondp]{singletons}. For~\hyperref[prototypedp]{prototypes} they can~be defined and~configured without any~problem, but~they are never executed.\\
 
 \noindent To~set an~initialization method for a~bean put the~method's name to~the~attribute \textit{init--method} of~the~element \textit{bean}. To~set a~destroy method put the~method's name to~the~attribute \textit{destroy--method} of~the~element \textit{bean}.
 \newpage

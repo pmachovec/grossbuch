@@ -5,15 +5,14 @@ Spring bean classes usually contain \hyperref[variablefieldproperty]{fields} of~
 
 Instances stored in fields are~called \textit{dependencies}. They mostly serve for~encapsulating configurable dynamic behavior of~Spring beans. The~configuration telling which bean should have assigned which dependency is a~part~of the~XML configuration file.
 
-\newline\note Dependencies are~also Spring beans.
+\note Dependencies are~also Spring beans.
 
 \newsubsection{Constructor Injection}
 \index{Constructor injection}
 \label{constructorinjection}
 One~of basic approaches to~the~dependency injection is to~set the~dependency via the~wanted class constructor. The~constructor must accept a~parameter of a~type of~an~interface, which is~implemented by the~dependency class. The~dependency class instance\,--\,another bean\,--\, is~specified and~injected to~the~wanted bean in~the~XML configuration file by~the~element \textit{constructor--arg}.
-\newpage
 
-\example
+\newline\example
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
@@ -45,16 +44,17 @@ One~of basic approaches to~the~dependency injection is to~set the~dependency via
     \drawarrow{di1xml1class}{di1java1class}[green]
     \drawarrow{[xshift=3mm] di1java1usedep.south}{di1java2usedep}[blue]
 \end{tikzpicture}
+\newpage
 
 \newsubsection{Setter Injection}
 \index{Setter injection}
 \label{setterinjection}
 Another basic approach to~the~dependency injection is to~set the~dependency via a~setter method defined in~the~wanted class. The~wanted class must have a~zero--parameter constructor. It's~safer to~always define~it, even~if there is no other constructor (and~therefore the~zero--parameter one is~implicit). There~is nothing wrong with keeping the~constructor body empty. The~injection is~similar to~the~\hyperref[constructorinjection]{constructor} approach. The~dependency class instance\,--\,another bean\,--\, is~specified and~injected to~the~wanted bean in~the~XML configuration file by~the~element \textit{property}.
 
-\newline\warning There is one crucial restriction to~follow. The~\textit{property} element must contain the~attribute \textit{name} with some value, let's say \textit{someName}. The~name of~the~setter method in the~wanted class must then be exactly \textit{setSomeName}. The~name of~the~field variable doesn't matter.
-\newpage
+\warning There is one crucial restriction to~follow. The~\textit{property} element must contain the~attribute \textit{name} with some value, let's say \textit{someName}. The~name of~the~setter method in the~wanted class must then be exactly \textit{setSomeName}. The~name of~the~field variable doesn't matter.
 
-\example
+\enlargethispage{10mm}
+\newline\example
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
@@ -94,9 +94,10 @@ Another basic approach to~the~dependency injection is to~set the~dependency via 
 \index{Autowired}
 \label{autowiring}
 Similarly to~the~\hyperref[inversionofcontrol]{inversion of~control} even the~dependency injection can~be~handled with \hyperref[javaannotation]{Java annotations}. A~Spring functionality called \textit{autowiring} automatically detects a~dependency bean class that can~be~injected to~a~field in~the~main bean class. A~\hyperref[constructorinjection]{constructor} or~a~\hyperref[setterinjection]{setter method} performing the~injection must be annotated with the~annotation \textit{Autowired}, which processed in~runtime. The~dependency bean class must be~annotated with the~annotation \textit{Component} in~the~zero--parameter form (no~bean~ID specified). When properly combined with the~\hyperref[iocannotations]{annotation--configured} \hyperref[inversionofcontrol]{inversion of~control}, the~configuration XML file contains only the~component scanning configuration.
-\newpage
 
-\example[constructor injection]
+\newline\example[constructor injection]
+\enlargethispage{20mm}
+\thispagestyle{empty}
 \label{constructorinjectionautowire}
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
@@ -191,7 +192,7 @@ Similarly to~the~\hyperref[inversionofcontrol]{inversion of~control} even the~de
     \drawarrow{di4java1usedep}{di4java3usedep}[blue]
 \end{tikzpicture}
 
-\note Opposite to~the~old \hyperref[setterinjection]{setter injection} with~XML configuration file the~name of~an~autowired setter method isn't restricted in~any~way. The~Spring's autowiring is~directed by~the~type of~its parameter. I.e.,~in~the~previous example the~name of~the~setter method could~be even literally \textit{absoluteNonsense} and~the~dependency injection would~be still working.
+\notenonl Opposite to~the~old \hyperref[setterinjection]{setter injection} with~XML configuration file the~name of~an~autowired setter method isn't restricted in~any~way. The~Spring's autowiring is~directed by~the~type of~its parameter. I.e.,~in~the~previous example the~name of~the~setter method could~be even literally \textit{absoluteNonsense} and~the~dependency injection would~be still working.
 \newpage
 
 \newsubsection{Field Injection}
@@ -244,7 +245,7 @@ The~\hyperref[autowiring]{autowiring} annotation can~be~used directly to~depende
 
 \newsubsection{Qualifiers}
 \index{Qualifier}
-So~far there has~always been exactly one implementation of~the~dependency interface and~for~\hyperref[autowiring]{autowiring} it~was clear what class instance inject to~the~dependency field. But~when there are more dependency classes matching the~dependency interface, running (not~building) the~program fails complaining about not~unique bean. To~solve this problem you~must provide the~dependency bean~ID as~an~argument of~the~annotation \textit{Qualifier}. When using \hyperref[constructorinjectionautowire]{constructor injection} or~\hyperref[setterinjectionautowire]{setter injection}, the~annotation is~applied to~the~argument of~the~constructor or~the~setter method. When using \hyperref[fieldinjection]{field injection}, the~annotation is~applied directly to~the~field variable.
+So~far there has~always been exactly one implementation of~the~dependency interface and~it~was clear for~\hyperref[autowiring]{autowiring} what class instance inject to~the~dependency field. But~when there are more dependency classes matching the~dependency interface, running (not~building) the~program fails complaining about not~unique bean. To~solve this problem you~must provide the~dependency bean~ID as~an~argument of~the~annotation \textit{Qualifier}. When using \hyperref[constructorinjectionautowire]{constructor injection} or~\hyperref[setterinjectionautowire]{setter injection}, the~annotation is~applied to~the~argument of~the~constructor or~the~setter method. When using \hyperref[fieldinjection]{field injection}, the~annotation is~applied directly to~the~field variable.
 
 \newline\example[constructor injection]
 \enlargethispage{20mm}
@@ -393,7 +394,7 @@ So~far there has~always been exactly one implementation of~the~dependency interf
 \label{injectingliteralvalues}
 You~can inject even values of primitive types and~strings directly using the~XML configuration file. The~approach is the~same, but~instead~of using the~\textit{ref} attribute in~the~\textit{property} element you use the~\textit{value} attribute and~set directly the~value. You~can do it both for~\hyperref[constructorinjection]{constructor} and~\hyperref[setterinjection]{setter} injection.
 
-\newline\warning You~can't use \hyperref[autowiring]{autowiring} for~this. Autowiring is~usable only when the~injected value is~an~instance of~an~explicitly defined Spring bean with the~\textit{Component} annotation. Nevertheless, it's~possible to~parse \textit{.properties} files with annotations, see~\hyperref[readingpropertiesannotations]{further}.
+\warning You~can't use \hyperref[autowiring]{autowiring} for~this. Autowiring is~usable only when the~injected value is~an~instance of~an~explicitly defined Spring bean with the~\textit{Component} annotation. Nevertheless, it's~possible to~parse \textit{.properties} files with annotations, see~\hyperref[readingpropertiesannotations]{further}.
 
 \newline\example[constructor injection]
 \begin{lstlisting}[language=XML, title={Configuration XML}]
