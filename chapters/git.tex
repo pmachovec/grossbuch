@@ -2,6 +2,150 @@
 \label{git}
 Git is a~popular \hyperref[distributedversioncontrolsystem]{distributed version vontrol system} and~probably the~most used version control system in~the~World.
 
+\newsection{Git configuration}
+\index{Git configuration}
+The~behavior of~Git can be adjusted by~the~\textit{git~config} command. Whenever you run the~command, some key--value configuration pair is~stored to~a~configuration file under~a~configuration section. The~syntax of~the~command is "\textit{git config section.key value}". Values can~consist of~more words, in~that~case they must be enclosed in~apostrophes or~quotes. Sections can~be further specified in~subsections, the~syntax is "\textit{git config section.subsection.key value}". Further separation to~subsubsections is~not~possible. Everything between the~first and~the~last dot is~considered as~one~subsection name, even~if~it~contains other dots.
+
+\example[simple configuration file]:
+\begin{lstlisting}[frame=no]
+    [section1]
+        key1 = value1
+        key2 = value2
+    [section2 "subsection"]
+        key3 = value3
+    [section2]
+        key4 = value4
+\end{lstlisting}
+
+\noindent  You~can set either a~local or~a~global configuration value. The~only difference in~the~syntax is the~\textit{-{}-global} option just after the~command when setting a~global configuration ("\textit{git config -{}-global section.key value}"). Local configuration values are~valid only in a~single repository folder. The~command without the~\textit{-{}-global} option can be run only from a~repository folder (not~necessarily the~root, it~works even from~its subfolders). Local configuration entries are~stored to~the~file \path{ROOT\_FOLDER/.git/config}. Global configuration values are~valid in all repository folders in~the~system where Git is~installed. The~command with the~\textit{-{}-global} option can be run from anywhere. Global configuration entries are~stored to~the~file \path{HOME\_FOLDER/.gitconfig}. You can also directly edit configuration files with a~text editor. But~that should be~done with caution, if~you~screw the~formatting somehow, your Git can~stop working. When you want to~remove some configuration, use the~\textit{-{}-unset} option.
+
+\warning Local configurations override global configurations.
+
+\newsubsection{Basic configuration}
+When you install Git, you should set at~least following configurations:
+\begin{itemize}
+    \item User name (usually with apostrophes or~quotes):
+        \begin{lstlisting}[frame=no, gobble=12]
+            git config --global user.name '...'
+        \end{lstlisting}
+    \item User email:
+        \begin{lstlisting}[frame=no, gobble=12]
+            git config --global user.email ...
+        \end{lstlisting}
+    \item GUI encoding (without this non--ascii characters get screwed in~Gitk):
+        \begin{lstlisting}[frame=no, gobble=12]
+            git config --global gui.encoding utf-8
+        \end{lstlisting}
+\end{itemize}
+\noindent If~your repository requires \hyperref[gitgpg]{GPG~signing}, you~must set also this:
+\begin{itemize}
+    \item User sign key:
+        \begin{lstlisting}[frame=no, gobble=12]
+            git config --global user.signingkey ...
+        \end{lstlisting}
+    \item Automatic signing:
+        \begin{lstlisting}[frame=no, gobble=12]
+            git config --global commit.gpgsign true
+        \end{lstlisting}
+\end{itemize}
+
+\newsection{Aliases}
+\index{Git Aliases}
+\index{Aliases in Git}
+When you tend to~use a~same long Git command with lots of~options many times, it's~convenient to~create an~alias for~it. Aliases are~configurations, i.e., they're stored into configuration files and~can be set by~the~\textit{git config} command. The~syntax is "\textit{git config -{}-global alias.name 'value'}". The~value doesn't contain the~keyword \textit{git}. The~global setting is not~necessary, but~aliases are~very rarely set as~local. Also the~value doesn't have to~be~enclosed in~apostrophes when~not~containing spaces, but~that's rare when creating aliases.\\
+
+\example
+\noindent Consider a~very long Git command:
+\begin{lstlisting}[frame=no]
+    git VERY LONG COMMAND WITH MANY OPTIONS AND VALUES
+\end{lstlisting}
+\noindent You set~up an~alias like this:
+\begin{lstlisting}[frame=no]
+    git config --global alias.short 'VERY LONG COMMAND WITH MANY OPTIONS AND VALUES'
+\end{lstlisting}
+\noindent And now instead of~calling the~long command you~can just call:
+\begin{lstlisting}[frame=no]
+    git short
+\end{lstlisting}
+\noindent When you want to~remove the~alias, you~run:
+\begin{lstlisting}[frame=no]
+    git config --global --unset alias.short
+\end{lstlisting}
+
+\warning Aliases can't override existing commands.
+\newpage
+
+\newsection{Meld}
+\index{Meld}
+Viewing file differences and~resolving merge conflicts in~a~Shell isn't very comfortable. It's~better to~use some graphical tool that can visualize file differences. And~probably the~best tool for~this is~\href{https://meldmerge.org/}{Meld}, which can~be~configured as~the~default difftool and mergetool for~Git.
+
+\newsubsection{Configuration}
+Following examples expect that you already installed meld and~added it to~the~\textit{PATH} system variable.
+
+\begin{itemize}
+    \item Configure Git to~use Meld as~the~difftool:
+        \begin{lstlisting}[frame=no, gobble=12]
+            git config --global diff.tool meld
+        \end{lstlisting}
+    \item Configure git not~to~ask every time if~running Meld is~OK on~diff:
+        \begin{lstlisting}[frame=no, gobble=12]
+            git config --global difftool.prompt false
+        \end{lstlisting}
+    \item Configure the~order of~displayed windows on~diff:
+        \begin{lstlisting}[frame=no, gobble=12]
+            git config --global difftool.meld.cmd 'meld "$LOCAL" "$REMOTE"'
+        \end{lstlisting}
+    \item Configure Git to~use Meld as~the~mergetool:
+        \begin{lstlisting}[frame=no, gobble=12]
+            git config --global merge.tool meld
+        \end{lstlisting}
+    \item Configure git not~to~ask every time if~running Meld is~OK on~merge:
+        \begin{lstlisting}[frame=no, gobble=12]
+            git config --global mergetool.prompt false
+        \end{lstlisting}
+    \item Configure the~order of~displayed windows on~merge:
+        \begin{lstlisting}[frame=no, gobble=12]
+            git config --global mergetool.meld.cmd 'meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"'
+        \end{lstlisting}
+\end{itemize}
+
+\note For~the~last configuration the~only part you~should ever change is~the~middle window. The~value \textit{\$BASE} means the~merged file as~it~was when~the~remote branch was~created. Another possibility for~that~one is~\textit{\$MERGED}, which means the~messy merged file at~the~beginning of~merging, i.e., containing special symbols inserted by~Git, which mark the~conflict. Using those values is~not~restricted, theoretically you can put everything everywhere.
+\newpage
+
+\newsubsection{Usage}
+You~must use \textit{git difftool} for~viewing file differences and~\textit{git mergetool} for~merging. Short commands \textit{diff} and~\textit{merge} will always use the~Shell console and~it~can't be~changed.
+
+\begin{itemize}
+    \item Show differences of~a~file from the~last committed version:
+        \begin{lstlisting}[frame=no, gobble=12]
+            git difftool PATH_TO_THE_FILE
+        \end{lstlisting}
+    \item Show differences of~a~file from some old specific commit:
+        \begin{lstlisting}[frame=no, gobble=12]
+            git difftool OLD_COMMIT_HASH PATH_TO_THE_FILE
+        \end{lstlisting}
+    \item Show differences of~a~file between two~commits:
+        \begin{lstlisting}[frame=no, gobble=12]
+            git difftool FIRST_COMMIT_HASH SECOND_COMMIT_HASH PATH_TO_THE_FILE
+        \end{lstlisting}
+    \item Merge a~file in~a~conflict:
+        \begin{lstlisting}[frame=no, gobble=12]
+            git mergetool PATH_TO_THE_FILE
+        \end{lstlisting}
+\end{itemize}
+
+\warningnonl If~you use a~path to~a~folder instead of~a~file, the~triggered tool will start for~all~files in~the~folder and~its~subfolders one~by~one. When~you~close one~file, another immediately opens. This~is irritating when you~have many files in~the~folder. You~can~fall to~this trap especially when you~accidentally trigger merging without specifying a~file. When running difftool, Meld can graphically show differences among files in~both folder versions. To~do~it run the~\textit{difftool} command with the~\textit{-{}-dir--diff} option. When merging, there's nothing you~can~do about~it. Just trigger the~\textit{mergetool} command with a~path to~a~specific file every time.
+
+\warning For~the~\textit{difftool} command variables \textit{\$LOCAL} and~\textit{\$REMOTE} have a~different meaning from what can~seem obvious. \textit{\$LOCAL} means "before the~change" and~\textit{\$REMOTE} means "after the~change". Therefore, when you run the~command for~a~file that differs from a~repository version (the~first usage example), i.e.,~is~changed locally, you~will~see that local version in~the~right window, which is the~position of~\textit{\$REMOTE} according to~the~configuration. The~same holds when you display differences of~a~file from some old specific commit(the~second usage example)\,--\,the~actual version of~the~file will~be~displayed in~the~right window. Get~used to~it, don't switch those variables in~the~configuration, otherwise you can face unexpected behavior. For~example, comparing a~file between two commits (the~third usage example) shows versions of~the~file in~the~order opposite~of the~order of~used commit hashes.
+
+\note For~the~\textit{mergetool} command variables \textit{\$LOCAL} and~\textit{\$REMOTE} behave as~expected\,--\,\textit{\$LOCAL} means your local branch version, \textit{\$REMOTE} means the~other merged branch. Just remember for~the~malicious branching when \hyperref[gitrebase]{rebasing}.
+\newpage
+
+\newsection{Rebase}
+\index{Git Rebase}
+\label{gitrebase}
+\todo Malicious Local VS Remote on rebasing and conflicts
+
 \newsection{Create repository on a computer}
 To~convert an~ordinary folder to~a~Git repository simply navigate to~that folder in a~shell and~run:
 \begin{lstlisting}[frame=no]

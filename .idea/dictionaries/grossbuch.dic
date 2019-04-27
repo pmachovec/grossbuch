@@ -4,11 +4,13 @@ depbeanid
 depclass
 depfield
 depinterface
+difftool
 floatvalue
 floatvaluefield
 intelli
 intvalue
 intvaluefield
+mergetool
 protbeanid
 protdestroy
 protinit
