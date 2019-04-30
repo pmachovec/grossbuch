@@ -3,6 +3,11 @@
 !.idea/dictionaries
 *.iml
 
+# Eclipse
+.classpath
+.project
+.settings/
+
 # Latex
 *.aux
 *.idx

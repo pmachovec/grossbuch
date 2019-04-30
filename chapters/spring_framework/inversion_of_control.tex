@@ -31,7 +31,7 @@ Notice that the~only common thing of~the~XML and~the~Java code is the~bean~ID. T
 
 \note You~don't have to~always define and~use interfaces for~beans in~the~Java code. You~can use even the~class directly.
 
-\newline\example
+\example
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
@@ -56,7 +56,7 @@ With growing number of~beans the~XML configuration file becomes too verbose. The
 
 Spring must be told by~the~XML configuration file to~scan classes in~a~particular package for~components. This is done by~the~element \textit{component--scan}, attribute \textit{base--package}, from the~\hyperref[namespaces]{namespace} \textit{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}. The~convention is to~call the namespace as \textit{context} in the~XML file. Bean classes contain bean~IDs as~a~parameter of~the~class annotation \textit{Component}. The~annotation is processed in~runtime, therefore, if~you~make a~mistake in~it, you~won't find~out during application build.
 
-\newline\example
+\example
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...
@@ -90,7 +90,7 @@ Spring must be told by~the~XML configuration file to~scan classes in~a~particula
 
 \warning If~the~second letter of~the~bean class name is~in~uppercase (e.g.,~something like \textit{\mbox{RESTService}}), the~first letter of~the~bean~ID is~not changed to~lowercase (it~remains \textit{\mbox{RESTService}}).
 
-\newline\example
+\example
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...
