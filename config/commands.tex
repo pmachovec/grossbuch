@@ -32,6 +32,6 @@
 
 \NewDocumentCommand{\tikzmarknodebf}{m m O{black}}{\tikzmarknode{#1}{\textbfcolor{#3}{#2}}}
 
-\NewDocumentCommand{\drawarrow}{m m O{black} O{.3} O{}}{\draw[stealth-stealth,line width=.6mm,shorten <=2pt,shorten >=2pt,#3,opacity=#4] (#1) to[#5] (#2);}
+\NewDocumentCommand{\drawarrow}{O{stealth-stealth} m m O{black} O{.3} O{}}{\draw[#1,line width=.6mm,shorten <=2pt,shorten >=2pt,#4,opacity=#5] (#2) to[#6] (#3);}
 
 \RenewDocumentCommand{\path}{m}{\textit{\mbox{#1}}}
