@@ -7,10 +7,10 @@ By default Spring beans are~\hyperref[singletondp]{singletons}. That means whene
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
-      <bean id="(*\tikzmarknodebf{bs1xml1singbeanid}{singletonBeanId}[ForestGreen]*)" class="package.subfolder.SingletonClass">
+      <bean id="(*\tikzmarknodebf{bs1xml1singbeanid}{singletonBeanId}[ForestGreen]*)" class="somepackage.subpackage.SingletonClass">
         ...
       </bean>
-      <bean id="(*\tikzmarknodebf{bs1xml1protbeanid}{prototypeBeanId}[ForestGreen]*)" class="package.subfolder.PrototypeClass" scope="prototype">
+      <bean id="(*\tikzmarknodebf{bs1xml1protbeanid}{prototypeBeanId}[ForestGreen]*)" class="somepackage.subpackage.PrototypeClass" scope="prototype">
         ...
       </bean>
     </beans>

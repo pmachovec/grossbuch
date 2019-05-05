@@ -7,6 +7,8 @@ Values set in~the~\path{.properties} file can be then referenced as attribute va
 \warning The~default encoding of~\path{.properties} files is~\mbox{ISO~8859--1}, in~which all non--ASCII characters are~written in~the~escaped hexadecimal format (\textit{\textbackslash uAB12}). If~you~put real non--ASCII characters into string values, they won't be processed correctly. Some IDEs and~editors even won't let you to~do~that as they automatically insert the~escaped hexadecimal format as~you~type. UTF--8 encoding is possible. First make sure the~file is~saved in~that format, some IDEs and~editors tend to~preserve the~\mbox{ISO~8859--1} for~\path{.properties} files regardless corresponding project settings. And~next add the~attribute \path{file--encoding} with the~value \path{utf--8} to~the~element \path{property--placeholder}. Ignore any~eventual warning about invalid encoding for~the~file type.\\
 
 \warning Some IDEs (IntelliJ Idea for example) can~try to~"help" developers by~fake replacing the~dollar syntax with values from the~\path{.properties} file. I.e.,~it~looks like values are~specified directly in~the~XML file. The~indicator of~this "replacement" is that values have different color (gray in IntelliJ). If~you click on~such value, the~original dollar notation will appear.
+
+\notenonl Using the~\path{.properties} extension is only a~convention for~key--value files. The~name can~be anything, the~important thing is the~format "\textit{key\,=\,value}".
 \newpage
 
 \example[passing values to a constructor]
@@ -21,7 +23,7 @@ Values set in~the~\path{.properties} file can be then referenced as attribute va
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
       <(*\textcolor{blue}{context:}*)property-placeholder location="classpath:(*\tikzmarknodebf{readprop1xml1filename}{constructor.properties}[ForestGreen]*)" file-encoding="utf-8"/>
-      <bean id="someBeanId" class="package.subfolder.(*\tikzmarknodebf{readprop1xml1class}{WantedClass}[ForestGreen]*)">
+      <bean id="someBeanId" class="somepackage.subpackage.(*\tikzmarknodebf{readprop1xml1class}{WantedClass}[ForestGreen]*)">
         <constructor-arg value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop1xml1intvalue}{intvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
         <constructor-arg value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop1xml1floatvalue}{floatvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
         <constructor-arg value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop1xml1stringvalue}{stringvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
@@ -53,7 +55,6 @@ Values set in~the~\path{.properties} file can be then referenced as attribute va
 \newpage
 
 \example[passing values to setters]
-\enlargethispage{10mm}
 \begin{lstlisting}[title={A \path{.properties} file called \tikzmarknodebf{readprop2prop1filename}{\textit{setters.properties}}}]
     (*\tikzmarknodebf{readprop2prop1intvalue}{intvalue}*)=1
     (*\tikzmarknodebf{readprop2prop1floatvalue}{floatvalue}*)=3.14
@@ -65,7 +66,7 @@ Values set in~the~\path{.properties} file can be then referenced as attribute va
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
       <(*\textcolor{blue}{context:}*)property-placeholder location="classpath:(*\tikzmarknodebf{readprop2xml1filename}{setter.properties}[ForestGreen]*)" file-encoding="utf-8"/>
-      <bean id="someBeanId" class="package.subfolder.(*\tikzmarknodebf{readprop2xml1class}{WantedClass}[ForestGreen]*)">
+      <bean id="someBeanId" class="somepackage.subpackage.(*\tikzmarknodebf{readprop2xml1class}{WantedClass}[ForestGreen]*)">
         <property name="(*\tikzmarknodebf{readprop2xml1intvaluefield}{intValueField}[ForestGreen]*)" value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop2xml1intvalue}{intvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
         <property name="(*\tikzmarknodebf{readprop2xml1floatvaluefield}{floatValueField}[ForestGreen]*)" value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop2xml1floatvalue}{floatvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
         <property name="(*\tikzmarknodebf{readprop2xml1stringvaluefield}{stringValueField}[ForestGreen]*)" value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop2xml1stringvalue}{stringvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
@@ -126,7 +127,7 @@ Passing values through the~configuration XML file can~be~avoided with the~\texti
     <beans ...
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
-      <(*\textcolor{blue}{context:}*)component-scan base-package="package.subfolder"/>
+      <(*\textcolor{blue}{context:}*)component-scan base-package="somepackage.subpackage"/>
       <(*\textcolor{blue}{context:}*)property-placeholder location="classpath:(*\tikzmarknodebf{readprop3xml1filename}{annotations.properties}[ForestGreen]*)" file-encoding="utf-8"/>
     </beans>
 \end{lstlisting}

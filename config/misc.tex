@@ -1,7 +1,6 @@
 \sloppy % Prevents line overflowing
 
-% Page number height adjustment
-\setlength{\footskip}{15mm}
+% \setlength{\footskip}{15mm} % Page number height adjustment
 % WARNING! The higher the set number is the LOWER the page number is placed!
 
 % Links color setup, it's {R G B} with floats from 0 to 1, non-bordering values don't contain zero (e.g., '.5')
@@ -9,3 +8,6 @@
     linkbordercolor={1 0 0},
     urlbordercolor={0 0 1}
 }
+
+% Path to pictures, must be set relative to all folders containing source files
+\graphicspath{{pictures/}{../pictures}{../../pictures}}

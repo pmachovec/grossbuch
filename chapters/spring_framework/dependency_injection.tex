@@ -17,8 +17,8 @@ One~of basic approaches to~the~dependency injection is to~set the~dependency via
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
-      <bean id="(*\tikzmarknodebf{di1xml1depbeanid}{dependencyBeanId}[ForestGreen]*)" class="package.subfolder.DependencyClass"/>
-      <bean id="(*\tikzmarknodebf{di1xml1beanid}{wantedBeanId}[ForestGreen]*)" class="package.subfolder.(*\tikzmarknodebf{di1xml1class}{WantedClass}[ForestGreen]*)">
+      <bean id="(*\tikzmarknodebf{di1xml1depbeanid}{dependencyBeanId}[ForestGreen]*)" class="somepackage.subpackage.DependencyClass"/>
+      <bean id="(*\tikzmarknodebf{di1xml1beanid}{wantedBeanId}[ForestGreen]*)" class="somepackage.subpackage.(*\tikzmarknodebf{di1xml1class}{WantedClass}[ForestGreen]*)">
         <constructor-arg ref="(*\tikzmarknodebf{di1xml1depbeanid2}{dependencyBeanId}[ForestGreen]*)"/>
       </bean>
     </beans>
@@ -59,8 +59,8 @@ Another basic approach to~the~dependency injection is to~set the~dependency via 
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
-      <bean id="(*\tikzmarknodebf{di2xml1depbeanid}{dependencyBeanId}[ForestGreen]*)" class="package.subfolder.DependencyClass"/>
-      <bean id="(*\tikzmarknodebf{di2xml1beanid}{wantedBeanId}[ForestGreen]*)" class="package.subfolder.(*\tikzmarknodebf{di2xml1class}{WantedClass}[ForestGreen]*)">
+      <bean id="(*\tikzmarknodebf{di2xml1depbeanid}{dependencyBeanId}[ForestGreen]*)" class="somepackage.subpackage.DependencyClass"/>
+      <bean id="(*\tikzmarknodebf{di2xml1beanid}{wantedBeanId}[ForestGreen]*)" class="somepackage.subpackage.(*\tikzmarknodebf{di2xml1class}{WantedClass}[ForestGreen]*)">
         <property name="(*\tikzmarknodebf{di2xml1depfield}{dependencyField}[ForestGreen]*)" ref="(*\tikzmarknodebf{di2xml1depbeanid2}{dependencyBeanId}[ForestGreen]*)"/>
       </bean>
     </beans>
@@ -105,7 +105,7 @@ Similarly to~the~\hyperref[inversionofcontrol]{inversion of~control} even the~de
     <beans ...
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
-      <(*\textcolor{blue}{context:}*)component-scan base-package="package.subfolder"/>
+      <(*\textcolor{blue}{context:}*)component-scan base-package="somepackage.subpackage"/>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
@@ -145,6 +145,8 @@ Similarly to~the~\hyperref[inversionofcontrol]{inversion of~control} even the~de
 \end{tikzpicture}
 \newpage
 
+\enlargethispage{10mm}
+\thispagestyle{empty}
 \example[setter injection]
 \label{setterinjectionautowire}
 \begin{lstlisting}[language=XML, title={Configuration XML}]
@@ -152,24 +154,24 @@ Similarly to~the~\hyperref[inversionofcontrol]{inversion of~control} even the~de
     <beans ...
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
-      <(*\textcolor{blue}{context:}*)component-scan base-package="package.subfolder"/>
+      <(*\textcolor{blue}{context:}*)component-scan base-package="somepackage.subpackage"/>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and the setter method}]
     @>@Component
     public class (*\tikzmarknodebf{di4java1class}{WantedClass}*) implements (*\tikzmarknodebf{di4java1interface}{WantedClassInterface}*) {
-       private (*\tikzmarknodebf{di4java1depinterface}{DependencyInterface}*) dependencyField;
+        private (*\tikzmarknodebf{di4java1depinterface}{DependencyInterface}*) dependencyField;
 
-       public (*\tikzmarknodebf{di4java1class2}{WantedClass}*)() {}
+        public (*\tikzmarknodebf{di4java1class2}{WantedClass}*)() {}
 
-       @>@Autowired
-       public void setDependencyField((*\tikzmarknodebf{di4java1depinterface2}{DependencyInterface}*) dependencyValue) {
-          dependencyField = dependencyValue;
-       }
+        @>@Autowired
+        public void setDependencyField((*\tikzmarknodebf{di4java1depinterface2}{DependencyInterface}*) dependencyValue) {
+            dependencyField = dependencyValue;
+        }
 
-       public WHATEVER (*\tikzmarknodebf{di4java1usedep}{useDependency}*)() {
-          ...DO SOMETHING WITH THE DEPENDENCY FIELD...
-       }
+        public WHATEVER (*\tikzmarknodebf{di4java1usedep}{useDependency}*)() {
+            ...DO SOMETHING WITH THE DEPENDENCY FIELD...
+        }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Dependency class}]
@@ -207,7 +209,7 @@ The~\hyperref[autowiring]{autowiring} annotation can~be~used directly to~depende
     <beans ...
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
-      <(*\textcolor{blue}{context:}*)component-scan base-package="package.subfolder"/>
+      <(*\textcolor{blue}{context:}*)component-scan base-package="somepackage.subpackage"/>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor}]
@@ -256,7 +258,7 @@ So~far there has~always been exactly one implementation of~the~dependency interf
     <beans ...
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
-      <(*\textcolor{blue}{context:}*)component-scan base-package="package.subfolder"/>
+      <(*\textcolor{blue}{context:}*)component-scan base-package="somepackage.subpackage"/>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
@@ -303,24 +305,24 @@ So~far there has~always been exactly one implementation of~the~dependency interf
     <beans ...
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
-      <(*\textcolor{blue}{context:}*)component-scan base-package="package.subfolder"/>
+      <(*\textcolor{blue}{context:}*)component-scan base-package="somepackage.subpackage"/>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and the setter method}]
     @>@Component
     public class (*\tikzmarknodebf{di7java1class}{WantedClass}*) implements (*\tikzmarknodebf{di7java1interface}{WantedClassInterface}*) {
-       private (*\tikzmarknodebf{di7java1depinterface}{DependencyInterface}*) dependencyField;
+        private (*\tikzmarknodebf{di7java1depinterface}{DependencyInterface}*) dependencyField;
 
-       public (*\tikzmarknodebf{di7java1class2}{WantedClass}*)() {}
+        public (*\tikzmarknodebf{di7java1class2}{WantedClass}*)() {}
 
-       @>@Autowired
-       public void setDependencyField(@@>@Qualifier<@@("(*\tikzmarknodebf{di7java1depbeanid}{dependencyClass}[ForestGreen]*)") (*\tikzmarknodebf{di7java1depinterface2}{DependencyInterface}*) dependencyValue) {
-          dependencyField = dependencyValue;
-       }
+        @>@Autowired
+        public void setDependencyField(@@>@Qualifier<@@("(*\tikzmarknodebf{di7java1depbeanid}{dependencyClass}[ForestGreen]*)") (*\tikzmarknodebf{di7java1depinterface2}{DependencyInterface}*) dependencyValue) {
+            dependencyField = dependencyValue;
+        }
 
-       public WHATEVER (*\tikzmarknodebf{di7java1usedep}{useDependency}*)() {
-          ...DO SOMETHING WITH THE DEPENDENCY FIELD...
-       }
+        public WHATEVER (*\tikzmarknodebf{di7java1usedep}{useDependency}*)() {
+            ...DO SOMETHING WITH THE DEPENDENCY FIELD...
+        }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Dependency class}]
@@ -352,7 +354,7 @@ So~far there has~always been exactly one implementation of~the~dependency interf
     <beans ...
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
-      <(*\textcolor{blue}{context:}*)component-scan base-package="package.subfolder"/>
+      <(*\textcolor{blue}{context:}*)component-scan base-package="somepackage.subpackage"/>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor}]
@@ -402,7 +404,7 @@ You~can inject even values of primitive types and~strings directly using the~XML
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
-      <bean id="(*\tikzmarknodebf{di9xml1beanid}{wantedBeanId}[ForestGreen]*)" class="package.subfolder.(*\tikzmarknodebf{di9xml1class}{WantedClass}[ForestGreen]*)">
+      <bean id="(*\tikzmarknodebf{di9xml1beanid}{wantedBeanId}[ForestGreen]*)" class="somepackage.subpackage.(*\tikzmarknodebf{di9xml1class}{WantedClass}[ForestGreen]*)">
         <constructor-arg value="someValue"/>
       </bean>
     </beans>
@@ -434,7 +436,7 @@ You~can inject even values of primitive types and~strings directly using the~XML
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
-      <bean id="(*\tikzmarknodebf{di10xml1beanid}{wantedBeanId}[ForestGreen]*)" class="package.subfolder.(*\tikzmarknodebf{di10xml1class}{WantedClass}[ForestGreen]*)">
+      <bean id="(*\tikzmarknodebf{di10xml1beanid}{wantedBeanId}[ForestGreen]*)" class="somepackage.subpackage.(*\tikzmarknodebf{di10xml1class}{WantedClass}[ForestGreen]*)">
         <property name="(*\tikzmarknodebf{di10xml1valuefield}{concreteValueField}[ForestGreen]*)" value="someValue"/>
       </bean>
     </beans>

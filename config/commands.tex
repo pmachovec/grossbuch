@@ -20,13 +20,13 @@
 
 \NewDocumentCommand{\todononl}{}{\highlight{TODO }[blue]}
 
-\NewDocumentCommand{\examplenonl}{O{}}{\ifthenelse{\isempty{#1}}{\highlight{Example: }}{\highlight{Example\,--\,#1: }}}
-
 \NewDocumentCommand{\warning}{}{\newline\warningnonl}
 
 \NewDocumentCommand{\note}{}{\newline\notenonl}
 
 \NewDocumentCommand{\todo}{}{\newline\todononl}
+
+\NewDocumentCommand{\examplenonl}{O{}}{\ifthenelse{\isempty{#1}}{\highlight{Example: }}{\highlight{Example\,--\,#1: }}}
 
 \NewDocumentCommand{\example}{O{}}{\newline\examplenonl[#1]}
 

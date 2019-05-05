@@ -17,10 +17,10 @@ Initialization methods executions depend on~bean initialization points\,--\,they
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
-      <bean id="(*\tikzmarknodebf{lc1xml1singbeanid}{singletonBeanId}[ForestGreen]*)" class="package.subfolder.CommonClass" init-method="(*\tikzmarknodebf{lc1xml1singinit}{initMethod}[ForestGreen]*)" destroy-method="(*\tikzmarknodebf{lc1xml1singdestroy}{destroyMethod}[ForestGreen]*)">
+      <bean id="(*\tikzmarknodebf{lc1xml1singbeanid}{singletonBeanId}[ForestGreen]*)" class="somepackage.subpackage.CommonClass" init-method="(*\tikzmarknodebf{lc1xml1singinit}{initMethod}[ForestGreen]*)" destroy-method="(*\tikzmarknodebf{lc1xml1singdestroy}{destroyMethod}[ForestGreen]*)">
           ...
       </bean>
-      <bean id="(*\tikzmarknodebf{lx1xml1protbeanid}{prototypeBeanId}[ForestGreen]*)" class="package.subfolder.CommonClass" scope="prototype" init-method="(*\tikzmarknodebf{lc1xml1protinit}{initMethod}[ForestGreen]*)" destroy-method="(*\tikzmarknodebf{lc1xml1protdestroy}{destroyMethod}[ForestGreen]*)">
+      <bean id="(*\tikzmarknodebf{lx1xml1protbeanid}{prototypeBeanId}[ForestGreen]*)" class="somepackage.subpackage.CommonClass" scope="prototype" init-method="(*\tikzmarknodebf{lc1xml1protinit}{initMethod}[ForestGreen]*)" destroy-method="(*\tikzmarknodebf{lc1xml1protdestroy}{destroyMethod}[ForestGreen]*)">
         ...
       </bean>
     </beans>
