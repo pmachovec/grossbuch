@@ -1,18 +1,18 @@
-Files with the~\path{.properties} extension are~popular approach for~dynamic applications configuration. They're simple text files in~which each line has the~form \textit{identifier=value}. When a~\path{.properties} file is~added to a~Spring application \hyperref[classpath]{classpath}, it~can~be referenced in~the~Spring configuration file, as~well as values specified in~the~file.
+Files with the~\mboxtextit{.properties} extension are~popular approach for~dynamic applications configuration. They're simple text files in~which each line has the~form \textit{identifier=value}. When a~\mboxtextit{.properties} file is~added to a~Spring application \hyperref[classpath]{classpath}, it~can~be referenced in~the~Spring configuration file, as~well as values specified in~the~file.
 
-The~\path{.properties} file is~referenced in~the~element \path{property--placeholder}, attribute \textit{location}, from the~\hyperref[namespaces]{namespace} \textit{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}. The~name of~the~\path{.properties} file in~the~attribute \textit{location} must~be preceded by the~part referring to~the~\hyperref[classpath]{classpath}, which~is literally "\textit{classpath:}" (with the~colon).
+The~\mboxtextit{.properties} file is~referenced in~the~element \mboxtextit{property--placeholder}, attribute \textit{location}, from the~\hyperref[namespaces]{namespace} \textit{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}. The~name of~the~\mboxtextit{.properties} file in~the~attribute \textit{location} must~be preceded by the~part referring to~the~\hyperref[classpath]{classpath}, which~is literally "\textit{classpath:}" (with the~colon).
 
-Values set in~the~\path{.properties} file can be then referenced as attribute values, typically when \hyperref[injectingliteralvalues]{injecting literal values}, but~can~be used also as bean~IDs when injecting complex beans. A~concrete value is~accessed by the~syntax~\textit{\$\{identifier\}}.\\
+Values set in~the~\mboxtextit{.properties} file can be then referenced as attribute values, typically when \hyperref[injectingliteralvalues]{injecting literal values}, but~can~be used also as bean~IDs when injecting complex beans. A~concrete value is~accessed by the~syntax~\textit{\$\{identifier\}}.\\
 
-\warning The~default encoding of~\path{.properties} files is~\mbox{ISO~8859--1}, in~which all non--ASCII characters are~written in~the~escaped hexadecimal format (\textit{\textbackslash uAB12}). If~you~put real non--ASCII characters into string values, they won't be processed correctly. Some IDEs and~editors even won't let you to~do~that as they automatically insert the~escaped hexadecimal format as~you~type. UTF--8 encoding is possible. First make sure the~file is~saved in~that format, some IDEs and~editors tend to~preserve the~\mbox{ISO~8859--1} for~\path{.properties} files regardless corresponding project settings. And~next add the~attribute \path{file--encoding} with the~value \path{utf--8} to~the~element \path{property--placeholder}. Ignore any~eventual warning about invalid encoding for~the~file type.\\
+\warning The~default encoding of~\mboxtextit{.properties} files is~\mbox{ISO~8859--1}, in~which all non--ASCII characters are~written in~the~escaped hexadecimal format (\textit{\textbackslash uAB12}). If~you~put real non--ASCII characters into string values, they won't be processed correctly. Some IDEs and~editors even won't let you to~do~that as they automatically insert the~escaped hexadecimal format as~you~type. UTF--8 encoding is possible. First make sure the~file is~saved in~that format, some IDEs and~editors tend to~preserve the~\mbox{ISO~8859--1} for~\mboxtextit{.properties} files regardless corresponding project settings. And~next add the~attribute \mboxtextit{file--encoding} with the~value \mboxtextit{utf--8} to~the~element \mboxtextit{property--placeholder}. Ignore any~eventual warning about invalid encoding for~the~file type.\\
 
-\warning Some IDEs (IntelliJ Idea for example) can~try to~"help" developers by~fake replacing the~dollar syntax with values from the~\path{.properties} file. I.e.,~it~looks like values are~specified directly in~the~XML file. The~indicator of~this "replacement" is that values have different color (gray in IntelliJ). If~you click on~such value, the~original dollar notation will appear.
+\warning Some IDEs (IntelliJ Idea for example) can~try to~"help" developers by~fake replacing the~dollar syntax with values from the~\mboxtextit{.properties} file. I.e.,~it~looks like values are~specified directly in~the~XML file. The~indicator of~this "replacement" is that values have different color (gray in IntelliJ). If~you click on~such value, the~original dollar notation will appear.
 
-\notenonl Using the~\path{.properties} extension is only a~convention for~key--value files. The~name can~be anything, the~important thing is the~format "\textit{key\,=\,value}".
+\note Using the~\mboxtextit{.properties} extension is only a~convention for~key--value files. The~name can~be anything, the~important thing is the~format "\textit{key\,=\,value}".
 \newpage
 
 \example[passing values to a constructor]
-\begin{lstlisting}[title={A \path{.properties} file called \tikzmarknodebf{readprop1prop1filename}{\textit{constructor.properties}}}]
+\begin{lstlisting}[title={A \mboxtextit{.properties} file called \tikzmarknodebf{readprop1prop1filename}{\textit{constructor.properties}}}]
     (*\tikzmarknodebf{readprop1prop1intvalue}{intvalue}*)=1
     (*\tikzmarknodebf{readprop1prop1floatvalue}{floatvalue}*)=3.14
     (*\tikzmarknodebf{readprop1prop1stringvalue}{stringvalue}*)=String value
@@ -50,12 +50,12 @@ Values set in~the~\path{.properties} file can be then referenced as attribute va
     \drawarrow{readprop1prop1intvalue.south east}{[xshift=-6mm] readprop1xml1intvalue.north east}[red]
     \drawarrow{readprop1prop1floatvalue}{[xshift=-3mm] readprop1xml1floatvalue.north}[green]
     \drawarrow{[xshift=6mm] readprop1prop1stringvalue.south west}{readprop1xml1stringvalue.north west}[blue]
-    \drawarrow{readprop1xml1class}{readprop1java1class}[yellow][.5]
+    \drawarrow{readprop1xml1class}{readprop1java1class}[Magenta]
 \end{tikzpicture}
 \newpage
 
 \example[passing values to setters]
-\begin{lstlisting}[title={A \path{.properties} file called \tikzmarknodebf{readprop2prop1filename}{\textit{setters.properties}}}]
+\begin{lstlisting}[title={A \mboxtextit{.properties} file called \tikzmarknodebf{readprop2prop1filename}{\textit{setters.properties}}}]
     (*\tikzmarknodebf{readprop2prop1intvalue}{intvalue}*)=1
     (*\tikzmarknodebf{readprop2prop1floatvalue}{floatvalue}*)=3.14
     (*\tikzmarknodebf{readprop2prop1stringvalue}{stringvalue}*)=String with spaces
@@ -101,23 +101,21 @@ Values set in~the~\path{.properties} file can be then referenced as attribute va
     \drawarrow{readprop2prop1intvalue.south east}{[xshift=-6mm] readprop2xml1intvalue.north east}[red]
     \drawarrow{readprop2prop1floatvalue}{[xshift=-3mm] readprop2xml1floatvalue.north}[green]
     \drawarrow{[xshift=6mm] readprop2prop1stringvalue.south west}{readprop2xml1stringvalue.north west}[blue]
-    \drawarrow{readprop2xml1class}{readprop2java1class}[yellow][.5][bend left=12mm]
-    \drawarrow{[xshift=-6mm] readprop2xml1intvaluefield.south}{readprop2java1intvaluefield}[Magenta]
-    \drawarrow{[xshift=-4mm] readprop2xml1floatvaluefield.south}{readprop2java1floatvaluefield}[BurntOrange]
-    \drawarrow{readprop2xml1stringvaluefield}{[xshift=3mm] readprop2java1stringvaluefield.north}
+    \drawarrow{readprop2xml1class}{readprop2java1class}[Magenta][.3][bend left=12mm]
+    \drawarrow{[xshift=-6mm] readprop2xml1intvaluefield.south}{readprop2java1intvaluefield}[yellow]
+    \drawarrow{[xshift=-4mm] readprop2xml1floatvaluefield.south}{readprop2java1floatvaluefield}
+    \drawarrow{readprop2xml1stringvaluefield}{[xshift=3mm] readprop2java1stringvaluefield.north}[red]
 \end{tikzpicture}
-
-\notenonl Using the~\path{.properties} extension is only a~convention for~key--value files. The~name can~be anything, the~important thing is the~format "\textit{key\,=\,value}".
 \newpage
 
 \newsubsection{Using Java Annotations}
 \label{readingpropertiesannotations}
 Passing values through the~configuration XML file can~be~avoided with the~\textit{Value} \hyperref[javaannotation]{annotation}. These annotations are~placed to~bean class fields to~which values should be injected. The~annotation gets one parameter\,--\,the~value identifier in~the~dollar syntax (\textit{\$\{identifier\}}) as~String in~quotes. Related fields aren't mentioned in~constructors nor~in~setter methods, they're set automatically.
 
-\warning When combined with annotations of~the~\hyperref[iocannotations]{inversion of~control} or~the~\hyperref[autowiring]{dependency injection}, the~\textit{property--placeholder} element must go after the~\textit{component--scan} element.
+\warning When combined with annotations of~the~\hyperref[iocannotations]{inversion of~control} or~the~\hyperref[autowiring]{dependency injection}, the~\textit{property-placeholder} element must go after the~\textit{component-scan} element.
 
 \example
-\begin{lstlisting}[title={A \path{.properties} file called \tikzmarknodebf{readprop3prop1filename}{\textit{annotations.properties}}}]
+\begin{lstlisting}[title={A \mboxtextit{.properties} file called \tikzmarknodebf{readprop3prop1filename}{\textit{annotations.properties}}}]
     (*\tikzmarknodebf{readprop3prop1intvalue}{intvalue}*)=1
     (*\tikzmarknodebf{readprop3prop1floatvalue}{floatvalue}*)=3.14
     (*\tikzmarknodebf{readprop3prop1stringvalue}{stringvalue}*)=String with spaces

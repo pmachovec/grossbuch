@@ -74,7 +74,7 @@ The~wanted class is~specified only in~the~XML. In~the~Java code only the~interfa
 \label{iocannotations}
 With growing number of~beans the~XML configuration file becomes too verbose. Therefore, newer versions of~Spring support configuring bean~IDs using \hyperref[javaannotation]{Java annotations} inside bean~classes.
 
-Spring must be told by~the~XML configuration file to~scan classes in~a~particular package for~components. This is done by~the~element \textit{component-scan}, attribute \textit{base-package}, from the~\hyperref[namespaces]{namespace} \textit{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}. The~convention is to~call the namespace as \textit{context} in the~XML file. Bean classes contain bean~IDs as~a~parameter of~the~class annotation \textit{Component}. The~annotation is processed in~runtime, therefore, if~you~make a~mistake in~it, you~won't find~out during application build.
+Spring must be told by~the~XML configuration file to~scan classes in~a~particular package for~components. This is done by~the~element \textit{component-scan}, attribute \mboxtextit{base-package}, from the~\hyperref[namespaces]{namespace} \textit{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}. The~convention is to~call the namespace as \textit{context} in the~XML file. Bean classes contain bean~IDs as~a~parameter of~the~class annotation \textit{Component}. The~annotation is processed in~runtime, therefore, if~you~make a~mistake in~it, you~won't find~out during application build.
 \newpage
 
 \examplenonl[inversion of control with annotations]
@@ -147,13 +147,13 @@ On~the~other hand, if~you configure a~bean class with some~ID by~annotations and
 
 \newsubsection{Configuration with Java Code (No XML)}
 \label{iocnoxml}
-The~configuration XML can be avoided completely, it's~possible to~implement a~special configuration class and~describe beans in~it. The~class reference is then given to~the~constructor of~the~\hyperref[springcontainrer]{Spring container} implementation \textit{AnnotationConfigApplicationContext} (instead~of the~XML file given to~the~\textit{ClassPathXmlApplicationContext} constructor).
+The~configuration XML can be avoided completely, it's~possible to~implement a~special configuration class and~describe beans in~it. The~class reference is then given to~the~constructor of~the~\hyperref[springcontainrer]{Spring container} implementation \mboxtextit{AnnotationConfigApplicationContext} (instead~of the~XML file given to~the~\mboxtextit{ClassPathXmlApplicationContext} constructor).
 
 A~configuration class is~annotated with the~\textit{Configuration} annotation. In~the~simplest form it's~also annotated with the~\textit{ComponentScan} annotation, which gets a~package name as~a~parameter. The~class has~completely empty body in~this form. When the~\hyperref[springcontainrer]{Spring container} is~asked for~a~bean instance, it~scans the~given package for~classes with the~\textit{Component} annotation. It's~an~equivalent of~specifying the~\hyperref[iocannotations]{\textit{component-scan}} element in the~configuration XML file.\\
 
 \example[Java code configuration\,--\,component scan]
 \begin{lstlisting}[language=Java, title={Configuration class}]
-    package deppackage.depsubpackage;
+    package confpackage.confsubpackage;
 
     @>@Configuration
     @@>@ComponentScan<@@("(*\tikzmarknodebf{ioc5java1package}{somepackage.subpackage}[ForestGreen]*)")
@@ -183,7 +183,7 @@ A~configuration class is~annotated with the~\textit{Configuration} annotation. I
 
 \example[Java code configuration\,--\,explicit bean--creating method]
 \begin{lstlisting}[language=Java, title={Configuration class}]
-    package deppackage.depsubpackage;
+    package confpackage.confsubpackage;
 
     @>@Configuration
     public class (*\tikzmarknodebf{ioc6java1configclass}{ConfigurationClass}*) {
@@ -216,7 +216,7 @@ A~configuration class is~annotated with the~\textit{Configuration} annotation. I
 
 \example[Java code configuration\,--\,bean ID referenced from the bean--creating method]
 \begin{lstlisting}[language=Java, title={Configuration class}]
-    package deppackage.depsubpackage;
+    package confpackage.confsubpackage;
 
     @>@Configuration
     public class (*\tikzmarknodebf{ioc6java1configclass}{ConfigurationClass}*) {
@@ -229,7 +229,6 @@ A~configuration class is~annotated with the~\textit{Configuration} annotation. I
 \begin{lstlisting}[language=Java, title={Wanted class}]
     package somepackage.subpackage;
 
-    @>@Component
     public class (*\tikzmarknodebf{ioc6java2class}{WantedClass}*) implements (*\tikzmarknodebf{ioc6java2interface}{WantedClassInterface}*) {
         ...
     }

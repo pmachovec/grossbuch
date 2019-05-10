@@ -34,4 +34,4 @@
 
 \NewDocumentCommand{\drawarrow}{O{stealth-stealth} m m O{black} O{.3} O{}}{\draw[#1,line width=.6mm,shorten <=2pt,shorten >=2pt,#4,opacity=#5] (#2) to[#6] (#3);}
 
-\RenewDocumentCommand{\path}{m}{\textit{\mbox{#1}}}
+\NewDocumentCommand{\mboxtextit}{m}{\mbox{\textit{#1}}}

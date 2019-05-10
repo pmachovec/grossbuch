@@ -44,7 +44,7 @@ Disadvantages of~this approach are message length limits and~performance demands
 \index{Modulus}
 The~length of a~key is in~fact only the~length of~so called \textit{modulus}, which is some hidden number that both public and~matching private key have in common. There is also additional info encoded in keys, this info is needed for~the~RSA algorithm. That's why both keys in the~pair contain more bits than the number specified during their generation. There is more such info in private keys, that's why private keys are significantly longer than matching public keys.
 
-\warning Although only some fixed lengths of the~key are~mentioned almost everywhere (512, 1024, 2048, 4096), there is no restriction, the~length can be any number. However, the~\textit{ssh--keygen} program provided with Git installation, which is usually used for~key generation, doesn't allow number lower than 1024. If~it's the~program's feature or a~general restriction is unknown so~far.
+\warning Although only some fixed lengths of the~key are~mentioned almost everywhere (512, 1024, 2048, 4096), there is no restriction, the~length can be any number. However, the~\textit{ssh-keygen} program provided with Git installation, which is usually used for~key generation, doesn't allow number lower than 1024. If~it's the~program's feature or a~general restriction is unknown so~far.
 
 \newsubsection{RSA Key Formats}
 \newline\todo OpenSSH, PKCS1, PKCS8\dots
