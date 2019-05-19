@@ -39,6 +39,7 @@ It's a~programming paradigm in which programs describe their desired results wit
 \newsection{Compiled VS Interpreted Languages}
 \index{Compiled language}
 \index{Interpreted language}
+\label{compiledinterpretedlanguages}
 
 \newsection{Variable VS Field VS Property}
 \index{Variable}
@@ -51,11 +52,31 @@ It's a~programming paradigm in which programs describe their desired results wit
     \item \textbf{Property} is a~field that is~exposed to~outside of~the~class, typically by~getters and~setters.
 \end{itemize}
 
-\newsection{Definition VS Declaration}
-\index{Definition}
+\newsection{Declaration VS Definition}
 \index{Declaration}
-\label{definitiondeclaration}
+\index{Definition}
+\label{declarationdefinition}
+\begin{itemize}
+    \item \textbf{Declaration of~a~variable} means specifying the~variable name, type and~eventually \hyperref[accessmodifiers]{access level}. It~doesn't include assigning a~value to~the~variable. Example: "\textit{\mbox{private int a;}}".
+    \item \textbf{Declaration of~a~method (or~a~function)} is the~method header. It~consists~of the~method name, return value type, number, names and~types of~arguments of~the~method and~eventually its \hyperref[accessmodifiers]{access level}. Example: "\textit{\mbox{public void doSomething(int a);}}".
+    \item \textbf{Definition of~a~variable} means assigning a~value to~the~variable. It~can~immediately follow the~variable definition ("\textit{private int a = 1;}") or~appear later as~a~separate command ("\textit{private int a; ... a = 1;}").
+    \item \textbf{Definition of~a~method (or~a~function)} is the~method header with the~method body. Example: "\textit{\mbox{public void doSomething(int a) \{ ... \}}}".
+\end{itemize}
 
+\newsection{Parameter VS Argument}
+\index{Argument}
+\index{Attribute}
+\index{Parameter}
+\label{parameterargument}
+\begin{itemize}
+    \item \textbf{Parameter} is a~\hyperref[variablefieldproperty]{variable} in~a~method \hyperref[declarationdefinition]{declaration},
+    \item \textbf{Argument} is a~concrete value of~a~parameter.
+\end{itemize}
+For~example consider a~method "\mboxtextit{doSomething(String someVariable)}". The~\mboxtextit{someVariable} is~a~parameter. When you call "\mboxtextit{doSomething("someValue")}", then \mboxtextit{someValue} is an~argument.
+
+\warning Don't get confused by the~term \hyperref[attributes]{\textit{attribute}}. That's a~\hyperref[databases]{database}--related thing.
+
+\noindent Generally a~declaration informs \hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} about some structure. Definition allocates a~memory for~the~structure. There can be a~declaration without a~definition, but~not~reversed. One~variable or~method (or~function) can be declared multiple times, but~defined maximally once. When you assign a~new value to~already defined variable, you~rewrite the~already allocated memory. That isn't a~new definition.
 
 \section*{\fontsize{17}{17} \selectfont Application VS Process VS Program VS Service VS Thread}
 \addcontentsline{toc}{section}{Application VS Process VS Program VS Service VS Thread}

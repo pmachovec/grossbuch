@@ -23,7 +23,7 @@ Values set in~the~\mboxtextit{.properties} file can be then referenced as attrib
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
       <(*\textcolor{blue}{context:}*)property-placeholder location="classpath:(*\tikzmarknodebf{readprop1xml1filename}{constructor.properties}[ForestGreen]*)" file-encoding="utf-8"/>
-      <bean id="someBeanId" class="somepackage.subpackage.(*\tikzmarknodebf{readprop1xml1class}{WantedClass}[ForestGreen]*)">
+      <bean id="someBeanId" class="(*\tikzmarknodebf{readprop1xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tikzmarknodebf{readprop1xml1class}{WantedClass}[ForestGreen]*)">
         <constructor-arg value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop1xml1intvalue}{intvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
         <constructor-arg value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop1xml1floatvalue}{floatvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
         <constructor-arg value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop1xml1stringvalue}{stringvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
@@ -31,18 +31,22 @@ Values set in~the~\mboxtextit{.properties} file can be then referenced as attrib
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
-    private int intValueField;
-    private float floatValueField;
-    private String stringValueField;
+    package (*\tikzmarknodebf{readprop1java1package}{somepackage.subpackage}*);
 
-    public (*\tikzmarknodebf{readprop1java1class}{WantedClass}*)(int intValue, float floatValue, String stringValue) {
-        intValueField = intValue;
-        floatValueField = floatValue;
-        stringValueField = stringValue;
-    }
+    public class (*\tikzmarknodebf{readprop1java1class}{WantedClass}*) implements WantedInterface {
+        private int intValueField;
+        private float floatValueField;
+        private String stringValueField;
 
-    public WHATEVER useValues() {
-        ...DO SOMETHING WITH VALUE FIELDS...
+        public (*\tikzmarknodebf{readprop1java1class2}{WantedClass}*)(int intValue, float floatValue, String stringValue) {
+            intValueField = intValue;
+            floatValueField = floatValue;
+            stringValueField = stringValue;
+        }
+
+        public WHATEVER useValues() {
+            ...DO SOMETHING WITH VALUE FIELDS...
+        }
     }
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
@@ -50,10 +54,14 @@ Values set in~the~\mboxtextit{.properties} file can be then referenced as attrib
     \drawarrow{readprop1prop1intvalue.south east}{[xshift=-6mm] readprop1xml1intvalue.north east}[red]
     \drawarrow{readprop1prop1floatvalue}{[xshift=-3mm] readprop1xml1floatvalue.north}[green]
     \drawarrow{[xshift=6mm] readprop1prop1stringvalue.south west}{readprop1xml1stringvalue.north west}[blue]
-    \drawarrow{readprop1xml1class}{readprop1java1class}[Magenta]
+    \drawarrow{readprop1xml1package}{readprop1java1package}[yellow][.5]
+    \drawarrow{readprop1xml1class.south}{readprop1java1class}[Magenta]
+    \drawarrow{readprop1xml1class.south}{readprop1java1class2}[Magenta]
 \end{tikzpicture}
 \newpage
 
+\enlargethispage{20mm}
+\thispagestyle{empty}
 \example[passing values to setters]
 \begin{lstlisting}[title={A \mboxtextit{.properties} file called \tikzmarknodebf{readprop2prop1filename}{\textit{setters.properties}}}]
     (*\tikzmarknodebf{readprop2prop1intvalue}{intvalue}*)=1
@@ -66,7 +74,7 @@ Values set in~the~\mboxtextit{.properties} file can be then referenced as attrib
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
       <(*\textcolor{blue}{context:}*)property-placeholder location="classpath:(*\tikzmarknodebf{readprop2xml1filename}{setter.properties}[ForestGreen]*)" file-encoding="utf-8"/>
-      <bean id="someBeanId" class="somepackage.subpackage.(*\tikzmarknodebf{readprop2xml1class}{WantedClass}[ForestGreen]*)">
+      <bean id="someBeanId" class="(*\tikzmarknodebf{readprop2xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tikzmarknodebf{readprop2xml1class}{WantedClass}[ForestGreen]*)">
         <property name="(*\tikzmarknodebf{readprop2xml1intvaluefield}{intValueField}[ForestGreen]*)" value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop2xml1intvalue}{intvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
         <property name="(*\tikzmarknodebf{readprop2xml1floatvaluefield}{floatValueField}[ForestGreen]*)" value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop2xml1floatvalue}{floatvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
         <property name="(*\tikzmarknodebf{readprop2xml1stringvaluefield}{stringValueField}[ForestGreen]*)" value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop2xml1stringvalue}{stringvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
@@ -74,26 +82,30 @@ Values set in~the~\mboxtextit{.properties} file can be then referenced as attrib
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and setter methods}]
-    private int intValueField;
-    private float floatValueField;
-    private String stringValueField;
+    package (*\tikzmarknodebf{readprop2java1package}{somepackage.subpackage}*);
 
-    public (*\tikzmarknodebf{readprop2java1class}{WantedClass}*)() {}
+    public class (*\tikzmarknodebf{readprop2java1class}{WantedClass}*) implements WantedInterface {
+        private int intValueField;
+        private float floatValueField;
+        private String stringValueField;
 
-    public void set(*\tikzmarknodebf{readprop2java1intvaluefield}{IntValueField}*)(int intValue) {
-        intValueField = intValue;
-    }
+        public (*\tikzmarknodebf{readprop2java1class2}{WantedClass}*)() {}
 
-    public void set(*\tikzmarknodebf{readprop2java1floatvaluefield}{FloatValueField}*)(float floatValue) {
-        floatValueField = floatValue;
-    }
+        public void set(*\tikzmarknodebf{readprop2java1intvaluefield}{IntValueField}*)(int intValue) {
+            intValueField = intValue;
+        }
 
-    public void set(*\tikzmarknodebf{readprop2java1stringvaluefield}{StringValueField}*)(string stringValue) {
-        stringValueField = stringValue;
-    }
+        public void set(*\tikzmarknodebf{readprop2java1floatvaluefield}{FloatValueField}*)(float floatValue) {
+            floatValueField = floatValue;
+        }
 
-    public WHATEVER useValues() {
-        ...DO SOMETHING WITH VALUE FIELDS...
+        public void set(*\tikzmarknodebf{readprop2java1stringvaluefield}{StringValueField}*)(string stringValue) {
+            stringValueField = stringValue;
+        }
+
+        public WHATEVER useValues() {
+            ...DO SOMETHING WITH VALUE FIELDS...
+        }
     }
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
@@ -101,10 +113,12 @@ Values set in~the~\mboxtextit{.properties} file can be then referenced as attrib
     \drawarrow{readprop2prop1intvalue.south east}{[xshift=-6mm] readprop2xml1intvalue.north east}[red]
     \drawarrow{readprop2prop1floatvalue}{[xshift=-3mm] readprop2xml1floatvalue.north}[green]
     \drawarrow{[xshift=6mm] readprop2prop1stringvalue.south west}{readprop2xml1stringvalue.north west}[blue]
-    \drawarrow{readprop2xml1class}{readprop2java1class}[Magenta][.3][bend left=12mm]
-    \drawarrow{[xshift=-6mm] readprop2xml1intvaluefield.south}{readprop2java1intvaluefield}[yellow]
-    \drawarrow{[xshift=-4mm] readprop2xml1floatvaluefield.south}{readprop2java1floatvaluefield}
-    \drawarrow{readprop2xml1stringvaluefield}{[xshift=3mm] readprop2java1stringvaluefield.north}[red]
+    \drawarrow{readprop2xml1package.west}{[xshift=-6mm] readprop2java1package.north}[yellow][.5][bend right=40mm]
+    \drawarrow{readprop2xml1class.south}{readprop2java1class}[Magenta][.3][bend left=12mm]
+    \drawarrow{readprop2xml1class.south}{readprop2java1class2}[Magenta][.3][bend left=12mm]
+    \drawarrow{readprop2xml1intvaluefield.south}{readprop2java1intvaluefield.north}[YellowOrange]
+    \drawarrow{readprop2xml1floatvaluefield.south}{readprop2java1floatvaluefield.north}
+    \drawarrow{[xshift=3mm] readprop2xml1stringvaluefield.south}{[xshift=3mm] readprop2java1stringvaluefield.north}[red]
 \end{tikzpicture}
 \newpage
 
@@ -114,6 +128,8 @@ Passing values through the~configuration XML file can~be~avoided with the~\texti
 
 \warning When combined with annotations of~the~\hyperref[iocannotations]{inversion of~control} or~the~\hyperref[autowiring]{dependency injection}, the~\textit{property-placeholder} element must go after the~\textit{component-scan} element.
 
+\enlargethispage{20mm}
+\thispagestyle{empty}
 \example
 \begin{lstlisting}[title={A \mboxtextit{.properties} file called \tikzmarknodebf{readprop3prop1filename}{\textit{annotations.properties}}}]
     (*\tikzmarknodebf{readprop3prop1intvalue}{intvalue}*)=1
@@ -125,24 +141,28 @@ Passing values through the~configuration XML file can~be~avoided with the~\texti
     <beans ...
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
-      <(*\textcolor{blue}{context:}*)component-scan base-package="somepackage.subpackage"/>
+      <(*\textcolor{blue}{context:}*)component-scan base-package="(*\tikzmarknodebf{readprop3xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
       <(*\textcolor{blue}{context:}*)property-placeholder location="classpath:(*\tikzmarknodebf{readprop3xml1filename}{annotations.properties}[ForestGreen]*)" file-encoding="utf-8"/>
     </beans>
 \end{lstlisting}
-\begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor}]
-    @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop3java1intvalue}{intvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
-    private int intValueField;
+\begin{lstlisting}[language=Java, title={Wanted class with any constructor}]
+    package (*\tikzmarknodebf{readprop3java1package}{somepackage.subpackage}*);
 
-    @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop3java1floatvalue}{floatvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
-    private float floatValueField;
+    public class WantedClass implements WantedClassInterface {
+        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop3java1intvalue}{intvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        private int intValueField;
 
-    @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop3java1stringvalue}{stringvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
-    private String stringValueField;
+        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop3java1floatvalue}{floatvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        private float floatValueField;
 
-    public WantedClass() {}
+        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop3java1stringvalue}{stringvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        private String stringValueField;
 
-    public WHATEVER useValues() {
-        ...DO SOMETHING WITH VALUE FIELDS...
+        public WantedClass(...) {...}
+
+        public WHATEVER useValues() {
+            ...DO SOMETHING WITH VALUE FIELDS...
+        }
     }
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
@@ -150,5 +170,104 @@ Passing values through the~configuration XML file can~be~avoided with the~\texti
     \drawarrow{[xshift=6mm] readprop3prop1intvalue.south west}{[xshift=3mm] readprop3java1intvalue.north west}[red]
     \drawarrow{readprop3prop1floatvalue.north}{readprop3java1floatvalue.north}[green]
     \drawarrow{[xshift=-6mm] readprop3prop1stringvalue.south east}{[xshift=-6mm] readprop3java1stringvalue.north east}[blue]
+    \drawarrow{readprop3xml1package}{readprop3java1package}[Magenta]
+\end{tikzpicture}
+\newpage
+
+\newsubsection{Configuration with Java Code (No XML)}
+When using the~Java configuration class, you~must annotate the~class with the~\mboxtextit{PropertySource} annotation. It~takes the~\mboxtextit{.properties} file name with the~\mboxtextit{classpath:} prefix as~a~parameter. When your \mboxtextit{.properties} file has~the~UTF--8 encoding, you~must use named parameters\,--\,the~file name parameter is~called \textit{value} and~the~encoding parameter is~called \textit{encoding}. It~works for~both component scan and~explicit bean configuration.
+
+Values in~bean classes are~accessed in~the~same way as~when \hyperref[readingpropertiesannotations]{using annotations}\,--\,variables holding values are~annotated with the~\textit{Value} annotation holding the~value identifier from the~\mboxtextit{.properties} file in~curly brackets prefixed by the~dollar sign (\mboxtextit{\$\{identifier\}}). Related fields aren't mentioned in~constructors nor~in~setter methods, they're set automatically.
+
+\enlargethispage{20mm}
+\thispagestyle{empty}
+\example[component scan]
+\begin{lstlisting}[title={A \mboxtextit{.properties} file called \tikzmarknodebf{readprop4prop1filename}{\textit{annotations.properties}}}]
+    (*\tikzmarknodebf{readprop4prop1intvalue}{intvalue}*)=1
+    (*\tikzmarknodebf{readprop4prop1floatvalue}{floatvalue}*)=3.14
+    (*\tikzmarknodebf{readprop4prop1stringvalue}{stringvalue}*)=String with spaces
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Configuration class}]
+    package confpackage.confsubpackage;
+
+    @>@Configuration
+    @@>@ComponentScan<@@("(*\tikzmarknodebf{readprop4java1package}{somepackage.subpackage}[ForestGreen]*)")
+    @@>@PropertySource<@@(value = "classpath:(*\tikzmarknodebf{readprop4java1filename}{annotations.properties}[ForestGreen]*)", encoding = "utf-8")
+    public class ConfigurationClass {}
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Wanted class with any constructor}]
+    package (*\tikzmarknodebf{readprop4java2package}{somepackage.subpackage}*)
+
+    public class WantedClass implements WantedClassInterface {
+        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop4java2intvalue}{intvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        private int intValueField;
+
+        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop4java2floatvalue}{floatvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        private float floatValueField;
+
+        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop4java2stringvalue}{stringvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        private String stringValueField;
+
+        public WantedClass(...) {...}
+
+        public WHATEVER useValues() {
+            ...DO SOMETHING WITH VALUE FIELDS...
+        }
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{readprop4prop1filename}{readprop4java1filename}
+    \drawarrow{[xshift=6mm] readprop4prop1intvalue.south west}{[xshift=3mm] readprop4java2intvalue.north west}[red]
+    \drawarrow{readprop4prop1floatvalue.north}{readprop4java2floatvalue.north}[green]
+    \drawarrow{[xshift=-6mm] readprop4prop1stringvalue.south east}{[xshift=-6mm] readprop4java2stringvalue.north east}[blue]
+    \drawarrow{readprop4java1package}{readprop4java2package}[Magenta]
+\end{tikzpicture}
+\newpage
+
+\example[explicit bean configuration]
+\begin{lstlisting}[title={A \mboxtextit{.properties} file called \tikzmarknodebf{readprop5prop1filename}{\textit{annotations.properties}}}]
+    (*\tikzmarknodebf{readprop5prop1intvalue}{intvalue}*)=1
+    (*\tikzmarknodebf{readprop5prop1floatvalue}{floatvalue}*)=3.14
+    (*\tikzmarknodebf{readprop5prop1stringvalue}{stringvalue}*)=String with spaces
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Configuration class}]
+    package confpackage.confsubpackage;
+
+    @>@Configuration
+    @@>@PropertySource<@@(value = "classpath:(*\tikzmarknodebf{readprop5java1filename}{annotations.properties}[ForestGreen]*)", encoding = "utf-8")
+    public class ConfigurationClass {
+        @>@Bean
+        public WantedClassInterface wantedBeanMethod() {
+            return new (*\tikzmarknodebf{readprop5java1class}{WantedClass}*)(...);
+        }
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Wanted class with any constructor}]
+    package somepackage.subpackage;
+
+    public class (*\tikzmarknodebf{readprop5java2class}{WantedClass}*) implements WantedClassInterface {
+        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop5java2intvalue}{intvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        private int intValueField;
+
+        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop5java2floatvalue}{floatvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        private float floatValueField;
+
+        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop5java2stringvalue}{stringvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        private String stringValueField;
+
+        public (*\tikzmarknodebf{readprop5java2class2}{WantedClass}*)(...) {...}
+
+        public WHATEVER useValues() {
+            ...DO SOMETHING WITH VALUE FIELDS...
+        }
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{readprop5prop1filename}{readprop5java1filename}
+    \drawarrow{[xshift=6mm] readprop5prop1intvalue.south west}{[xshift=3mm] readprop5java2intvalue.north west}[red]
+    \drawarrow{readprop5prop1floatvalue.north}{readprop5java2floatvalue.north}[green]
+    \drawarrow{[xshift=-6mm] readprop5prop1stringvalue.south east}{[xshift=-6mm] readprop5java2stringvalue.north east}[blue]
+    \drawarrow{readprop5java1class.south}{[xshift=3mm] readprop5java2class.north}[Magenta]
+    \drawarrow{readprop5java1class.south}{readprop5java2class2}[Magenta]
 \end{tikzpicture}
 \newpage
