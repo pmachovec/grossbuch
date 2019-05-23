@@ -40,11 +40,11 @@ By default Spring beans are~\hyperref[singletondp]{singletons}. That means whene
 \note You can even specify the~\hyperref[singletondp]{singleton} behavior by setting the~value \textit{singleton} to~the~attribute \textit{scope}, but~that's an~equivalent of~omitting the~\textit{scope} attribute, therefore, it's~useless.
 
 \newsubsection{Using Java Annotations}
+\label{bsannotations}
 Specifying a~bean scope with \hyperref[javaannotation]{Java annotations} is really simple. The~bean class is~annotated with the~\textit{Scope} annotation with the~desired scope as~argument.
 
 \example
-\begin{lstlisting}[language=Java, title={Bean class with the prototype scope set by the annotation}]
-    @@>@Component<@@("prototypeBeanId")
+\begin{lstlisting}[language=Java, title={Bean class with the prototype scope set by the annotation}]@@>@Component<@@("prototypeBeanId")
     @@>@Scope<@@("prototype")
     public class PrototypeClass implements PrototypeClassInterface {
         ...
@@ -52,3 +52,20 @@ Specifying a~bean scope with \hyperref[javaannotation]{Java annotations} is real
 \end{lstlisting}
 
 \warning If~you configure a~bean in~the~XML configuration file, the~scope will be taken from there even when you enable the~component scanning and~use the~\textit{Scope} annotation for~the~bean class. I.e., if~you don't mention the~scope in~the~XML, the~default one\,--\,singleton\,--\,will be used whatever you~put to~the~\textit{Scope} annotation.
+
+\newsubsection{Configuration with Java Code (No XML)}
+The~annotation \textit{Scope} can~be applied even to~a~bean--creating method in~a~configuration class. The~bean class instantiated by~such~method then behaves accordingly to~the~set scope. The~default behavior for~method--instantiated beans (without a~scope~set) is the~usual \hyperref[singletondp]{singleton}.
+
+\warning As~in~previous cases, even the~java--configured scope overrides the~scope configured by~annotations in~bean classes. When you configure a~bean in~the~configuration class using a~bean--creating method, the~scope is~taken from this method. And~when nothing is~configured for~the~method, the~bean will~be always singleton, even when you \hyperref[iocnoxml]{enable component scanning by~Java configuration} and~\hyperref[bsannotations]{set a~different scope by~an~annotation of~the~bean class}.
+
+\example
+\begin{lstlisting}[language=Java, title={Configuration class with a prototype bean--creating metod}]@>@Configuration
+    public class ConfigurationClass {
+        @Bean
+        @Scope("prototype")
+        public PrototypeClassInterface prototypeBeanMethod() {
+            return new PrototypeClass(...);
+        }
+    }
+\end{lstlisting}
+\newpage

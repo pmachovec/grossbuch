@@ -7,7 +7,7 @@ Objects created by~Spring containers using the~inversion of~control are~called \
 
 \warning Spring beans don't strictly follow restrictions of~\hyperref[javabeans]{Java beans}.
 
-\warning The~XML configuration file must~be located on~\hyperref[classpath]{classpath} when the~program is~executed. When you want to~execute the~program as~jar (fat~jar containing all~dependencies, at~least Spring libraries in~this case), it~must contain the~XML file on~the~same level as~the~top package (typically directly the~jar root). Furthermore, you~can't change the~program to~use some copy of~the~XML outside the~archive. Luckily, today's archive--operating software enables editing files inside archives, for~example the~7zip.
+\warning The~XML configuration file must~be located on~\hyperref[classpath]{classpath} when the~program is~executed. When you want to~execute the~program as~jar (fat~jar containing all~dependencies, at~least Spring libraries in~this case), it~must contain the~XML file on~the~same level as~the~top package (typically directly the~jar root). Furthermore, you~can't change the~program to~use some copy of~the~XML outside the~archive. Luckily, today's archive--operating software enables editing files inside archives, for~example the~7zip. Alternatively, you~can~run your jars with Gradle or~Maven, which enable adding stuff to~\hyperref[classpath]{classpath}.
 \newpage
 
 \examplenonl[basic inversion of control]

@@ -60,6 +60,22 @@ When working with Java, you can meet the~term \textit{Java~binaries}. This refer
 \index{Private}
 \newsubsection{None}
 
+\newsection{Compound assignment}
+\index{Compound assignment}
+Compound assignment operators are those shortened assignments with arithmetic operators like \mbox{\textquotesingle\textit{+=}\textquotesingle} or~\mbox{\textquotesingle\textit{-=}\textquotesingle}. You~must~be extra careful when dealing with the~subtraction compound operator (\mbox{\textquotesingle\textit{-=}\textquotesingle}). It~first computes the~right side and~then subtracts it from~the~left side, and~that can~cause unintuitive results. For~example consider the~following code:
+\begin{lstlisting}[language=Java, frame=no]
+    int x = 5;
+    x = x - 1 + 2 - 3; @>// 3
+\end{lstlisting}
+
+\noindent The~variable~$x$ is~evaluated to~$3$, because $5-1+2-3=3$. And~now consider the~"\textit{equivalent}" code with the~compound assignment subtraction:
+\begin{lstlisting}[language=Java, frame=no]
+    int x = 5;
+    x -= 1 + 2 - 3; @>// 5
+\end{lstlisting}
+
+\noindent The~variable~$x$ is~evaluated to~$5$, because $1+2-3=0$ (right side) and~$5-0=5$ (left side). To~avoid falling to~this trap always treat the~right side to~be~calculated first.
+
 \newsection{Serialization}
 \index{Serialization}
 \index{Serializable}
@@ -94,11 +110,11 @@ Java Bean is every~class that follows these three~restrictions:
 
 \warning Similarly to~\hyperref[pojo]{POJO} classes there can~be claims that Java Beans don't contain any~behavior, i.e., they contain only properties, zero--parameter constructor, getters and~setters (for~all variables).
 
-\newsection{Enterprise Java Beans}
-\index{EJB}
+\newsection{Enterprise Java Beans (EJB)}
 \index{Enterprise Java Beans}
-\label{enterprisejavabeans}
-An~Enterprise Java Bean, often denoted by~the~abbreviation \textit{EJB}, is~a~server--side run component performing a~specific task. EJBs~form huge \hyperref[distributedsystem]{distributed} server--side systems handling security, transaction processing, persistence etc. One~EJB can~consist of~more classes and~interfaces (one~EJB\,=\,more files). The~code uses special \hyperref[annotations]{annotations} provided by~Java~EE libraries. EJBs must be~deployed on a~specialized \hyperref[applicationserver]{application servers} like JBoss or~Glassfish. EJB~specification was extensively enhanced in~last years, but~it still is quite a~challenging topic.
+\index{EJB}
+\label{ejb}
+An~Enterprise Java Bean is a~server--side run component performing a~specific task. EJBs~form huge \hyperref[distributedsystem]{distributed} server--side systems handling security, transaction processing, persistence etc. One~EJB can~consist of~more classes and~interfaces (one~EJB\,=\,more files). The~code uses special \hyperref[annotations]{annotations} provided by~Java~EE libraries. EJBs must be~deployed on a~specialized \hyperref[applicationserver]{application servers} like JBoss or~Glassfish. EJB~specification was extensively enhanced in~last years, but~it still is quite a~challenging topic.
 
 In~the~past there were no~annotations. The~specification was~given by~interfaces. This lead to~a~\hyperref[loosetightcoupling]{tight coupling} between Java~EE libraries and~the~written code, lots~of useless methods enforced by~interfaces, hard implementation, hard maintenance and~overall mess in~the~code. Furthermore, EJB systems were extremely slow. That's why the~\hyperref[springframework]{Spring framework} was~introduced by~the~developers community. Although there was the~mentioned extensive enhancement of~EJB specification, it~still caries the~stigma of~unusable crap and~the~\hyperref[springframework]{Spring framework} remains much more popular.
 
@@ -139,3 +155,4 @@ In~the~past there were no~annotations. The~specification was~given by~interfaces
 
 \newsection{Namespaces}
 \index{Namespace}
+

@@ -29,7 +29,7 @@ It's a~protocol for~network communication that includes cryptographic features t
 \newsubsection{SFTP}
 \index{SFTP}
 \label{sftp}
-It's a~protocol for~secured network file access, file transfer, and~file management. It's an~extension of~the \hyperref[ssh]{SSH protocol}, therefore, when working with SFTP, you often have to~deal with documentation, terms and~when programming also object names that contain the text \textit{SSH}. For~example, one~of the~current Java libraries for~SFTP file management is called \textit{SSHJ}.
+It's a~protocol for~secured network file access, file transfer, and~file management. It's an~extension of~the \hyperref[ssh]{SSH protocol}, therefore, when working with SFTP, you often have to~deal with documentation, terms and,~when programming, also object names that contain the~text~\textit{SSH}. For~example, one~of the~current Java libraries for~SFTP file management is~called~\textit{SSHJ}.
 
 \warning It has nothing to~do with the~FTP protocol. That is completely different, very old and~unsecured protocol for network file transferring.
 
@@ -49,11 +49,16 @@ It's a~protocol for~secured network file access, file transfer, and~file managem
 \newsection{Web Server}
 \index{Web server}
 \label{webserver}
-It's typically a~software, but~can be even a~physical computer, that stores, processes and sends HTML documents to clients over a~network, usually the Internet. Using dedicated software\,--\,a~web browser\,--\,clients see these documents as web pages. The~communication with clients is mainly performed over the~\hyperref[http]{HTTP protocol}. Based on~incoming request from a~client (initiated by a~web browser) the~server picks a~stored HTML document and sends it back to the~client in a~response.
+It's typically a~software, but~can be even a~physical computer, that stores, processes and sends HTML documents to clients over a~network, usually \hyperref[internetweb]{the~Internet}. Using dedicated software\,--\,a~web browser\,--\,clients see these documents as web pages. The~communication with clients is mainly performed over the~\hyperref[http]{HTTP protocol}. Based on~incoming request from a~client (initiated by a~web browser) the~server picks a~stored HTML document and sends it back to the~client in a~response.
 
-A~web address entered to a~browser's address bar is separated to the~part identifying the~server's physical computer (\textit{www.something.com}) and the~part identifying the~wanted HTML document location (everything that follows). The~location is referred from the~server's configured home folder. For~example, consider that \textit{www.something.com} refers to~some computer with running Apache HTTP Server (a~concrete example of a~web server). The~default home folder of~Apache HTTP servers is \textit{/home/www} and hasn't been configured otherwise in~this example. You~enter \textit{www.something.com/one/two/three.html} to your web browser's address bar. The~computer is reached over DNS, the~server gets the~request and it looks for the~file \mboxtextit{/home/www/one/two/three.html}. If~the~file is found, its contents are returned to your web browser and displayed. If~not, you get the~dinosaur.
+A~web address entered to a~browser's address bar is separated to the~part identifying the~server's physical computer (\textit{www.something.com}) and the~part identifying the~wanted HTML document location (everything that follows). The~location is referred from the~server's configured home folder. For~example, consider that \textit{www.something.com} refers to~some computer with running Apache HTTP Server (a~concrete example of a~web server). The~default home folder of~Apache HTTP servers is \textit{/home/www} and hasn't been configured otherwise in~this example. You~enter \textit{www.something.com/one/two/three.html} to your web browser's address bar. The~computer is reached over~\hyperref[dns]{DNS}, the~server gets the~request and it looks for the~file \mboxtextit{/home/www/one/two/three.html}. If~the~file is found, its contents are returned to your web browser and displayed. If~not, you get the~dinosaur.
 
 \newsection{Application Server}
 \index{Application server}
 \label{applicationserver}
 Application servers are very similar to \hyperref[webserver]{web~servers}. They also get requests from clients and send back responses. The~difference is that they trigger some more complex logic. While web servers basically only return static HTML documents, application servers can, based on incoming requests, execute programs written in complex languages (Java, JavaScript, Python, C\# etc.). These programs can then be~called \hyperref[webservice]{web~services}.
+
+\newsection{Domain Name Service (DNS)}
+\index{Domain name service}
+\index{DNS}
+\label{dns}
