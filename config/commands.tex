@@ -1,12 +1,12 @@
 \NewDocumentCommand{\newchapter}{m}{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
 
-\NewDocumentCommand{\addchapter}{m m}{\newchapter{#1}\input{chapters/#2}}
-
 \NewDocumentCommand{\newsection}{m}{\section*{#1}\addcontentsline{toc}{section}{#1}}
 
-\NewDocumentCommand{\addsection}{m m}{\newsection{#1}\input{chapters/#2}}
-
 \NewDocumentCommand{\newsubsection}{m}{\subsection*{#1}\addcontentsline{toc}{subsection}{#1}}
+
+\NewDocumentCommand{\includechapter}{m}{\include{chapters/#1/#1}}
+
+\NewDocumentCommand{\inputsection}{m m}{\input{chapters/#1/sections/#2}}
 
 \RenewDocumentCommand{\newline}{}{\vspace{\baselineskip}}
 
