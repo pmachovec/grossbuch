@@ -64,6 +64,7 @@ It's a~programming paradigm in which programs describe their desired results wit
     \item \textbf{Definition of~a~variable} means assigning a~value to~the~variable. It~can~immediately follow the~variable definition ("\textit{private int a = 1;}") or~appear later as~a~separate command ("\textit{private int a; ... a = 1;}").
     \item \textbf{Definition of~a~method (or~a~function)} is the~method header with the~method body. Example: "\textit{\mbox{public void doSomething(int a) \{ ... \}}}".
 \end{itemize}
+\noindent Generally a~declaration informs \hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} about some structure. Definition allocates a~memory for~the~structure. There can be a~declaration without a~definition, but~not~reversed. One~variable or~method (or~function) can be declared multiple times, but~defined maximally once. When you assign a~new value to~already defined variable, you~rewrite the~already allocated memory. That isn't a~new definition.
 
 \newsection{Parameter VS Argument}
 \index{Argument}
@@ -77,8 +78,6 @@ It's a~programming paradigm in which programs describe their desired results wit
 For~example consider a~method "\mboxtextit{doSomething(String someVariable)}". The~\mboxtextit{someVariable} is~a~parameter. When you call "\mboxtextit{doSomething("someValue")}", then \mboxtextit{someValue} is an~argument.
 
 \warning Don't get confused by the~term \hyperref[attributes]{\textit{attribute}}. That's a~\hyperref[databases]{database}--related thing.
-
-\noindent Generally a~declaration informs \hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} about some structure. Definition allocates a~memory for~the~structure. There can be a~declaration without a~definition, but~not~reversed. One~variable or~method (or~function) can be declared multiple times, but~defined maximally once. When you assign a~new value to~already defined variable, you~rewrite the~already allocated memory. That isn't a~new definition.
 
 \section*{\fontsize{17}{17} \selectfont Application VS Process VS Program VS Service VS Thread}
 \addcontentsline{toc}{section}{Application VS Process VS Program VS Service VS Thread}

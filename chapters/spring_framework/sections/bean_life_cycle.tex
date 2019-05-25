@@ -21,12 +21,12 @@ Initialization methods executions depend on~bean initialization points\,--\,they
       <bean id="(*\tikzmarknodebf{lc1xml1singbeanid}{singletonBeanId}[ForestGreen]*)" class="somepackage.subpackage.CommonClass" init-method="(*\tikzmarknodebf{lc1xml1singinit}{initMethod}[ForestGreen]*)" destroy-method="(*\tikzmarknodebf{lc1xml1singdestroy}{destroyMethod}[ForestGreen]*)">
           ...
       </bean>
-      <bean id="(*\tikzmarknodebf{lx1xml1protbeanid}{prototypeBeanId}[ForestGreen]*)" class="somepackage.subpackage.CommonClass" scope="prototype" init-method="(*\tikzmarknodebf{lc1xml1protinit}{initMethod}[ForestGreen]*)" destroy-method="(*\tikzmarknodebf{lc1xml1protdestroy}{destroyMethod}[ForestGreen]*)">
+      <bean id="(*\tikzmarknodebf{lc1xml1protbeanid}{prototypeBeanId}[ForestGreen]*)" class="somepackage.subpackage.CommonClass" scope="prototype" init-method="(*\tikzmarknodebf{lc1xml1protinit}{initMethod}[ForestGreen]*)" destroy-method="(*\tikzmarknodebf{lc1xml1protdestroy}{destroyMethod}[ForestGreen]*)">
         ...
       </bean>
     </beans>
 \end{lstlisting}
-\begin{lstlisting}[language=Java, title={Common class for singleton and prototype beans}]
+\begin{lstlisting}[language=Java, title={Snippet of a common bean class}]
     private void (*\tikzmarknodebf{lc1java1init}{initMethod}*)() {
         ...DO SOMETHING...
     }
@@ -38,19 +38,19 @@ Initialization methods executions depend on~bean initialization points\,--\,they
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
 
-    CommonClassInterface singletonInstance1 = context.getBean("(*\tikzmarknodebf{lc1java1singbeanid1}{singletonBeanId}[ForestGreen]*)", CommonClassInterface.class);
-    CommonClassInterface singletonInstance2 = context.getBean("(*\tikzmarknodebf{lc1java1singbeanid2}{singletonBeanId}[ForestGreen]*)", CommonClassInterface.class);
+    CommonClassInterface singletonInstance1 = context.getBean("(*\tikzmarknodebf{lc1java2singbeanid1}{singletonBeanId}[ForestGreen]*)", CommonClassInterface.class);
+    CommonClassInterface singletonInstance2 = context.getBean("(*\tikzmarknodebf{lc1java2singbeanid2}{singletonBeanId}[ForestGreen]*)", CommonClassInterface.class);
 
-    CommonClassInterface prototypeInstance1 = context.getBean("(*\tikzmarknodebf{lc1java1protbeanid1}{prototypeBeanId}[ForestGreen]*)", CommonClassInterface.class);
-    CommonClassInterface prototypeInstance2 = context.getBean("(*\tikzmarknodebf{lc1java1protbeanid2}{prototypeBeanId}[ForestGreen]*)", CommonClassInterface.class);
+    CommonClassInterface prototypeInstance1 = context.getBean("(*\tikzmarknodebf{lc1java2protbeanid1}{prototypeBeanId}[ForestGreen]*)", CommonClassInterface.class);
+    CommonClassInterface prototypeInstance2 = context.getBean("(*\tikzmarknodebf{lc1java2protbeanid2}{prototypeBeanId}[ForestGreen]*)", CommonClassInterface.class);
 
     context.close();
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
-    \drawarrow{[xshift=-6mm] lc1xml1singbeanid.south}{[xshift=-9mm] lc1java1singbeanid1.north}
-    \drawarrow{[xshift=-6mm] lc1xml1singbeanid.south}{[xshift=-3mm] lc1java1singbeanid2.north}
-    \drawarrow{[xshift=6mm] lx1xml1protbeanid.south}{[xshift=9mm] lc1java1protbeanid1}[red]
-    \drawarrow{[xshift=6mm] lx1xml1protbeanid.south}{[xshift=3mm] lc1java1protbeanid2}[red]
+    \drawarrow{[xshift=-6mm] lc1xml1singbeanid.south}{[xshift=-9mm] lc1java2singbeanid1.north}
+    \drawarrow{[xshift=-6mm] lc1xml1singbeanid.south}{[xshift=-3mm] lc1java2singbeanid2.north}
+    \drawarrow{[xshift=6mm] lc1xml1protbeanid.south}{[xshift=9mm] lc1java2protbeanid1}[red]
+    \drawarrow{[xshift=6mm] lc1xml1protbeanid.south}{[xshift=3mm] lc1java2protbeanid2}[red]
     \drawarrow{lc1xml1singinit}{[xshift=-6mm] lc1java1init.north}[green]
     \drawarrow{lc1xml1protinit}{[xshift=-6mm] lc1java1init.north}[green]
     \drawarrow{lc1xml1singdestroy}{[xshift=-6mm] lc1java1destroy.north}[blue]
@@ -60,9 +60,10 @@ Initialization methods executions depend on~bean initialization points\,--\,they
 \noindent The~initialization method is~called three times\,--\,once for~the~singleton instance and~twice for~prototype instances. The~destroy method is~called only once\,--\,for~the~singleton instance, although configured even for~prototype beans. Destroy methods of~prototype beans don't work.
 
 \newsubsection{Using Java Annotations}
+\label{beanlifecycleannotations}
 To~make a~method to~be the~\textit{initialization} method annotate it with the~\textit{PostConstruct} \hyperref[javaannotation]{annotation}. To~make a~method to~be the~\textit{destroy} method annotate it with the~\textit{PreDestroy} \hyperref[javaannotation]{annotation}.
 
-\warning Mentioned annotations come from the~\hyperref[javax]{\textit{javax}} \textit{annotation} package. From Java~9 on no~\hyperref[javax]{\textit{javax}} package is a~part of~the~default Java. You~must download it or~load it as~a~dependency.
+\warning Mentioned annotations belong to~the~\textit{annotation} package from the~\hyperref[javax]{\textit{javax}} extension set. From Java~9 on no~\hyperref[javax]{\textit{javax}} package is a~part of~the~default Java. You~must download it or~load it as~a~dependency.
 
 \example
 \enlargethispage{10mm}
@@ -125,19 +126,26 @@ To~make a~method to~be the~\textit{initialization} method annotate it with the~\
     \coordinate(lc2java3protbeaniddummy1) at (lc2java2protbeaniddummy |-,0);
     \coordinate(lc2java3protbeaniddummy2) at (lc2java2protbeaniddummy |-,-30mm);
     \drawarrow[-]{[xshift=-9mm] lc2java3singbeaniddummy1}{[xshift=-9mm,yshift=-2mm] lc2java3singbeaniddummy2}
-    \drawarrow[-stealth]{[xshift=-9mm] lc2java3singbeaniddummy2}{[xshift=3mm]lc2java3singbeanid1.north west}
-    \drawarrow[-stealth]{[xshift=-9mm] lc2java3singbeaniddummy2}{lc2java3singbeanid2.north west}
+    \drawarrow[-stealth]{[xshift=-9.3mm] lc2java3singbeaniddummy2}{[xshift=3mm]lc2java3singbeanid1.north west}
+    \drawarrow[-stealth]{[xshift=-9.1mm] lc2java3singbeaniddummy2}{lc2java3singbeanid2.north west}
     \drawarrow[-]{[xshift=9mm] lc2java3protbeaniddummy1}{[xshift=9mm,yshift=-2mm] lc2java3protbeaniddummy2}[red]
     \drawarrow[-stealth]{[xshift=9mm] lc2java3protbeaniddummy2}{[xshift=-3mm] lc2java3protbeanid1.north}[red]
-    \drawarrow[-stealth]{[xshift=9mm] lc2java3protbeaniddummy2}{[xshift=6mm] lc2java3protbeanid2.north}[red]
+    \drawarrow[-stealth]{[xshift=8.8mm] lc2java3protbeaniddummy2}{[xshift=6mm] lc2java3protbeanid2.north}[red]
+    \node at ([xshift=-9mm] lc2java1singbeaniddummy |-,-31mm)[circle,fill,inner sep=1.5pt]{};
+    \node at ([xshift=9mm] lc2java1singbeaniddummy |-,-31mm)[circle,fill,red,inner sep=1.5pt]{};
 \end{tikzpicture}
 
-\noindent Again the~initialization method is~called three times\,--\,once for~the~singleton instance and~twice for~prototype instances. The~destroy method is~called only once\,--\,for~the~singleton instance.\\
+\noindent Again the~initialization method is~called three times\,--\,once for~the~singleton instance and~twice for~prototype instances. The~destroy method is~called only once\,--\,for~the~singleton instance.
 
 \note There's one significant difference between annotation--based and~XML--based bean life cycle methods  One~bean class can~contain more than one annotated \textit{initialization} or~\textit{destroy} method. When the~time of~their execution comes (bean instantiation, context closing), all~such methods are~triggered. \textit{Initialization} methods are~triggered in~the~order reversed from the~order of~methods definition, \textit{destroy} methods are~called in~the~order of~methods definition. All~the~other behavior (no~parameters allowed, \textit{destroy methods not~working for~\hyperref[prototypedp]{prototypes},~\dots}) and~conventions (\hyperref[accessmodifiers]{access modifier} \textit{private}, no~return value,~\dots) are~the~same as~for~XML--based bean life cycle methods.
+
+\newsubsection{Configuration with Java Code (No XML)}
+When you define your own bean classes, you~should use \textit{PostConstruct} and~\textit{PreDestroy} (as~described in~the~\hyperref[beanlifecycleannotations]{annotation configuration section}) even with Java code configuration. But~you can configure life cycle methods even in~configuration classes. That's useful when you can't access bean classes source code.
+
+Life cycle methods can~be configured by~specifying their names as~string arguments of~the~\textit{Bean} annotation. Initialization methods are~specified by~the~\mboxtextit{initMethod} parameter, destroy methods are~specified by~the~\textit{destroyMethod} parameter. With this approach you can configure only one initialization method and~one destroy method per~bean (same as~with XML configuration).
 \newpage
 
-\example
+\example[multiple life cycle methods]
 \begin{lstlisting}[language=Java, title={Singleton bean class with multiple life cycle methods}]
     import javax.annotations.*;
 
@@ -177,3 +185,54 @@ To~make a~method to~be the~\textit{initialization} method annotate it with the~\
 \end{tikzpicture}
 
 \noindent On~the~bean first initialization (it's~singleton) the~\textit{secondInit} method is~called first, then the~\textit{firstInit} method is~called. On~the~context closing the~\textit{firstDestroy} method is~called first, then the~\textit{secondInit} method is~called. If~the~bean scope was~set to~prototype, \textit{destroy} methods wouldn't be~triggered.
+\newpage
+
+\example[life cycle methods configuration in a configuration class]
+\begin{lstlisting}[language=Java, title={Configuration class}]@>@Configuration
+    @>@Configuration
+    public class (*\tikzmarknodebf{lc5java1configclass}{ConfigurationClass}*) {
+        @@>@Bean<@@(initMethod = "(*\tikzmarknodebf{lc5java1singinit}{initMethod}[ForestGreen]*)", destroyMethod = "(*\tikzmarknodebf{lc5java1singdestroy}{destroyMethod}[ForestGreen]*)")
+        public CommonClassInterface (*\tikzmarknodebf{lc5java11singbeanid}{singletonBeanMethod}*)() {
+            return new CommonClass(...);
+        }
+
+        @@>@Bean<@@(initMethod = "(*\tikzmarknodebf{lc5java1protinit}{initMethod}[ForestGreen]*)", destroyMethod = "(*\tikzmarknodebf{lc5java1protdestroy}{destroyMethod}[ForestGreen]*)")
+        @@>@Scope<@@("prototype")
+        public CommonClassInterface (*\tikzmarknodebf{lc5java11protbeanid}{prototypeBeanMethod}*)() {
+            return new CommonClass(...);
+        }
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Snippet of a common bean class}]
+    private void (*\tikzmarknodebf{lc5java2init}{initMethod}*)() {
+        ...DO SOMETHING...
+    }
+
+    private void (*\tikzmarknodebf{lc5java2destroy}{destroyMethod}*)() {
+        ...DO SOMETHING...
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Usage}]
+    ClassPathXmlApplicationContext context = new AnnotationConfigApplicationContext((*\tikzmarknodebf{lc5java3configclass}{ConfigurationClass}*).class);
+
+    CommonClassInterface singletonInstance1 = context.getBean("(*\tikzmarknodebf{lc5java3singbeanid1}{singletonBeanMethod}[ForestGreen]*)", CommonClassInterface.class);
+    CommonClassInterface singletonInstance2 = context.getBean("(*\tikzmarknodebf{lc5java3singbeanid2}{singletonBeanMethod}[ForestGreen]*)", CommonClassInterface.class);
+
+    CommonClassInterface prototypeInstance1 = context.getBean("(*\tikzmarknodebf{lc5java3protbeanid1}{prototypeBeanMethod}[ForestGreen]*)", CommonClassInterface.class);
+    CommonClassInterface prototypeInstance2 = context.getBean("(*\tikzmarknodebf{lc5java3protbeanid2}{prototypeBeanMethod}[ForestGreen]*)", CommonClassInterface.class);
+
+    context.close();
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{lc5java1configclass.south}{lc5java3configclass.north}[black][.3][bend right=18mm]
+    \drawarrow{[xshift=-6mm] lc5java11singbeanid.south}{[xshift=-6mm] lc5java3singbeanid1.north}[red]
+    \drawarrow{[xshift=-6mm] lc5java11singbeanid.south}{[xshift=-3mm] lc5java3singbeanid2.north}[red]
+    \drawarrow{[xshift=-6mm] lc5java11protbeanid.south}{[xshift=3mm] lc5java3protbeanid1.north}[green]
+    \drawarrow{[xshift=-6mm] lc5java11protbeanid.south}{[xshift=6mm] lc5java3protbeanid2.north}[green]
+    \drawarrow{lc5java1singinit}{lc5java2init.north}[blue]
+    \drawarrow{lc5java1protinit}{lc5java2init.north}[blue]
+    \drawarrow{lc5java1singdestroy}{lc5java2destroy.north}[yellow][.5]
+    \drawarrow{lc5java1protdestroy}{lc5java2destroy.north}[yellow][.5]
+\end{tikzpicture}
+
+\noindent And~again the~initialization method is~called three times\,--\,once for~the~singleton instance and~twice for~prototype instances. The~destroy method is~called only once\,--\,for~the~singleton instance.
