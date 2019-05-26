@@ -12,7 +12,7 @@
 
 \NewDocumentCommand{\textbfcolor}{m m}{\textcolor{#1}{\textbf{#2}}}
 
-\NewDocumentCommand{\highlight}{m O{black}}{\noindent\textcolor{#2}{\textbf{#1}}}
+\NewDocumentCommand{\highlight}{m O{black}}{\noindent\textcolor{#2}{\textbf{\mbox{#1}}}}
 
 \NewDocumentCommand{\warningnonl}{}{\highlight{WARNING! }[red]}
 

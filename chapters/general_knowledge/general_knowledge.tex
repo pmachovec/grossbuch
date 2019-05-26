@@ -1,9 +1,55 @@
 \newchapter{General Knowledge}
 
+\newsection{Operating System (OS)}
+\index{Operating system}
+\index{OS}
+\label{os}
+It's~a~basic software of~a~computer that manages the~computer's hardware, other software, their mutual communication, \hyperref[systemmemory]{memory} allocation and~interaction with a~user. Many operating systems also handle parallel \hyperref[applicationprocessprogramservicethread]{process} execution\,--\,\hyperref[multitasking]{multitasking}. Some sort of~OS should be installed to~a~computer as~a~part of~the~computer construction in~order to~make the~computer usable for~an~ordinary user. Controlling computer without an~OS (including the~initial OS installation) requires passing precise machine instructions directly to~the~computer \hyperref[processorcpucore]{processor}, which only computer manufacturers and~true specialists are~capable~of.
+
+\newsubsection{Kernel}
+\index{Kernel}
+\index{Kernel space}
+\index{User space}
+\label{kernel}
+It's~the~core part of~an~OS, which manages the~connection of~\hyperref[applicationprocessprogramservicethread] with the~computer hardware. I.e.,~it~controls \hyperref[processorcpucore]{processor} management (assigning processor time to~processes), \hyperref[systemmemory]{memory} management (assigning memory space to~processes), computer devices and~communication with peripherals (keyboard, mouse, monitor, speakers,~\dots). Kernels have allocated a~special part of~the~\hyperref[systemmemory] system memory called \textbf{kernel space}. The~remaining part of~the~\hyperref[systemmemory]{memory} is~called \textbf{user space}.
+
+\newsubsection{Monolithic Kernel}
+\index{Monolithic kernel}
+\label{monolithickernel}
+It's~an~old--fashioned type of~kernel where all kernel parts, as~described above, use the~kernel space. \hyperref[unixlinux]{Unix and~Linux} systems typically have monolithic kernels.
+
+\newsubsection{Microkernel}
+\index{Microkernel}
+It's~an~opposite to~the~monolithic kernel. It~runs only the~absolute minimum for~the~computer control using the~kernel space. The~minimum consists basically of~\hyperref[processorcpucore]{processor} management and~\hyperref[systemmemory]{memory} management. All~other kernel functions are~handled as~standard processes (called \hyperref[server]{servers} when dealing with microkernels) using the~user space. Microkernels are~more stable than monolithic kernels and~their functionality can~be extended by~adding new~servers without a~need of~recompilation, but~on~the~other hand they're slower.
+
+\newsubsection{Hybrid kernel}
+\index{Hybrid kernel}
+\label{hybridkernel}
+It's~a~combination of~\hyperref[monolithickernel]{monolithic kernel} and~\hyperref[microkernel]{microkernel} combining (dis)advantages of~both. The~kernel functionalities are~separated to~servers like in~a~\hyperref[microkernel]{microkernel}, but~they~run in~the~kernel space. This preserves the~stability of~the~kernel with significantly less impact on~performance. The~disadvantage of~this~approach is that adding new servers is more complicated (and~impossible during runtime) than with \hyperref[microkernel]{microkernels}. Today's top commercial \hyperref[os]{operating systems} like Windows or~macOS have hybrid kernels (or~at~least Microsoft and~Apple say~so).
+
+\newsection{POSIX}
+\index{POSIX}
+\label{posix}
+The~abbreviation stands for~\textit{Portable Operating System Interface} (yes,~\textit{X} is~missing). It's~a~set of~standards specifying \hyperref[api]{APIs}, command line \hyperref[shellcligui]{shells} and~utility interfaces. These standards serve for~maintaining compatibility between \hyperref[os]{operating systems}. Any~software working on~one~system following standards will~work even on~a~different system following standards. It's~typical for~\hyperref[unixlinux]{Unix and~Linux} systems.
+
+\newsection{Unix VS Linux}
+\index{Unix}
+\index{Linux}
+\label{unixlinux}
+\begin{itemize}
+    \item \textbf{Unix},~often written in~capital letters (UNIX), was~originally a~\hyperref[shellcligui]{CLI}--controlled~\hyperref[os]{OS} developed in 1969 by~\href{https://en.wikipedia.org/wiki/Bell_Labs}{Bell~Labs} for~their internal use. In~late 1970s Bell~Labs owner \href{https://en.wikipedia.org/wiki/AT\%26T}{AT\&T} started to~sell Unix \hyperref[licencing]{licences} to~outside parties, which created their own enhanced mutations of~the~original~system. Nowadays there is so~called Unix family, which denotes all~\hyperref[os]{operating systems} derived this way from the~original Unix. The~most known Unix of~today is~probably macOS (although having \hyperref[hybridkernel]{hybrid kernel}). \warningnonl Unix systems are~commercial and~their owners don't release source codes (they also had~to~pay for~the~\hyperref[licencing]{licence}).
+    \item \textbf{Linux} was~originally only an~\hyperref[kernel]{OS~kernel} developed in~1991 by~\href{https://en.wikipedia.org/wiki/Linus_Torvalds}{Linus Torvalds}. It~was~heavily inspired by~Unix (they both follow \hyperref[posix]{POSIX} standards), but~opposite to~Unix the~Linux source code was~publicly released under the~\hyperref[gpl]{GNU GPL} licence. \hyperref[os]{Operating systems} said to~be~Linux use variations of~that original Linux kernel. Although claimed to~be~free, there are~even commercial Linuxes containing some nontrivial enhancements or~specializations, for~example SUSE Linux Enterprise for~\hyperref[server]{server} computers.
+\end{itemize}
+
+\newsection{Architecture VS Design}
+\index{Architecture}
+\index{Design}
+\label{architecturedesign}
+
 \newsection{Object--Oriented Programming}
 \index{Object--oriented programming}
 \label{objectorientedprogramming}
-It's a programming paradigm in which data are encapsulated into objects together with tools for manipulating these data. An object holds data in fields (also called attributes) and provides methods (also called functions) for manipulating with these data (typically from other objects). Java and~most other languages using the~object paradigm like C\# or C++ are~not~pure object languages, because they contain primitive data types like \textit{int} or \textit{boolean}. In~pure object languages all~data (each variable) must be object. An~example of a~pure object language is Smalltalk (and~there is~probably no~other).
+It's~a~programming paradigm in~which data are~encapsulated into objects together with tools for~manipulating these data. An~object holds data in~\hyperref[variablefieldproperty]{fields} (also called attributes) and~provides methods (also called functions) for~manipulating with these data (typically from other objects). Java and~most other languages using the~object paradigm like C\# or C++ are~not~pure object languages, because they contain \hyperref[javadatatypes]{primitive data types} like \textit{int} or \textit{boolean}. In~pure object languages all~data (each variable) must be object. An~example of a~pure object language is Smalltalk (and~there is~probably no~other).
 
 \warning Object--oriented programming is~not contradictory to~\hyperref[imperativeprogramming]{imperative programming} (or~even \hyperref[declarativeprogramming]{declarative programming}, see further).
 
@@ -77,13 +123,13 @@ It's a~programming paradigm in which programs describe their desired results wit
 \end{itemize}
 For~example consider a~method "\mboxtextit{doSomething(String someVariable)}". The~\mboxtextit{someVariable} is~a~parameter. When you call "\mboxtextit{doSomething("someValue")}", then \mboxtextit{someValue} is an~argument.
 
-\warning Don't get confused by the~term \hyperref[attributes]{\textit{attribute}}. That's a~\hyperref[databases]{database}--related thing.
+\warning Don't get confused by the~term \textit{attribute}. That's either a~different name for~\hyperref[variablefieldproperty]{object field} or~a~\hyperref[relationaldatabase]{relational database} table column.
 
-\section*{\fontsize{17}{17} \selectfont Application VS Process VS Program VS Service VS Thread}
+\section*{\fontsize{17}{17} \selectfont Program VS Application VS Process VS Service VS Thread}
 \addcontentsline{toc}{section}{Application VS Process VS Program VS Service VS Thread}
+\index{Program}
 \index{Application}
 \index{Process}
-\index{Program}
 \index{Service}
 \index{Thread}
 \index{Computer program}
@@ -96,12 +142,18 @@ For~example consider a~method "\mboxtextit{doSomething(String someVariable)}". T
     \item \textbf{Thread} is a~set of consecutive steps performed one by~one in a~process. A~process can be separated to~more threads which can run in~parallel (if~the~program implementation supports~it).
 \end{itemize}
 
-\newsubsection{Web Servive}
+\newsubsection{Web Service}
 \index{Web service}
 \label{webservice}
-It's any~program executed or~continuously running on a~remote computer, with which programs on~other computers communicate over the~\hyperref[internetweb]{Web}, i.e.,~using the~\hyperref[http]{HTTP} protocol. A~program called \hyperref[clientserverarchitecture]{client}, running on a~user's computer, sends a~request to~another~program called \hyperref[clientserverarchitecture]{server} running on~the~remote computer (the~same computer as the~target remote program), the~server delegates the~request to~the~remote program, the~remote program prosesses the~request and~sends a~response to~the~server, which then delegates it back to~the~client.
+It's any~program executed or~continuously running on a~remote computer, with which programs on~other computers communicate over the~\hyperref[internetweb]{Web}, i.e.,~using the~\hyperref[http]{HTTP} protocol. A~program called \hyperref[clientserverarchitecture]{client}, running on a~user's computer, sends a~request to~another~program called \hyperref[clientserverarchitecture]{server} running on~the~remote computer (the~same computer as the~target remote program), the~server delegates the~request to~the~remote program, the~remote program processes the~request and~sends a~response to~the~server, which then delegates it back to~the~client.
 
 \warning The~term \textit{web service} is~ambiguous. Sometimes it denotes solely the~remote program, sometimes it includes even the~server. Also, opposite to~a~standard \hyperref[applicationprocessprogramservicethread]{service} the~remote program doesn't have to run continuously. Only the~server does.
+
+\newsection{Server}
+\index{Server}
+\label{server}
+Exactly speaking a~server is a~continuously running software getting requests from another software and~sending responses back, i.e.,~providing a~\hyperref[applicationprocessprogramservicethread]{service} for~that other software. Servers are~often running on~specialized computers, which themselves are~called servers and~what many people think that servers~are. But~server software can~be generally running on~any~computer.
+Examples of~servers are~\hyperref[webserver]{web servers}, \hyperref[applicationserver]{application servers}, \hyperref[proxy]{proxy servers} etc.
 
 \newsection{Distributed System}
 \index{Distributed system}
@@ -121,6 +173,7 @@ It's~a~version control system where each user owns a~copy (mirror) of~the~whole 
 
 \newsection{Multitasking}
 \index{Multitasking}
+\label{multitasking}
 
 \newsection{Concurrency}
 \index{Concurrency}
@@ -128,10 +181,26 @@ It's~a~version control system where each user owns a~copy (mirror) of~the~whole 
 
 \newsection{Loose Coupling VS Tight Coupling}
 \index{Loose coupling}
-\index{tightcoupling}
+\index{Tight coupling}
 \label{loosetightcoupling}
 
 \newsection{Base64}
 \index{Base64}
 \label{base64}
 It's an~encoding used for~representation of~any array of~bytes as an~ASCII string. The~name refers to the~size of~the~set of~resulting characters, which is~64. It~encodes always three bytes to~four characters. If~the~length of~the~input byte array is~not~divisible by~three, one or~two special bytes are~added to~its~end. This results in~one or~two equals signs at~the~end of~the~resulting string.
+
+\newsection{Shell VS CLI VS GUI}
+\index{Shell}
+\index{CLI}
+\label{shellcligui}
+\begin{itemize}
+    \item \textbf{Shell} is any software for~controlling \hyperref[os]{operating system}.
+    \item \textbf{CLI} (Command Line Interface) is~a~user interface for~controlling specific software in~a~form of~single text line to~which commands are~typed. Shells typically (but~not~always) exist in~a~CLI form. Windows command line or~a~\hyperref[unixlinux]{Linux} terminal are~shells. There can also be CLIs that are~not shells, for~example Python console.
+    \item \textbf{GUI} (Graphical User Interface) is~a~user interface for~controlling specific software in~a~graphic form. Even shells can, and~often~do, exist in~a~GUI form. For~example, Windows screen (or~GUI screen~of any~other~\hyperref[os]{OS}) is~a~shell.
+\end{itemize}
+
+\newsection{Application Programming Interface (API)}
+\index{Application programming interface}
+\index{API}
+\label{api}
+It's~a~part of~a~software serving for~communication with other software. The~word \textit{application} is~inaccurate, even \hyperref[applicationprocessprogramservicethread]{services} can~have~API (it's~actually typical part of~a~services). It's~a~very broad term. For~example, when a~browser is~requesting \hyperref[internetweb]{web} pages from a~\hyperref[webserver]{web~server}, it~communicates with the~server~API. When a~process is~supposed to~run under an~\hyperref[os]{OS}, it~communicates with the~API of~that~OS. Methods defined in~a~class form an~API (of~instances) of~that~class. And~so~forth.
