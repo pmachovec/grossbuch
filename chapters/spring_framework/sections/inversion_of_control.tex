@@ -2,7 +2,7 @@
 \index{Inversion of control}
 \index{Spring bean}
 \label{inversionofcontrol}
-It's~a~way of~creating objects with Spring containers. You~don't directly call constructors of~classes, instead you tell a~container what object (class instance) you want and~the~container will provide~it. The~purpose is to~achieve configurable code without a~need of~recompiling when a~behavior change is~needed.
+It's~a~way of~creating objects with Spring containers. You~don't directly call constructors of~classes, instead you tell a~container what object (class instance) you want and~the~container will provide~it. The~purpose is to~achieve better modularity of~the~implemented system.
 
 Objects created by~Spring containers using the~inversion of~control are~called \textit{Spring~beans}. You~must provide implementations of~classes and~an~XML configuration file for~a~container. Then~you instantiate a~container of~your choice and~give it the~configuration. The~configuration tells which class the~container will return when requested. And~finally you~request the~container to~give you the~instance\,--\,the~bean.
 

@@ -11,7 +11,7 @@ It's~a~basic software of~a~computer that manages the~computer's hardware, other 
 \index{Kernel space}
 \index{User space}
 \label{kernel}
-It's~the~core part of~an~OS, which manages the~connection of~\hyperref[applicationprocessprogramservicethread] with the~computer hardware. I.e.,~it~controls \hyperref[processorcpucore]{processor} management (assigning processor time to~processes), \hyperref[systemmemory]{memory} management (assigning memory space to~processes), computer devices and~communication with peripherals (keyboard, mouse, monitor, speakers,~\dots). Kernels have allocated a~special part of~the~\hyperref[systemmemory] system memory called \textbf{kernel space}. The~remaining part of~the~\hyperref[systemmemory]{memory} is~called \textbf{user space}.
+It's~the~core part of~an~OS, which manages the~connection of~\hyperref[applicationprocessprogramservicethread](processes) with the~computer hardware. I.e.,~it~controls \hyperref[processorcpucore]{processor} management (assigning processor time to~processes), \hyperref[systemmemory]{memory} management (assigning memory space to~processes), computer devices and~communication with peripherals (keyboard, mouse, monitor, speakers,~\dots). Kernels have allocated a~special part of~the~\hyperref[systemmemory]{system memory} called \textbf{kernel space}. The~remaining part of~the~\hyperref[systemmemory]{memory} is~called \textbf{user space}.
 
 \newsubsection{Monolithic Kernel}
 \index{Monolithic kernel}
@@ -20,6 +20,7 @@ It's~an~old--fashioned type of~kernel where all kernel parts, as~described above
 
 \newsubsection{Microkernel}
 \index{Microkernel}
+\label{microkernel}
 It's~an~opposite to~the~monolithic kernel. It~runs only the~absolute minimum for~the~computer control using the~kernel space. The~minimum consists basically of~\hyperref[processorcpucore]{processor} management and~\hyperref[systemmemory]{memory} management. All~other kernel functions are~handled as~standard processes (called \hyperref[server]{servers} when dealing with microkernels) using the~user space. Microkernels are~more stable than monolithic kernels and~their functionality can~be extended by~adding new~servers without a~need of~recompilation, but~on~the~other hand they're slower.
 
 \newsubsection{Hybrid kernel}
@@ -40,16 +41,22 @@ The~abbreviation stands for~\textit{Portable Operating System Interface} (yes,~\
     \item \textbf{Unix},~often written in~capital letters (UNIX), was~originally a~\hyperref[shellcligui]{CLI}--controlled~\hyperref[os]{OS} developed in 1969 by~\href{https://en.wikipedia.org/wiki/Bell_Labs}{Bell~Labs} for~their internal use. In~late 1970s Bell~Labs owner \href{https://en.wikipedia.org/wiki/AT\%26T}{AT\&T} started to~sell Unix \hyperref[licencing]{licences} to~outside parties, which created their own enhanced mutations of~the~original~system. Nowadays there is so~called Unix family, which denotes all~\hyperref[os]{operating systems} derived this way from the~original Unix. The~most known Unix of~today is~probably macOS (although having \hyperref[hybridkernel]{hybrid kernel}). \warningnonl Unix systems are~commercial and~their owners don't release source codes (they also had~to~pay for~the~\hyperref[licencing]{licence}).
     \item \textbf{Linux} was~originally only an~\hyperref[kernel]{OS~kernel} developed in~1991 by~\href{https://en.wikipedia.org/wiki/Linus_Torvalds}{Linus Torvalds}. It~was~heavily inspired by~Unix (they both follow \hyperref[posix]{POSIX} standards), but~opposite to~Unix the~Linux source code was~publicly released under the~\hyperref[gpl]{GNU GPL} licence. \hyperref[os]{Operating systems} said to~be~Linux use variations of~that original Linux kernel. Although claimed to~be~free, there are~even commercial Linuxes containing some nontrivial enhancements or~specializations, for~example SUSE Linux Enterprise for~\hyperref[server]{server} computers.
 \end{itemize}
+\newpage
 
 \newsection{Architecture VS Design}
 \index{Architecture}
 \index{Design}
 \label{architecturedesign}
+Both these terms denote some description of~a~system before its implementation. They differ in~the~level of~abstraction, i.e.,~in~how~concrete the~description~is.
+\begin{itemize}
+    \item \textbf{Architecture} is a~high abstraction level. It~describes main components of~a~system, their properties and~relations among them. Examples of~such components are~used programming language, individual functional parts to~implement, \hyperref[databases]{database} software or~\hyperref[server]{servers}. One~architecture can~be~used for~multiple designs. Solutions for~issues commonly occurring in~software architectures are~described by~\hyperref[architecturalpatterns]{architectural patterns}.
+    \item \textbf{Design} is a~low abstraction level. It~describes implementation details more in~detail, like classes, functions, their relations etc. Software design can~be described by~an~UML diagram. There can~be~more designs for~one~system, each~describing different part of~the~system. Solutions for~issues commonly occurring in~software designs are~described by~\hyperref[designpatterns]{design patterns}.
+\end{itemize}
 
 \newsection{Object--Oriented Programming}
 \index{Object--oriented programming}
 \label{objectorientedprogramming}
-It's~a~programming paradigm in~which data are~encapsulated into objects together with tools for~manipulating these data. An~object holds data in~\hyperref[variablefieldproperty]{fields} (also called attributes) and~provides methods (also called functions) for~manipulating with these data (typically from other objects). Java and~most other languages using the~object paradigm like C\# or C++ are~not~pure object languages, because they contain \hyperref[javadatatypes]{primitive data types} like \textit{int} or \textit{boolean}. In~pure object languages all~data (each variable) must be object. An~example of a~pure object language is Smalltalk (and~there is~probably no~other).
+It's~a~programming paradigm in~which data are~encapsulated into objects together with tools for~manipulating these data. An~object holds data in~\hyperref[variablefieldproperty]{fields} (also called attributes) and~provides methods (also called functions) for~manipulating with these data (typically from other objects). Java and~most other languages using the~object paradigm like C\# or C++ are~not~pure object languages, because they contain \hyperref[javadatatypes]{primitive} \hyperref[datatypes]{data types} like \textit{integer} or~\textit{boolean}. In~pure object languages all~data (each variable) must be object. An~example of a~pure object language is Smalltalk (and~there is~probably no~other).
 
 \warning Object--oriented programming is~not contradictory to~\hyperref[imperativeprogramming]{imperative programming} (or~even \hyperref[declarativeprogramming]{declarative programming}, see further).
 
@@ -100,18 +107,6 @@ It's a~programming paradigm in which programs describe their desired results wit
     \item \textbf{Property} is a~field that is~exposed to~outside of~the~class, typically by~getters and~setters.
 \end{itemize}
 
-\newsection{Declaration VS Definition}
-\index{Declaration}
-\index{Definition}
-\label{declarationdefinition}
-\begin{itemize}
-    \item \textbf{Declaration of~a~variable} means specifying the~variable name, type and~eventually \hyperref[accessmodifiers]{access level}. It~doesn't include assigning a~value to~the~variable. Example: "\textit{\mbox{private int a;}}".
-    \item \textbf{Declaration of~a~method (or~a~function)} is the~method header. It~consists~of the~method name, return value type, number, names and~types of~arguments of~the~method and~eventually its \hyperref[accessmodifiers]{access level}. Example: "\textit{\mbox{public void doSomething(int a);}}".
-    \item \textbf{Definition of~a~variable} means assigning a~value to~the~variable. It~can~immediately follow the~variable definition ("\textit{private int a = 1;}") or~appear later as~a~separate command ("\textit{private int a; ... a = 1;}").
-    \item \textbf{Definition of~a~method (or~a~function)} is the~method header with the~method body. Example: "\textit{\mbox{public void doSomething(int a) \{ ... \}}}".
-\end{itemize}
-\noindent Generally a~declaration informs \hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} about some structure. Definition allocates a~memory for~the~structure. There can be a~declaration without a~definition, but~not~reversed. One~variable or~method (or~function) can be declared multiple times, but~defined maximally once. When you assign a~new value to~already defined variable, you~rewrite the~already allocated memory. That isn't a~new definition.
-
 \newsection{Parameter VS Argument}
 \index{Argument}
 \index{Attribute}
@@ -123,7 +118,26 @@ It's a~programming paradigm in which programs describe their desired results wit
 \end{itemize}
 For~example consider a~method "\mboxtextit{doSomething(String someVariable)}". The~\mboxtextit{someVariable} is~a~parameter. When you call "\mboxtextit{doSomething("someValue")}", then \mboxtextit{someValue} is an~argument.
 
-\warning Don't get confused by the~term \textit{attribute}. That's either a~different name for~\hyperref[variablefieldproperty]{object field} or~a~\hyperref[relationaldatabase]{relational database} table column.
+\warning Don't get confused by the~term \textit{attribute}. That's either a~different name for~a~\hyperref[variablefieldproperty]{field} of~an~object or~for~a~\hyperref[relationaldatabase]{relational database} table column.
+
+\newsection{Data Types}
+\index{Data type}
+\label{datatypes}
+Each~\hyperref[variablefieldproperty]{variable} in~fact denotes a~sequence of~zeros and~ones in~the~\hyperref[systemmemory]{memory}, i.e.,~values of~memory bits. A~data type, usually written exactly before the~variable in~the~code, is~an~information for~\hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} how to~interpret that sequence, i.e., what value that sequence denotes.
+
+Each~programming language can~theoretically interpret the~same value differently, but~basics like numbers corresponding to~characters are~usually the~same. For~example consider the~value 1100001. When treated as~the~\textit{integer} type (\textit{int}~in some languages), it~represents the~number~97. When treated as~the~\textit{character} type (\textit{char}~in some languages), it~represents the~minuscule letter~\textit{a}.
+
+\newsection{Declaration VS Definition}
+\index{Declaration}
+\index{Definition}
+\label{declarationdefinition}
+\begin{itemize}
+    \item \textbf{Declaration of~a~variable} means specifying the~variable name, \hyperref[datatypes]{type} and~eventually \hyperref[accessmodifiers]{access level}. It~doesn't include assigning a~value to~the~variable. Example: "\textit{\mbox{private int a;}}".
+    \item \textbf{Declaration of~a~method (or~a~function)} is the~method header. It~consists~of the~method name, return value \hyperref[datatypes]{type}, number, names and~\hyperref[datatypes]{types} of~arguments of~the~method and~eventually its \hyperref[accessmodifiers]{access level}. Example: "\textit{\mbox{public void doSomething(int a);}}".
+    \item \textbf{Definition of~a~variable} means assigning a~value to~the~variable. It~can~immediately follow the~variable definition ("\textit{private int a = 1;}") or~appear later as~a~separate command ("\textit{private int a; ... a = 1;}").
+    \item \textbf{Definition of~a~method (or~a~function)} is the~method header with the~method body. Example: "\textit{\mbox{public void doSomething(int a) \{ ... \}}}".
+\end{itemize}
+\noindent Generally a~declaration informs \hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} about some structure. Definition allocates a~memory for~the~structure. There can be a~declaration without a~definition, but~not~reversed. One~variable or~method (or~function) can be declared multiple times, but~defined maximally once. When you assign a~new value to~already defined variable, you~rewrite the~already allocated memory. That isn't a~new definition.
 
 \section*{\fontsize{17}{17} \selectfont Program VS Application VS Process VS Service VS Thread}
 \addcontentsline{toc}{section}{Application VS Process VS Program VS Service VS Thread}
@@ -203,4 +217,4 @@ It's an~encoding used for~representation of~any array of~bytes as an~ASCII strin
 \index{Application programming interface}
 \index{API}
 \label{api}
-It's~a~part of~a~software serving for~communication with other software. The~word \textit{application} is~inaccurate, even \hyperref[applicationprocessprogramservicethread]{services} can~have~API (it's~actually typical part of~a~services). It's~a~very broad term. For~example, when a~browser is~requesting \hyperref[internetweb]{web} pages from a~\hyperref[webserver]{web~server}, it~communicates with the~server~API. When a~process is~supposed to~run under an~\hyperref[os]{OS}, it~communicates with the~API of~that~OS. Methods defined in~a~class form an~API (of~instances) of~that~class. And~so~forth.
+It's~a~part of~a~software serving for~communication with other software. The~word \textit{application} is~inaccurate, even \hyperref[applicationprocessprogramservicethread]{services} can~have~API (it's~actually typical part of~a~service). It's~a~very broad term. For~example, when a~browser is~requesting \hyperref[internetweb]{web} pages from a~\hyperref[webserver]{web~server}, it~communicates with the~server~API. When a~process is~supposed to~run under an~\hyperref[os]{OS}, it~communicates with the~API of~that~OS. Methods defined in~a~class form an~API (of~instances) of~that~class. And~so~forth.
