@@ -1,7 +1,7 @@
 \newsection{Dependency Injection}
 \index{Dependency injection}
 \index{Dependency}
-\label{dependencyinjection}
+\label{springdependencyinjection}
 Spring bean classes usually contain \hyperref[variablefieldproperty]{fields} of~some interface types. \hyperref[springcontainrer]{Spring container} assigns instances of~classes implementing those interfaces to~those fields. And~this assignment\,--\,injecting\,--\,is the~dependency injection.
 
 Instances stored in fields are~called \textit{dependencies}. They mostly serve for~encapsulating configurable dynamic behavior of~Spring beans. The~configuration telling which bean should have assigned which dependency is a~part~of the~XML configuration file.
@@ -225,7 +225,7 @@ You~can inject even values of primitive types and~strings directly using the~XML
 \newsubsection{Autowiring}
 \index{Autowired}
 \label{autowiring}
-Similarly to~the~\hyperref[inversionofcontrol]{inversion of~control} even the~\hyperref[dependencyinjection]{dependency injection} can~be~handled with \hyperref[javaannotation]{Java annotations}. A~Spring functionality called \textit{autowiring} automatically detects a~dependency bean class that can~be~injected to~a~field in~the~main bean class. A~\hyperref[constructorinjection]{constructor} or~a~\hyperref[setterinjection]{setter method} performing the~injection must be annotated with the~annotation \textit{Autowired}, which processed in~runtime. The~dependency bean class must be~annotated with the~annotation \textit{Component} in~the~zero--parameter form (no~bean~ID specified). When properly combined with the~\hyperref[iocannotations]{annotation--configured} \hyperref[inversionofcontrol]{inversion of~control}, the~configuration XML file contains only the~component scanning configuration.
+Similarly to~the~\hyperref[springinversionofcontrol]{inversion of~control} even the~\hyperref[springdependencyinjection]{dependency injection} can~be~handled with \hyperref[javaannotation]{Java annotations}. A~Spring functionality called \textit{autowiring} automatically detects a~dependency bean class that can~be~injected to~a~field in~the~main bean class. A~\hyperref[constructorinjection]{constructor} or~a~\hyperref[setterinjection]{setter method} performing the~injection must be annotated with the~annotation \textit{Autowired}, which processed in~runtime. The~dependency bean class must be~annotated with the~annotation \textit{Component} in~the~zero--parameter form (no~bean~ID specified). When properly combined with the~\hyperref[iocannotations]{annotation--configured} \hyperref[springinversionofcontrol]{inversion of~control}, the~configuration XML file contains only the~component scanning configuration.
 
 \note Opposite to~the~standard \hyperref[setterinjection]{setter injection} with~XML configuration file the~name of~an~autowired setter method isn't restricted in~any~way. The~Spring's autowiring is~directed by~the~type of~its parameter. I.e.,~in~the~following example the~name of~the~setter method could~be even literally \textit{absoluteNonsense} and~the~dependency injection would~be still working.
 
@@ -554,7 +554,7 @@ When there are more dependency classes matching the~dependency interface, it~isn
 \newpage
 
 \newsubsection{Configuration with Java Code (No XML)}
-Similarly as for~the~\hyperref[inversionofcontrol]{inversion of~control} even for~the~\hyperref[dependencyinjection]{dependency injection} the~configuration XML file can~be completely omitted and~replaced by a~special configuration class with the~\textit{Configuration} annotation.
+Similarly as for~the~\hyperref[springinversionofcontrol]{inversion of~control} even for~the~\hyperref[springdependencyinjection]{dependency injection} the~configuration XML file can~be completely omitted and~replaced by a~special configuration class with the~\textit{Configuration} annotation.
 
 When you use the~\textit{ComponentScan} annotation for~the~configuration class (see~the~example in~the~\hyperref[iocnoxml]{corresponding section of~the~inversion of~control}), it's~equivalent to~using the~XML configuration file with the~\textit{component-scan} element. You~can~combine such configuration class with the~\hyperref[autowiring]{autowiring}.
 

@@ -1,8 +1,9 @@
 \newsection{Inversion of Control}
 \index{Inversion of control}
+\index{IoC}
 \index{Spring bean}
-\label{inversionofcontrol}
-It's~a~way of~creating objects with Spring containers. You~don't directly call constructors of~classes, instead you tell a~container what object (class instance) you want and~the~container will provide~it. The~purpose is to~achieve better modularity of~the~implemented system.
+\label{springinversionofcontrol}
+Spring provides a~set of~components for~achieving the~\hyperref[inversionofcontrol]{inversion of~control programming principle}. With Spring it's~possible to~create objects with Spring containers. You~don't directly call constructors of~classes, instead you tell a~container what object (class instance) you want and~the~container will provide~it. The~purpose is to~achieve better modularity of~the~implemented system.
 
 Objects created by~Spring containers using the~inversion of~control are~called \textit{Spring~beans}. You~must provide implementations of~classes and~an~XML configuration file for~a~container. Then~you instantiate a~container of~your choice and~give it the~configuration. The~configuration tells which class the~container will return when requested. And~finally you~request the~container to~give you the~instance\,--\,the~bean.
 
@@ -179,7 +180,7 @@ A~configuration class is~annotated with the~\textit{Configuration} annotation. I
     \drawarrow{ioc5java2interface.south}{ioc5java3interface2}[blue]
 \end{tikzpicture}
 
-\noindent The~other, more verbose, possibility is to~specify a~method with the~\textit{Bean} annotation returning an~instance of~the~wanted class interface (or~directly the~class) in~the~configuration class. It's~an~equivalent of~\hyperref[inversionofcontrol]{the~basic inversion of~control} with bean~IDs specified in~the~configuration XML file. The~annotation gets the~wanted bean~ID as~its parameter. The~wanted class' package name doesn't matter, the~class doesn't have to~be annotated with the~\textit{Component} annotation. The~\textit{Bean} annotation exists even in the~zero--parameter form, i.e., the bean ID can be omitted. In that case the bean ID is the same as the~bean--creating method.
+\noindent The~other, more verbose, possibility is to~specify a~method with the~\textit{Bean} annotation returning an~instance of~the~wanted class interface (or~directly the~class) in~the~configuration class. It's~an~equivalent of~\hyperref[springinversionofcontrol]{the~basic inversion of~control} with bean~IDs specified in~the~configuration XML file. The~annotation gets the~wanted bean~ID as~its parameter. The~wanted class' package name doesn't matter, the~class doesn't have to~be annotated with the~\textit{Component} annotation. The~\textit{Bean} annotation exists even in the~zero--parameter form, i.e., the bean ID can be omitted. In that case the bean ID is the same as the~bean--creating method.
 \newpage
 
 \example[Java code configuration\,--\,explicit bean--creating method]
