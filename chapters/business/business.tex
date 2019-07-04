@@ -1,0 +1,32 @@
+\newchapter{Business}
+\index{Business}
+\index{Enterprise}
+\label{business}
+Business is an~organization or~economic system where goods and~services are~exchanged for~one~another or~for~money. Every business requires some form of~investment and~enough customers to~whom its output can~be~sold on~a~consistent basis in~order to~make a~profit. Businesses can~be~privately owned, state owned or~not~for~profit. A~business created for~making profit can~be also called \textit{enterprise}.
+
+\newsection{Line of Business (LOB)}
+\index{Line of business}
+\index{LOB}
+This term denotes a~products or~services offered by a~\hyperref[business]{business} or~manufacturer. For~example, a~line of~business of~a~power plant is~electricity. A~line of~business of~a~brewery is~beer. And~a~line of~business of~China is~everything.
+
+A~line of~business application is one of~the~set of~critical computer applications that are~necessary FOR~running an~enterprise system. LOB~applications are~usually large programs that contain a~number of~integrated capabilities and~tie~into databases and~database management systems. For~example, if~a~power plant has~one central software controlling the~whole plant, the~software is a~LOB~application of~that~plant.
+
+\newsection{Stakeholder}
+\index{Stakeholder}
+A~stakeholder is either an~individual, group or~organization who is impacted by the~outcome of~a~project. They have an~interest in the~success of~the~project, and~can~be within or~outside the~organization that is sponsoring the~project. Stakeholders are~all~people somehow participating in~the~project, from the~lowest workers, over bosses to~customers. Stakeholders can~have a~positive or~negative influence on~the~project. Usually the~more important a~stakeholder is~considered to~be in the~official hierarchy, the~more negative influence he~has.
+
+\newsection{Business Logic}
+\index{Business logic}
+\index{Domain logic}
+\label{businesslogic}
+Business logic, also called \textit{domain logic}, is~a~part of~a~\hyperref[applicationprocessprogramservicethread]{program} implementation that handles tasks the~program is actually created~for. It's~basically the~code handling data transfers between a~user interface and~a~database, usually also performing some computations with these data.
+
+For~example consider a~super modern wage management system. Basic wages and~expenses are~inserted manually to~this system for~each employee. Based on inserted values the~system does the~following:
+\begin{itemize}
+    \item For~each employee subtract expenses from the~basic wage.
+    \item Subtract another 10\,\% of~the~previous result and~send it to~the~account of~the~boss.
+    \item Send the~remaining money to~the~account of~the~employee.
+    \item If~expenses are~higher than the~wage in~the~first step, send threatening email to~the~employee and~mark this employee as~unreliable.
+    \item If~an~employee is~already marked as~unreliable, send him more vicious threatening email and~send even the~remaining money to~the~account of~the~boss.
+\end{itemize}
+\noindent The~code performing these points is the~business logic of~the~wage management system.

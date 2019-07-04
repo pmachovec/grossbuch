@@ -171,22 +171,6 @@ It's any~program executed or~continuously running on a~remote computer, with whi
 Exactly speaking a~server is a~continuously running software getting requests from another software and~sending responses back, i.e.,~providing a~\hyperref[applicationprocessprogramservicethread]{service} for~that other software. Servers are~often running on~specialized computers, which themselves are~called servers and~what many people think that servers~are. But~server software can~be generally running on~any~computer.
 Examples of~servers are~\hyperref[webserver]{web servers}, \hyperref[applicationserver]{application servers}, \hyperref[proxy]{proxy servers} etc.
 
-\newsection{Business Logic}
-\index{Business logic}
-\index{Domain logic}
-\label{businesslogic}
-Business logic, also called \textit{domain logic}, is~a~part of~a~\hyperref[applicationprocessprogramservicethread]{program} implementation that handles tasks the~program is actually created~for. It's~basically the~code handling data transfers between a~user interface and~a~database, usually also performing some computations with these data.
-
-For~example consider a~super modern wage management system. Basic wages and~expenses are~inserted manually to~this system for~each employee. Based on inserted values the~system does the~following:
-\begin{itemize}
-    \item For~each employee subtract expenses from the~basic wage.
-    \item Subtract another 10\,\% of~the~previous result and~send it to~the~account of~the~boss.
-    \item Send the~remaining money to~the~account of~the~employee.
-    \item If~expenses are~higher than the~wage in~the~first step, send threatening email to~the~employee and~mark this employee as~unreliable.
-    \item If~an~employee is~already marked as~unreliable, send him more vicious threatening email and~send even the~remaining money to~the~account of~the~boss.
-\end{itemize}
-\noindent The~code performing these points is the~bussiness logic of~the~wage management system.
-
 \newsection{Distributed System}
 \index{Distributed system}
 \label{distributedsystem}
