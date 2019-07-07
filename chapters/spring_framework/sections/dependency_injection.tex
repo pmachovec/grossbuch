@@ -1,12 +1,11 @@
 \newsection{Dependency Injection}
 \index{Dependency injection}
-\index{Dependency}
 \label{springdependencyinjection}
-Spring bean classes usually contain \hyperref[variablefieldproperty]{fields} of~some interface types. \hyperref[springcontainrer]{Spring container} assigns instances of~classes implementing those interfaces to~those fields. And~this assignment\,--\,injecting\,--\,is the~dependency injection.
+Spring bean classes can~contain some \hyperref[variablefieldproperty]{fields}. The~\hyperref[springcontainrer]{Spring container} can~automatically assign instances of~classes matching those \hyperref[variablefieldproperty]{fields} types. I.e., the~\hyperref[springcontainrer]{Spring container} can~perform an~automated \hyperref[dependencyinjection]{dependency injection}.
 
-Instances stored in fields are~called \textit{dependencies}. They mostly serve for~encapsulating configurable dynamic behavior of~Spring beans. The~configuration telling which bean should have assigned which dependency is a~part~of the~XML configuration file.
+Basically it must be configured what \hyperref[variablefieldproperty]{field} should get what class instance, this configuration is a~part~of the~XML configuration file. With the~\hyperref[autowiring]{autowiring feature} (see~further) it's~even possible to~completely avoid the~configuration if~the~correct class for~the~field can~be~identified unambiguously.
 
-\note Dependencies are~also Spring beans.
+\note Dependencies injected by~Spring dependency injection must~be also Spring beans.
 
 \newsubsection{Constructor Injection}
 \index{Constructor injection}
@@ -22,12 +21,13 @@ Another basic approach to~the~dependency injection is to~set the~dependency via 
 
 \warning Dependency fields in~the~main bean class can't be declared as~final when using the~setter injection. Final fields must be \hyperref[declarationdefinition]{defined} no~later than in~the~constructor, and~that can't happen with the~setter injection.
 
-\enlargethispage{10mm}
+\enlargethispage{20mm}
+\thispagestyle{empty}
 \newsubsection{Injecting literal values}
 \label{injectingliteralvalues}
 You~can inject even values of primitive types and~strings directly using the~XML configuration file. The~approach is the~same, but~instead~of using the~\textit{ref} attribute in~the~\textit{property} element you use the~\textit{value} attribute and~set directly the~value. You~can do it both for~\hyperref[constructorinjection]{constructor} and~\hyperref[setterinjection]{setter} injection.
 
-\warning If~you~mismatch injected value type (e.g.,~inject a~letters to~an~integer field), the~program will remain compilable. It~will~fail only in~runtime.
+\warning If~you~mismatch injected value type (e.g.,~inject letters to~an~integer field), the~program will remain compilable. It~will~fail only at~runtime.
 \newpage
 
 \examplenonl[constructor injection]
@@ -130,10 +130,10 @@ You~can inject even values of primitive types and~strings directly using the~XML
     \drawarrow{di2xml1package.south}{di2java2package}[Magenta]
     \drawarrow{di2xml1class}{di2java2class}[yellow][.5]
     \drawarrow{di2java2class}{di2java2class2}[yellow][.5]
-    \drawarrow{di2xml1depfield}{di2java2depfield}
+    \drawarrow{di2xml1depfield.south}{[xshift=3mm] di2java2depfield.north}
     \drawarrow{di2java1depinterface.south}{[xshift=-3mm] di2java2depinterface.north east}[red]
     \drawarrow{di2java1depinterface.south}{[xshift=6mm] di2java2depinterface2.north}[red]
-    \drawarrow{di2java2interface.south}{di2java3interface}[green][.3][bend right=12mm]
+    \drawarrow{di2java2interface.south}{[xshift=-6mm] di2java3interface.north}[green][.3][bend right=12mm]
     \drawarrow{di2java2interface.south}{di2java3interface2}[green]
     \drawarrow{di2java2usedep.south}{di2java3usedep}[blue]
 \end{tikzpicture}

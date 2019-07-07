@@ -6,6 +6,9 @@ A~principle means a~basic idea or~rule that explains or~controls how something h
 \newsection{Keep It Simple, Stupid (KISS)}
 \index{Keep it simple, stupid}
 \index{KISS}
+Simplicity of~a~system is~one of~main goals during the~system development. When developing a~system, create it as~simple as~possible to~perform the~intended goal. If~the~system is complex and~can't~be simple as~a~whole (which is typical), separate it to~a~big number of~simple components\,--\,objects and~methods.
+
+For~example, many (wannabe) skilled developers are~crazy about the~\textit{Rule~30}, which says that a~method shouldn't have more than 30 lines. Also, some "experts" say to~avoid more than three arguments for~a~method or~constructor. If~you need more, wrap them to~a~new class, instantiate it (which is kind of a~paradox as~you need to~pass all those arguments to~that instance somehow) and~use that single instance.
 
 \newsection{Inversion of~Control (IoC)}
 \index{Inversion of control}
@@ -19,3 +22,10 @@ The~most typical example is~the~\hyperref[springinversionofcontrol]{inversion of
 
 \newsection{Dependency Injection}
 \index{Dependency injection}
+\index{Dependency}
+\label{dependencyinjection}
+An~object used by another object is~called \textit{dependency}. References to~dependencies are~stored in~\hyperref[variablefieldproperty]{fields}. And~setting concrete references to~these \hyperref[variablefieldproperty]{fields} from outside is the~dependency injection. I.e.,~when you instantiate a~class and~set an~instance of~another class to~a~\hyperref[variablefieldproperty]{field} inside the~first class instance by~a~constructor or~by~a~setter, you~perform the~dependency injection.
+
+The~purpose is to~separate construction and~use of~objects, which leads to~better readability and~reusability of~the~code. Dependency injection is a~special type of~the~\hyperref[inversionofcontrol]{inversion of~control}\,--\,the~responsibility for~instantiating of~a~dependency is~delegated to~an~injector, which can~be seen as~the~reusable framework from the~original \hyperref[inversionofcontrol]{IoC} definition.
+
+The~\hyperref[springframework]{Java Spring framework} provides an~\hyperref[springdependencyinjection]{automated and~highly configurable dependecy injection} implementation.
