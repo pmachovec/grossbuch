@@ -62,7 +62,42 @@ When working with Java, you can meet the~term \textit{Java~binaries}. This refer
 \index{Private}
 \newsubsection{None}
 
-\newsection{Compound assignment}
+\newsection{Imports with Wildcards}
+\index{Import}
+\index{Wildcard}
+Some people say that when you import two or~more classes from one package, or~two or~more methods from one~class, you~should use the~wildcard import (i.e.,~something like \textit{import~package.*}). It's~even written in~the~book \textit{Clean Code} by~Robert C.~Martin. However, there are many objections to~this approach.
+
+The~main (and~actually the~only) argument favouring imports with wildcards is that they make the~code shorter, therefore, more readable. This~is somehow true, but~today's IDEs, even those for~free like Eclipse or~NetBeans, can~collapse import sections automatically. If~someone is~writing code in~some editor not~capable of~this, then he's either a~beginner not~ready for~a~real IDE and~long imports, or~he's an~idiot. Also, when a~class has~too~many imports, it's~too~dependent to~other classes, therefore, too~big and~more susceptible to~errors (if~a~dependant class breaks, my~class breaks,~too), and~therefore,~bad. Furthermore, when~a~wildcard import is~used, the~class generally has~more imports than with explicit imports, and~the~previous problem with too~many imports is~even more serious.
+
+Then there are only arguments against wildcard imports. And~one of~them~is, funny enough, the~readability. With wildcard imports it's~harder to~tell where an~imported feature comes from. Consider the~following code:
+\begin{lstlisting}[language=Java]
+    import firstPackage.*;
+    import secondPackage.*;
+    import thirdPackage.*;
+
+    public class ExampleClass {
+        private MysteryClass mysteryInstance = new MysteryClass();
+    }
+\end{lstlisting}
+
+\noindent It~isn't clear what package the~\textit{MysteryClass} class comes from. Consider it's~somehow broken and~compilation fails, and~\textit{Ctrl}\,+\,click also~doesn't work (let's~say the~package library is~completely missing). And~now consider this code:
+\begin{lstlisting}[language=Java]
+    import firstPackage.SomethingUseless;
+    import secondPackage.SomethingEvenMoreUseless;
+    import thirdPackage.MysteryClass;
+
+    public class ExampleClass {
+        private MysteryClass mysteryInstance = new MysteryClass();
+    }
+\end{lstlisting}
+
+\noindent Here it's~clear that the~\textit{MysteryClass} class comes from the~third package. So,~when observing problems, it's~clear where to~look.
+
+Now~consider that the~previous code with wildcard imports works, i.e.,~there~is a~class called \textit{MysteryClass} in~the~third package. And~now the~author of~the~second package, which lives on~the~other side of~the~world and~you don't know each~other, gets the~amazing idea to~create a~class called \textit{MysteryClass} in~the~second package. Suddenly, there's an~ambiguity in~your code, compilation stops working and~you're screwed. But~with explicit imports the~code still works without a~need of~change.
+
+\note The~most favoured linter Ktlint for~Kotlin language, which slowly starts to~push away Java, forbids wildcard imports in~the~default configuration.
+
+\newsection{Compound Assignment}
 \index{Compound assignment}
 Compound assignment operators are those shortened assignments with arithmetic operators like \mbox{\textquotesingle\textit{+=}\textquotesingle} or~\mbox{\textquotesingle\textit{-=}\textquotesingle}. You~must~be extra careful when dealing with the~subtraction compound operator (\mbox{\textquotesingle\textit{-=}\textquotesingle}). It~first computes the~right side and~then subtracts it from~the~left side, and~that can~cause unintuitive results. For~example consider the~following code:
 \begin{lstlisting}[language=Java, frame=no]
