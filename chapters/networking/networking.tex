@@ -57,7 +57,11 @@ A~web address entered to a~browser's address bar is separated to the~part identi
 \newsection{Application Server}
 \index{Application server}
 \label{applicationserver}
-Application servers are very similar to \hyperref[webserver]{web~servers}. They also get requests from clients and send back responses. The~difference is that they trigger some more complex logic. While web servers basically only return static HTML documents, application servers can, based on incoming requests, execute programs written in complex languages (Java, JavaScript, Python, C\# etc.). These programs can then be~called \hyperref[webservice]{web~services}.
+Application servers are~very similar to web~servers, they're like web~servers with additional functionality. They also get requests from clients and~send back responses and~they can~also retrieve static HTML document. The~difference is that they can~furthermore trigger some more complex logic. Application servers can, based on~incoming requests, execute programs written in~complex languages (Java, JavaScript, Python, C\# etc.). These programs can then be~called \hyperref[webservice]{web~services}.
+
+\warning The~term \textit{web server} is~often used in~the~meaning of~\textit{application server}. For~example, you~can~encounter claims that \hyperref[tomcat]{Tomcat}, a~typical example of~Java application server, is~a~web server.
+
+\warning Do~not confuse \hyperref[tomcat]{Tomcat} with the~\href{https://en.wikipedia.org/wiki/Apache_HTTP_Server}{Apache HTTP Server}, often denoted as~\textit{Apache Server} or~simply \textit{Apache}. That's a~typical \hyperref[webserver]{web server} designed for~static HTML documents handling. It~supports some advanced logic using some \hyperref[scriptinglanguages]{scripting languages} like PHP or~Python, but~it~can't run Java programs. On~the~other hand, \hyperref[tomcat]{Tomcat} serves mainly for~running Java programs (and~propagating their results to~web pages).
 
 \newsection{Domain Name Service (DNS)}
 \index{Domain name service}
