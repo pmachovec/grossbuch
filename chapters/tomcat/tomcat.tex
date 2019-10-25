@@ -1,32 +1,57 @@
 \newchapter{Tomcat}
 \index{Tomcat}
+\index{Jakarta}
 \label{tomcat}
 Tomcat is the~most widely used \hyperref[applicationserver]{application server} software for~Java. I.e.,~if some Java implementation on a~remote computer is to be initiated through \hyperref[internetweb]{web}, most likely there is a~Tomcat instance running on~that computer and triggering the~implementation.
 
-\newsection{Servlet}
-\index{Servlet}
+\warning Sometimes you can encounter the~term \textit{Jakarta} in~a~relation to~Tomcat. It's~just another name for~Tomcat to~make everything more confusing, there's no difference.
 
-\newsection{Catalina}
+\newsection{Servlet handling}
+Tomcat automatically triggers \hyperref[servlet]{servlets} as~separate \hyperref[javathread]{threads}, although it~isn't \hyperref[javathreadsafety]{thread safe} by~default. I.e.,~when two or~more users trigger the~same servlet through their browsers, it~will~work even when there's no threading implementation in~the~servlet. However, if~users are~adjusting some common resources, e.g., the~servlet writes to~a~database, they're screwed. Therefore, servlet--triggered logic should be always written in~a~manner expecting this.
+
+\warning After a~servlet returns a~response, it~is \textbf{not} removed from the~\hyperref[systemmemory]{system memory}, i.e.,~its~method \textit{destroy} is~not~invoked. The~servlet stays loaded in~the~\hyperref[systemmemory]{memory} until explicitly terminated or until the~\hyperref[garbagecollector]{garbage collector} doesn't remove it.
+
+\newsection{Basic components}
+\newsubsection{Catalina}
 \index{Catalina}
+\index{Servlet container}
+Catalina is~a~\textit{servlet container} of~Tomcat. It's~the~part responsible for~creating, triggering and~destroying \hyperref[servlet]{servlets} and~handling their requests and~responses. I.e.,~it's~the~core of~Tomcat.
 
-\newsection{Coyote}
+When a~request comes to~running Tomcat from a~client, it~goes to~Catalina. Catalina checks if~the~requested servlet is~already running. If~not, it~starts the~servlet. Then it~triggers the~\textit{service} function and~delegates the~request to~it. When the~response comes back from the~servlet, Catalina passes it~to~the~client.
+\newpage
+
+\newsubsection{Coyote}
 \index{Coyote}
+\index{Connector}
+\label{coyote}
+Coyote~is a~\hyperref[http]{HTTP} connector of~Tomcat. It's~the~entry point for~HTTP requests coming from clients and~also the~terminating point sending responses back to~clients.
 
-\newsection{Installation and configuration}
-Simply download the~correct zip or~tar archive and~extract its content (one~folder) anywhere on~your computer. The~folder you~extracted is further referenced as~the~Tomcat folder. You~don't have to~set~up any special configuration, Tomcat automatically uses the~Java version referenced by~the~JAVA\_HOME and~ports are~already configured in~\textit{TOMCAT\_FOLDER/conf/server.xml}.
+\warning Do not get confused by the~standard Coyote description. That says that Coyote (a~\hyperref[http]{\textbf{HTTP}} connector) listens on \hyperref[tcp]{\textbf{TCP}} ports. That's actually correct. Both these protocols are~used in~the~\hyperref[tcpip]{TCP/IP architecture}. The~\hyperref[http]{HTTP} protocol is in~a~higher layer an~uses information (services) provided by~the~\hyperref[tcp]{TCP} protocol.
+
+\newsubsection{Jasper}
+\index{Jasper}
+Jasper is an~\hyperref[engine]{engine} transforming \hyperref[jsp]{JSP} pages to~standard servlet classes. Java compilers nor~\hyperref[catalina]{Catalina} don't understand JSP source code, they require standard Java code.
+
+\newsection{Installation}
+Simply download the~correct zip or~tar archive and~extract its content (one~folder) anywhere on~your computer. You~don't have to~set~up any special configuration, Tomcat automatically uses the~Java version referenced by~the~JAVA\_HOME and~ports are~already configured in~\textit{TOMCAT\_FOLDER/conf/server.xml}.
 
 \warning In~Windows you can also download and~run the~installer. However, be~aware that by~this approach Tomcat becomes one~of~your Windows \hyperref[applicationprocessprogramservicethread]{services}, which starts automatically on~Windows startup, i.e.,~it~consumes performance continuously. And~it~isn't so~easy to~remove the~service later.
 
-\todo Do I need to set up the admin user?
+\newsection{Configuration}
+\newsubsection{Users}
+\todo Admin user
 
-\newsection{Setting Up in IntelliJ Idea}
-First (if you don't use a~remote Tomcat) you have to tell IntelliJ where Tomcat is installed on~your computer. Go~to \textit{File $\rightarrow$ Settings $\rightarrow$ Build,~Execution,~Deployment $\rightarrow$ Application~Servers}, click on~the~\textit{plus} symbol and~set the~path to~the~Tomcat folder.
+\newsubsection{Roles}
+
+\newsubsection{Groups}
+
+\newsubsection{Shutdown Port}
+
+\newsection{Setup in IntelliJ Idea}
+First you must have enabled the~\textit{Tomcat and~TomEE Integration} plugin. Then you have to tell IntelliJ where Tomcat is installed on~your computer (if you don't use a~remote Tomcat). Go~to \textit{File $\rightarrow$ Settings $\rightarrow$ Build,~Execution,~Deployment $\rightarrow$ Application~Servers}, click on~the~\textit{plus} symbol, from the~displayed dropdown select \textit{Tomcat Server} and~set the~path to~the~Tomcat folder.
 
 As~IntelliJ is more focused to~have projects separated (opposite to~Eclipse, where you can have all projects in one window), you need a~project created and~you assign a~Tomcat installation to~that project. With a~project opened in~IntelliJ go~to \textit{Run $\rightarrow$ Edit~Configurations}, click on~the~\textit{plus} symbol, from displayed dropdown menu select \textit{Tomcat Server} $\rightarrow$ \textit{Local} (no~problem setting remote if you have~one), fill the~configuration form (it's~quite intuitive) and~click~\textit{OK}.
 
 \warning You~need the~ultimate edition of~IntelliJ. The~community (free) version doesn't support application server integration. So~basically if~you don't get a~license from your employer, you're screwed.
 
-\newsection{Shutdown Port}
-\index{Shutdown port of Tomcat}
-
-
+\newsection{Running}

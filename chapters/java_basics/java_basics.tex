@@ -2,11 +2,11 @@
 \newsection{Bytecode}
 \index{Bytecode}
 \label{bytecode}
-Bytecode is the result of compilation of Java code. It's stored in \textit{.class} files. For~people it's an unreadable mess (it's a type of \hyperref[bytecodebinarycode]{binary code}), however it isn't the machine code which a processor can read. It must be read and further transformed to~the~machine code by JVM, i.e.,~it's a~middle step between written Java code and its execution. The reason of this approach is that bytecode is transferable between platforms (that's why sometimes it's called \textit{portable code})\,--\,no~matter on what platform (platform\,=\,OS\,+\,hardware, hardware\,=\,\hyperref[32bvs64b]{32b~VS~64b}) the original Java code was written and compiled, the resulting bytecode will be executable on any other platform. The~thing which is different for each platform is \hyperref[jdkjrejvm]{JRE}.
+Bytecode is the result of compilation of Java code. It's stored in \textit{.class} files. For~people it's an unreadable mess (it's a type of \hyperref[bytecodebinarycode]{binary code}), however it isn't the machine code which a processor can read. It must be read and further transformed to~the~machine code by JVM, i.e.,~it's a~middle step between written Java code and its execution. The reason of this approach is that bytecode is transferable between platforms (that's why sometimes it's~called \textit{portable code})\,--\,no~matter on what platform (platform\,=\,OS\,+\,hardware, hardware\,=\,\hyperref[32bvs64b]{32b~VS~64b}) the original Java code was~written and~compiled, the~resulting bytecode will be executable on~any~other platform. The~thing which is different for~each platform is~\hyperref[jdkjrejvm]{JRE}.
 
-For comparison consider C++. In this programming language the result of compilation is directly the machine code, which must be different for each platform, i.e.,~the~thing in C++ which is different for each platform is the compiler.
+For~comparison consider C++. In~this programming language the~result of~compilation is directly the~machine code, which must be different for~each platform, i.e.,~the~thing in C++ which is different for~each platform is the~ompiler.
 
-By the way the approach with middle--step code is used also by C\#, which is compiled to~so~called CIL (Common Intermediate Language). The~main difference of~CIL from bytecode is that CIL is human--readable, although reading it is quite complicated (and~useless).
+By~the~way the approach with middle--step code is used also by~C\#, which is compiled to~so~called CIL (Common Intermediate Language). The~main difference of~CIL from bytecode is that CIL is human--readable, although reading it is quite complicated (and~useless).
 
 \newsubsection{Bytecode VS Binary Code}
 \index{Binary code}
@@ -14,6 +14,7 @@ By the way the approach with middle--step code is used also by C\#, which is com
 Binary code is generally any code in a~form readable for a~computer. It can be machine code read by processors, bytecode read by JVMs, stored database data read by database software etc. The typical sign of binary code is that it can't be read by humans. By this definition the~C\#'s~CIL mentioned earlier is not a~binary code.
 
 When working with Java, you can meet the~term \textit{Java~binaries}. This refers to \textit{.class} files with bytecode, because the bytecode is~a~form of~binary code.
+\newpage
 
 \newsection{JDK VS JRE VS JVM}
 \index{JDK}
@@ -51,73 +52,6 @@ When working with Java, you can meet the~term \textit{Java~binaries}. This refer
 \index{Reference data type}
 \label{javadatatypes}
 
-\newsection{Access Modifiers}
-\index{Access modifier}
-\label{accessmodifiers}
-\newsubsection{Public}
-\index{Public}
-\newsubsection{Protected}
-\index{Protected}
-\newsubsection{Private}
-\index{Private}
-\newsubsection{None}
-
-\newsection{Imports with Wildcards}
-\index{Import}
-\index{Wildcard}
-Some people say that when you import two or~more classes from one package, or~two or~more methods from one~class, you~should use the~wildcard import (i.e.,~something like \textit{import~package.*}). It's~even written in~the~book \textit{Clean Code} by~Robert C.~Martin. However, there are many objections to~this approach.
-
-The~main (and~actually the~only) argument favouring imports with wildcards is that they make the~code shorter, therefore, more readable. This~is somehow true, but~today's IDEs, even those for~free like Eclipse or~NetBeans, can~collapse import sections automatically. If~someone is~writing code in~some editor not~capable of~this, then he's either a~beginner not~ready for~a~real IDE and~long imports, or~he's an~idiot. Also, when a~class has~too~many imports, it's~too~dependent to~other classes, therefore, too~big and~more susceptible to~errors (if~a~dependant class breaks, my~class breaks,~too), and~therefore,~bad. Furthermore, when~a~wildcard import is~used, the~class generally has~more imports than with explicit imports, and~the~previous problem with too~many imports is~even more serious.
-
-Then there are only arguments against wildcard imports. And~one of~them~is, funny enough, the~readability. With wildcard imports it's~harder to~tell where an~imported feature comes from. Consider the~following code:
-\begin{lstlisting}[language=Java]
-    import firstPackage.*;
-    import secondPackage.*;
-    import thirdPackage.*;
-
-    public class ExampleClass {
-        private MysteryClass mysteryInstance = new MysteryClass();
-    }
-\end{lstlisting}
-
-\noindent It~isn't clear what package the~\textit{MysteryClass} class comes from. Consider it's~somehow broken and~compilation fails, and~\textit{Ctrl}\,+\,click also~doesn't work (let's~say the~package library is~completely missing). And~now consider this code:
-\begin{lstlisting}[language=Java]
-    import firstPackage.SomethingUseless;
-    import secondPackage.SomethingEvenMoreUseless;
-    import thirdPackage.MysteryClass;
-
-    public class ExampleClass {
-        private MysteryClass mysteryInstance = new MysteryClass();
-    }
-\end{lstlisting}
-
-\noindent Here it's~clear that the~\textit{MysteryClass} class comes from the~third package. So,~when observing problems, it's~clear where to~look.
-
-Now~consider that the~previous code with wildcard imports works, i.e.,~there~is a~class called \textit{MysteryClass} in~the~third package. And~now the~author of~the~second package, which lives on~the~other side of~the~world and~you don't know each~other, gets the~amazing idea to~create a~class called \textit{MysteryClass} in~the~second package. Suddenly, there's an~ambiguity in~your code, compilation stops working and~you're screwed. But~with explicit imports the~code still works without a~need of~change.
-
-\note The~most favoured linter Ktlint for~Kotlin language, which slowly starts to~push away Java, forbids wildcard imports in~the~default configuration.
-
-\newsection{Compound Assignment}
-\index{Compound assignment}
-Compound assignment operators are those shortened assignments with arithmetic operators like \mbox{\textquotesingle\textit{+=}\textquotesingle} or~\mbox{\textquotesingle\textit{-=}\textquotesingle}. You~must~be extra careful when dealing with the~subtraction compound operator (\mbox{\textquotesingle\textit{-=}\textquotesingle}). It~first computes the~right side and~then subtracts it from~the~left side, and~that can~cause unintuitive results. For~example consider the~following code:
-\begin{lstlisting}[language=Java, frame=no]
-    int x = 5;
-    x = x - 1 + 2 - 3; @>// 3
-\end{lstlisting}
-
-\noindent The~variable~$x$ is~evaluated to~$3$, because $5-1+2-3=3$. And~now consider the~"\textit{equivalent}" code with the~compound assignment subtraction:
-\begin{lstlisting}[language=Java, frame=no]
-    int x = 5;
-    x -= 1 + 2 - 3; @>// 5
-\end{lstlisting}
-
-\noindent The~variable~$x$ is~evaluated to~$5$, because $1+2-3=0$ (right side) and~$5-0=5$ (left side). To~avoid falling to~this trap always treat the~right side to~be~calculated first.
-
-\newsection{Serialization}
-\index{Serialization}
-\index{Serializable}
-\label{serialization}
-
 \newsection{POJO}
 \index{POJO}
 \label{pojo}
@@ -139,7 +73,7 @@ The~abbreviation stands for~\textit{Plain Old Java Object}. It~denotes \textbf{a
 \label{javabeans}
 Java Bean is every~class that follows these three~restrictions:
 \begin{itemize}
-    \item It~implements the~interface \hyperref[serialization]{\textit{Serializable}}, i.e.,~its instances are~serializable.
+    \item It~implements the~interface \textit{Serializable}, i.e.,~its instances are~\hyperref[serialization]{serializable}.
     \item All its \hyperref[variablefieldproperty]{properties} are~private variables accessible by~getters and~setters in~the~form \textit{get\dots} and~\textit{set\dots}
     \item It has a~public zero--parameter constructor.
 \end{itemize}
@@ -180,16 +114,6 @@ In~the~past there were no~annotations. The~specification was~given by~interfaces
 \index{Javax}
 \label{javax}
 
-\newsection{Servlets}
-\index{Servlet}
-
-\newsection{JSP}
-\index{JSP}
-
-\newsection{Attribute VS Parameter}
-\index{Attribute}
-\index{Parameter}
-
-\newsection{Namespaces}
-\index{Namespace}
-
+\newsection{Garbage Collector}
+\index{Garbage collector}
+\label{garbagecollector}

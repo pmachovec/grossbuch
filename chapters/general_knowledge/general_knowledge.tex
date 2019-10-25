@@ -164,18 +164,25 @@ Each~programming language can~theoretically interpret the~same value differently
     \item \textbf{Thread} is a~set of consecutive steps performed one by~one in a~process. A~process can be separated to~more threads which can run in~parallel (if~the~program implementation supports~it).
 \end{itemize}
 
-\newsubsection{Web Service}
+\newsubsection{Web Service VS Web Application}
 \index{Web service}
-\label{webservice}
-It's any~program executed or~continuously running on a~remote computer, with which programs on~other computers communicate over the~\hyperref[internetweb]{Web}, i.e.,~using the~\hyperref[http]{HTTP} protocol. A~program called \hyperref[clientserverarchitecture]{client}, running on a~user's computer, sends a~request to~another~program called \hyperref[clientserverarchitecture]{server} running on~the~remote computer (the~same computer as the~target remote program), the~server delegates the~request to~the~remote program, the~remote program processes the~request and~sends a~response to~the~server, which then delegates it back to~the~client.
-
-\warning The~term \textit{web service} is~ambiguous. Sometimes it denotes solely the~remote program, sometimes it includes even the~server. Also, opposite to~a~standard \hyperref[applicationprocessprogramservicethread]{service} the~remote program doesn't have to run continuously. Only the~server does.
+\index{Web application}
+\label{webserviceapplication}
+\begin{itemize}
+    \item \textbf{Web~service} is any~program executed or~continuously running on a~remote computer, with which programs on~other computers communicate over the~\hyperref[internetweb]{Web}, i.e.,~using the~\hyperref[http]{HTTP} protocol. A~program called \hyperref[clientserverarchitecture]{client}, running on a~user's computer, sends a~request to~another~program called \hyperref[clientserverarchitecture]{server} running on~the~remote computer (the~same computer as the~target remote program), the~server delegates the~request to~the~remote program, the~remote program processes the~request and~sends a~response to~the~server, which then delegates it back to~the~client. \warningnonl The~term \textit{web service} is~ambiguous. Sometimes it denotes solely the~remote program, sometimes it includes even the~server. Also, opposite to~a~standard \hyperref[applicationprocessprogramservicethread]{service} the~remote program doesn't have to run continuously. Only the~server does.
+    \item \textbf{Web~application} is basically a~web~service with a~\hyperref[shellcligui]{GUI} in~a~web browser on~the~client side. In~a~web application a~user actively interacts with a~web page, based on~this interaction requests are~sent to~a~web service, responses are~sent back and~visualised in~the~browser.
+\end{itemize}
 
 \newsection{Server}
 \index{Server}
 \label{server}
 Exactly speaking a~server is a~continuously running software getting requests from another software and~sending responses back, i.e.,~providing a~\hyperref[applicationprocessprogramservicethread]{service} for~that other software. Servers are~often running on~specialized computers, which themselves are~called servers and~what many people think that servers~are. But~server software can~be generally running on~any~computer.
 Examples of~servers are~\hyperref[webserver]{web servers}, \hyperref[applicationserver]{application servers}, \hyperref[proxy]{proxy servers} etc.
+
+\newsection{Engine}
+\index{Engine}
+\label{engine}
+Engine is any~software performing a~specific task. Usually software performing nontrivial tasks is~denoted as~engine. For~example, \hyperref[jdkjrejvm]{JVM} is~an~engine executing (compiled) Java code. But~even a~simple Hello World program is an~engine in~fact.
 
 \newsection{Distributed System}
 \index{Distributed system}
@@ -214,6 +221,7 @@ It's an~encoding used for~representation of~any array of~bytes as an~ASCII strin
 \newsection{Shell VS CLI VS GUI}
 \index{Shell}
 \index{CLI}
+\index{GUI}
 \label{shellcligui}
 \begin{itemize}
     \item \textbf{Shell} is any software for~controlling \hyperref[os]{operating system}.
