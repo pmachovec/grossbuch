@@ -7,7 +7,7 @@ An~architectural pattern is a~general, reusable solution to~a~commonly occurring
 \index{Model--view--controller}
 \index{MVC}
 \label{mvc}
-This pattern is~used for~systems with a~user interface. Although initially used for~desktop applications, it's~popular also for~\hyperref[internetweb]{web applications}. It~describes a~system separation to~three \hyperref[loosetightcoupling]{loosely coupled} components, where a~change in~one~component causes only minimal (ideally none) changes in~other two components. It~should be~possible to~develop, maintain and~reuse each component separately. Components are as~expected:
+This pattern is~used for~systems with a~user interface. Although initially used for~desktop applications, it's~popular also for~\hyperref[internetweb]{web applications}. It~describes a~system separation to~three \hyperref[loosetightcoupling]{loosely coupled} components, where a~change in~one~component causes only minimal (ideally none) changes in~other two components. It~should be possible to~develop, maintain and~reuse each component separately. Components are as~expected:
 \begin{itemize}
     \item \textbf{Model}\,--\,an~abstraction of~data with which the~system operates, for~example classes representing records in~database tables. It's~independent of~other two~components. \warningnonl It~does~\textbf{not} include the~database itself.
     \item \textbf{View}\,--\,information displayed to~a~user, for~example a~\hyperref[web] page with results of~a~\hyperref[webserviceapplication]{web service} computation. Often is a~part of~\hyperref[shellcligui]{GUI}, which also serves for~sending commands to~the~controller from the~user.

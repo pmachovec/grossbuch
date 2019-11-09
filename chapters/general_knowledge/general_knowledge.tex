@@ -39,9 +39,8 @@ The~abbreviation stands for~\textit{Portable Operating System Interface} (yes,~\
 \label{unixlinux}
 \begin{itemize}
     \item \textbf{Unix},~often written in~capital letters (UNIX), was~originally a~\hyperref[shellcligui]{CLI}--controlled~\hyperref[os]{OS} developed in 1969 by~\href{https://en.wikipedia.org/wiki/Bell_Labs}{Bell~Labs} for~their internal use. In~late 1970s Bell~Labs owner \href{https://en.wikipedia.org/wiki/AT\%26T}{AT\&T} started to~sell Unix \hyperref[licencing]{licences} to~outside parties, which created their own enhanced mutations of~the~original~system. Nowadays there is so~called Unix family, which denotes all~\hyperref[os]{operating systems} derived this way from the~original Unix. The~most known Unix of~today is~probably macOS (although having \hyperref[hybridkernel]{hybrid kernel}). \warningnonl Unix systems are~commercial and~their owners don't release source codes (they also had~to~pay for~the~\hyperref[licencing]{licence}).
-    \item \textbf{Linux} was~originally only an~\hyperref[kernel]{OS~kernel} developed in~1991 by~\href{https://en.wikipedia.org/wiki/Linus_Torvalds}{Linus Torvalds}. It~was~heavily inspired by~Unix (they both follow \hyperref[posix]{POSIX} standards), but~opposite to~Unix the~Linux source code was~publicly released under the~\hyperref[gpl]{GNU GPL} licence. \hyperref[os]{Operating systems} said to~be~Linux use variations of~that original Linux kernel. Although claimed to~be~free, there are~even commercial Linuxes containing some nontrivial enhancements or~specializations, for~example SUSE Linux Enterprise for~\hyperref[server]{server} computers.
+    \item \textbf{Linux} was~originally only an~\hyperref[kernel]{OS~kernel} developed in~1991 by~\href{https://en.wikipedia.org/wiki/Linus_Torvalds}{Linus Torvalds}. It~was~heavily inspired by~Unix (they both follow \hyperref[posix]{POSIX} standards), but~opposite to~Unix the~Linux source code was~publicly released under the~\hyperref[gpl]{GNU GPL} licence. \hyperref[os]{Operating systems} said to~be Linux use variations of~that original Linux kernel. Although claimed to~be free, there are~even commercial Linuxes containing some nontrivial enhancements or~specializations, for~example SUSE Linux Enterprise for~\hyperref[server]{server} computers.
 \end{itemize}
-\newpage
 
 \newsection{Architecture VS Design}
 \index{Architecture}
@@ -49,30 +48,95 @@ The~abbreviation stands for~\textit{Portable Operating System Interface} (yes,~\
 \label{architecturedesign}
 Both these terms denote some description of~a~system before its implementation. They differ in~the~level of~abstraction, i.e.,~in~how~concrete the~description~is.
 \begin{itemize}
-    \item \textbf{Architecture} is a~high abstraction level. It~describes main components of~a~system, their properties and~relations among them. Examples of~such components are~used programming language, individual functional parts to~implement, \hyperref[databases]{database} software or~\hyperref[server]{servers}. One~architecture can~be~used for~multiple designs. Solutions for~issues commonly occurring in~software architectures are~described by~\hyperref[architecturalpatterns]{architectural patterns}.
-    \item \textbf{Design} is a~low abstraction level. It~describes implementation details more in~detail, like classes, functions, their relations etc. Software design can~be described by~an~UML diagram. There can~be~more designs for~one~system, each~describing different part of~the~system. Solutions for~issues commonly occurring in~software designs are~described by~\hyperref[designpatterns]{design patterns}.
+    \item \textbf{Architecture} is a~high abstraction level. It~describes main components of~a~system, their properties and~relations among them. Examples of~such components are~used programming language, individual functional parts to~implement, \hyperref[databases]{database} software or~\hyperref[server]{servers}. One~architecture can~be used for~multiple designs. Solutions for~issues commonly occurring in~software architectures are~described by~\hyperref[architecturalpatterns]{architectural patterns}.
+    \item \textbf{Design} is a~low abstraction level. It~describes implementation details more in~detail, like classes, functions, their relations etc. Software design can~be described by~an~UML diagram. There can~be more designs for~one~system, each~describing different part of~the~system. Solutions for~issues commonly occurring in~software designs are~described by~\hyperref[designpatterns]{design patterns}.
 \end{itemize}
 
-\newsection{Object--Oriented Programming}
+\newsection{Object--Oriented Programming (OOP)}
 \index{Object--oriented programming}
+\index{OOP}
 \label{objectorientedprogramming}
-It's~a~programming paradigm in~which data are~encapsulated into objects together with tools for~manipulating these data. An~object holds data in~\hyperref[variablefieldproperty]{fields} (also called attributes) and~provides methods (also called functions) for~manipulating with these data (typically from other objects). Java and~most other languages using the~object paradigm like C\# or C++ are~not~pure object languages, because they contain \hyperref[javadatatypes]{primitive} \hyperref[datatypes]{data types} like \textit{integer} or~\textit{boolean}. In~pure object languages all~data (each variable) must be object. An~example of a~pure object language is Smalltalk (and~there is~probably no~other).
+It's~a~programming paradigm in~which data are~\hyperref[encapsulation]{encapsulated} into objects together with tools for~manipulating these data. An~object holds data in~\hyperref[variablefieldproperty]{fields} (also called attributes) and~provides methods (also called functions) for~manipulating with these data (typically from other objects). Java and~most other languages using the~object paradigm like C\# or C++ are~not~pure object languages, because they contain \hyperref[javadatatypes]{primitive} \hyperref[datatypes]{data types} like \textit{integer} or~\textit{boolean}. In~pure object languages all~data (each variable) must be object. An~example of a~pure object language is Smalltalk (and~there is~probably no~other).
 
 \warning Object--oriented programming is~not contradictory to~\hyperref[imperativeprogramming]{imperative programming} (or~even \hyperref[declarativeprogramming]{declarative programming}, see further).
 
-\newsection{Basic Concepts of Object--Oriented Programming}
+\newsection{Basic Concepts of OOP}
 
 \newsubsection{Encapsulation}
 \index{Encapsulation}
+\label{encapsulation}
+Encapsulation is the~essence of~OOP. It~means having data (\hyperref[variablefieldproperty]{fields}) and~tools for~manipulating these data (methods, functions) in~a~same object (class). The~access to~data and~tools is~restricted, typically by \hyperref[javaaccessmodifiers]{access modifiers}. The~data can~also be objects, i.e.,~objects can~be encapsulated in~other objects. Purposes~are:
+\begin{itemize}
+    \item \textbf{Maintainability}\,--\,data and~tools for~manipulating them are~at~one place.
+    \item \textbf{Security}\,--\,when the~access is~restricted, users can't read or~change data they aren't supposed to read or~change.
+    \item \textbf{Changeability}\,--\,when needed, functionality of~encapsulated tools can~be changed without affecting users of~the~object.
+\end{itemize}
+
+\warning Having all \hyperref[variablefieldproperty]{fields} in~an~object private and~providing getters and~setters for~them is not an~encapsulation. This~is just a~convention that most of~OOP languages follow, but~for~example Python, although an~OOP language, accesses fields directly by the~dot notation.
 
 \newsubsection{Inheritance}
 \index{Inheritance}
+\label{inheritance}
+It's~a~mechanism for~avoiding writing a~code for~a~functionality common for~more objects, i.e.,~for~avoiding code duplicity. The~common code is~written only once in~one ancestor object (parent) and~descendant objects (children), which should contain the~code functionality, just inherit the~ancestor. Purposes~are:
+\begin{itemize}
+    \item \textbf{Simplicity}\,--\,no~need to~write common code more times.
+    \item \textbf{Changeability}\,--\,when common code needs a~change, there's only one place to~change.
+    \item \textbf{Maintainability}\,--\,same as~changeability.
+\end{itemize}
+
+\warning When an~object implements an~\hyperref[javainterface]{interface}, it~isn't the~inheritance, that's the~\hyperref[abstraction]{abstraction}.
 
 \newsubsection{Polymorphism}
 \index{Polymorphism}
+\index{Virtual method}
+It~means that one~method or~function of~an~object can~get \hyperref[parameterargument]{arguments} of~various different \hyperref[datatypes]{data types} in~same \hyperref[parameterargument]{parameter} positions. For~example, basic numberic operations (addition, subtraction,~\dots) work with all available number types. Purposes are:
+\begin{itemize}
+    \item \textbf{Simplicity}\,--\,no~need to~have a~different method name for~each possible \hyperref[parameterargument]{argument} type combinations.
+    \item \textbf{Maintainability}\,--\,same as~simplicity.
+\end{itemize}
+
+\noindent There are three types of~the~polymorphism:
+\begin{itemize}
+    \item \textbf{Ad hoc}\,--\,simple overloading based on~argument types. In~one~object there are more method implementations with the~same number of~parameters, but~in~each these parameters have different types. The~correct implementation is~decided by~types of provided arguments, usually during the~code compilation.
+    \item \textbf{Parametrical}\,--\,method parameters have so~called \hyperref[javagenerics]{generic types}, which substitute concrete \hyperref[datatypes]{types}. Correct concrete types are~decided by~used values in~runtime.
+    \item \textbf{Subtype}\,--\,connected with the~\hyperref[inheritance]{inheritance} and~\hyperref[virtualmethod]{virtual methods}. There can~be an~ancestor and~a~descendant and you can assign an~instance of~the~descendant to~the~variable of~the~\hyperref[datatype]{type} of~the~ancestor (\textit{Ancestor variable = new Descendant();}). When the~descendant \hyperref[javaoverride]{overrides} a~method \hyperref[declarationdefinition]{defined} in~the~ancestor and~the~method is declared as~\textit{virtual}, calling the~method on~the~variable (which has the~ancestor type) actually triggers the~implementation from the~descendant.
+\end{itemize}
+
+\warning In~Java or~C\# all methods are~virtual by~default and~the~subtype polymorphism is~happening automatically.
 
 \newsubsection{Abstraction}
 \index{Abstraction}
+\index{Level of abstraction}
+\label{abstraction}
+It~means hiding implementation details of~objects and~providing only tools to~use objects (methods, functions). When you use some already existing library or~\hyperref[api]{API}, you~don't know and~don't care how it works inside. You~only have some object, call a~method and~get a~result. That's the~abstraction. Purposes~are:
+\begin{itemize}
+    \item \textbf{Simplicity}\,--\,users of~objects are~not~overwhelmed by internal implementation of~those objects, which can~be very complex. They can~simply incorporate objects to~their own implementations regardless objects complexity.
+    \item \textbf{Changeability}\,--\,when needed, functionality of~provided tools can~be changed without affecting users of~the~object.
+\end{itemize}
+
+\warning The~abstraction is~broken by the~\hyperref[inheritance]{inheritance concept}\,--\,to~correctly implement a~descendant object you should know the~implementation of~the~ancestor. For~this reason it's~recommended to~avoid inheritance as~much as~possible, unless preventing the~code duplicity.
+
+\warning Don't confuse it with the~\hyperref[encapsulation]{encapsulation concept}. They're tightly coupled and~encapsulation doesn't make any use without the~abstraction. You~can quite often encounter a~definition of~one labeled as~a~definition of~the~other. But~they're different. Abstraction handles object manipulation tools, encapsulation handles (beside others) restriction of~access to~these tools. A~developer cares about the~abstraction during software \hyperref[architecturedesign]{design}, and~about the~encapsulation during implementation. The~abstraction (hiding implementation) is~achieved by method headers, \hyperref[javaabstractclasses]{abstract classes} and~\hyperref[javainterfaces]{interfaces} and~the~encapsulation (restricting access) is~achieved by \hyperref[javaaccessmodifiers]{access modifiers}.
+
+Nevertheless, be~aware that deciding how~to~encapsulate \hyperref[javadatatypes]{primitive} variables and~"smaller" objects into "bigger" objects is a~part of~the~\hyperref[architecturedesign]{design}, i.e.,~it~belongs under the~abstraction concept. With varying depth of~\hyperref[variablefieldproperty]{fields} in~the~encapsulation tree we~talk about different levels of~abstraction.
+
+\example[abstraction without encapsulation]
+\begin{lstlisting}[language=Java]
+    float PI = 3.1415926535897932384626433832795028841971693993751058;
+    ...
+    doSomethingWithFloat(PI);
+\end{lstlisting}
+
+\noindent The~complicated value is~not encapsulated in~an~object, but~it's~hidden behind a~variable. Something like this can actually happen in~real programming.
+
+\example[encapsulation without abstraction]
+\begin{lstlisting}[language=Java]
+    public class UselessClass {
+        private int uselessVariable = 0;
+    }
+\end{lstlisting}
+
+\noindent The~value is~encapsulated in~the~class, but~is~not~used inside any~method of~the~class. Something like this doesn't happen in~real programming.
 
 \newsection{Object VS Data Structure}
 
@@ -86,12 +150,12 @@ It's~a~programming paradigm in~which data are~encapsulated into objects together
 \label{imperativeprogramming}
 It's a~programming paradigm in which a~program behavior is changed by~specified statements. The~order of~executing statements is~called \textit{control flow}, or~also \textit{flow of~control}. It's~opposite of \hyperref[declarativeprogramming]{declarative programming}.
 
-\warning It is \textbf{not} contradictory to \hyperref[objectorientedprogramming]{object--oriented programming}, imperative languages can be object--oriented. Actually, today's most used object--oriented languages (Java, C\#, C++) are imperative.
+\warning It is \textbf{not}~contradictory to~\hyperref[objectorientedprogramming]{object--oriented programming}, imperative languages can~be object--oriented. Actually, today's most used object--oriented languages (Java, C\#, C++) are~imperative.
 
 \newsection{Declarative Programming}
 \index{Declarative programming}
 \label{declarativeprogramming}
-It's a~programming paradigm in which programs describe their desired results without explicitly listing commands or steps that must be performed. It's opposite~of~\hyperref[imperativeprogramming]{imperative programming}. Typical examples of~declarative languages are~SQL or~Prolog. Oracle's PL/SQL is a~kind of~hybrid language using imperative statements combined with declarative SQL. Even declarative languages can be \hyperref[objectorientedprogramming]{object--oriented} (there~is an~object extension for~Prolog).
+It's a~programming paradigm in which programs describe their desired results without explicitly listing commands or steps that must be performed. It's~opposite of~\hyperref[imperativeprogramming]{imperative programming}. Typical examples of~declarative languages are~SQL or~Prolog. Oracle's PL/SQL is a~kind of~hybrid language using imperative statements combined with declarative SQL. Even declarative languages can~be \hyperref[objectorientedprogramming]{object--oriented} (there~is an~object extension for~Prolog).
 
 \newsection{Compiled VS Interpreted Languages}
 \index{Compiled language}
@@ -145,7 +209,7 @@ Each~programming language can~theoretically interpret the~same value differently
     \item \textbf{Definition of~a~variable} means assigning a~value to~the~variable. It~can~immediately follow the~variable definition ("\textit{private int a = 1;}") or~appear later as~a~separate command ("\textit{private int a; ... a = 1;}").
     \item \textbf{Definition of~a~method (or~a~function)} is the~method header with the~method body. Example: "\textit{\mbox{public void doSomething(int a) \{ ... \}}}".
 \end{itemize}
-\noindent Generally a~declaration informs \hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} about some structure. Definition allocates a~memory for~the~structure. There can be a~declaration without a~definition, but~not~reversed. One~variable or~method (or~function) can be declared multiple times, but~defined maximally once. When you assign a~new value to~already defined variable, you~rewrite the~already allocated memory. That isn't a~new definition.
+\noindent Generally a~declaration informs \hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} about some structure. Definition allocates a~memory for~the~structure. There can~be a~declaration without a~definition, but~not~reversed. One~variable or~method (or~function) can~be declared multiple times, but~defined maximally once. When you assign a~new value to~already defined variable, you~rewrite the~already allocated memory. That isn't a~new definition.
 
 \section*{\fontsize{17}{17} \selectfont Program VS Application VS Process VS Service VS Thread}
 \addcontentsline{toc}{section}{Application VS Process VS Program VS Service VS Thread}
@@ -157,11 +221,11 @@ Each~programming language can~theoretically interpret the~same value differently
 \index{Computer program}
 \label{applicationprocessprogramservicethread}
 \begin{itemize}
-    \item \textbf{Program} is the~most general term of these. It's included in all others. A~computer program is a~set of~instructions that can be executed on a~computer.
+    \item \textbf{Program} is the~most general term of these. It's included in all others. A~computer program is a~set of~instructions that can~be executed on a~computer.
     \item \textbf{Application} is a~computer program with which, when it's executed, users actively interact.
     \item \textbf{Process} is a~particular executed and~running instance of a~program.
     \item \textbf{Service} is a~process that runs continuously in the~background without active interaction with a~user. I.e., it's the opposite of application.
-    \item \textbf{Thread} is a~set of consecutive steps performed one by~one in a~process. A~process can be separated to~more threads which can run in~parallel (if~the~program implementation supports~it).
+    \item \textbf{Thread} is a~set of consecutive steps performed one by~one in a~process. A~process can~be separated to~more threads which can run in~parallel (if~the~program implementation supports~it).
 \end{itemize}
 
 \newsubsection{Web Service VS Web Application}

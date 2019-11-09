@@ -29,7 +29,7 @@
 \newsubsection{SSH}
 \index{SSH}
 \label{ssh}
-It's a~protocol for~network communication that includes cryptographic features to~encrypt the~communication. It~enables secure communication over a~network in~a~\hyperref[clientserverarchitecture]{client--server architecture} that generally is~not secured. The abbreviation stands for \textit{Secure \hyperref[shellcligui]{Shell}}. It's typically used for~remote command line login and~remote commands execution, but~any network service can be secured with SSH (e.g., file transfer or~tunneling). It~uses \hyperref[asymmetricencryption]{asymmetric encryption} approach to~secure the~network communication.
+It's a~protocol for~network communication that includes cryptographic features to~encrypt the~communication. It~enables secure communication over a~network in~a~\hyperref[clientserverarchitecture]{client--server architecture} that generally is~not secured. The abbreviation stands for \textit{Secure \hyperref[shellcligui]{Shell}}. It's typically used for~remote command line login and~remote commands execution, but~any network service can~be secured with SSH (e.g., file transfer or~tunneling). It~uses \hyperref[asymmetricencryption]{asymmetric encryption} approach to~secure the~network communication.
 
 \newsubsection{SFTP}
 \index{SFTP}
@@ -54,14 +54,14 @@ It's a~protocol for~secured network file access, file transfer, and~file managem
 \newsection{Web Server}
 \index{Web server}
 \label{webserver}
-It's typically a~software, but~can be even a~physical computer, that stores, processes and sends HTML documents to clients over a~network, usually \hyperref[internetweb]{the~Internet}. Using dedicated software\,--\,a~web browser\,--\,clients see these documents as web pages. The~communication with clients is mainly performed over the~\hyperref[http]{HTTP protocol}. Based on~incoming request from a~client (initiated by a~web browser) the~server picks a~stored HTML document and sends it back to the~client in a~response.
+It's typically a~software, but~can~be even a~physical computer, that stores, processes and sends HTML documents to clients over a~network, usually \hyperref[internetweb]{the~Internet}. Using dedicated software\,--\,a~web browser\,--\,clients see these documents as web pages. The~communication with clients is mainly performed over the~\hyperref[http]{HTTP protocol}. Based on~incoming request from a~client (initiated by a~web browser) the~server picks a~stored HTML document and sends it back to the~client in a~response.
 
 A~web address entered to a~browser's address bar is separated to the~part identifying the~server's physical computer (\textit{www.something.com}) and the~part identifying the~wanted HTML document location (everything that follows). The~location is referred from the~server's configured home folder. For~example, consider that \textit{www.something.com} refers to~some computer with running Apache HTTP Server (a~concrete example of a~web server). The~default home folder of~Apache HTTP servers is \textit{/home/www} and hasn't been configured otherwise in~this example. You~enter \textit{www.something.com/one/two/three.html} to your web browser's address bar. The~computer is reached over~\hyperref[dns]{DNS}, the~server gets the~request and it looks for the~file \mboxtextit{/home/www/one/two/three.html}. If~the~file is found, its contents are returned to your web browser and displayed. If~not, you get the~dinosaur.
 
 \newsection{Application Server}
 \index{Application server}
 \label{applicationserver}
-Application servers are~very similar to web~servers, they're like web~servers with additional functionality. They also get requests from clients and~send back responses and~they can~also retrieve static HTML document. The~difference is that they can~furthermore trigger some more complex logic. Application servers can, based on~incoming requests, execute programs written in~complex languages (Java, JavaScript, Python, C\# etc.). These programs can then be~called \hyperref[webserviceapplication]{web~services}.
+Application servers are~very similar to web~servers, they're like web~servers with additional functionality. They also get requests from clients and~send back responses and~they can~also retrieve static HTML document. The~difference is that they can~furthermore trigger some more complex logic. Application servers can, based on~incoming requests, execute programs written in~complex languages (Java, JavaScript, Python, C\# etc.). These programs can then be called \hyperref[webserviceapplication]{web~services}.
 
 \warning The~term \textit{web server} is~often used in~the~meaning of~\textit{application server}. For~example, you~can~encounter claims that \hyperref[tomcat]{Tomcat}, a~typical example of~Java application server, is~a~web server.
 

@@ -3,11 +3,11 @@
 \index{Spring bean life cycle methods}
 \index{Initialization method}
 \index{Destroy method}
-In~a~bean class you~can~define a~method that will be~executed after the~bean is~prepared by~a~\hyperref[springcontainrer]{container} (initialization, dependencies and~values injection, internal Spring processing). This method is~called \textit{initialization method}. Similarly you~can~define a~method that will be~executed before the~\hyperref[springcontainrer]{container} is shut~down (the~\textit{context.close()} is~called). This method is~called \textit{destroy method}.
+In~a~bean class you~can~define a~method that will be executed after the~bean is~prepared by~a~\hyperref[springcontainrer]{container} (initialization, dependencies and~values injection, internal Spring processing). This method is~called \textit{initialization method}. Similarly you~can~define a~method that will be executed before the~\hyperref[springcontainrer]{container} is shut~down (the~\textit{context.close()} is~called). This method is~called \textit{destroy method}.
 
 Each~bean can~have only one initialization and~one destroy method. Methods can~have any \hyperref[accessmodifiers]{access modifier} and~any return value. There~is no~use for~it, therefore, it's~convenient to~make methods private and~with \textit{void} return value. Methods can't have any~parameters.
 
-Initialization methods executions depend on~bean initialization points\,--\,they can~be~executed in~various moments. On~the~other hand, destroy methods executions of~all~beans created~by the~same \hyperref[springcontainrer]{container} are~performed in~the~same moment\,--\,when the~\hyperref[springcontainrer]{container} is shut~down.
+Initialization methods executions depend on~bean initialization points\,--\,they can~be executed in~various moments. On~the~other hand, destroy methods executions of~all~beans created~by the~same \hyperref[springcontainrer]{container} are~performed in~the~same moment\,--\,when the~\hyperref[springcontainrer]{container} is shut~down.
 
 \warning Destroy methods work only for~\hyperref[singletondp]{singletons}. For~\hyperref[prototypedp]{prototypes} they can~be defined and~configured without any~problem, but~they are never executed.\\
 
@@ -184,7 +184,7 @@ Life cycle methods can~be configured by~specifying their names as~string argumen
     \drawarrow{lc4java1singbeanid}{lc4java2singbeanid}
 \end{tikzpicture}
 
-\noindent On~the~bean first initialization (it's~singleton) the~\textit{secondInit} method is~called first, then the~\textit{firstInit} method is~called. On~the~context closing the~\textit{firstDestroy} method is~called first, then the~\textit{secondInit} method is~called. If~the~bean scope was~set to~prototype, \textit{destroy} methods wouldn't be~triggered.
+\noindent On~the~bean first initialization (it's~singleton) the~\textit{secondInit} method is~called first, then the~\textit{firstInit} method is~called. On~the~context closing the~\textit{firstDestroy} method is~called first, then the~\textit{secondInit} method is~called. If~the~bean scope was~set to~prototype, \textit{destroy} methods wouldn't be triggered.
 \newpage
 
 \example[life cycle methods configuration in a configuration class]

@@ -140,7 +140,7 @@ The~\textit{Component} annotation exists even in~a~zero--parameter form, i.e., t
     \drawarrow{ioc4java1interface.south}{ioc4java2interface2}[green]
 \end{tikzpicture}
 
-\warningnonl The~XML configuration overrides the~annotation configuration, even if you configure the~component scanning in~the~XML. If~you create a~bean class with the~\textit{Configuration} annotation, then configure the~same bean~ID in~the~XML configuration file, and~then ask the~\hyperref[springcontainrer]{Spring container} for~the~bean, the~XML configuration will~be~used. This can~be especially tricky with the~default behavior that you don't have to~specify, e.g., the~singleton \hyperref[beanscope]{bean scope}.
+\warningnonl The~XML configuration overrides the~annotation configuration, even if you configure the~component scanning in~the~XML. If~you create a~bean class with the~\textit{Configuration} annotation, then configure the~same bean~ID in~the~XML configuration file, and~then ask the~\hyperref[springcontainrer]{Spring container} for~the~bean, the~XML configuration will~be used. This can~be especially tricky with the~default behavior that you don't have to~specify, e.g., the~singleton \hyperref[beanscope]{bean scope}.
 
 On~the~other hand, if~you configure a~bean class with some~ID by~annotations and~the~same bean class with a~different~ID by~XML, it~will work. You~will~be able to~get the~bean class instance with both~IDs.
 
@@ -149,7 +149,7 @@ On~the~other hand, if~you configure a~bean class with some~ID by~annotations and
 
 \newsubsection{Configuration with Java Code (No XML)}
 \label{iocnoxml}
-The~configuration XML can be avoided completely, it's~possible to~implement a~special configuration class and~describe beans in~it. The~class reference is then given to~the~constructor of~the~\hyperref[springcontainrer]{Spring container} implementation \mboxtextit{AnnotationConfigApplicationContext} (instead~of the~XML file given to~the~\mboxtextit{ClassPathXmlApplicationContext} constructor).
+The~configuration XML can~be avoided completely, it's~possible to~implement a~special configuration class and~describe beans in~it. The~class reference is then given to~the~constructor of~the~\hyperref[springcontainrer]{Spring container} implementation \mboxtextit{AnnotationConfigApplicationContext} (instead~of the~XML file given to~the~\mboxtextit{ClassPathXmlApplicationContext} constructor).
 
 A~configuration class is~annotated with the~\textit{Configuration} annotation. In~the~simplest form it's~also annotated with the~\textit{ComponentScan} annotation, which gets a~package name as~a~parameter. The~class has~completely empty body in~this form. When the~\hyperref[springcontainrer]{Spring container} is~asked for~a~bean instance, it~scans the~given package for~classes with the~\textit{Component} annotation. It's~an~equivalent of~specifying the~\hyperref[iocannotations]{\textit{component-scan}} element in the~configuration XML file.\\
 
@@ -180,7 +180,7 @@ A~configuration class is~annotated with the~\textit{Configuration} annotation. I
     \drawarrow{ioc5java2interface.south}{ioc5java3interface2}[blue]
 \end{tikzpicture}
 
-\noindent The~other, more verbose, possibility is to~specify a~method with the~\textit{Bean} annotation returning an~instance of~the~wanted class interface (or~directly the~class) in~the~configuration class. It's~an~equivalent of~\hyperref[springinversionofcontrol]{the~basic inversion of~control} with bean~IDs specified in~the~configuration XML file. The~annotation gets the~wanted bean~ID as~its parameter. The~wanted class' package name doesn't matter, the~class doesn't have to~be annotated with the~\textit{Component} annotation. The~\textit{Bean} annotation exists even in the~zero--parameter form, i.e., the bean ID can be omitted. In that case the bean ID is the same as the~bean--creating method.
+\noindent The~other, more verbose, possibility is to~specify a~method with the~\textit{Bean} annotation returning an~instance of~the~wanted class interface (or~directly the~class) in~the~configuration class. It's~an~equivalent of~\hyperref[springinversionofcontrol]{the~basic inversion of~control} with bean~IDs specified in~the~configuration XML file. The~annotation gets the~wanted bean~ID as~its parameter. The~wanted class' package name doesn't matter, the~class doesn't have to~be annotated with the~\textit{Component} annotation. The~\textit{Bean} annotation exists even in the~zero--parameter form, i.e., the bean ID can~be omitted. In that case the bean ID is the same as the~bean--creating method.
 \newpage
 
 \example[Java code configuration\,--\,explicit bean--creating method]
@@ -250,5 +250,5 @@ A~configuration class is~annotated with the~\textit{Configuration} annotation. I
 
 \noindent Similarly to~the~XML configuration you~can configure multiple bean IDs for~the~same bean class. To~do~it you~must specify multiple \textit{Bean}--annotated methods returning the~same class instance. The~\textit{Bean} annotation doesn't allow multiple occurrence\,--\,its declaration in~Spring implementation isn't annotated with the~\hyperref[annotationsrepeatable]{\textit{Repeatable}} annotation.
 
-\warning As~the~configuration class is an~equivalent of~the~XML configuration file, it~also overrides the~\hyperref[iocannotations]{annotation configuration}. If~you create a~bean class with the~\textit{Configuration} annotation, then configure the~same bean~ID in~the~configuration class, and~then ask the~\hyperref[springcontainrer]{Spring container} for~the~bean, the~configuration from the~class will~be~used.
+\warning As~the~configuration class is an~equivalent of~the~XML configuration file, it~also overrides the~\hyperref[iocannotations]{annotation configuration}. If~you create a~bean class with the~\textit{Configuration} annotation, then configure the~same bean~ID in~the~configuration class, and~then ask the~\hyperref[springcontainrer]{Spring container} for~the~bean, the~configuration from the~class will~be used.
 \newpage

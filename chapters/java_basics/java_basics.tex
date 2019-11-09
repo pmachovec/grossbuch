@@ -11,7 +11,7 @@ By~the~way the approach with middle--step code is used also by~C\#, which is com
 \newsubsection{Bytecode VS Binary Code}
 \index{Binary code}
 \label{bytecodebinarycode}
-Binary code is generally any code in a~form readable for a~computer. It can be machine code read by processors, bytecode read by JVMs, stored database data read by database software etc. The typical sign of binary code is that it can't be read by humans. By this definition the~C\#'s~CIL mentioned earlier is not a~binary code.
+Binary code is generally any code in a~form readable for a~computer. It can~be machine code read by processors, bytecode read by JVMs, stored database data read by database software etc. The typical sign of binary code is that it can't~be read by humans. By this definition the~C\#'s~CIL mentioned earlier is not a~binary code.
 
 When working with Java, you can meet the~term \textit{Java~binaries}. This refers to \textit{.class} files with bytecode, because the bytecode is~a~form of~binary code.
 \newpage
@@ -30,7 +30,7 @@ When working with Java, you can meet the~term \textit{Java~binaries}. This refer
     \item \textbf{JVM}~stands for~\textit{Java Virtual Machine}. It's~the~most important part of JRE, which actually runs the code (transfers \hyperref[bytecode]{bytecode} to machine code), however it can't work alone\,--\,it requires additional tools provided~by~JRE.
 \end{itemize}
 
-\noindent JDK,~JRE and~JVM are platform--dependent, i.e.,~you~need these things different for~Windows, different for~Linux etc. The~thing which is~portable is~only the~\hyperref[bytecode]{bytecode}. When you only want to run Java programs, it's~OK to~install only~JRE, which is~smaller. However, when you intend to develop Java applications, you of~course need to install~JDK. Be~aware that when installing JDK (from Oracle), it~also installs a~separate JRE and computers tend to use this JRE by~default. You should completely ignore this separate JRE. To~do~it you~must set the~environment variable \textit{JAVA\_HOME} to~the~folder of~JDK (not~its~subfolder \textit{bin}, that's added to~the~\textit{Path} variable).
+\noindent JDK,~JRE and~JVM are platform--dependent, i.e.,~you~need these things different for~Windows, different for~Linux etc. The~thing which is~portable is~only the~\hyperref[bytecode]{bytecode}. When you only want to run Java programs, it's~OK to~install only~JRE, which is~smaller. However, when you intend to develop Java applications, you of~course need to install~JDK. be aware that when installing JDK (from Oracle), it~also installs a~separate JRE and computers tend to use this JRE by~default. You should completely ignore this separate JRE. To~do~it you~must set the~environment variable \textit{JAVA\_HOME} to~the~folder of~JDK (not~its~subfolder \textit{bin}, that's added to~the~\textit{Path} variable).
 
 \newsubsection{Typical parts of JDK, that are not included in JRE}
 \begin{itemize}
@@ -41,7 +41,7 @@ When working with Java, you can meet the~term \textit{Java~binaries}. This refer
 
 \newsubsection{Typical parts of JRE, that are not included in JVM}
 \begin{itemize}
-    \item Native \textit{.class} files, i.e.,~binaries of~all~default Java classes (ArrayList, Runtime, Thread, \dots)
+    \item Native \textit{.class} files, i.e.,~binaries of~all~default Java classes (ArrayList, Runtime, Thread,~\dots)
     \item Java execution command (the \textit{java} command)
     \item \hyperref[classloaders]{Classloader}
 \end{itemize}
@@ -52,6 +52,86 @@ When working with Java, you can meet the~term \textit{Java~binaries}. This refer
 \index{Reference data type}
 \label{javadatatypes}
 
+\newsection{Access modifiers}
+\index{Access modifier}
+\label{javaaccessmodifiers}
+
+\newsection{Overriding}
+\index{Override}
+\label{javaoverride}
+It's~a~check mechanism, which tells the~compiler that the~annotated method should override a~method from an~interface or~a~superclass of~the~actual class. It's~achieved by~\hyperref[javaannotation]{annotating} the~method by~the~\hyperref[javaannotation]{annotation} \textit{Override}. When the~compiler encounters a~method with this annotation, it~checks that the~\hyperref[declarationdefinition]{declaration} of~the~method in~the~class matches the~definition in~an~interface or~a~superclass and~if~not, it~stops the~compilation with complaining that "\textit{method does not override or implement a method from a supertype}".
+
+\note Today's~IDEs can~detect potential compilation errors on~the~fly including wrong declaration of~a~method with the~\textit{@Override} annotation. I.e.,~it~will~get the~red zigzag underscore.
+
+\example[This won't be compiled because~of the~bad parameter of~the~child class]
+\begin{lstlisting}[language=Java]
+    public class Parent {
+        public void doSomething() {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+
+    public class Child extends Parent {
+        @>@Override
+        public void doSomething(Object badParameter) {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+\end{lstlisting}
+
+\warning It~serves purely for~overridden method declaration verification. If~not~used, an~implementation of~a~method in~a~child class will still work. The~difference is that when used, the~method declaration in~the~child class must~be the~same as~in~the~parent class.
+
+\example[This will be compiled because the~\textit{@Override} annotation is not~used]
+\begin{lstlisting}[language=Java]
+    public class Parent {
+        public void doSomething() {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+
+    public class Child extends Parent {
+        public void doSomething(Object notBadParameter) {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+\end{lstlisting}
+
+\warning The~enforcement of~method declarations is~not~absolutely strict. Parameter names can~be different. Just remember that it's the~only thing that can~be different. Everyting else\,--\,\hyperref[javaaccessmodifiers]{access modifiers}, names, parameter types and~their order\,--\,must match exactly. Even descendant classes are~forbidden.
+
+\example[This will be compiled, parameter names can~be different]
+\begin{lstlisting}[language=Java]
+    public class Parent {
+        public void doSomething(Object nameInParent) {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+
+    public class Child extends Parent {
+        @>@Override
+        public void doSomething(Object nameInChild) {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+\end{lstlisting}
+
+\example[This won't be compiled, parameter types must match exactly]
+\begin{lstlisting}[language=Java]
+    public class Parent {
+        public void doSomething(Object sameName) {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+
+    public class Child extends Parent {
+        @>@Override
+        public void doSomething(String sameName) {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+\end{lstlisting}
+
+\todo Virtualization
+
 \newsection{POJO}
 \index{POJO}
 \label{pojo}
@@ -61,7 +141,7 @@ The~abbreviation stands for~\textit{Plain Old Java Object}. It~denotes \textbf{a
     \item It~can't implement any~prespecified interface.
     \item It~can't contain any~prespecified \hyperref[javaannotation]{annotation}.
 \end{itemize}
-\noindent The~word \textit{prespecified} denotes any~component (interface, class, \dots) that is directly defined in~the~code or loaded from a~third--party framework. For~example, instances of~\hyperref[javabeans]{Java Beans} are~POJOs, although \hyperref[javabeans]{Java Beans} implement the~interface \hyperref[serialization]{\textit{Serializable}}, because the~interface comes from the~default~\hyperref[jdkjrejvm]{JRE}.
+\noindent The~word \textit{prespecified} denotes any~component (interface, class,~\dots) that is directly defined in~the~code or loaded from a~third--party framework. For~example, instances of~\hyperref[javabeans]{Java Beans} are~POJOs, although \hyperref[javabeans]{Java Beans} implement the~interface \hyperref[serialization]{\textit{Serializable}}, because the~interface comes from the~default~\hyperref[jdkjrejvm]{JRE}.
 
 \warning Only first two rules are strict. The~rule forbidding prespecified annotations is~softened when working with some frameworks, typically some persistence. The~softened version says that if~a~class is a~POJO class before adding framework annotations and~become POJO class after removing framework annotations is still a~POJO class.
 
@@ -85,7 +165,7 @@ Java Bean is every~class that follows these three~restrictions:
 \index{Enterprise Java Beans}
 \index{EJB}
 \label{ejb}
-An~Enterprise Java Bean is a~server--side run component performing a~specific task. EJBs~form huge \hyperref[distributedsystem]{distributed} server--side systems handling security, transaction processing, persistence etc. One~EJB can~consist of~more classes and~interfaces (one~EJB\,=\,more files). The~code uses special \hyperref[annotations]{annotations} provided by~Java~EE libraries. EJBs must be~deployed on a~specialized \hyperref[applicationserver]{application servers} like JBoss or~Glassfish. EJB~specification was extensively enhanced in~last years, but~it still is quite a~challenging topic.
+An~Enterprise Java Bean is a~server--side run component performing a~specific task. EJBs~form huge \hyperref[distributedsystem]{distributed} server--side systems handling security, transaction processing, persistence etc. One~EJB can~consist of~more classes and~interfaces (one~EJB\,=\,more files). The~code uses special \hyperref[annotations]{annotations} provided by~Java~EE libraries. EJBs must be deployed on a~specialized \hyperref[applicationserver]{application servers} like JBoss or~Glassfish. EJB~specification was extensively enhanced in~last years, but~it still is quite a~challenging topic.
 
 In~the~past there were no~annotations. The~specification was~given by~interfaces. This lead to~a~\hyperref[loosetightcoupling]{tight coupling} between Java~EE libraries and~the~written code, lots~of useless methods enforced by~interfaces, hard implementation, hard maintenance and~overall mess in~the~code. Furthermore, EJB systems were extremely slow. That's why the~\hyperref[springframework]{Spring framework} was~introduced by~the~developers community. Although there was the~mentioned extensive enhancement of~EJB specification, it~still caries the~stigma of~unusable crap and~the~\hyperref[springframework]{Spring framework} remains much more popular.
 
