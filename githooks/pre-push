@@ -1,0 +1,7 @@
+#!/bin/sh
+make killacrobat
+make build
+
+if [ "$(git symbolic-ref --short HEAD)" = "writing" ] ; then
+    cp grossbuch.pdf "$OneDrive"/Documents
+fi
