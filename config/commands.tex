@@ -34,6 +34,8 @@
 
 \NewDocumentCommand{\mboxtextit}{m}{\mbox{\textit{#1}}}
 
+\NewDocumentCommand{\mboxtextitquoted}{m}{\mbox{"\textit{#1}"}}
+
 \NewDocumentCommand{\drawarrow}{O{stealth-stealth} m m O{black} O{.3} O{}}{\draw[#1,line width=.6mm,shorten <=2pt,shorten >=2pt,#4,opacity=#5] (#2) to[#6] (#3);}
 
 \NewDocumentCommand{\diagramarrow}{O{0mm} m m m m}{\draw[-{Stealth[length=7mm, width=4mm]}, line width=.3mm, shorten <=-#1] (#2) to node[#5] {#4} (#3);}
