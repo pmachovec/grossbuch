@@ -41,6 +41,24 @@ The~abbreviation stands for~\textit{Portable Operating System Interface} (yes,~\
     \item \textbf{Unix},~often written in~capital letters (UNIX), was~originally a~\hyperref[shellcligui]{CLI}--controlled~\hyperref[os]{OS} developed in 1969 by~\href{https://en.wikipedia.org/wiki/Bell_Labs}{Bell~Labs} for~their internal use. In~late 1970s Bell~Labs owner \href{https://en.wikipedia.org/wiki/AT\%26T}{AT\&T} started to~sell Unix \hyperref[licencing]{licences} to~outside parties, which created their own enhanced mutations of~the~original~system. Nowadays there is so~called Unix family, which denotes all~\hyperref[os]{operating systems} derived this way from the~original Unix. The~most known Unix of~today is~probably macOS (although having \hyperref[hybridkernel]{hybrid kernel}). \warningnonl Unix systems are~commercial and~their owners don't release source codes (they also had~to~pay for~the~\hyperref[licencing]{licence}).
     \item \textbf{Linux} was~originally only an~\hyperref[kernel]{OS~kernel} developed in~1991 by~\href{https://en.wikipedia.org/wiki/Linus_Torvalds}{Linus Torvalds}. It~was~heavily inspired by~Unix (they both follow \hyperref[posix]{POSIX} standards), but~opposite to~Unix the~Linux source code was~publicly released under the~\hyperref[gpl]{GNU GPL} licence. \hyperref[os]{Operating systems} said to~be Linux use variations of~that original Linux kernel. Although claimed to~be free, there are~even commercial Linuxes containing some nontrivial enhancements or~specializations, for~example SUSE Linux Enterprise for~\hyperref[server]{server} computers.
 \end{itemize}
+\newpage
+
+\newsection{Package Manager}
+\index{Package manager}
+\index{Package management system}
+\index{Apt}
+\index{Chocolatey}
+\index{DNF}
+\index{NPM}
+\index{OneGet}
+\index{PackageManagement}
+\index{PyPI}
+\index{Yum}
+A~package manager, or~package management system, is~a~software for~simplification and~automation of~computer programs installation, configuration, upgrading and~deletion. Programs are distributed in~packages, which contain the~program software itself packaged in~an~archive file (zip,~tar,\dots) and~metadata like program name, description or~dependencies to~other programs. Package managers are~usually connected with package repositories available over the~\hyperref[internetweb]{internet}.
+
+Package managers are typical for~\hyperref[unixlinux]{Linux} \hyperref[os]{operating systems}, for~example Ubuntu or~Debian use the~popular~Apt. Oracle Linux has the~\href{https://rpm-software-management.github.io/}{DNF} (formerly~Yum). But~there~are also some package managers available for~Windows, like \href{https://www.nuget.org/}{NuGet} or~\href{https://chocolatey.org/}{Chocolatey}. There~is also the~PackageManagement (formerly OneGet), which connects more Windows package managers to~one application. Some people say that the~PackageManagement is a~package manager manager.
+
+Not~only \hyperref[os]{operating systems} have package managers. Some programming languages or~platforms also have their package managers. For~example, Python has \href{https://pypi.org/}{PyPI} and~Node.js has~\href{https://www.npmjs.com/}{NPM}. Gradle or~Maven with a~connection to~Maven repositories can~also be considered as~package managers (for~Java).
 
 \newsection{Architecture VS Design}
 \index{Architecture}
@@ -85,6 +103,7 @@ It's~a~mechanism for~avoiding writing a~code for~a~functionality common for~more
 \end{itemize}
 
 \warning When an~object implements an~\hyperref[javainterface]{interface}, it~isn't the~inheritance, that's the~\hyperref[abstraction]{abstraction}.
+\newpage
 
 \newsubsection{Polymorphism}
 \index{Polymorphism}
@@ -113,6 +132,7 @@ It~means hiding implementation details of~objects and~providing only tools to~us
     \item \textbf{Simplicity}\,--\,users of~objects are~not~overwhelmed by internal implementation of~those objects, which can~be very complex. They can~simply incorporate objects to~their own implementations regardless objects complexity.
     \item \textbf{Changeability}\,--\,when needed, functionality of~provided tools can~be changed without affecting users of~the~object.
 \end{itemize}
+\newpage
 
 \warning The~abstraction is~broken by the~\hyperref[inheritance]{inheritance concept}\,--\,to~correctly implement a~descendant object you should know the~implementation of~the~ancestor. For~this reason it's~recommended to~avoid inheritance as~much as~possible, unless preventing the~code duplicity.
 
