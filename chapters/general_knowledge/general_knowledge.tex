@@ -1,5 +1,4 @@
 \newchapter{General Knowledge}
-
 \newsection{Operating System (OS)}
 \index{Operating system}
 \index{OS}
@@ -28,21 +27,6 @@ It's~an~opposite to~the~monolithic kernel. It~runs only the~absolute minimum for
 \label{hybridkernel}
 It's~a~combination of~\hyperref[monolithickernel]{monolithic kernel} and~\hyperref[microkernel]{microkernel} combining (dis)advantages of~both. The~kernel functionalities are~separated to~servers like in~a~\hyperref[microkernel]{microkernel}, but~they~run in~the~kernel space. This preserves the~stability of~the~kernel with significantly less impact on~performance. The~disadvantage of~this~approach is that adding new servers is more complicated (and~impossible during runtime) than with \hyperref[microkernel]{microkernels}. Today's top commercial \hyperref[os]{operating systems} like Windows or~macOS have hybrid kernels (or~at~least Microsoft and~Apple say~so).
 
-\newsection{POSIX}
-\index{POSIX}
-\label{posix}
-The~abbreviation stands for~\textit{Portable Operating System Interface} (yes,~\textit{X} is~missing). It's~a~set of~standards specifying \hyperref[api]{APIs}, command line \hyperref[shellcligui]{shells} and~utility interfaces. These standards serve for~maintaining compatibility between \hyperref[os]{operating systems}. Any~software working on~one~system following standards will~work even on~a~different system following standards. It's~typical for~\hyperref[unixlinux]{Unix and~Linux} systems.
-
-\newsection{Unix VS Linux}
-\index{Unix}
-\index{Linux}
-\label{unixlinux}
-\begin{itemize}
-    \item \textbf{Unix},~often written in~capital letters (UNIX), was~originally a~\hyperref[shellcligui]{CLI}--controlled~\hyperref[os]{OS} developed in 1969 by~\href{https://en.wikipedia.org/wiki/Bell_Labs}{Bell~Labs} for~their internal use. In~late 1970s Bell~Labs owner \href{https://en.wikipedia.org/wiki/AT\%26T}{AT\&T} started to~sell Unix \hyperref[licencing]{licences} to~outside parties, which created their own enhanced mutations of~the~original~system. Nowadays there is so~called Unix family, which denotes all~\hyperref[os]{operating systems} derived this way from the~original Unix. The~most known Unix of~today is~probably macOS (although having \hyperref[hybridkernel]{hybrid kernel}). \warningnonl Unix systems are~commercial and~their owners don't release source codes (they also had~to~pay for~the~\hyperref[licencing]{licence}).
-    \item \textbf{Linux} was~originally only an~\hyperref[kernel]{OS~kernel} developed in~1991 by~\href{https://en.wikipedia.org/wiki/Linus_Torvalds}{Linus Torvalds}. It~was~heavily inspired by~Unix (they both follow \hyperref[posix]{POSIX} standards), but~opposite to~Unix the~Linux source code was~publicly released under the~\hyperref[gpl]{GNU GPL} licence. \hyperref[os]{Operating systems} said to~be Linux use variations of~that original Linux kernel. Although claimed to~be free, there are~even commercial Linuxes containing some nontrivial enhancements or~specializations, for~example SUSE Linux Enterprise for~\hyperref[server]{server} computers.
-\end{itemize}
-\newpage
-
 \newsection{Package Manager}
 \index{Package manager}
 \index{Package management system}
@@ -56,7 +40,7 @@ The~abbreviation stands for~\textit{Portable Operating System Interface} (yes,~\
 \index{Yum}
 A~package manager, or~package management system, is~a~software for~simplification and~automation of~computer programs installation, configuration, upgrading and~deletion. Programs are distributed in~packages, which contain the~program software itself packaged in~an~archive file (zip,~tar,\dots) and~metadata like program name, description or~dependencies to~other programs. Package managers are~usually connected with package repositories available over the~\hyperref[internetweb]{internet}.
 
-Package managers are typical for~\hyperref[unixlinux]{Linux} \hyperref[os]{operating systems}, for~example Ubuntu or~Debian use the~popular~Apt. Oracle Linux has the~\href{https://rpm-software-management.github.io/}{DNF} (formerly~Yum). But~there~are also some package managers available for~Windows, like \href{https://www.nuget.org/}{NuGet} or~\href{https://chocolatey.org/}{Chocolatey}. There~is also the~PackageManagement (formerly OneGet), which connects more Windows package managers to~one application. Some people say that the~PackageManagement is a~package manager manager.
+Package managers are typical for~\hyperref[linux]{Linux} \hyperref[os]{operating systems}, for~example Ubuntu or~Debian use the~popular~\hyperref[linuxapt]{Apt}. Oracle Linux has the~\href{http://yum.baseurl.org/}{Yum}. But~there~are also some package managers available for~Windows, like \href{https://www.nuget.org/}{NuGet} or~\href{https://chocolatey.org/}{Chocolatey}. There~is also the~PackageManagement (formerly OneGet), which connects more Windows package managers to~one application. Some people say that the~PackageManagement is a~package manager manager.
 
 Not~only \hyperref[os]{operating systems} have package managers. Some programming languages or~platforms also have their package managers. For~example, Python has \href{https://pypi.org/}{PyPI} and~Node.js has~\href{https://www.npmjs.com/}{NPM}. Gradle or~Maven with a~connection to~Maven repositories can~also be considered as~package managers (for~Java).
 
@@ -91,23 +75,24 @@ Encapsulation is the~essence of~OOP. It~means having data (\hyperref[variablefie
 \end{itemize}
 
 \warning Having all \hyperref[variablefieldproperty]{fields} in~an~object private and~providing getters and~setters for~them is not an~encapsulation. This~is just a~convention that most of~OOP languages follow, but~for~example Python, although an~OOP language, accesses fields directly by the~dot notation.
+\newpage
 
 \newsubsection{Inheritance}
 \index{Inheritance}
 \label{inheritance}
 It's~a~mechanism for~avoiding writing a~code for~a~functionality common for~more objects, i.e.,~for~avoiding code duplicity. The~common code is~written only once in~one ancestor object (parent) and~descendant objects (children), which should contain the~code functionality, just inherit the~ancestor. Purposes~are:
 \begin{itemize}
-    \item \textbf{Simplicity}\,--\,no~need to~write common code more times.
+    \item \textbf{Simplicity}\,--\,no~need to~write common code more times. Users can~have multiple implementations in~variables of~the~same \hyperref[datatypes]{data type}, they don't have to~handle exact concrete type for~each place in~their code.
     \item \textbf{Changeability}\,--\,when common code needs a~change, there's only one place to~change.
     \item \textbf{Maintainability}\,--\,same as~changeability.
 \end{itemize}
 
 \warning When an~object implements an~\hyperref[javainterface]{interface}, it~isn't the~inheritance, that's the~\hyperref[abstraction]{abstraction}.
-\newpage
 
 \newsubsection{Polymorphism}
 \index{Polymorphism}
 \index{Virtual method}
+\label{polymorphism}
 It~means that one~method or~function of~an~object can~get \hyperref[parameterargument]{arguments} of~various different \hyperref[datatypes]{data types} in~same \hyperref[parameterargument]{parameter} positions. For~example, basic numberic operations (addition, subtraction,~\dots) work with all available number types. Purposes are:
 \begin{itemize}
     \item \textbf{Simplicity}\,--\,no~need to~have a~different method name for~each possible \hyperref[parameterargument]{argument} type combinations.
@@ -118,7 +103,7 @@ It~means that one~method or~function of~an~object can~get \hyperref[parameterarg
 \begin{itemize}
     \item \textbf{Ad hoc}\,--\,simple overloading based on~argument types. In~one~object there are more method implementations with the~same number of~parameters, but~in~each these parameters have different types. The~correct implementation is~decided by~types of provided arguments, usually during the~code compilation.
     \item \textbf{Parametrical}\,--\,method parameters have so~called \hyperref[javagenerics]{generic types}, which substitute concrete \hyperref[datatypes]{types}. Correct concrete types are~decided by~used values in~runtime.
-    \item \textbf{Subtype}\,--\,connected with the~\hyperref[inheritance]{inheritance} and~\hyperref[javavirtualization]{virtual methods}. There can~be an~ancestor and~a~descendant and you can assign an~instance of~the~descendant to~the~variable of~the~\hyperref[datatype]{type} of~the~ancestor (\textit{Ancestor variable = new Descendant();}). When the~descendant \hyperref[javaoverride]{overrides} a~method \hyperref[declarationdefinition]{defined} in~the~ancestor and~the~method is declared as~\textit{virtual}, calling the~method on~the~variable (which has the~ancestor type) actually triggers the~implementation from the~descendant.
+    \item \textbf{Subtype}\,--\,connected with the~\hyperref[inheritance]{inheritance} and~\hyperref[javavirtualmethods]{virtual methods}. There can~be an~ancestor and~a~descendant and you can assign an~instance of~the~descendant to~the~variable of~the~\hyperref[datatype]{type} of~the~ancestor (\textit{Ancestor variable = new Descendant();}). When the~descendant \hyperref[javaoverride]{overrides} a~method \hyperref[declarationdefinition]{defined} in~the~ancestor and~the~method is declared as~\textit{virtual}, calling the~method on~the~variable (which has the~ancestor type) actually triggers the~implementation from the~descendant.
 \end{itemize}
 
 \warning In~Java or~C\# all methods are~virtual by~default and~the~subtype polymorphism is~happening automatically.
@@ -132,13 +117,15 @@ It~means hiding implementation details of~objects and~providing only tools to~us
     \item \textbf{Simplicity}\,--\,users of~objects are~not~overwhelmed by internal implementation of~those objects, which can~be very complex. They can~simply incorporate objects to~their own implementations regardless objects complexity.
     \item \textbf{Changeability}\,--\,when needed, functionality of~provided tools can~be changed without affecting users of~the~object.
 \end{itemize}
-\newpage
 
 \warning The~abstraction is~broken by the~\hyperref[inheritance]{inheritance concept}\,--\,to~correctly implement a~descendant object you should know the~implementation of~the~ancestor. For~this reason it's~recommended to~avoid inheritance as~much as~possible, unless preventing the~code duplicity.
 
-\warning Don't confuse it with the~\hyperref[encapsulation]{encapsulation concept}. They're tightly coupled and~encapsulation doesn't make any use without the~abstraction. You~can quite often encounter a~definition of~one labeled as~a~definition of~the~other. But~they're different. Abstraction handles object manipulation tools, encapsulation handles (beside others) restriction of~access to~these tools. A~developer cares about the~abstraction during software \hyperref[architecturedesign]{design}, and~about the~encapsulation during implementation. The~abstraction (hiding implementation) is~achieved by method headers, \hyperref[javaabstractclasses]{abstract classes} and~\hyperref[javainterfaces]{interfaces} and~the~encapsulation (restricting access) is~achieved by \hyperref[javaaccessmodifiers]{access modifiers}.
+\warning \hyperref[javaabstractclasses]{Abstract classes}, \hyperref[javainterfaces]{interfaces} and~similar stuff are~based on~the~\hyperref[inheritance]{inheritance} and~the~\hyperref[polymorphism]{subtype polymorphism} concepts, but~they're sometimes considered to~belong under the~abstraction. Therefore, the~advantage of~having one \hyperref[datatypes]{data type} for~multiple implementations can~be also mentioned for~the~abstraction concept.
+
+\warning Don't confuse the~abstraction with the~\hyperref[encapsulation]{encapsulation concept}. They're tightly coupled and~encapsulation doesn't make any use without the~abstraction. You~can quite often encounter a~definition of~one labeled as~a~definition of~the~other. But~they're different. Abstraction handles object manipulation tools, encapsulation handles (beside others) restriction of~access to~these tools. A~developer cares about the~abstraction during software \hyperref[architecturedesign]{design}, and~about the~encapsulation during implementation. The~abstraction (hiding implementation) is~achieved by method headers, \hyperref[javaabstractclasses]{abstract classes} and~\hyperref[javainterfaces]{interfaces} and~the~encapsulation (restricting access) is~achieved by \hyperref[javaaccessmodifiers]{access modifiers}.
 
 Nevertheless, be~aware that deciding how~to~encapsulate \hyperref[javadatatypes]{primitive} variables and~"smaller" objects into "bigger" objects is a~part of~the~\hyperref[architecturedesign]{design}, i.e.,~it~belongs under the~abstraction concept. With varying depth of~\hyperref[variablefieldproperty]{fields} in~the~encapsulation tree we~talk about different levels of~abstraction.
+\newpage
 
 \example[abstraction without encapsulation]
 \begin{lstlisting}[language=Java]
@@ -309,7 +296,7 @@ It's an~encoding used for~representation of~any array of~bytes as an~ASCII strin
 \label{shellcligui}
 \begin{itemize}
     \item \textbf{Shell} is any software for~controlling \hyperref[os]{operating system}.
-    \item \textbf{CLI} (Command Line Interface) is~a~user interface for~controlling specific software in~a~form of~single text line to~which commands are~typed. Shells typically (but~not~always) exist in~a~CLI form. Windows command line or~a~\hyperref[unixlinux]{Linux} terminal are~shells. There can also be CLIs that are~not shells, for~example Python console.
+    \item \textbf{CLI} (Command Line Interface) is~a~user interface for~controlling specific software in~a~form of~single text line to~which commands are~typed. Shells typically (but~not~always) exist in~a~CLI form. Windows command line or~a~\hyperref[linux]{Linux} terminal are~shells. There can also be CLIs that are~not shells, for~example Python console.
     \item \textbf{GUI} (Graphical User Interface) is~a~user interface for~controlling specific software in~a~graphic form. Even shells can, and~often~do, exist in~a~GUI form. For~example, Windows screen (or~GUI screen~of any~other~\hyperref[os]{OS}) is~a~shell.
 \end{itemize}
 
