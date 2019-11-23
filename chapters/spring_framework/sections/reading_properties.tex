@@ -2,7 +2,7 @@
 \index{Properties file}
 Files with the~\mboxtextit{.properties} extension are~popular approach for~dynamic applications configuration. They're simple text files in~which each line has the~form \textit{identifier=value}. When a~\mboxtextit{.properties} file is~added to a~Spring application \hyperref[classpath]{classpath}, it~can~be referenced in~the~Spring configuration file, as~well as values specified in~the~file.
 
-The~\mboxtextit{.properties} file is~referenced in~the~element \mboxtextit{property--placeholder}, attribute \textit{location}, from the~\hyperref[namespaces]{namespace} \textit{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}. The~name of~the~\mboxtextit{.properties} file in~the~attribute \textit{location} must~be preceded by the~part referring to~the~\hyperref[classpath]{classpath}, which~is literally "\textit{classpath:}" (with the~colon).
+The~\mboxtextit{.properties} file is~referenced in~the~element \mboxtextit{property--placeholder}, attribute \textit{location}, from the~\hyperref[namespaces]{namespace} \textit{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}. The~name of~the~\mboxtextit{.properties} file in~the~attribute \textit{location} must~be preceded by the~part referring to~the~\hyperref[classpath]{classpath}, which~is literally \textitquoted{classpath:} (with the~colon).
 
 Values set in~the~\mboxtextit{.properties} file can~be then referenced as attribute values, typically when \hyperref[injectingliteralvalues]{injecting literal values}, but~can~be used also as bean~IDs when injecting complex beans. A~concrete value is~accessed by the~syntax~\textit{\$\{identifier\}}.\\
 
@@ -10,7 +10,7 @@ Values set in~the~\mboxtextit{.properties} file can~be then referenced as attrib
 
 \warning Some IDEs (IntelliJ Idea for example) can~try to~"help" developers by~fake replacing the~dollar syntax with values from the~\mboxtextit{.properties} file. I.e.,~it~looks like values are~specified directly in~the~XML file. The~indicator of~this "replacement" is that values have different color (gray in IntelliJ). If~you click on~such value, the~original dollar notation will appear.
 
-\note Using the~\mboxtextit{.properties} extension is only a~convention for~key--value files. The~name can~be anything, the~important thing is the~format "\textit{key\,=\,value}".
+\note Using the~\mboxtextit{.properties} extension is only a~convention for~key--value files. The~name can~be anything, the~important thing is the~format \mboxtextitquoted{key\,=\,value}.
 \newpage
 
 \example[passing values to a constructor]

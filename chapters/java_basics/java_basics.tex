@@ -3,11 +3,11 @@
 \newsection{Bytecode}
 \index{Bytecode}
 \label{bytecode}
-Bytecode is the result of compilation of Java code. It's stored in \textit{.class} files. For~people it's an unreadable mess (it's a type of \hyperref[bytecodebinarycode]{binary code}), however it isn't the machine code which a processor can read. It must be read and further transformed to~the~machine code by JVM, i.e.,~it's a~middle step between written Java code and its execution. The reason of this approach is that bytecode is transferable between platforms (that's why sometimes it's~called \textit{portable code})\,--\,no~matter on what platform (platform\,=\,OS\,+\,hardware, hardware\,=\,\hyperref[32bvs64b]{32b~VS~64b}) the original Java code was~written and~compiled, the~resulting bytecode will be executable on~any~other platform. The~thing which is different for~each platform is~\hyperref[jdkjrejvm]{JRE}.
+Bytecode is the result of compilation of Java code. It's stored in \textit{.class} files. For~people it's an unreadable mess (it's a type of \hyperref[bytecodebinarycode]{binary code}), however it isn't the machine code which a processor can read. It must be read and further transformed to~the~machine code by JVM, i.e.,~it's a~middle step between written Java code and its execution. The reason of this approach is that bytecode is transferable between platforms (that's why sometimes it's~called \textit{portable code})\,--\,no~matter on what \hyperref[platform]{platform} (platform\,=\,OS\,+\,hardware in~this~case, hardware\,=\,\hyperref[32bvs64b]{32b~VS~64b}) the original Java code was~written and~compiled, the~resulting bytecode will be executable on~any~other platform. The~thing which is different for~each platform is~\hyperref[jdkjrejvm]{JRE}.
 
 For~comparison consider C++. In~this programming language the~result of~compilation is directly the~machine code, which must be different for~each platform, i.e.,~the~thing in C++ which is different for~each platform is the~ompiler.
 
-By~the~way the approach with middle--step code is used also by~C\#, which is compiled to~so~called CIL (Common Intermediate Language). The~main difference of~CIL from bytecode is that CIL is human--readable, although reading it is quite complicated (and~useless).
+By~the~way the approach with middle--step code is used also by~C\#, which is compiled to~so~called CIL (\textit{Common Intermediate Language}). The~main difference of~CIL from bytecode is that CIL is human--readable, although reading it is quite complicated (and~useless).
 
 \newsubsection{Bytecode VS Binary Code}
 \index{Binary code}
@@ -60,7 +60,7 @@ When working with Java, you can meet the~term \textit{Java~binaries}. This refer
 \newsection{Overriding}
 \index{Override}
 \label{javaoverride}
-It's~a~check mechanism, which tells the~compiler that the~annotated method should override a~method from an~interface or~a~superclass of~the~actual class. It's~achieved by~\hyperref[javaannotation]{annotating} the~method by~the~\hyperref[javaannotation]{annotation} \textit{@Override}. When the~compiler encounters a~method with this annotation, it~checks that the~\hyperref[declarationdefinition]{declaration} of~the~method in~the~class matches the~definition in~an~interface or~a~superclass and~if~not, it~stops the~compilation with complaining that "\textit{method does not override or implement a method from a supertype}".
+It's~a~check mechanism, which tells the~compiler that the~annotated method should override a~method from an~interface or~a~superclass of~the~actual class. It's~achieved by~\hyperref[javaannotation]{annotating} the~method by~the~\hyperref[javaannotation]{annotation} \textit{@Override}. When the~compiler encounters a~method with this annotation, it~checks that the~\hyperref[declarationdefinition]{declaration} of~the~method in~the~class matches the~definition in~an~interface or~a~superclass and~if~not, it~stops the~compilation with complaining that \textitquoted{method does not override or implement a method from a supertype}.
 
 \note Today's~IDEs can~detect potential compilation errors on~the~fly including wrong declaration of~a~method with the~\textit{@Override} annotation. I.e.,~it~will~get the~red zigzag underscore.
 
