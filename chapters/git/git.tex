@@ -110,7 +110,7 @@ Hook scripts exist separately for~each local copy of~a~repository (i.e.,~per~use
 
 Hooks can~be directly written in~any~\hyperref[scriptinglanguages]{scripting language}. If~you~wanted to~use a~non-scripting language for~a~hook, you~would have~to implement it as~a~separate program and~then call~it from the~hook script.
 
-A~hook language is~specified by~a~\hyperref[shebang]{shebang}. For~the~hook to~work in~a~certain environment you~need an~\hyperref[compiledinterpretedlanguages]{interpreter} for~the~hook language installed in~that~environment. As~this can't~be guaranteed for~all users, it's~a~good practice to~write hooks in~\hyperref[shbash]{SH}, because that one is~understood even  by~non--\hyperref[linux]{Unix/Linux} Git installations (there's an~interpreter included). To~specify that a~hook is~written in~SH, put \textit{\#!/bin/sh} as~the~hook \hyperref[shebang]{shebang} to~the~first line (even in~non--Unix/Linux systems).
+A~hook language is~specified by~a~\hyperref[shebang]{shebang}. For~the~hook to~work in~a~certain environment you~need an~\hyperref[compiledinterpretedlanguages]{interpreter} for~the~hook language installed in~that~environment. As~this can't~be guaranteed for~all users, it's~a~good practice to~write hooks in~\hyperref[shbash]{Bash}, because that one is~understood even  by~non--\hyperref[linux]{Unix/Linux} Git installations (there's an~interpreter included). To~specify that a~hook should~be executed in~Bash, put \textit{\#!/bin/sh} as~the~hook \hyperref[shebang]{shebang} to~the~first line (even in~non--Unix/Linux systems).
 
 \newsubsection{Sharing Hooks}
 This can~be tricky, as~the~\textit{ROOT\_FOLDER/.git} folder can't~be committed to~a~repository. You~can~commit hooks in~a~different folder and~then configure the~\textit{core.hooksPath} \hyperref[gitconfig]{configuration}. To~ensure that everybody will~have the~hooks path configured as~you~want, you~can~set the~building software (Gradle, Grunt) to~set~up the~hooks path in~the~first~run.
@@ -118,7 +118,7 @@ This can~be tricky, as~the~\textit{ROOT\_FOLDER/.git} folder can't~be committed 
 \newsection{Tags}
 \index{Git tags}
 \index{Tags in Git}
-Tags in~Git are like aliases for~commits. A~tag can~be~used instead~of a~hash when referencing a~commit. It's~visible with other information by~its commit in~a~Git history showing tool. One~commit can~have more tags. There can't~be two same tags in~one repository, not~even in~different branches. Tags can't contain spaces and~usage of~special characters is~also restricted.
+Tags in~Git are like aliases for~commits. A~tag can~be~used instead of~a~hash when referencing a~commit. It's~visible with other information by~its commit in~a~Git history showing tool. One~commit can~have more tags. There can't~be two same tags in~one repository, not~even in~different branches. Tags can't contain spaces and~usage of~special characters is~also restricted.
 
 The~basic command for~tagging is~\textit{git tag}. In~the~basic form without any~parameter or~switch it~displays a~list of~all~tags in~the~local repository, including those from other branches.
 
@@ -130,7 +130,7 @@ A~lightweight tag is just a~commit alias. To~create a~lightweight tag use the~\t
     git tag exampleTag 1cra2y34ha5h6
 \end{lstlisting}
 
-\noindent Now you can~use the~alias \textitquoted{simpleTag} instead~of the~commit hash, like for~showing differences, rebasing, cherry--picking etc. You~will also see something like this when observing the~commit in~Git~log:
+\noindent Now you can~use the~alias \textitquoted{simpleTag} instead of~the~commit hash, like for~showing differences, rebasing, cherry--picking etc. You~will also see something like this when observing the~commit in~Git~log:
 \begin{lstlisting}[frame=no]
     commit 1cra2y34ha5h6 (tag: exampleTag, origin/...)
 \end{lstlisting}
@@ -202,7 +202,7 @@ To~delete a~tag from~a~local repository use the~switch~\textitquoted{-d}. To~del
 \note Pushing deleted tags can't~be performed in~a~batch with the~\mboxtextitquoted{--tags} switch. You~must alwasy push deleted tags one~by~one.
 
 \newsubsection{Editing Tags}
-There's no option to~rename a~tag in~one command. You~must tag the~corresponding commit with the~new name and~then delete the~old name. The~order can~be even reversed, but~with creating the~new tag first you can~use the~old tag as~a~commit reference instead~of the~commit hash.
+There's no option to~rename a~tag in~one command. You~must tag the~corresponding commit with the~new name and~then delete the~old name. The~order can~be even reversed, but~with creating the~new tag first you can~use the~old tag as~a~commit reference instead of~the~commit hash.
 
 \example[expect that \textit{oldTag} already exists]
 \begin{lstlisting}[frame=no]
@@ -282,7 +282,7 @@ You~must use \textit{git difftool} for~viewing file differences and~\textit{git 
 
 \warningnonl If~you use a~path to~a~folder instead of~a~file, the~triggered tool will start for~all~files in~the~folder and~its~subfolders one~by~one. When~you~close one~file, another immediately opens. This~is irritating when you~have many files in~the~folder. You~can~fall to~this trap especially when you~accidentally trigger merging without specifying a~file. When running difftool, Meld can graphically show differences among files in~both folder versions. To~do~it run the~\textit{difftool} command with the~\mboxtextitquoted{-{}-dir--diff} option. When merging, there's nothing you~can~do about~it. Just trigger the~\textit{mergetool} command with a~path to~a~specific file every time.
 
-\warning For~the~\textit{difftool} command variables \textit{\$LOCAL} and~\textit{\$REMOTE} have a~different meaning from what can~seem obvious. \textit{\$LOCAL} means "before the~change" and~\textit{\$REMOTE} means "after the~change". Therefore, when you run the~command for~a~file that differs from a~repository version (the~first usage example), i.e.,~is~changed locally, you~will~see that local version in~the~right window, which is the~position of~\textit{\$REMOTE} according to~the~configuration. The~same holds when you display differences of~a~file from some old specific commit(the~second usage example)\,--\,the~actual version of~the~file will~be displayed in~the~right window. Get~used to~it, don't switch those variables in~the~configuration, otherwise you can face unexpected behavior. For~example, comparing a~file between two commits (the~third usage example) shows versions of~the~file in~the~order opposite~of the~order of~used commit hashes.
+\warning For~the~\textit{difftool} command variables \textit{\$LOCAL} and~\textit{\$REMOTE} have a~different meaning from what can~seem obvious. \textit{\$LOCAL} means "before the~change" and~\textit{\$REMOTE} means "after the~change". Therefore, when you run the~command for~a~file that differs from a~repository version (the~first usage example), i.e.,~is~changed locally, you~will~see that local version in~the~right window, which is the~position of~\textit{\$REMOTE} according to~the~configuration. The~same holds when you display differences of~a~file from some old specific commit(the~second usage example)\,--\,the~actual version of~the~file will~be displayed in~the~right window. Get~used to~it, don't switch those variables in~the~configuration, otherwise you can face unexpected behavior. For~example, comparing a~file between two commits (the~third usage example) shows versions of~the~file in~the~order opposite of~the~order of~used commit hashes.
 
 \note For~the~\textit{mergetool} command variables \textit{\$LOCAL} and~\textit{\$REMOTE} behave as~expected\,--\,\textit{\$LOCAL} means your local branch version, \textit{\$REMOTE} means the~other merged branch. Just remember for~the~malicious branching when \hyperref[gitrebase]{rebasing}.
 \newpage

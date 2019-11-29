@@ -149,7 +149,7 @@ On~the~other hand, if~you configure a~bean class with some~ID by~annotations and
 
 \newsubsection{Configuration with Java Code (No XML)}
 \label{iocnoxml}
-The~configuration XML can~be avoided completely, it's~possible to~implement a~special configuration class and~describe beans in~it. The~class reference is then given to~the~constructor of~the~\hyperref[springcontainrer]{Spring container} implementation \mboxtextit{AnnotationConfigApplicationContext} (instead~of the~XML file given to~the~\mboxtextit{ClassPathXmlApplicationContext} constructor).
+The~configuration XML can~be avoided completely, it's~possible to~implement a~special configuration class and~describe beans in~it. The~class reference is then given to~the~constructor of~the~\hyperref[springcontainrer]{Spring container} implementation \mboxtextit{AnnotationConfigApplicationContext} (instead of~the~XML file given to~the~\mboxtextit{ClassPathXmlApplicationContext} constructor).
 
 A~configuration class is~annotated with the~\textit{Configuration} annotation. In~the~simplest form it's~also annotated with the~\textit{ComponentScan} annotation, which gets a~package name as~a~parameter. The~class has~completely empty body in~this form. When the~\hyperref[springcontainrer]{Spring container} is~asked for~a~bean instance, it~scans the~given package for~classes with the~\textit{Component} annotation. It's~an~equivalent of~specifying the~\hyperref[iocannotations]{\textit{component-scan}} element in the~configuration XML file.\\
 

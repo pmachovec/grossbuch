@@ -132,7 +132,7 @@ For~each servlet there is~a~class implementing the~interface \textit{javax.servl
 \end{lstlisting}
 
 \newsubsection{Servlet invocation}
-\noindent Each servlet class must have~assigned some URL. When the~\hyperref[applicationserver]{application server} URL, correct port and~the~servlet URL are~invoked (for~example, in~a~web browser address bar), the~\textit{service} method of~the~class is~executed. From there other classes and~methods can~be invoked. The~content written to~the~writer of~the~response object is~sent back to~the~invoking client (a~web~browser displays it instead~of a~web~page). One~servlet can~be configured as~the~default one, this is triggered when no~servlet URL part is~written to the~address~bar.
+\noindent Each servlet class must have~assigned some URL. When the~\hyperref[applicationserver]{application server} URL, correct port and~the~servlet URL are~invoked (for~example, in~a~web browser address bar), the~\textit{service} method of~the~class is~executed. From there other classes and~methods can~be invoked. The~content written to~the~writer of~the~response object is~sent back to~the~invoking client (a~web~browser displays it instead of~a~web~page). One~servlet can~be configured as~the~default one, this is triggered when no~servlet URL part is~written to the~address~bar.
 
 There already are some classes implementing the~\textit{Servlet} interface. New~servlet classes are~implemented as~extending these classes. With this approach a~developer can override only methods he needs, the~original \textit{Servlet} interface doesn't have to be implemented whole again.
 

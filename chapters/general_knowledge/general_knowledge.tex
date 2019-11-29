@@ -43,7 +43,7 @@ This term has~multiple meanings. It~can~denote:
 \label{packagemanager}
 A~package manager, or~package management system, is~a~software for~simplification and~automation of~computer programs installation, configuration, upgrading and~deletion. Programs are distributed in~packages, which contain the~program software itself packaged in~an~archive file (zip,~tar,\dots) and~metadata like program name, description or~dependencies to~other programs. Package managers are~usually connected with package repositories available over the~\hyperref[internetweb]{internet}.
 
-Package managers are typical for~\hyperref[linux]{Linux} \hyperref[os]{operating systems}, for~example Ubuntu or~Debian use the~popular~\hyperref[linuxapt]{Apt}. Oracle Linux has the~\href{http://yum.baseurl.org/}{Yum}. But~there~are also some package managers available for~Windows, like \href{https://www.nuget.org/}{NuGet} or~\href{https://chocolatey.org/}{Chocolatey}. There~is also the~\hyperref[windowspackagemanagement]{PackageManagement} (formerly OneGet), which connects more Windows package managers to~one application. Some people say that the~PackageManagement is a~package manager manager.
+Package managers are typical for~\hyperref[linux]{Linux} \hyperref[os]{operating systems}, for~example Debian or~Ubuntu use the~popular~\hyperref[linuxapt]{APT}. Oracle Linux has the~\href{http://yum.baseurl.org/}{Yum}. But~there~are also some package managers available for~Windows, like \href{https://www.nuget.org/}{NuGet} or~\href{https://chocolatey.org/}{Chocolatey}. There~is also the~\hyperref[windowspackagemanagement]{PackageManagement} (formerly OneGet), which connects more Windows package managers to~one application. Some people say that the~PackageManagement is a~package manager manager.
 
 Not~only \hyperref[os]{operating systems} have package managers. Some programming languages or~platforms also have their package managers. For~example, Python has \href{https://pypi.org/}{PyPI} and~Node.js has~\hyperref[npm]{NPM}. Gradle or~Maven with a~connection to~Maven repositories can~also be considered as~package managers (for~Java).
 \newpage
@@ -190,7 +190,7 @@ Scripts in~Linux systems sometimes contain a~special first line starting with ha
 
 \noindent \textbf{Examples:}
 \begin{itemize}
-    \item \textit{\#!/bin/sh} = \hyperref[shbash]{SH}, direct path
+    \item \textit{\#!/bin/sh} = \hyperref[shbash]{SH} symbolic link
     \item \textit{\#!/bin/bash -v} = \hyperref[shbash]{Bash}, direct path, verbose output
     \item \textit{\#!/usr/bin/env node} = \hyperref[nodejs]{Node.js}, resolved path
 \end{itemize}
@@ -239,7 +239,7 @@ Each~programming language can~theoretically interpret the~same value differently
 \label{declarationdefinition}
 \begin{itemize}
     \item \textbf{Declaration of~a~variable} means specifying the~variable name, \hyperref[datatypes]{type} and~eventually \hyperref[accessmodifiers]{access level}. It~doesn't include assigning a~value to~the~variable. Example: \mboxtextitquoted{private int a;}.
-    \item \textbf{Declaration of~a~method (or~a~function)} is the~method header. It~consists~of the~method name, return value \hyperref[datatypes]{type}, number, names and~\hyperref[datatypes]{types} of~arguments of~the~method and~eventually its \hyperref[accessmodifiers]{access level}. Example: \mboxtextitquoted{public void doSomething(int a);}.
+    \item \textbf{Declaration of~a~method (or~a~function)} is the~method header. It~consists of~the~method name, return value \hyperref[datatypes]{type}, number, names and~\hyperref[datatypes]{types} of~arguments of~the~method and~eventually its \hyperref[accessmodifiers]{access level}. Example: \mboxtextitquoted{public void doSomething(int a);}.
     \item \textbf{Definition of~a~variable} means assigning a~value to~the~variable. It~can~immediately follow the~variable definition (\textitquoted{private int a = 1;}) or~appear later as~a~separate command (\textitquoted{private int a; ... a = 1;}).
     \item \textbf{Definition of~a~method (or~a~function)} is the~method header with the~method body. Example: \mboxtextitquoted{public void doSomething(int a) \{ ... \}}".
 \end{itemize}
@@ -323,8 +323,8 @@ It's an~encoding used for~representation of~any array of~bytes as an~ASCII strin
 \label{shellcligui}
 \begin{itemize}
     \item \textbf{Shell} is any software for~controlling \hyperref[os]{operating system}.
-    \item \textbf{CLI} (Command Line Interface) is~a~user interface for~controlling specific software in~a~form of~single text line to~which commands are~typed. Shells typically (but~not~always) exist in~a~CLI form. Windows command line or~a~\hyperref[linux]{Linux} terminal are~shells. There can also be CLIs that are~not shells, for~example Python console.
-    \item \textbf{GUI} (Graphical User Interface) is~a~user interface for~controlling specific software in~a~graphic form. Even shells can, and~often~do, exist in~a~GUI form. For~example, Windows screen (or~GUI screen~of any~other~\hyperref[os]{OS}) is~a~shell.
+    \item \textbf{CLI} (Command Line Interface) is~a~user interface for~controlling specific software in~a~form of~single text line to~which commands are~typed. Shells typically (but~not~always) exist in~a~CLI form. Windows command line or~a~\hyperref[linux]{Linux} terminal are~shells. There can also be CLIs that are~not shells, for~example, Python console.
+    \item \textbf{GUI} (Graphical User Interface) is~a~user interface for~controlling specific software in~a~graphic form. Even shells can, and~often~do, exist in~a~GUI form. For~example, Windows screen (or~GUI screen of~any~other~\hyperref[os]{OS}) is~a~shell.
 \end{itemize}
 
 \newsection{Application Programming Interface (API)}
