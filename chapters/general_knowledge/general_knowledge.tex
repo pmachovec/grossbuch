@@ -106,6 +106,10 @@ It~means that one~method or~function of~an~object can~get \hyperref[parameterarg
 \begin{itemize}
     \item \textbf{Ad hoc}\,--\,simple overloading based on~argument types. In~one~object there are more method implementations with the~same number of~parameters, but~in~each these parameters have different types. The~correct implementation is~decided by~types of provided arguments, usually during the~code compilation.
     \item \textbf{Parametrical}\,--\,method parameters have so~called \hyperref[javagenerics]{generic types}, which substitute concrete \hyperref[datatypes]{types}. Correct concrete types are~decided by~used values in~runtime.
+\end{itemize}
+\newpage
+
+\begin{itemize}
     \item \textbf{Subtype}\,--\,connected with the~\hyperref[inheritance]{inheritance} and~\hyperref[javavirtualmethods]{virtual methods}. There can~be an~ancestor and~a~descendant and you can assign an~instance of~the~descendant to~the~variable of~the~\hyperref[datatype]{type} of~the~ancestor (\textit{Ancestor variable = new Descendant();}). When the~descendant \hyperref[javaoverride]{overrides} a~method \hyperref[declarationdefinition]{defined} in~the~ancestor and~the~method is declared as~\textit{virtual}, calling the~method on~the~variable (which has the~ancestor type) actually triggers the~implementation from the~descendant.
 \end{itemize}
 
@@ -170,16 +174,26 @@ It's a~programming paradigm in which programs describe their desired results wit
 \newsection{Compiled VS Interpreted Languages}
 \index{Compiled language}
 \index{Interpreted language}
+\index{Compilation}
+\index{Compiler}
+\index{Interpreter}
 \label{compiledinterpretedlanguages}
+Each~source code in~any~language must~be somehow transferred to~a~machine code to~be~executed. This can~happen either as~a~separate step, or~directly as~a~part of~the~execution.
+
+The~process of~transforming a~source code to~some more machine--readable code before its execution is~called \textit{compilation}. There's a~software called \textit{compiler} performing the~transformation. A~language processed by~a~compiler is~called \textit{compiled language}. The~result of~the~compilation can~be either directly the~machine code, or~some other, further processed form. For~example, \mbox{C~or~C++} are~compiled directly to~the~machine code. Because of~that a~special compiler is~needed for~each~\hyperref[platform]{platform} for~these languages. On~the~other hand, Java or~C\# are~compiled to~an~intermediate form, which must~be further transferred to~the~machine code, but~the~intermediate form can~be the~same for~all~\hyperref[platform]{platforms} (see~\hyperref[bytecode]{Java bytecode} for~example).
+
+A~source code of~some languages can~be seemingly executed directly on~the~fly, without any compilation. Such languages are~called \textit{interpreted languages}. There's a~software called \textit{interpreter}, which transfers the~source code to~the~machine code and~executes~it immediately. For~each such language a~special interpreter is~needed for~each~\hyperref[platform]{platform}. Developing a~working \hyperref[applicationprocessprogramservicethread]{program} in~an~interpreted language is generally simpler than in~a~compiled language, but~programs written in~interpreted languages are~usually slower than~equivalents written in~compiled languages. Interpreted languages are~therefore more suitable for~writing smaller and~simpler programs, for~example, \hyperref[scriptinglanguages]{scripts}. Examples of~typical interpreted languages are JavaScript, \hyperref[powershell]{PowerShell} or~\hyperref[shbash]{Bash}.
+
+\warning There is no pure compiled or~interpreted language. Compilation and~interpretation are just ways of~transforming some text following some syntax (i.e.,~a~source code) to~a~machine code. There can~theoretically exist both a~compiler and~an~interpreter for~any language.
 
 \newsection{Scripting Languages}
 \index{Scripting language}
 \label{scriptinglanguages}
-There isn't an~exact definition what a~scripting language is, but~usually the~term denotes a~language, whose source code files\,--\,scripts\,--\,are~immediately available for~execution. A~scripting language always has a~special run--time environment capable of~real time execution of~scripts. Scripting languages aren't limited to~only small scripts, even large and~complex programs can~be written in~them. Examples of~languages generally considered to~be scripting are~JavaScript, \hyperref[powershell]{PowerShell}, Python, Groovy or~VisualBasic.
+There isn't an~exact definition what a~scripting language is, but~usually the~term denotes a~language, whose source code files\,--\,scripts\,--\,are~immediately available for~execution. I.e.,~it's~a~synonym for~an~\hyperref[compiledinterpretedlanguages]{interpreted language}.
+
+A~scripting language always has a~special run--time environment (an~\hyperref[compiledinterpretedlanguages]{interpreter}) capable of~real time execution of~scripts. Scripting languages aren't limited to~only small scripts, even large and~complex programs can~be written in~them. Examples of~languages generally considered to~be scripting are~JavaScript, \hyperref[powershell]{PowerShell}, Python, Groovy, \hyperref[shbash]{Bash} or~VisualBasic.
 
 Scripting languages are~popular for~tasks automation. A~developer writes a~script triggering multiple tasks. Then, instead~of executing each task separately, only the~script is~executed.
-
-Scripting languages are~usually \hyperref[compiledinterpretedlanguages]{interpreted}, but~there~are also compiled. The~best example of~such unusual language is~Groovy, which~is compiled in~real time to~\hyperref[bytecode]{Java bytecode}. Also Python is~compiled, execution of~a~Python script results in~creation of~a~\textitquoted{.pyc} file corresponding to~the~script.
 
 \newsubsection{Shebang}
 \index{Shebang}
@@ -200,7 +214,7 @@ Scripts in~Linux systems sometimes contain a~special first line starting with ha
 \index{NET}
 \index{Dot NET}
 \label{dotnet}
-Pronounced [d\textopeno{}tn\textepsilon{}t], it's~a~multi--purpose framework and~runtime environment, i.e.,~a~\hyperref[platform]{platform}. Developed by~Microsoft, it's~available in~Windows by~default, but~nowadays it~can~be downloaded and~used even in~Linux environments. Languages \mbox{for~.NET} are~compiled to~CIL (\textit{Common Intermediate Language}, equivalent of~\hyperref[bytecode]{Java bytecode}) and~executed by~CLR (\textit{Common Language Runtime}, equivalent of~\hyperref[jdkjrejvm]{JRE}). Examples of~such languages are~C\# or~Visual Basic. \hyperref[powershell]{PowerShell} heavily uses .NET programs in~the~form of~\hyperref[cmdlet]{cmdLets}, but~itself it's~an~\hyperref[compiledinterpretedlanguages]{interpreted language}.
+Pronounced [d\textopeno{}tn\textepsilon{}t], it's~a~multi--purpose framework and~runtime environment, i.e.,~a~\hyperref[platform]{platform}. Developed by~Microsoft, it's~available in~Windows by~default, but~nowadays it~can~be downloaded and~used even in~Linux environments. Languages \mbox{for~.NET} are~compiled to~CIL (\textit{Common Intermediate Language}, equivalent of~\hyperref[bytecode]{Java bytecode}) and~executed by~CLR (\textit{Common Language Runtime}, equivalent of~\hyperref[jdkjrejvm]{JRE}). Examples of~such languages are~C\# or~Visual Basic. \hyperref[powershell]{PowerShell} heavily uses .NET programs in~the~form of~\hyperref[cmdlet]{cmdLets}, but~itself it~has an~\hyperref[compiledinterpretedlanguages]{interpreter}, which doesn't produce~CIL.
 
 \newsection{Variable VS Field VS Property}
 \index{Variable}
@@ -229,9 +243,9 @@ For~example consider a~method \mboxtextitquoted{doSomething(String someVariable)
 \newsection{Data Types}
 \index{Data type}
 \label{datatypes}
-Each~\hyperref[variablefieldproperty]{variable} in~fact denotes a~sequence of~zeros and~ones in~the~\hyperref[systemmemory]{memory}, i.e.,~values of~memory bits. A~data type, usually written exactly before the~variable in~the~code, is~an~information for~\hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} how to~interpret that sequence, i.e., what value that sequence denotes.
+Each~\hyperref[variablefieldproperty]{variable} in~fact denotes a~sequence of~zeros and~ones in~the~\hyperref[systemmemory]{memory}, i.e.,~values of~memory bits. A~data type, usually written exactly before the~variable in~the~code, is~an~information for~\hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} how to~interpret that sequence, i.e.,~what value that sequence denotes.
 
-Each~programming language can~theoretically interpret the~same value differently, but~basics like numbers corresponding to~characters are~usually the~same. For~example consider the~value 1100001. When treated as~the~\textit{integer} type (\textit{int}~in some languages), it~represents the~number~97. When treated as~the~\textit{character} type (\textit{char}~in some languages), it~represents the~minuscule letter~\textit{a}.
+Each~programming language can~theoretically interpret the~same value differently, but~basics like numbers corresponding to~characters are~usually the~same. For~example consider the~value 1100001. When treated as~the~\textit{integer} type (\textit{int}~in some languages), it~represents the~number~97. When treated as~the~\textit{character} type (\textit{char}~in some languages), it~represents the~minuscule letter~\textitquoted{a}.
 
 \newsection{Declaration VS Definition}
 \index{Declaration}
