@@ -61,6 +61,7 @@ Both these terms denote some description of~a~system before its implementation. 
 \newsection{Object--Oriented Programming (OOP)}
 \index{Object--oriented programming}
 \index{OOP}
+\index{Object}
 \label{objectorientedprogramming}
 It's~a~programming paradigm in~which data are~\hyperref[encapsulation]{encapsulated} into objects together with tools for~manipulating these data. An~object holds data in~\hyperref[variablefieldproperty]{fields} (also called attributes) and~provides methods (also called functions) for~manipulating with these data (typically from other objects). Java and~most other languages using the~object paradigm like C\# or C++ are~not~pure object languages, because they contain \hyperref[javadatatypes]{primitive} \hyperref[datatypes]{data types} like \textit{integer} or~\textit{boolean}. In~pure object languages all~data (each variable) must be object. An~example of a~pure object language is Smalltalk (and~there is~probably no~other).
 
@@ -151,8 +152,46 @@ Nevertheless, be~aware that deciding how~to~encapsulate \hyperref[javadatatypes]
 \end{lstlisting}
 
 \noindent The~value is~encapsulated in~the~class, but~is~not~used inside any~method of~the~class. Something like this doesn't happen in~real programming.
+\newline
 
 \newsection{Object VS Data Structure}
+\index{Data structure}
+A~data structure is similar to~an~object. It's~also a~container for~data stored in~variables. The~difference is that data structures expose all its data and~contain no meaningful tools for~operating with data.
+
+\example[simple data structure]
+\begin{lstlisting}[language=Java]
+    public class DataStructure {
+        public int intVariable = 0;
+        public String stringVariable = "abc";
+    }
+\end{lstlisting}
+
+\noindent An~object with private variables, but~with only getters and~setters for~them, can~also be considered to~be rather a~data structure than an~object.
+\newpage
+
+\example[data structure trying to look like an object]
+\begin{lstlisting}[language=Java]
+    public class WannaBeObject {
+        private int intVariable = 0;
+        private String stringVariable = "abc";
+
+        public int getIntVariable() {
+            return intVariable;
+        }
+
+        public void setIntVariable(int intVariable) {
+            this.intVariable = intVariable;
+        }
+
+        public String getStringVariable() {
+            return stringVariable;
+        }
+
+        public void setStringVariable(String stringVariable) {
+            this.stringVariable = stringVariable;
+        }
+    }
+\end{lstlisting}
 
 \newsection{Object--Oriented VS Procedural Programming}
 \index{Procedural programming}
