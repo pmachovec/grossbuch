@@ -5,6 +5,7 @@ depclass
 depfield
 depinterface
 difftool
+erlang
 floatvalue
 floatvaluefield
 intelli
@@ -20,6 +21,8 @@ singdestroy
 singinit
 stringvalue
 stringvaluefield
+subprocedure
+subprocedures
 tasklist
 taskkill
 usedep
