@@ -3,15 +3,24 @@
 \index{Spring bean life cycle methods}
 \index{Initialization method}
 \index{Destroy method}
-In~a~bean class you~can~define a~method that will be executed after the~bean is~prepared by~a~\hyperref[springcontainrer]{container} (initialization, dependencies and~values injection, internal Spring processing). This method is~called \textit{initialization method}. Similarly you~can~define a~method that will be executed before the~\hyperref[springcontainrer]{container} is shut~down (the~\textit{context.close()} is~called). This method is~called \textit{destroy method}.
+In~a~bean class you~can~define a~method that will be executed after the~bean is~prepared by~a~\hyperref[springcontainrer]{container} (initialization, dependencies and~values injection, internal Spring processing).
+This method is~called \textit{initialization method}.
+Similarly you~can~define a~method that will be executed before the~\hyperref[springcontainrer]{container} is shut~down (the~\textit{context.close()} is~called).
+This method is~called \textit{destroy method}.
 
-Each~bean can~have only one initialization and~one destroy method. Methods can~have any \hyperref[accessmodifiers]{access modifier} and~any return value. There~is no~use for~it, therefore, it's~convenient to~make methods private and~with \textit{void} return value. Methods can't have any~parameters.
+Each~bean can~have only one initialization and~one destroy method.
+Methods can~have any \hyperref[accessmodifiers]{access modifier} and~any return value.
+There~is no~use for~it, therefore, it's~convenient to~make methods private and~with \textit{void} return value.
+Methods can't have any~parameters.
 
-Initialization methods executions depend on~bean initialization points\,--\,they can~be executed in~various moments. On~the~other hand, destroy methods executions of~all~beans created~by the~same \hyperref[springcontainrer]{container} are~performed in~the~same moment\,--\,when the~\hyperref[springcontainrer]{container} is shut~down.
+Initialization methods executions depend on~bean initialization points\,--\,they can~be executed in~various moments.
+On~the~other hand, destroy methods executions of~all~beans created~by the~same \hyperref[springcontainrer]{container} are~performed in~the~same moment\,--\,when the~\hyperref[springcontainrer]{container} is shut~down.
 
-\warning Destroy methods work only for~\hyperref[singletondp]{singletons}. For~\hyperref[prototypedp]{prototypes} they can~be defined and~configured without any~problem, but~they are never executed.\\
+\warning Destroy methods work only for~\hyperref[singletondp]{singletons}.
+For~\hyperref[prototypedp]{prototypes} they can~be defined and~configured without any~problem, but~they are never executed.\\
 
-\noindent To~set an~initialization method for a~bean put the~method's name to~the~attribute \textit{init-method} of~the~element \textit{bean}. To~set a~destroy method put the~method's name to~the~attribute \textit{destroy-method} of~the~element \textit{bean}.
+\noindent To~set an~initialization method for a~bean put the~method's name to~the~attribute \textit{init-method} of~the~element \textit{bean}.
+To~set a~destroy method put the~method's name to~the~attribute \textit{destroy-method} of~the~element \textit{bean}.
 \newpage
 
 \example
@@ -57,13 +66,18 @@ Initialization methods executions depend on~bean initialization points\,--\,they
     \drawarrow{lc1xml1protdestroy}{[xshift=-6mm] lc1java1destroy.north}[blue]
 \end{tikzpicture}
 
-\noindent The~initialization method is~called three times\,--\,once for~the~singleton instance and~twice for~prototype instances. The~destroy method is~called only once\,--\,for~the~singleton instance, although configured even for~prototype beans. Destroy methods of~prototype beans don't work.
+\noindent The~initialization method is~called three times\,--\,once for~the~singleton instance and~twice for~prototype instances.
+The~destroy method is~called only once\,--\,for~the~singleton instance, although configured even for~prototype beans.
+Destroy methods of~prototype beans don't work.
 
 \newsubsection{Using Java Annotations}
 \label{beanlifecycleannotations}
-To~make a~method to~be the~\textit{initialization} method annotate it with the~\textit{PostConstruct} \hyperref[javaannotation]{annotation}. To~make a~method to~be the~\textit{destroy} method annotate it with the~\textit{PreDestroy} \hyperref[javaannotation]{annotation}.
+To~make a~method to~be the~\textit{initialization} method annotate it with the~\textit{PostConstruct} \hyperref[javaannotation]{annotation}.
+To~make a~method to~be the~\textit{destroy} method annotate it with the~\textit{PreDestroy} \hyperref[javaannotation]{annotation}.
 
-\warning Mentioned annotations belong to~the~\textit{annotation} package from the~\hyperref[javax]{\textit{javax}} extension set. From Java~9 on no~\hyperref[javax]{\textit{javax}} package is a~part of~the~default Java. You~must download it or~load it as~a~dependency.
+\warning Mentioned annotations belong to~the~\textit{annotation} package from the~\hyperref[javax]{\textit{javax}} extension set.
+From Java~9 on no~\hyperref[javax]{\textit{javax}} package is a~part of~the~default Java.
+You~must download it or~load it as~a~dependency.
 
 \example
 \enlargethispage{10mm}
@@ -135,14 +149,21 @@ To~make a~method to~be the~\textit{initialization} method annotate it with the~\
     \node at ([xshift=9mm] lc2java1singbeaniddummy |-,-31mm)[circle,fill,red,inner sep=1.5pt]{};
 \end{tikzpicture}
 
-\noindent Again the~initialization method is~called three times\,--\,once for~the~singleton instance and~twice for~prototype instances. The~destroy method is~called only once\,--\,for~the~singleton instance.
+\noindent Again the~initialization method is~called three times\,--\,once for~the~singleton instance and~twice for~prototype instances.
+The~destroy method is~called only once\,--\,for~the~singleton instance.
 
-\note There's one significant difference between annotation--based and~XML--based bean life cycle methods  One~bean class can~contain more than one annotated \textit{initialization} or~\textit{destroy} method. When the~time of~their execution comes (bean instantiation, context closing), all~such methods are~triggered. \textit{Initialization} methods are~triggered in~the~order reversed from the~order of~methods definition, \textit{destroy} methods are~called in~the~order of~methods definition. All~the~other behavior (no~parameters allowed, \textit{destroy methods not~working for~\hyperref[prototypedp]{prototypes},~\dots}) and~conventions (\hyperref[accessmodifiers]{access modifier} \textit{private}, no~return value,~\dots) are~the~same as~for~XML--based bean life cycle methods.
+\note There's one significant difference between annotation--based and~XML--based bean life cycle methods  One~bean class can~contain more than one annotated \textit{initialization} or~\textit{destroy} method.
+When the~time of~their execution comes (bean instantiation, context closing), all~such methods are~triggered. \textit{Initialization} methods are~triggered in~the~order reversed from the~order of~methods definition, \textit{destroy} methods are~called in~the~order of~methods definition.
+All~the~other behavior (no~parameters allowed, \textit{destroy methods not~working for~\hyperref[prototypedp]{prototypes},~\dots}) and~conventions (\hyperref[accessmodifiers]{access modifier} \textit{private}, no~return value,~\dots) are~the~same as~for~XML--based bean life cycle methods.
 
 \newsubsection{Configuration with Java Code (No XML)}
-When you define your own bean classes, you~should use \textit{PostConstruct} and~\textit{PreDestroy} (as~described in~the~\hyperref[beanlifecycleannotations]{annotation configuration section}) even with Java code configuration. But~you can configure life cycle methods even in~configuration classes. That's useful when you can't access bean classes source code.
+When you define your own bean classes, you~should use \textit{PostConstruct} and~\textit{PreDestroy} (as~described in~the~\hyperref[beanlifecycleannotations]{annotation configuration section}) even with Java code configuration.
+But~you can configure life cycle methods even in~configuration classes.
+That's useful when you can't access bean classes source code.
 
-Life cycle methods can~be configured by~specifying their names as~string arguments of~the~\textit{Bean} annotation. Initialization methods are~specified by~the~\mboxtextit{initMethod} parameter, destroy methods are~specified by~the~\textit{destroyMethod} parameter. With this approach you can configure only one initialization method and~one destroy method per~bean (same as~with XML configuration).
+Life cycle methods can~be configured by~specifying their names as~string arguments of~the~\textit{Bean} annotation.
+Initialization methods are~specified by~the~\mboxtextit{initMethod} parameter, destroy methods are~specified by~the~\textit{destroyMethod} parameter.
+With this approach you can configure only one initialization method and~one destroy method per~bean (same as~with XML configuration).
 \newpage
 
 \example[multiple life cycle methods]
@@ -184,7 +205,9 @@ Life cycle methods can~be configured by~specifying their names as~string argumen
     \drawarrow{lc4java1singbeanid}{lc4java2singbeanid}
 \end{tikzpicture}
 
-\noindent On~the~bean first initialization (it's~singleton) the~\textit{secondInit} method is~called first, then the~\textit{firstInit} method is~called. On~the~context closing the~\textit{firstDestroy} method is~called first, then the~\textit{secondInit} method is~called. If~the~bean scope was~set to~prototype, \textit{destroy} methods wouldn't be triggered.
+\noindent On~the~bean first initialization (it's~singleton) the~\textit{secondInit} method is~called first, then the~\textit{firstInit} method is~called.
+On~the~context closing the~\textit{firstDestroy} method is~called first, then the~\textit{secondInit} method is~called.
+If~the~bean scope was~set to~prototype, \textit{destroy} methods wouldn't be triggered.
 \newpage
 
 \example[life cycle methods configuration in a configuration class]
@@ -235,4 +258,5 @@ Life cycle methods can~be configured by~specifying their names as~string argumen
     \drawarrow{lc5java1protdestroy}{lc5java2destroy.north}[yellow][.5]
 \end{tikzpicture}
 
-\noindent And~again the~initialization method is~called three times\,--\,once for~the~singleton instance and~twice for~prototype instances. The~destroy method is~called only once\,--\,for~the~singleton instance.
+\noindent And~again the~initialization method is~called three times\,--\,once for~the~singleton instance and~twice for~prototype instances.
+The~destroy method is~called only once\,--\,for~the~singleton instance.

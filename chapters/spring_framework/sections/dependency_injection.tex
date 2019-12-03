@@ -1,33 +1,50 @@
 \newsection{Dependency Injection}
 \index{Dependency injection}
 \label{springdependencyinjection}
-Spring bean classes can~contain some \hyperref[variablefieldproperty]{fields}. The~\hyperref[springcontainrer]{Spring container} can~automatically assign instances of~classes matching those \hyperref[variablefieldproperty]{fields} types. I.e., the~\hyperref[springcontainrer]{Spring container} can~perform an~automated \hyperref[dependencyinjection]{dependency injection}.
+Spring bean classes can~contain some \hyperref[variablefieldproperty]{fields}.
+The~\hyperref[springcontainrer]{Spring container} can~automatically assign instances of~classes matching those \hyperref[variablefieldproperty]{fields} types.
+I.e., the~\hyperref[springcontainrer]{Spring container} can~perform an~automated \hyperref[dependencyinjection]{dependency injection}.
 
-Basically it must be configured what \hyperref[variablefieldproperty]{field} should get what class instance, this configuration is a~part of~the~XML configuration file. With the~\hyperref[autowiring]{autowiring feature} (see~further) it's~even possible to~completely avoid the~configuration if~the~correct class for~the~field can~be identified unambiguously.
+Basically it must be configured what \hyperref[variablefieldproperty]{field} should get what class instance, this configuration is a~part of~the~XML configuration file.
+With the~\hyperref[autowiring]{autowiring feature} (see~further) it's~even possible to~completely avoid the~configuration if~the~correct class for~the~field can~be identified unambiguously.
 
 \note Dependencies injected by~Spring dependency injection must~be also Spring beans.
 
 \newsubsection{Constructor Injection}
 \index{Constructor injection}
 \label{constructorinjection}
-One~of~basic approaches to~the~dependency injection is to~set the~dependency via the~wanted class constructor. The~constructor must accept a~parameter of a~type of~an~interface, which is~implemented by the~dependency class. The~dependency class instance\,--\,another bean\,--\, is~specified and~injected to~the~wanted bean in~the~XML configuration file by~the~element \textit{constructor-arg}.
+One~of~basic approaches to~the~dependency injection is to~set the~dependency via the~wanted class constructor.
+The~constructor must accept a~parameter of a~type of~an~interface, which is~implemented by the~dependency class.
+The~dependency class instance\,--\,another bean\,--\, is~specified and~injected to~the~wanted bean in~the~XML configuration file by~the~element \textit{constructor-arg}.
 
 \newsubsection{Setter Injection}
 \index{Setter injection}
 \label{setterinjection}
-Another basic approach to~the~dependency injection is to~set the~dependency via a~setter method defined in~the~wanted class. The~wanted class must have a~zero--parameter constructor. It's~safer to~always define~it, even~if there is no other constructor (and~therefore the~zero--parameter one is~implicit). There~is nothing wrong with keeping the~constructor body empty. The~injection is~similar to~the~\hyperref[constructorinjection]{constructor} approach. The~dependency class instance\,--\,another bean\,--\, is~specified and~injected to~the~wanted bean in~the~XML configuration file by~the~element \textit{property}.
+Another basic approach to~the~dependency injection is to~set the~dependency via a~setter method defined in~the~wanted class.
+The~wanted class must have a~zero--parameter constructor.
+It's~safer to~always define~it, even~if there is no other constructor (and~therefore the~zero--parameter one is~implicit).
+There~is nothing wrong with keeping the~constructor body empty.
+The~injection is~similar to~the~\hyperref[constructorinjection]{constructor} approach.
+The~dependency class instance\,--\,another bean\,--\, is~specified and~injected to~the~wanted bean in~the~XML configuration file by~the~element \textit{property}.
 
-\warning There is one crucial restriction to~follow. The~\textit{property} element must contain the~attribute \textit{name} with some value, let's say \textit{someName}. The~name of~the~setter method in the~wanted class must then be exactly \textit{setSomeName}. The~name of~the~field variable doesn't matter.
+\warning There is one crucial restriction to~follow.
+The~\textit{property} element must contain the~attribute \textit{name} with some value, let's say \textit{someName}.
+The~name of~the~setter method in the~wanted class must then be exactly \textit{setSomeName}.
+The~name of~the~field variable doesn't matter.
 
-\warning Dependency fields in~the~main bean class can't~be declared as~final when using the~setter injection. Final fields must be \hyperref[declarationdefinition]{defined} no~later than in~the~constructor, and~that can't happen with the~setter injection.
+\warning Dependency fields in~the~main bean class can't~be declared as~final when using the~setter injection.
+Final fields must be \hyperref[declarationdefinition]{defined} no~later than in~the~constructor, and~that can't happen with the~setter injection.
 
 \enlargethispage{20mm}
 \thispagestyle{empty}
 \newsubsection{Injecting literal values}
 \label{injectingliteralvalues}
-You~can inject even values of primitive types and~strings directly using the~XML configuration file. The~approach is the~same, but~instead of~using the~\textit{ref} attribute in~the~\textit{property} element you use the~\textit{value} attribute and~set directly the~value. You~can do it both for~\hyperref[constructorinjection]{constructor} and~\hyperref[setterinjection]{setter} injection.
+You~can inject even values of primitive types and~strings directly using the~XML configuration file.
+The~approach is the~same, but~instead of~using the~\textit{ref} attribute in~the~\textit{property} element you use the~\textit{value} attribute and~set directly the~value.
+You~can do it both for~\hyperref[constructorinjection]{constructor} and~\hyperref[setterinjection]{setter} injection.
 
-\warning If~you~mismatch injected value type (e.g.,~inject letters to~an~integer field), the~program will remain compilable. It~will~fail only at~runtime.
+\warning If~you~mismatch injected value type (e.g.,~inject letters to~an~integer field), the~program will remain compilable.
+It~will~fail only at~runtime.
 \newpage
 
 \examplenonl[constructor injection]
@@ -227,20 +244,34 @@ You~can inject even values of primitive types and~strings directly using the~XML
 \newsubsection{Autowiring}
 \index{Autowired}
 \label{autowiring}
-Similarly to~the~\hyperref[springinversionofcontrol]{inversion of~control} even the~\hyperref[springdependencyinjection]{dependency injection} can~be handled with \hyperref[javaannotation]{Java annotations}. A~Spring functionality called \textit{autowiring} automatically detects a~dependency bean class that can~be injected to~a~field in~the~main bean class. A~\hyperref[constructorinjection]{constructor} or~a~\hyperref[setterinjection]{setter method} performing the~injection must be annotated with the~annotation \textit{Autowired}, which processed in~runtime. The~dependency bean class must be annotated with the~annotation \textit{Component} in~the~zero--parameter form (no~bean~ID specified). When properly combined with the~\hyperref[iocannotations]{annotation--configured} \hyperref[springinversionofcontrol]{inversion of~control}, the~configuration XML file contains only the~component scanning configuration.
+Similarly to~the~\hyperref[springinversionofcontrol]{inversion of~control} even the~\hyperref[springdependencyinjection]{dependency injection} can~be handled with \hyperref[javaannotation]{Java annotations}.
+A~Spring functionality called \textit{autowiring} automatically detects a~dependency bean class that can~be injected to~a~field in~the~main bean class.
+A~\hyperref[constructorinjection]{constructor} or~a~\hyperref[setterinjection]{setter method} performing the~injection must be annotated with the~annotation \textit{Autowired}, which processed in~runtime.
+The~dependency bean class must be annotated with the~annotation \textit{Component} in~the~zero--parameter form (no~bean~ID specified).
+When properly combined with the~\hyperref[iocannotations]{annotation--configured} \hyperref[springinversionofcontrol]{inversion of~control}, the~configuration XML file contains only the~component scanning configuration.
 
-\note Opposite to~the~standard \hyperref[setterinjection]{setter injection} with~XML configuration file the~name of~an~autowired setter method isn't restricted in~any~way. The~Spring's autowiring is~directed by~the~type of~its parameter. I.e.,~in~the~following example the~name of~the~setter method could~be even literally \textit{absoluteNonsense} and~the~dependency injection would~be still working.
+\note Opposite to~the~standard \hyperref[setterinjection]{setter injection} with~XML configuration file the~name of~an~autowired setter method isn't restricted in~any~way.
+The~Spring's autowiring is~directed by~the~type of~its parameter.
+I.e.,~in~the~following example the~name of~the~setter method could~be even literally \textit{absoluteNonsense} and~the~dependency injection would~be still working.
 
-\warning You~can't use autowiring for~\hyperref[injectingliteralvalues]{injecting literal values}. Autowiring is~usable only when the~injected value is~an~instance of~an~explicitly defined Spring bean with the~\textit{Component} annotation. Nevertheless, it's~possible to~parse \textit{.properties} files with annotations, see~\hyperref[readingpropertiesannotations]{further}.
+\warning You~can't use autowiring for~\hyperref[injectingliteralvalues]{injecting literal values}.
+Autowiring is~usable only when the~injected value is~an~instance of~an~explicitly defined Spring bean with the~\textit{Component} annotation.
+Nevertheless, it's~possible to~parse \textit{.properties} files with annotations, see~\hyperref[readingpropertiesannotations]{further}.
 
 \newsubsection{Field Injection}
 \index{Field injection}
 \label{fieldinjection}
-The~\hyperref[autowiring]{autowiring} annotation can~be used directly to~dependency \hyperref[variablefieldproperty]{fields} (class fields only, not~local variables inside methods). These fields then don't need any~explicit setting, autowiring finds, creates and~assigns a~correct dependency class instance automatically. It's~like the~\hyperref[setterinjection]{setter injection} (i.e.,~with zero--parameter constructor), but~without \textit{set} methods. The~Spring implementation behind this "magic" uses \hyperref[reflection]{Java reflection}.
+The~\hyperref[autowiring]{autowiring} annotation can~be used directly to~dependency \hyperref[variablefieldproperty]{fields} (class fields only, not~local variables inside methods).
+These fields then don't need any~explicit setting, autowiring finds, creates and~assigns a~correct dependency class instance automatically.
+It's~like the~\hyperref[setterinjection]{setter injection} (i.e.,~with zero--parameter constructor), but~without \textit{set} methods.
+The~Spring implementation behind this "magic" uses \hyperref[reflection]{Java reflection}.
 
 \newsubsection{Qualifiers}
 \index{Qualifier}
-When there are more dependency classes matching the~dependency interface, it~isn't clear for~autowiring what class instance inject to~the~dependency field and~running (not~building) the~program fails complaining about not~unique bean. To~solve this problem you~must provide the~dependency bean~ID as~an~argument of~the~annotation \textit{Qualifier}. When using \hyperref[constructorinjectionautowire]{constructor injection} or~\hyperref[setterinjectionautowire]{setter injection}, the~annotation is~applied to~the~argument of~the~constructor or~the~setter method. When using field injection, the~annotation is~applied directly to~the~field variable.
+When there are more dependency classes matching the~dependency interface, it~isn't clear for~autowiring what class instance inject to~the~dependency field and~running (not~building) the~program fails complaining about not~unique bean.
+To~solve this problem you~must provide the~dependency bean~ID as~an~argument of~the~annotation \textit{Qualifier}.
+When using \hyperref[constructorinjectionautowire]{constructor injection} or~\hyperref[setterinjectionautowire]{setter injection}, the~annotation is~applied to~the~argument of~the~constructor or~the~setter method.
+When using field injection, the~annotation is~applied directly to~the~field variable.
 \newpage
 
 \examplenonl[autowired constructor injection]
@@ -558,13 +589,22 @@ When there are more dependency classes matching the~dependency interface, it~isn
 \newsubsection{Configuration with Java Code (No XML)}
 Similarly as for~the~\hyperref[springinversionofcontrol]{inversion of~control} even for~the~\hyperref[springdependencyinjection]{dependency injection} the~configuration XML file can~be completely omitted and~replaced by a~special configuration class with the~\textit{Configuration} annotation.
 
-When you use the~\textit{ComponentScan} annotation for~the~configuration class (see~the~example in~the~\hyperref[iocnoxml]{corresponding section of~the~inversion of~control}), it's~equivalent to~using the~XML configuration file with the~\textit{component-scan} element. You~can~combine such configuration class with the~\hyperref[autowiring]{autowiring}.
+When you use the~\textit{ComponentScan} annotation for~the~configuration class (see~the~example in~the~\hyperref[iocnoxml]{corresponding section of~the~inversion of~control}), it's~equivalent to~using the~XML configuration file with the~\textit{component-scan} element.
+You~can~combine such configuration class with the~\hyperref[autowiring]{autowiring}.
 
-You~can~also explicitly specify bean classes and~injection relationships among beans (equivalent of~explicit dependency injection configuration in~the~configuration XML file). You~must instantiate the~dependency bean class in~a~method with the~\textit{Bean} annotation (as~by the~\hyperref[iocnoxml]{inversion of~control}) and~then use this method as~a~parameter of~the~main wanted bean ID class constructor or~setter method inside its \textit{Bean}--annotated method. When you use the~setter approach, you~can't perform everything in~one step. First, you must instantiate the~wanted class with the~zero--parameter constructor and~then call the~setter method on~the~instance. Also, the~class instance is better not~to~be of~the~interface type, because interfaces generally don't contain setter declarations.
+You~can~also explicitly specify bean classes and~injection relationships among beans (equivalent of~explicit dependency injection configuration in~the~configuration XML file).
+You~must instantiate the~dependency bean class in~a~method with the~\textit{Bean} annotation (as~by the~\hyperref[iocnoxml]{inversion of~control}) and~then use this method as~a~parameter of~the~main wanted bean ID class constructor or~setter method inside its \textit{Bean}--annotated method.
+When you use the~setter approach, you~can't perform everything in~one step.
+First, you must instantiate the~wanted class with the~zero--parameter constructor and~then call the~setter method on~the~instance.
+Also, the~class instance is better not~to~be of~the~interface type, because interfaces generally don't contain setter declarations.
 
-\warning It~may seem~OK (and~even working) to~omit the~\textit{Bean}--annotated method for~the~dependency bean class instantiation and~use directly the~constructor of~the~class when configuring the~injection. However, don't do~that. Beans behavior, scopes and~life cycles wouldn't work correctly. Always create the~\textit{Bean}--annotated method for~the~dependency bean class instantiation and~call it when instantiating the~main wanted bean class.
+\warning It~may seem~OK (and~even working) to~omit the~\textit{Bean}--annotated method for~the~dependency bean class instantiation and~use directly the~constructor of~the~class when configuring the~injection.
+However, don't do~that.
+Beans behavior, scopes and~life cycles wouldn't work correctly.
+Always create the~\textit{Bean}--annotated method for~the~dependency bean class instantiation and~call it when instantiating the~main wanted bean class.
 
-\note Java configuration enables injecting literal values, and~opposite to~the~XML configuration ever with type check. Simply use literal values as~arguments of~the~bean class constructor or~setter methods.
+\note Java configuration enables injecting literal values, and~opposite to~the~XML configuration ever with type check.
+Simply use literal values as~arguments of~the~bean class constructor or~setter methods.
 \newpage
 
 \enlargethispage{10mm}

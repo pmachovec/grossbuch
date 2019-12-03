@@ -12,7 +12,10 @@
 \index{Annotations}
 \index{Java annotations}
 \label{javaannotation}
-Annotations are~special labels by~components of~a~Java code denoted by~the~symbol~\textquotesingle\textit{@}\textquotesingle. They carry additional information\,--\,metadata\,--\,about components they denote. Although annotations have no direct effect on~the~annotated code operation, they're processed, either during compilation or~during runtime. The~most typically used annotation is \hyperref[javaoverride]{\textit{@Override}}.
+Annotations are~special labels by~components of~a~Java code denoted by~the~symbol~\textquotesingle\textit{@}\textquotesingle.
+They carry additional information\,--\,metadata\,--\,about components they denote.
+Although annotations have no direct effect on~the~annotated code operation, they're processed, either during compilation or~during runtime.
+The~most typically used annotation is \hyperref[javaoverride]{\textit{@Override}}.
 
 \newsubsection{Repeatable}
 \label{annotationsrepeatable}
@@ -51,11 +54,20 @@ Annotations are~special labels by~components of~a~Java code denoted by~the~symbo
 \newsection{Imports with Wildcards}
 \index{Import}
 \index{Wildcard}
-Some people say that when you import two or~more classes from one package, or~two or~more methods from one~class, you~should use the~wildcard import (i.e.,~something like \textit{import~package.*}). It's~even written in~the~book \textit{Clean Code} by~Robert C.~Martin. However, there are many objections to~this approach.
+Some people say that when you import two or~more classes from one package, or~two or~more methods from one~class, you~should use the~wildcard import (i.e.,~something like \textit{import~package.*}).
+It's~even written in~the~book \textit{Clean Code} by~Robert C.~Martin.
+However, there are many objections to~this approach.
 
-The~main (and~actually the~only) argument favouring imports with wildcards is that they make the~code shorter, therefore, more readable. This~is somehow true, but~today's IDEs, even those for~free like Eclipse or~NetBeans, can~collapse import sections automatically. If~someone is~writing code in~some editor not~capable of~this, then he's either a~beginner not~ready for~a~real IDE and~long imports, or~he's an~idiot. Also, when a~class has~too~many imports, it's~too~dependent to~other classes, therefore, too~big and~more susceptible to~errors (if~a~dependant class breaks, my~class breaks,~too), and~therefore,~bad. Furthermore, when~a~wildcard import is~used, the~class generally has~more imports than with explicit imports, and~the~previous problem with too~many imports is~even more serious.
+The~main (and~actually the~only) argument favouring imports with wildcards is that they make the~code shorter, therefore, more readable.
+This~is somehow true, but~today's IDEs, even those for~free like Eclipse or~NetBeans, can~collapse import sections automatically.
+If~someone is~writing code in~some editor not~capable of~this, then he's either a~beginner not~ready for~a~real IDE and~long imports, or~he's an~idiot.
+Also, when a~class has~too~many imports, it's~too~dependent to~other classes, therefore, too~big and~more susceptible to~errors (if~a~dependant class breaks, my~class breaks,~too), and~therefore,~bad.
+Furthermore, when~a~wildcard import is~used, the~class generally has~more imports than with explicit imports, and~the~previous problem with too~many imports is~even more serious.
 
-Then there are only arguments against wildcard imports. And~one of~them~is, funny enough, the~readability. With wildcard imports it's~harder to~tell where an~imported feature comes from. Consider the~following code:
+Then there are only arguments against wildcard imports.
+And~one of~them~is, funny enough, the~readability.
+With wildcard imports it's~harder to~tell where an~imported feature comes from.
+Consider the~following code:
 \begin{lstlisting}[language=Java]
     import firstPackage.*;
     import secondPackage.*;
@@ -66,7 +78,9 @@ Then there are only arguments against wildcard imports. And~one of~them~is, funn
     }
 \end{lstlisting}
 
-\noindent It~isn't clear what package the~\textit{MysteryClass} class comes from. Consider it's~somehow broken and~compilation fails, and~\textit{Ctrl}\,+\,click also~doesn't work (let's~say the~package library is~completely missing). And~now consider this code:
+\noindent It~isn't clear what package the~\textit{MysteryClass} class comes from.
+Consider it's~somehow broken and~compilation fails, and~\textit{Ctrl}\,+\,click also~doesn't work (let's~say the~package library is~completely missing).
+And~now consider this code:
 \begin{lstlisting}[language=Java]
     import firstPackage.SomethingUseless;
     import secondPackage.SomethingEvenMoreUseless;
@@ -77,27 +91,36 @@ Then there are only arguments against wildcard imports. And~one of~them~is, funn
     }
 \end{lstlisting}
 
-\noindent Here it's~clear that the~\textit{MysteryClass} class comes from the~third package. So,~when observing problems, it's~clear where to~look.
+\noindent Here it's~clear that the~\textit{MysteryClass} class comes from the~third package.
+So,~when observing problems, it's~clear where to~look.
 
-Now~consider that the~previous code with wildcard imports works, i.e.,~there~is a~class called \textit{MysteryClass} in~the~third package. And~now the~author of~the~second package, which lives on~the~other side of~the~world and~you don't know each~other, gets the~amazing idea to~create a~class called \textit{MysteryClass} in~the~second package. Suddenly, there's an~ambiguity in~your code, compilation stops working and~you're screwed. But~with explicit imports the~code still works without a~need of~change.
+Now~consider that the~previous code with wildcard imports works, i.e.,~there~is a~class called \textit{MysteryClass} in~the~third package.
+And~now the~author of~the~second package, which lives on~the~other side of~the~world and~you don't know each~other, gets the~amazing idea to~create a~class called \textit{MysteryClass} in~the~second package.
+Suddenly, there's an~ambiguity in~your code, compilation stops working and~you're screwed.
+But~with explicit imports the~code still works without a~need of~change.
 
 \note The~most favoured linter Ktlint for~Kotlin language, which slowly starts to~push away Java, forbids wildcard imports in~the~default configuration.
 
 \newsection{Compound Assignment}
 \index{Compound assignment}
-Compound assignment operators are those shortened assignments with arithmetic operators like \mbox{\textquotesingle\textit{+=}\textquotesingle} or~\mbox{\textquotesingle\textit{-=}\textquotesingle}. You~must~be extra careful when dealing with the~subtraction compound operator (\mbox{\textquotesingle\textit{-=}\textquotesingle}). It~first computes the~right side and~then subtracts it from~the~left side, and~that can~cause unintuitive results. For~example consider the~following code:
+Compound assignment operators are those shortened assignments with arithmetic operators like \mbox{\textquotesingle\textit{+=}\textquotesingle} or~\mbox{\textquotesingle\textit{-=}\textquotesingle}.
+You~must~be extra careful when dealing with the~subtraction compound operator (\mbox{\textquotesingle\textit{-=}\textquotesingle}).
+It~first computes the~right side and~then subtracts it from~the~left side, and~that can~cause unintuitive results.
+For~example consider the~following code:
 \begin{lstlisting}[language=Java, frame=no]
     int x = 5;
     x = x - 1 + 2 - 3; @>// 3
 \end{lstlisting}
 
-\noindent The~variable~$x$ is~evaluated to~$3$, because $5-1+2-3=3$. And~now consider an~"equivalent" code with the~compound assignment subtraction:
+\noindent The~variable~$x$ is~evaluated to~$3$, because $5-1+2-3=3$.
+And~now consider an~"equivalent" code with the~compound assignment subtraction:
 \begin{lstlisting}[language=Java, frame=no]
     int x = 5;
     x -= 1 + 2 - 3; @>// 5
 \end{lstlisting}
 
-\noindent The~variable~$x$ is~evaluated to~$5$, because $1+2-3=0$ (right side) and~$5-0=5$ (left side). To~avoid falling to~this trap always treat the~right side to~be calculated first.
+\noindent The~variable~$x$ is~evaluated to~$5$, because $1+2-3=0$ (right side) and~$5-0=5$ (left side).
+To~avoid falling to~this trap always treat the~right side to~be calculated first.
 
 \newsection{Serialization}
 \index{Serialization}
@@ -107,9 +130,14 @@ Compound assignment operators are those shortened assignments with arithmetic op
 \newsection{Servlets}
 \index{Servlet}
 \label{servlet}
-A~Java program executed by~an~\hyperref[applicationserver]{application server} (nowadays most usually \hyperref[tomcat]{Tomcat}) based on~a~request from a~client is~called \textit{servlet}. \hyperref[webserviceapplication]{Web services} implemented in~Java are~servlets. The~implementation of~servlets is~said to~use the servlet~\hyperref[api]{API}
+A~Java program executed by~an~\hyperref[applicationserver]{application server} (nowadays most usually \hyperref[tomcat]{Tomcat}) based on~a~request from a~client is~called \textit{servlet}. \hyperref[webserviceapplication]{Web services} implemented in~Java are~servlets.
+The~implementation of~servlets is~said to~use the servlet~\hyperref[api]{API}
 
-For~each servlet there is~a~class implementing the~interface \textit{javax.servlet.Servlet}. This class is~an~entry point of~the~servlet program. It~contains methods (enforced by its interface) that are~triggered when the~servlet is initiated (\textit{void init(ServletConfig config)}), when a~request comes to~it (\textit{void service(ServletRequest request, ServletResponse response)} and~when it's~terminated (\textit{void destroy()}). Note that even the~\textit{service} method, from which some response is~expected, is~void. The~response is~written to~a~writer instance of~the~\textit{response} object.
+For~each servlet there is~a~class implementing the~interface \textit{javax.servlet.Servlet}.
+This class is~an~entry point of~the~servlet program.
+It~contains methods (enforced by its interface) that are~triggered when the~servlet is initiated (\textit{void init(ServletConfig config)}), when a~request comes to~it (\textit{void service(ServletRequest request, ServletResponse response)} and~when it's~terminated (\textit{void destroy()}).
+Note that even the~\textit{service} method, from which some response is~expected, is~void.
+The~response is~written to~a~writer instance of~the~\textit{response} object.
 
 \enlargethispage{10mm}
 \example
@@ -132,14 +160,26 @@ For~each servlet there is~a~class implementing the~interface \textit{javax.servl
 \end{lstlisting}
 
 \newsubsection{Servlet invocation}
-\noindent Each servlet class must have~assigned some URL. When the~\hyperref[applicationserver]{application server} URL, correct port and~the~servlet URL are~invoked (for~example, in~a~web browser address bar), the~\textit{service} method of~the~class is~executed. From there other classes and~methods can~be invoked. The~content written to~the~writer of~the~response object is~sent back to~the~invoking client (a~web~browser displays it instead of~a~web~page). One~servlet can~be configured as~the~default one, this is triggered when no~servlet URL part is~written to the~address~bar.
+\noindent Each servlet class must have~assigned some URL.
+When the~\hyperref[applicationserver]{application server} URL, correct port and~the~servlet URL are~invoked (for~example, in~a~web browser address bar), the~\textit{service} method of~the~class is~executed.
+From there other classes and~methods can~be invoked.
+The~content written to~the~writer of~the~response object is~sent back to~the~invoking client (a~web~browser displays it instead of~a~web~page).
+One~servlet can~be configured as~the~default one, this is triggered when no~servlet URL part is~written to the~address~bar.
 
-There already are some classes implementing the~\textit{Servlet} interface. New~servlet classes are~implemented as~extending these classes. With this approach a~developer can override only methods he needs, the~original \textit{Servlet} interface doesn't have to be implemented whole again.
+There already are some classes implementing the~\textit{Servlet} interface.
+New~servlet classes are~implemented as~extending these classes.
+With this approach a~developer can override only methods he needs, the~original \textit{Servlet} interface doesn't have to be implemented whole again.
 
 \newsubsection{\textit{Service} method VS \textit{doGet} and \textit{doPost}}
- Today's servlet classes usually extend the~\textit{HttpServlet} class and~the~logic of~servlets is~implemented by~overriding methods \textit{doGet} and~\textit{doPost} from that class, not~the~original \textit{service}. That's because today's servlets are~triggered by web requests from web browsers, which use the~\hyperref[http]{HTTP} protocol. This~protocol enables (beside others) two~most common methods of~a~web request\,--\,\textit{GET} and~\textit{POST}. When an~\hyperref[applicationserver]{application server} gets a~\hyperref[http]{HTTP} request, it~actually triggers the~\textit{service} method, but~it~adds a~parameter with the~method type to~the~\textit{request} object. Based on~this parameter the~implementation of~the\textit{service} method from the~\textit{HttpServlet} class delegates other parameters to~\textit{doGet} or~\textit{doPost} method, which are~expected to~be overridden by~the~developer (their body is empty in~the~\textit{HttpServlet} class).
+ Today's servlet classes usually extend the~\textit{HttpServlet} class and~the~logic of~servlets is~implemented by~overriding methods \textit{doGet} and~\textit{doPost} from that class, not~the~original \textit{service}.
+That's because today's servlets are~triggered by web requests from web browsers, which use the~\hyperref[http]{HTTP} protocol.
+This~protocol enables (beside others) two~most common methods of~a~web request\,--\,\textit{GET} and~\textit{POST}.
+When an~\hyperref[applicationserver]{application server} gets a~\hyperref[http]{HTTP} request, it~actually triggers the~\textit{service} method, but~it~adds a~parameter with the~method type to~the~\textit{request} object.
+Based on~this parameter the~implementation of~the\textit{service} method from the~\textit{HttpServlet} class delegates other parameters to~\textit{doGet} or~\textit{doPost} method, which are~expected to~be overridden by~the~developer (their body is empty in~the~\textit{HttpServlet} class).
 
-When a~servlet is~invoked by~typing its URL to~a~web browser address bar, the~\hyperref[http]{HTTP} request has the~method~\textit{GET}, i.e., the~\textit{doGet} method is~triggered. Eventual parameters available in~the~\textit{request} object can~be written as~a~part of~the~complete URL written to~the~address bar. The~\textit{POST} method in~the~request, and~therefore even the~\textit{doPost} method in~the~servlet class, can~be triggered only by submitting a~HTML form configured to~use the~\textit{POST} method or~by~running a~\hyperref[javascript]{JavaScript} function on~the~client side.
+When a~servlet is~invoked by~typing its URL to~a~web browser address bar, the~\hyperref[http]{HTTP} request has the~method~\textit{GET}, i.e., the~\textit{doGet} method is~triggered.
+Eventual parameters available in~the~\textit{request} object can~be written as~a~part of~the~complete URL written to~the~address bar.
+The~\textit{POST} method in~the~request, and~therefore even the~\textit{doPost} method in~the~servlet class, can~be triggered only by submitting a~HTML form configured to~use the~\textit{POST} method or~by~running a~\hyperref[javascript]{JavaScript} function on~the~client side.
 
 \newsubsection{Attribute VS Parameter}
 \index{Attribute}
@@ -149,7 +189,8 @@ When a~servlet is~invoked by~typing its URL to~a~web browser address bar, the~\h
 \index{JSP}
 \index{Java server pages}
 \label{jsp}
-When a~\hyperref[http]{HTTP} request to~a~servlet is~sent from a~web browser, the~response is~displayed in~that~browser. When some meaningful \hyperref[internetweb]{web} page should be displayed, its~whole source code must be written to~the~response, i.e.,~something like this:
+When a~\hyperref[http]{HTTP} request to~a~servlet is~sent from a~web browser, the~response is~displayed in~that~browser.
+When some meaningful \hyperref[internetweb]{web} page should be displayed, its~whole source code must be written to~the~response, i.e.,~something like this:
 
 \begin{lstlisting}[language=Java]
     import java.io.PrintWriter;
@@ -172,9 +213,14 @@ When a~\hyperref[http]{HTTP} request to~a~servlet is~sent from a~web browser, th
     }
 \end{lstlisting}
 
-\noindent That sucks. As~a~solution there are~JSP~pages. A~JSP page is~basically a~HTML page with some advanced features for~interactions with request parameters, executing Java code and~dynamic context generation. When a~\hyperref[http]{HTTP} request is~sent to~a~JSP page, its~content (dynamically adjusted based on~the~request) is~sent as~the~response (and~displayed in~the~initiating browser).
+\noindent That sucks.
+As~a~solution there are~JSP~pages.
+A~JSP page is~basically a~HTML page with some advanced features for~interactions with request parameters, executing Java code and~dynamic context generation.
+When a~\hyperref[http]{HTTP} request is~sent to~a~JSP page, its~content (dynamically adjusted based on~the~request) is~sent as~the~response (and~displayed in~the~initiating browser).
 
-\warning JSP pages are~very dangerous for~code readability. They enable mixing five syntaxes\,--\,HTML, CSS, Java, JavaScript and~\hyperref[el]{EL}\,--\,into one~file. And~although this is considered and~known to~be a~VERY bad practice, you can~be sure that a~stressed and~tired developer, pressed by incompetent managers to~finish his job till yesterday (i.e.,~a~standard developer), will create a~real anarchy with this tool in~his~hands.
+\warning JSP pages are~very dangerous for~code readability.
+They enable mixing five syntaxes\,--\,HTML, CSS, Java, JavaScript and~\hyperref[el]{EL}\,--\,into one~file.
+And~although this is considered and~known to~be a~VERY bad practice, you can~be sure that a~stressed and~tired developer, pressed by incompetent managers to~finish his job till yesterday (i.e.,~a~standard developer), will create a~real anarchy with this tool in~his~hands.
 
 \newsubsection{Namespaces}
 \index{Namespace}

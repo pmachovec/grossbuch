@@ -7,29 +7,53 @@
 \index{Compiler}
 \index{Interpreter}
 \label{compiledinterpretedlanguages}
-Each~source code in~any~language must~be somehow transferred to~a~machine code to~be~executed. This can~happen either as~a~separate step, or~directly as~a~part of~the~execution.
+Each~source code in~any~language must~be somehow transferred to~a~machine code to~be~executed.
+This can~happen either as~a~separate step, or~directly as~a~part of~the~execution.
 
-The~process of~transforming a~source code to~some more machine--readable code before its execution is~called \textit{compilation}. There's a~software called \textit{compiler} performing the~transformation. A~language processed by~a~compiler is~called \textit{compiled language}. The~result of~the~compilation can~be either directly the~machine code, or~some other, further processed form. For~example, \mbox{C~or~C++} are~compiled directly to~the~machine code. Because of~that a~special compiler is~needed for~each~\hyperref[platform]{platform} for~these languages. On~the~other hand, Java or~C\# are~compiled to~an~intermediate form, which must~be further transferred to~the~machine code, but~the~intermediate form can~be the~same for~all~\hyperref[platform]{platforms} (see~\hyperref[bytecode]{Java bytecode} for~example).
+The~process of~transforming a~source code to~some more machine--readable code before its execution is~called \textit{compilation}.
+There's a~software called \textit{compiler} performing the~transformation.
+A~language processed by~a~compiler is~called \textit{compiled language}.
+The~result of~the~compilation can~be either directly the~machine code, or~some other, further processed form.
+For~example, \mbox{C~or~C++} are~compiled directly to~the~machine code.
+Because of~that a~special compiler is~needed for~each~\hyperref[platform]{platform} for~these languages.
+On~the~other hand, Java or~C\# are~compiled to~an~intermediate form, which must~be further transferred to~the~machine code, but~the~intermediate form can~be the~same for~all~\hyperref[platform]{platforms} (see~\hyperref[bytecode]{Java bytecode} for~example).
 
-A~source code of~some languages can~be seemingly executed directly on~the~fly, without any compilation. Such languages are~called \textit{interpreted languages}. There's a~software called \textit{interpreter}, which transfers the~source code to~the~machine code and~executes~it immediately. For~each such language a~special interpreter is~needed for~each~\hyperref[platform]{platform}. Developing a~working \hyperref[applicationprocessprogramservicethread]{program} in~an~interpreted language is generally simpler than in~a~compiled language, but~programs written in~interpreted languages are~usually slower than~equivalents written in~compiled languages. Interpreted languages are~therefore more suitable for~writing smaller and~simpler programs, for~example, \hyperref[scriptinglanguages]{scripts}. Examples of~typical interpreted languages are JavaScript, \hyperref[powershell]{PowerShell} or~\hyperref[shbash]{Bash}.
+A~source code of~some languages can~be seemingly executed directly on~the~fly, without any compilation.
+Such languages are~called \textit{interpreted languages}.
+There's a~software called \textit{interpreter}, which transfers the~source code to~the~machine code and~executes~it immediately.
+For~each such language a~special interpreter is~needed for~each~\hyperref[platform]{platform}.
+Developing a~working \hyperref[applicationprocessprogramservicethread]{program} in~an~interpreted language is generally simpler than in~a~compiled language, but~programs written in~interpreted languages are~usually slower than~equivalents written in~compiled languages.
+Interpreted languages are~therefore more suitable for~writing smaller and~simpler programs, for~example, \hyperref[scriptinglanguages]{scripts}.
+Examples of~typical interpreted languages are JavaScript, \hyperref[powershell]{PowerShell} or~\hyperref[shbash]{Bash}.
 
-\warning There is no pure compiled or~interpreted language. Compilation and~interpretation are just ways of~transforming some text following some syntax (i.e.,~a~source code) to~a~machine code. There can~theoretically exist both a~compiler and~an~interpreter for~any language.
+\warning There is no pure compiled or~interpreted language.
+Compilation and~interpretation are just ways of~transforming some text following some syntax (i.e.,~a~source code) to~a~machine code.
+There can~theoretically exist both a~compiler and~an~interpreter for~any language.
 \newpage
 
 \newsection{Scripting Languages}
 \index{Scripting language}
 \label{scriptinglanguages}
-There isn't an~exact definition what a~scripting language is, but~usually the~term denotes a~language, whose source code files\,--\,scripts\,--\,are~immediately available for~execution. I.e.,~it's~a~synonym for~an~\hyperref[compiledinterpretedlanguages]{interpreted language}.
+There isn't an~exact definition what a~scripting language is, but~usually the~term denotes a~language, whose source code files\,--\,scripts\,--\,are~immediately available for~execution.
+I.e.,~it's~a~synonym for~an~\hyperref[compiledinterpretedlanguages]{interpreted language}.
 
-A~scripting language always has a~special run--time environment (an~\hyperref[compiledinterpretedlanguages]{interpreter}) capable of~real time execution of~scripts. Scripting languages aren't limited to~only small scripts, even large and~complex programs can~be written in~them. Examples of~languages generally considered to~be scripting are~JavaScript, \hyperref[powershell]{PowerShell}, Python, Groovy, \hyperref[shbash]{Bash} or~VisualBasic.
+A~scripting language always has a~special run--time environment (an~\hyperref[compiledinterpretedlanguages]{interpreter}) capable of~real time execution of~scripts.
+Scripting languages aren't limited to~only small scripts, even large and~complex programs can~be written in~them.
+Examples of~languages generally considered to~be scripting are~JavaScript, \hyperref[powershell]{PowerShell}, Python, Groovy, \hyperref[shbash]{Bash} or~VisualBasic.
 
-Scripting languages are~popular for~tasks automation. A~developer writes a~script triggering multiple tasks. Then, instead~of executing each task separately, only the~script is~executed.
+Scripting languages are~popular for~tasks automation.
+A~developer writes a~script triggering multiple tasks.
+Then, instead~of executing each task separately, only the~script is~executed.
 
 \newsubsection{Shebang}
 \index{Shebang}
 \index{Hashbang}
 \label{shebang}
-Scripts in~Linux systems sometimes contain a~special first line starting with hash sign and~exclamation mark (\textitquoted{\#!}), following a~name~of, or~full path~to, the~corresponding executing program. This line is~called \textit{shebang}, or~\textit{hashbang}. When the~script is~executed without specifying the~executor directly, \hyperref[os]{operating system} decides by~the~shebang what executor to~use. Shebang can~directly point to~a~specific program, or~can~tell the~system to~resolve the~path (the~executing program must~be included in~the~\textit{PATH} system variable). It~can~even contain switches.
+Scripts in~Linux systems sometimes contain a~special first line starting with hash sign and~exclamation mark (\textitquoted{\#!}), following a~name~of, or~full path~to, the~corresponding executing program.
+This line is~called \textit{shebang}, or~\textit{hashbang}.
+When the~script is~executed without specifying the~executor directly, \hyperref[os]{operating system} decides by~the~shebang what executor to~use.
+Shebang can~directly point to~a~specific program, or~can~tell the~system to~resolve the~path (the~executing program must~be included in~the~\textit{PATH} system variable).
+It~can~even contain switches.
 \newline
 
 \noindent \textbf{Examples:}
@@ -40,23 +64,49 @@ Scripts in~Linux systems sometimes contain a~special first line starting with ha
 \end{itemize}
 
 \newsection{Language Typing Systems}
-Based on~how a~programming languages work with \hyperref[datatypes]{data types} of~their variables, they can~be divided to~statically and~dynamically typed and~to~strongly and~weakly typed. That makes four categories in~total. A~language exists for~each of~these categories.
+Based on~how a~programming languages work with \hyperref[datatypes]{data types} of~their variables, they can~be divided to~statically and~dynamically typed and~to~strongly and~weakly typed.
+That makes four categories in~total.
+A~language exists for~each of~these categories.
 
 \newsubsection{Statically VS Dynamically Typed Languages}
 \begin{itemize}
-    \item \textbf{Statically typed language} checks correctness of~data types before a~program can~be~executed, typically (but~not necessarily, see~further) during the~\hyperref[compiledinterpretedlanguages]{compilation}. As~a~compulsory part of~the~source code for~each variable it~must~be stated what type it~has. For~example, if~you~\hyperref[declarationdefinition]{declare} a~variable as~string and~then assign a~number to~it, your~program won't even start. Statically typed languages are~more time--consuming during development (the~code is~more verbose), but~programs are~generally faster, more stable and~easier to~debug.
-    \item \textbf{Dynamically typed language} doesn't check correctness of~data. A~type of~a~variable is~decided at~program runtime based on~the~first assignment of~a~value to~that~variable. When later in~the~program some other type value is~assigned to~the~variable, the~program can (but~doesn't always have~to) fail. For~example, if~you~assign a~string to~a~variable and~then try to~multiply~it by~a~number, the~(running) program will~fail at~the~multiplication step. Source code is~easier to~write in~dynamically typed languages, but~programs are~generally slower, more unstable and~harder to~debug.
+    \item \textbf{Statically typed language} checks correctness of~data types before a~program can~be~executed, typically (but~not necessarily, see~further) during the~\hyperref[compiledinterpretedlanguages]{compilation}.
+          As~a~compulsory part of~the~source code for~each variable it~must~be stated what type it~has.
+          For~example, if~you~\hyperref[declarationdefinition]{declare} a~variable as~string and~then assign a~number to~it, your~program won't even start.
+          Statically typed languages are~more time--consuming during development (the~code is~more verbose), but~programs are~generally faster, more stable and~easier to~debug.
+    \item \textbf{Dynamically typed language} doesn't check correctness of~data.
+          A~type of~a~variable is~decided at~program runtime based on~the~first assignment of~a~value to~that~variable.
+When later in~the~program some other type value is~assigned to~the~variable, the~program can (but~doesn't always have~to) fail.
+For~example, if~you~assign a~string to~a~variable and~then try to~multiply~it by~a~number, the~(running) program will~fail at~the~multiplication step.
+Source code is~easier to~write in~dynamically typed languages, but~programs are~generally slower, more unstable and~harder to~debug.
 \end{itemize}
 
-\warning Usual definition of~statically typed languages says that the~type check is~performed during a~compilation. This implies that languages, for~which an~\hyperref[compiledinterpretedlanguages]{interpreter} exist, can't~be statically typed, because there's no~compilation for~them. However, the~static check really means before a~program execution. Although it's extremely rare, there can~be a~type check before interpreting, i.e.,~directly executing, a~source code. Some variations of~Haskell do~this.
+\warning Usual definition of~statically typed languages says that the~type check is~performed during a~compilation.
+This implies that languages, for~which an~\hyperref[compiledinterpretedlanguages]{interpreter} exist, can't~be statically typed, because there's no~compilation for~them.
+However, the~static check really means before a~program execution.
+Although it's extremely rare, there can~be a~type check before interpreting, i.e.,~directly executing, a~source code.
+Some variations of~Haskell do~this.
 
 \newsubsection{Strongly VS Weakly Typed Languages}
 \begin{itemize}
-    \item \textbf{Strongly typed language} doesn't allow changes of~a~variable type. Once a~variable type is~decided, either before or~at~runtime, it's~fixed until the~program ends. For~example, consider a~dynamically typed language and~a~variable. At~first a~string is~assigned to~the~variable. When you~then try to~assign a~number to~it, the~program will~fail (at~runtime). Strongly typed languages are~more time--consuming during development, but~programs are~generally more stable and~easier to~debug.
-    \item \textbf{Weakly typed language} allows variable type changes. Various values of~various types can~be assigned to~one~variable through a~program. Consider the~same example\,--\,a~dynamically typed language and~a~variable. At~first a~string is~assigned to~the~variable. This time, when you try to~assign a~number to~it, the~original string will~be overridden by~the~number and~program will~continue running. Source code is~easier to~write in~weakly typed languages, but~programs can~behave unexpectedly and~are~harder to~debug.
+    \item \textbf{Strongly typed language} doesn't allow changes of~a~variable type.
+          Once a~variable type is~decided, either before or~at~runtime, it's~fixed until the~program ends.
+          For~example, consider a~dynamically typed language and~a~variable.
+          At~first a~string is~assigned to~the~variable.
+          When you~then try to~assign a~number to~it, the~program will~fail (at~runtime).
+          Strongly typed languages are~more time--consuming during development, but~programs are~generally more stable and~easier to~debug.
+    \item \textbf{Weakly typed language} allows variable type changes.
+          Various values of~various types can~be assigned to~one~variable through a~program.
+          Consider the~same example\,--\,a~dynamically typed language and~a~variable.
+          At~first a~string is~assigned to~the~variable.
+          This time, when you try to~assign a~number to~it, the~original string will~be overridden by~the~number and~program will~continue running.
+          Source code is~easier to~write in~weakly typed languages, but~programs can~behave unexpectedly and~are~harder to~debug.
 \end{itemize}
 
-\warning Although it~may~seem impossible, statically weakly typed languages do~exist, namely C and~C++. In~these lower level languages each value is~treated as~a~bunch of~bytes. Therefore, it's~possible to~assign for~example a~string to~a~variable \hyperref[declarationdefinition]{declared} as~integer. Byte representation of~the~string is~then treated as~an~integer.
+\warning Although it~may~seem impossible, statically weakly typed languages do~exist, namely C and~C++.
+In~these lower level languages each value is~treated as~a~bunch of~bytes.
+Therefore, it's~possible to~assign for~example a~string to~a~variable \hyperref[declarationdefinition]{declared} as~integer.
+Byte representation of~the~string is~then treated as~an~integer.
 \newpage
 
 \begin{table}[ht]

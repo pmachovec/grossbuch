@@ -29,22 +29,35 @@
 \newsubsection{SSH}
 \index{SSH}
 \label{ssh}
-It's a~protocol for~network communication that includes cryptographic features to~encrypt the~communication. It~enables secure communication over a~network in~a~\hyperref[clientserverarchitecture]{client--server architecture} that generally is~not secured. The abbreviation stands for \textit{Secure \hyperref[shellcligui]{Shell}}. It's typically used for~remote command line login and~remote commands execution, but~any network service can~be secured with SSH (e.g., file transfer or~tunneling). It~uses \hyperref[asymmetricencryption]{asymmetric encryption} approach to~secure the~network communication.
+It's a~protocol for~network communication that includes cryptographic features to~encrypt the~communication.
+It~enables secure communication over a~network in~a~\hyperref[clientserverarchitecture]{client--server architecture} that generally is~not secured.
+The abbreviation stands for \textit{Secure \hyperref[shellcligui]{Shell}}.
+It's typically used for~remote command line login and~remote commands execution, but~any network service can~be secured with SSH (e.g., file transfer or~tunneling).
+It~uses \hyperref[asymmetricencryption]{asymmetric encryption} approach to~secure the~network communication.
 
 \newsubsection{SFTP}
 \index{SFTP}
 \label{sftp}
-It's a~protocol for~secured network file access, file transfer, and~file management. It's an~extension of~the \hyperref[ssh]{SSH protocol}, therefore, when working with SFTP, you often have to~deal with documentation, terms and,~when programming, also object names that contain the~text~\textit{SSH}. For~example, one of~the~current Java libraries for~SFTP file management is~called~\textit{SSHJ}.
+It's a~protocol for~secured network file access, file transfer, and~file management.
+It's an~extension of~the \hyperref[ssh]{SSH protocol}, therefore, when working with SFTP, you often have to~deal with documentation, terms and,~when programming, also object names that contain the~text~\textit{SSH}.
+For~example, one of~the~current Java libraries for~SFTP file management is~called~\textit{SSHJ}.
 
-\warning It has nothing to~do with the~FTP protocol. That is completely different, very old and~unsecured protocol for network file transferring.
+\warning It has nothing to~do with the~FTP protocol.
+That is completely different, very old and~unsecured protocol for network file transferring.
 
 \newsection{Internet VS Web}
 \index{Internet}
 \index{Web}
 \label{internetweb}
 \begin{itemize}
-    \item \textbf{Internet} is a~huge computer network connecting smaller networks, computers, smartphones and~other devices. Simply it's one big computer network constructed all over the world. Sometimes it's referred as a~network of~networks. The~word \textit{Internet} therefore denotes the~connecting infrastructure, i.e.,~hardware.
-    \item \textbf{Web}, more precisely \textit{World Wide Web}, is~one of~more software systems using the~Internet infrastructure. It~mainly serves for~sharing visualised and mutualy linked HTML documents accessed by web browsers, but~can also provide \hyperref[webserviceapplication]{web services}. Information exchange on~the~Web is~performed exclusively with the~\hyperref[http]{HTTP}~protocol. I.e.,~other systems like email (\hyperref[smtp]{SMTP}~protocol), remote \hyperref[shellcligui]{shell} (\hyperref[ssh]{SSH}~protocol) or instant messaging (many different protocols), which also run on the~Internet infrastructure, are~not a~part of~Web.
+    \item \textbf{Internet} is a~huge computer network connecting smaller networks, computers, smartphones and~other devices.
+          Simply it's one big computer network constructed all over the world.
+          Sometimes it's referred as a~network of~networks.
+          The~word \textit{Internet} therefore denotes the~connecting infrastructure, i.e.,~hardware.
+    \item \textbf{Web}, more precisely \textit{World Wide Web}, is~one of~more software systems using the~Internet infrastructure.
+          It~mainly serves for~sharing visualised and mutualy linked HTML documents accessed by web browsers, but~can also provide \hyperref[webserviceapplication]{web services}.
+          Information exchange on~the~Web is~performed exclusively with the~\hyperref[http]{HTTP}~protocol.
+          I.e.,~other systems like email (\hyperref[smtp]{SMTP}~protocol), remote \hyperref[shellcligui]{shell} (\hyperref[ssh]{SSH}~protocol) or instant messaging (many different protocols), which also run on the~Internet infrastructure, are~not a~part of~Web.
 \end{itemize}
 
 \newsection{Namespaces}
@@ -54,18 +67,36 @@ It's a~protocol for~secured network file access, file transfer, and~file managem
 \newsection{Web Server}
 \index{Web server}
 \label{webserver}
-It's typically a~software, but~can~be even a~physical computer, that stores, processes and sends HTML documents to clients over a~network, usually \hyperref[internetweb]{the~Internet}. Using dedicated software\,--\,a~web browser\,--\,clients see these documents as web pages. The~communication with clients is mainly performed over the~\hyperref[http]{HTTP protocol}. Based on~incoming request from a~client (initiated by a~web browser) the~server picks a~stored HTML document and sends it back to the~client in a~response.
+It's typically a~software, but~can~be even a~physical computer, that stores, processes and sends HTML documents to clients over a~network, usually \hyperref[internetweb]{the~Internet}.
+Using dedicated software\,--\,a~web browser\,--\,clients see these documents as web pages.
+The~communication with clients is mainly performed over the~\hyperref[http]{HTTP protocol}.
+Based on~incoming request from a~client (initiated by a~web browser) the~server picks a~stored HTML document and sends it back to the~client in a~response.
 
-A~web address entered to a~browser's address bar is separated to the~part identifying the~server's physical computer (\textit{www.something.com}) and the~part identifying the~wanted HTML document location (everything that follows). The~location is referred from the~server's configured home folder. For~example, consider that \textit{www.something.com} refers to~some computer with running Apache HTTP Server (a~concrete example of a~web server). The~default home folder of~Apache HTTP servers is \textit{/home/www} and hasn't been configured otherwise in~this example. You~enter \textit{www.something.com/one/two/three.html} to your web browser's address bar. The~computer is reached over~\hyperref[dns]{DNS}, the~server gets the~request and it looks for the~file \mboxtextit{/home/www/one/two/three.html}. If~the~file is found, its contents are returned to your web browser and displayed. If~not, you get the~dinosaur.
+A~web address entered to a~browser's address bar is separated to the~part identifying the~server's physical computer (\textit{www.something.com}) and the~part identifying the~wanted HTML document location (everything that follows).
+The~location is referred from the~server's configured home folder.
+For~example, consider that \textit{www.something.com} refers to~some computer with running Apache HTTP Server (a~concrete example of a~web server).
+The~default home folder of~Apache HTTP servers is \textit{/home/www} and hasn't been configured otherwise in~this example.
+You~enter \textit{www.something.com/one/two/three.html} to your web browser's address bar.
+The~computer is reached over~\hyperref[dns]{DNS}, the~server gets the~request and it looks for the~file \mboxtextit{/home/www/one/two/three.html}.
+If~the~file is found, its contents are returned to your web browser and displayed.
+If~not, you get the~dinosaur.
 
 \newsection{Application Server}
 \index{Application server}
 \label{applicationserver}
-Application servers are~very similar to web~servers, they're like web~servers with additional functionality. They also get requests from clients and~send back responses and~they can~also retrieve static HTML document. The~difference is that they can~furthermore trigger some more complex logic. Application servers can, based on~incoming requests, execute programs written in~complex languages (Java, JavaScript, Python, C\# etc.). These programs can then be called \hyperref[webserviceapplication]{web~services}.
+Application servers are~very similar to web~servers, they're like web~servers with additional functionality.
+They also get requests from clients and~send back responses and~they can~also retrieve static HTML document.
+The~difference is that they can~furthermore trigger some more complex logic.
+Application servers can, based on~incoming requests, execute programs written in~complex languages (Java, JavaScript, Python, C\# etc.).
+These programs can then be called \hyperref[webserviceapplication]{web~services}.
 
-\warning The~term \textit{web server} is~often used in~the~meaning of~\textit{application server}. For~example, you~can~encounter claims that \hyperref[tomcat]{Tomcat}, a~typical example of~Java application server, is~a~web server.
+\warning The~term \textit{web server} is~often used in~the~meaning of~\textit{application server}.
+For~example, you~can~encounter claims that \hyperref[tomcat]{Tomcat}, a~typical example of~Java application server, is~a~web server.
 
-\warning Do~not confuse \hyperref[tomcat]{Tomcat} with the~\href{https://en.wikipedia.org/wiki/Apache_HTTP_Server}{Apache HTTP Server}, often denoted as~\textit{Apache Server} or~simply \textit{Apache}. That's a~typical \hyperref[webserver]{web server} designed for~static HTML documents handling. It~supports some advanced logic using some \hyperref[scriptinglanguages]{scripting languages} like PHP or~Python, but~it~can't run Java programs. On~the~other hand, \hyperref[tomcat]{Tomcat} serves mainly for~running Java programs (and~propagating their results to~web pages).
+\warning Do~not confuse \hyperref[tomcat]{Tomcat} with the~\href{https://en.wikipedia.org/wiki/Apache_HTTP_Server}{Apache HTTP Server}, often denoted as~\textit{Apache Server} or~simply \textit{Apache}.
+That's a~typical \hyperref[webserver]{web server} designed for~static HTML documents handling.
+It~supports some advanced logic using some \hyperref[scriptinglanguages]{scripting languages} like PHP or~Python, but~it~can't run Java programs.
+On~the~other hand, \hyperref[tomcat]{Tomcat} serves mainly for~running Java programs (and~propagating their results to~web pages).
 
 \newsection{Domain Name Service (DNS)}
 \index{Domain name service}

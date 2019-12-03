@@ -4,14 +4,20 @@
 \index{Operating system}
 \index{OS}
 \label{os}
-It's~a~basic software of~a~computer that manages the~computer's hardware, other software, their mutual communication, \hyperref[systemmemory]{memory} allocation and~interaction with a~user. Many operating systems also handle parallel \hyperref[applicationprocessprogramservicethread]{process} execution\,--\,\hyperref[multitasking]{multitasking}. Some sort of~OS should be installed to~a~computer as~a~part of~the~computer construction in~order to~make the~computer usable for~an~ordinary user. Controlling computer without an~OS (including the~initial OS installation) requires passing precise machine instructions directly to~the~computer \hyperref[processorcpucore]{processor}, which only computer manufacturers and~true specialists are~capable~of.
+It's~a~basic software of~a~computer that manages the~computer's hardware, other software, their mutual communication, \hyperref[systemmemory]{memory} allocation and~interaction with a~user.
+Many operating systems also handle parallel \hyperref[applicationprocessprogramservicethread]{process} execution\,--\,\hyperref[multitasking]{multitasking}.
+Some sort of~OS should be installed to~a~computer as~a~part of~the~computer construction in~order to~make the~computer usable for~an~ordinary user.
+Controlling computer without an~OS (including the~initial OS installation) requires passing precise machine instructions directly to~the~computer \hyperref[processorcpucore]{processor}, which only computer manufacturers and~true specialists are~capable~of.
 
 \newsubsection{Kernel}
 \index{Kernel}
 \index{Kernel space}
 \index{User space}
 \label{kernel}
-It's~the~core part of~an~OS, which manages the~connection of~\hyperref[applicationprocessprogramservicethread]{processes} with the~computer hardware. I.e.,~it~controls \hyperref[processorcpucore]{processor} management (assigning processor time to~processes), \hyperref[systemmemory]{memory} management (assigning memory space to~processes), computer devices and~communication with peripherals (keyboard, mouse, monitor, speakers,~\dots). Kernels have allocated a~special part of~the~\hyperref[systemmemory]{system memory} called \textit{kernel space}. The~remaining part of~the~\hyperref[systemmemory]{memory} is~called \textit{user space}.
+It's~the~core part of~an~OS, which manages the~connection of~\hyperref[applicationprocessprogramservicethread]{processes} with the~computer hardware.
+I.e.,~it~controls \hyperref[processorcpucore]{processor} management (assigning processor time to~processes), \hyperref[systemmemory]{memory} management (assigning memory space to~processes), computer devices and~communication with peripherals (keyboard, mouse, monitor, speakers,~\dots).
+Kernels have allocated a~special part of~the~\hyperref[systemmemory]{system memory} called \textit{kernel space}.
+The~remaining part of~the~\hyperref[systemmemory]{memory} is~called \textit{user space}.
 
 \newsubsection{Monolithic Kernel}
 \index{Monolithic kernel}
@@ -21,17 +27,26 @@ It's~an~old--fashioned type of~kernel where all kernel parts, as~described above
 \newsubsection{Microkernel}
 \index{Microkernel}
 \label{microkernel}
-It's~an~opposite to~the~monolithic kernel. It~runs only the~absolute minimum for~the~computer control using the~kernel space. The~minimum consists basically of~\hyperref[processorcpucore]{processor} management and~\hyperref[systemmemory]{memory} management. All~other kernel functions are~handled as~standard processes (called \hyperref[server]{servers} when dealing with microkernels) using the~user space. Microkernels are~more stable than monolithic kernels and~their functionality can~be extended by~adding new~servers without a~need of~recompilation, but~on~the~other hand they're slower.
+It's~an~opposite to~the~monolithic kernel.
+It~runs only the~absolute minimum for~the~computer control using the~kernel space.
+The~minimum consists basically of~\hyperref[processorcpucore]{processor} management and~\hyperref[systemmemory]{memory} management.
+All~other kernel functions are~handled as~standard processes (called \hyperref[server]{servers} when dealing with microkernels) using the~user space.
+Microkernels are~more stable than monolithic kernels and~their functionality can~be extended by~adding new~servers without a~need of~recompilation, but~on~the~other hand they're slower.
 
 \newsubsection{Hybrid kernel}
 \index{Hybrid kernel}
 \label{hybridkernel}
-It's~a~combination of~\hyperref[monolithickernel]{monolithic kernel} and~\hyperref[microkernel]{microkernel} combining (dis)advantages of~both. The~kernel functionalities are~separated to~servers like in~a~\hyperref[microkernel]{microkernel}, but~they~run in~the~kernel space. This preserves the~stability of~the~kernel with significantly less impact on~performance. The~disadvantage of~this~approach is that adding new servers is more complicated (and~impossible during runtime) than with \hyperref[microkernel]{microkernels}. Today's top commercial \hyperref[os]{operating systems} like Windows or~macOS have hybrid kernels (or~at~least Microsoft and~Apple say~so).
+It's~a~combination of~\hyperref[monolithickernel]{monolithic kernel} and~\hyperref[microkernel]{microkernel} combining (dis)advantages of~both.
+The~kernel functionalities are~separated to~servers like in~a~\hyperref[microkernel]{microkernel}, but~they~run in~the~kernel space.
+This preserves the~stability of~the~kernel with significantly less impact on~performance.
+The~disadvantage of~this~approach is that adding new servers is more complicated (and~impossible during runtime) than with \hyperref[microkernel]{microkernels}.
+Today's top commercial \hyperref[os]{operating systems} like Windows or~macOS have hybrid kernels (or~at~least Microsoft and~Apple say~so).
 
 \newsection{Platform}
 \index{Platform}
 \label{platform}
-This term has~multiple meanings. It~can~denote:
+This term has~multiple meanings.
+It~can~denote:
 \begin{enumerate}[label=\arabic*)]
     \item A~set of~tools for~writing and~running \hyperref[applicationprocessprogramservicethread]{programs}, like Java (the~language and~\hyperref[jdkjrejvm]{JDK}) or~\hyperref[dotnet]{.NET}
     \item A~combination of~\hyperref[os]{OS} and~hardware
@@ -41,21 +56,39 @@ This term has~multiple meanings. It~can~denote:
 \index{Package manager}
 \index{Package management system}
 \label{packagemanager}
-A~package manager, or~package management system, is~a~software for~simplification and~automation of~computer programs installation, configuration, upgrading and~deletion. Programs are distributed in~packages, which contain the~program software itself packaged in~an~archive file (zip,~tar,\dots) and~metadata like program name, description or~dependencies to~other programs. Package managers are~usually connected with package repositories available over the~\hyperref[internetweb]{internet}.
+A~package manager, or~package management system, is~a~software for~simplification and~automation of~computer programs installation, configuration, upgrading and~deletion.
+Programs are distributed in~packages, which contain the~program software itself packaged in~an~archive file (zip,~tar,\dots) and~metadata like program name, description or~dependencies to~other programs.
+Package managers are~usually connected with package repositories available over the~\hyperref[internetweb]{internet}.
 
-Package managers are typical for~\hyperref[linux]{Linux} \hyperref[os]{operating systems}, for~example Debian or~Ubuntu use the~popular~\hyperref[linuxapt]{APT}. Oracle Linux has the~\href{http://yum.baseurl.org/}{Yum}. But~there~are also some package managers available for~Windows, like \href{https://www.nuget.org/}{NuGet} or~\href{https://chocolatey.org/}{Chocolatey}. There~is also the~\hyperref[windowspackagemanagement]{PackageManagement} (formerly OneGet), which connects more Windows package managers to~one application. Some people say that the~PackageManagement is a~package manager manager.
+Package managers are typical for~\hyperref[linux]{Linux} \hyperref[os]{operating systems}, for~example Debian or~Ubuntu use the~popular~\hyperref[linuxapt]{APT}.
+Oracle Linux has the~\href{http://yum.baseurl.org/}{Yum}.
+But~there~are also some package managers available for~Windows, like \href{https://www.nuget.org/}{NuGet} or~\href{https://chocolatey.org/}{Chocolatey}.
+There~is also the~\hyperref[windowspackagemanagement]{PackageManagement} (formerly OneGet), which connects more Windows package managers to~one application.
+Some people say that the~PackageManagement is a~package manager manager.
 
-Not~only \hyperref[os]{operating systems} have package managers. Some programming languages or~platforms also have their package managers. For~example, Python has \href{https://pypi.org/}{PyPI} and~Node.js has~\hyperref[npm]{NPM}. Gradle or~Maven with a~connection to~Maven repositories can~also be considered as~package managers (for~Java).
+Not~only \hyperref[os]{operating systems} have package managers.
+Some programming languages or~platforms also have their package managers.
+For~example, Python has \href{https://pypi.org/}{PyPI} and~Node.js has~\hyperref[npm]{NPM}.
+Gradle or~Maven with a~connection to~Maven repositories can~also be considered as~package managers (for~Java).
 \newpage
 
 \newsection{Architecture VS Design}
 \index{Architecture}
 \index{Design}
 \label{architecturedesign}
-Both these terms denote some description of~a~system before its implementation. They differ in~the~level of~abstraction, i.e.,~in~how~concrete the~description~is.
+Both these terms denote some description of~a~system before its implementation.
+They differ in~the~level of~abstraction, i.e.,~in~how~concrete the~description~is.
 \begin{itemize}
-    \item \textbf{Architecture} is a~high abstraction level. It~describes main components of~a~system, their properties and~relations among them. Examples of~such components are~used programming language, individual functional parts to~implement, \hyperref[databases]{database} software or~\hyperref[server]{servers}. One~architecture can~be used for~multiple designs. Solutions for~issues commonly occurring in~software architectures are~described by~\hyperref[architecturalpatterns]{architectural patterns}.
-    \item \textbf{Design} is a~low abstraction level. It~describes implementation details more in~detail, like classes, functions, their relations etc. Software design can~be described by~an~UML diagram. There can~be more designs for~one~system, each~describing different part of~the~system. Solutions for~issues commonly occurring in~software designs are~described by~\hyperref[designpatterns]{design patterns}.
+    \item \textbf{Architecture} is a~high abstraction level.
+          It~describes main components of~a~system, their properties and~relations among them.
+          Examples of~such components are~used programming language, individual functional parts to~implement, \hyperref[databases]{database} software or~\hyperref[server]{servers}.
+          One~architecture can~be used for~multiple designs.
+          Solutions for~issues commonly occurring in~software architectures are~described by~\hyperref[architecturalpatterns]{architectural patterns}.
+    \item \textbf{Design} is a~low abstraction level.
+          It~describes implementation details more in~detail, like classes, functions, their relations etc.
+          Software design can~be described by~an~UML diagram.
+          There can~be more designs for~one~system, each~describing different part of~the~system.
+          Solutions for~issues commonly occurring in~software designs are~described by~\hyperref[designpatterns]{design patterns}.
 \end{itemize}
 
 \newsection{.NET}
@@ -63,7 +96,10 @@ Both these terms denote some description of~a~system before its implementation. 
 \index{NET}
 \index{Dot NET}
 \label{dotnet}
-Pronounced [d\textopeno{}tn\textepsilon{}t], it's~a~multi--purpose framework and~runtime environment, i.e.,~a~\hyperref[platform]{platform}. Developed by~Microsoft, it's~available in~Windows by~default, but~nowadays it~can~be downloaded and~used even in~Linux environments. Languages \mbox{for~.NET} are~compiled to~CIL (\textit{Common Intermediate Language}, equivalent of~\hyperref[bytecode]{Java bytecode}) and~executed by~CLR (\textit{Common Language Runtime}, equivalent of~\hyperref[jdkjrejvm]{JRE}). Examples of~such languages are~C\# or~Visual Basic. \hyperref[powershell]{PowerShell} heavily uses .NET programs in~the~form of~\hyperref[cmdlet]{cmdLets}, but~itself it~has an~\hyperref[compiledinterpretedlanguages]{interpreter}, which doesn't produce~CIL.
+Pronounced [d\textopeno{}tn\textepsilon{}t], it's~a~multi--purpose framework and~runtime environment, i.e.,~a~\hyperref[platform]{platform}.
+Developed by~Microsoft, it's~available in~Windows by~default, but~nowadays it~can~be downloaded and~used even in~Linux environments.
+Languages \mbox{for~.NET} are~compiled to~CIL (\textit{Common Intermediate Language}, equivalent of~\hyperref[bytecode]{Java bytecode}) and~executed by~CLR (\textit{Common Language Runtime}, equivalent of~\hyperref[jdkjrejvm]{JRE}).
+Examples of~such languages are~C\# or~Visual Basic. \hyperref[powershell]{PowerShell} heavily uses .NET programs in~the~form of~\hyperref[cmdlet]{cmdLets}, but~itself it~has an~\hyperref[compiledinterpretedlanguages]{interpreter}, which doesn't produce~CIL.
 
 \newsection{Variable VS Field VS Property}
 \index{Variable}
@@ -72,7 +108,9 @@ Pronounced [d\textopeno{}tn\textepsilon{}t], it's~a~multi--purpose framework and
 \label{variablefieldproperty}
 \begin{itemize}
     \item \textbf{Variable} is a~general term denoting data with named identifier.
-    \item \textbf{Field} is a~variable defined in~a~class outside any~method. Fields store parts of~class instance states. Class constants are~fields, variables defined inside \mbox{methods/functions} and~cycles are~not.
+    \item \textbf{Field} is a~variable defined in~a~class outside any~method.
+          Fields store parts of~class instance states.
+          Class constants are~fields, variables defined inside \mbox{methods/functions} and~cycles are~not.
     \item \textbf{Property} is a~field that is~exposed to~outside of~the~class, typically by~getters and~setters.
 \end{itemize}
 \newpage
@@ -86,30 +124,49 @@ Pronounced [d\textopeno{}tn\textepsilon{}t], it's~a~multi--purpose framework and
     \item \textbf{Parameter} is a~\hyperref[variablefieldproperty]{variable} in~a~method \hyperref[declarationdefinition]{declaration},
     \item \textbf{Argument} is a~concrete value of~a~parameter.
 \end{itemize}
-For~example consider a~method \mboxtextitquoted{doSomething(String someVariable)}. The~\mboxtextit{someVariable} is~a~parameter. When you call \mboxtextitquoted{doSomething("someValue")}, then \mboxtextit{someValue} is an~argument.
+For~example consider a~method \mboxtextitquoted{doSomething(String someVariable)}.
+The~\mboxtextit{someVariable} is~a~parameter.
+When you call \mboxtextitquoted{doSomething("someValue")}, then \mboxtextit{someValue} is an~argument.
 
-\warning Don't get confused by the~term \textit{attribute}. That's either a~different name for~a~\hyperref[variablefieldproperty]{field} of~an~object or~for~a~\hyperref[relationaldatabase]{relational database} table column.
+\warning Don't get confused by the~term \textit{attribute}.
+That's either a~different name for~a~\hyperref[variablefieldproperty]{field} of~an~object or~for~a~\hyperref[relationaldatabase]{relational database} table column.
 
 \newsection{Data Types}
 \index{Data type}
 \label{datatypes}
-Each~\hyperref[variablefieldproperty]{variable} in~fact denotes a~sequence of~zeros and~ones in~the~\hyperref[systemmemory]{memory}, i.e.,~values of~memory bits. A~data type, usually written exactly before the~variable in~the~code, is~an~information for~\hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} how to~interpret that sequence, i.e.,~what value that sequence denotes.
+Each~\hyperref[variablefieldproperty]{variable} in~fact denotes a~sequence of~zeros and~ones in~the~\hyperref[systemmemory]{memory}, i.e.,~values of~memory bits.
+A~data type, usually written exactly before the~variable in~the~code, is~an~information for~\hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} how to~interpret that sequence, i.e.,~what value that sequence denotes.
 
-Each~programming language can~theoretically interpret the~same value differently, but~basics like numbers corresponding to~characters are~usually the~same. For~example consider the~value 1100001. When treated as~the~\textit{integer} type (\textit{int}~in some languages), it~represents the~number~97. When treated as~the~\textit{character} type (\textit{char}~in some languages), it~represents the~minuscule letter~\textitquoted{a}.
+Each~programming language can~theoretically interpret the~same value differently, but~basics like numbers corresponding to~characters are~usually the~same.
+For~example consider the~value 1100001.
+When treated as~the~\textit{integer} type (\textit{int}~in some languages), it~represents the~number~97.
+When treated as~the~\textit{character} type (\textit{char}~in some languages), it~represents the~minuscule letter~\textitquoted{a}.
 
 \newsection{Declaration VS Definition}
 \index{Declaration}
 \index{Definition}
 \label{declarationdefinition}
 \begin{itemize}
-    \item \textbf{Declaration of~a~variable} means specifying the~variable name, \hyperref[datatypes]{type} and~eventually \hyperref[accessmodifiers]{access level}. It~doesn't include assigning a~value to~the~variable. Example: \mboxtextitquoted{private int a;}.
-    \item \textbf{Declaration of~a~method (or~a~function)} is the~method header. It~consists of~the~method name, return value \hyperref[datatypes]{type}, number, names and~\hyperref[datatypes]{types} of~arguments of~the~method and~eventually its \hyperref[accessmodifiers]{access level}. Example: \mboxtextitquoted{public void doSomething(int a);}.
-    \item \textbf{Definition of~a~variable} means assigning a~value to~the~variable. It~can~immediately follow the~variable definition (\textitquoted{private int a = 1;}) or~appear later as~a~separate command (\textitquoted{private int a; ... a = 1;}).
-    \item \textbf{Definition of~a~method (or~a~function)} is the~method header with the~method body. Example: \mboxtextitquoted{public void doSomething(int a) \{ ... \}}".
+    \item \textbf{Declaration of~a~variable} means specifying the~variable name, \hyperref[datatypes]{type} and~eventually \hyperref[accessmodifiers]{access level}.
+          It~doesn't include assigning a~value to~the~variable.
+          Example: \mboxtextitquoted{private int a;}.
+    \item \textbf{Declaration of~a~method (or~a~function)} is the~method header.
+          It~consists of~the~method name, return value \hyperref[datatypes]{type}, number, names and~\hyperref[datatypes]{types} of~arguments of~the~method and~eventually its \hyperref[accessmodifiers]{access level}.
+          Example: \mboxtextitquoted{public void doSomething(int a);}.
+    \item \textbf{Definition of~a~variable} means assigning a~value to~the~variable.
+          It~can~immediately follow the~variable definition (\textitquoted{private int a = 1;}) or~appear later as~a~separate command (\textitquoted{private int a; ...
+a = 1;}).
+    \item \textbf{Definition of~a~method (or~a~function)} is the~method header with the~method body.
+          Example: \mboxtextitquoted{public void doSomething(int a) \{ ... \}}".
 \end{itemize}
 \newpage
 
-\noindent Generally a~declaration informs \hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} about some structure. Definition allocates a~memory for~the~structure. There can~be a~declaration without a~definition, but~not~reversed. One~variable or~method (or~function) can~be declared multiple times, but~defined maximally once. When you assign a~new value to~already defined variable, you~rewrite the~already allocated memory. That isn't a~new definition.
+\noindent Generally a~declaration informs \hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} about some structure.
+Definition allocates a~memory for~the~structure.
+There can~be a~declaration without a~definition, but~not~reversed.
+One~variable or~method (or~function) can~be declared multiple times, but~defined maximally once.
+When you assign a~new value to~already defined variable, you~rewrite the~already allocated memory.
+That isn't a~new definition.
 
 \section*{\fontsize{17}{17} \selectfont Program VS Application VS Process VS Service VS Thread}
 \addcontentsline{toc}{section}{Application VS Process VS Program VS Service VS Thread}
@@ -121,11 +178,15 @@ Each~programming language can~theoretically interpret the~same value differently
 \index{Computer program}
 \label{applicationprocessprogramservicethread}
 \begin{itemize}
-    \item \textbf{Program} is the~most general term of these. It's included in all others. A~computer program is a~set of~instructions that can~be executed on a~computer.
+    \item \textbf{Program} is the~most general term of these.
+          It's included in all others.
+          A~computer program is a~set of~instructions that can~be executed on a~computer.
     \item \textbf{Application} is a~computer program with which, when it's executed, users actively interact.
     \item \textbf{Process} is a~particular executed and~running instance of a~program.
-    \item \textbf{Service} is a~process that runs continuously in the~background without active interaction with a~user. I.e., it's the opposite of application.
-    \item \textbf{Thread} is a~set of consecutive steps performed one by~one in a~process. A~process can~be separated to~more threads which can run in~parallel (if~the~program implementation supports~it).
+    \item \textbf{Service} is a~process that runs continuously in the~background without active interaction with a~user.
+          I.e., it's the opposite of application.
+    \item \textbf{Thread} is a~set of consecutive steps performed one by~one in a~process.
+          A~process can~be separated to~more threads which can run in~parallel (if~the~program implementation supports~it).
 \end{itemize}
 
 \newsubsection{Web Service VS Web Application}
@@ -133,26 +194,38 @@ Each~programming language can~theoretically interpret the~same value differently
 \index{Web application}
 \label{webserviceapplication}
 \begin{itemize}
-    \item \textbf{Web~service} is any~program executed or~continuously running on a~remote computer, with which programs on~other computers communicate over the~\hyperref[internetweb]{Web}, i.e.,~using the~\hyperref[http]{HTTP} protocol. A~program called \hyperref[clientserverarchitecture]{client}, running on a~user's computer, sends a~request to~another~program called \hyperref[clientserverarchitecture]{server} running on~the~remote computer (the~same computer as the~target remote program), the~server delegates the~request to~the~remote program, the~remote program processes the~request and~sends a~response to~the~server, which then delegates it back to~the~client. \warningnonl The~term \textit{web service} is~ambiguous. Sometimes it denotes solely the~remote program, sometimes it includes even the~server. Also, opposite to~a~standard \hyperref[applicationprocessprogramservicethread]{service} the~remote program doesn't have to run continuously. Only the~server does.
-    \item \textbf{Web~application} is basically a~web~service with a~\hyperref[shellcligui]{GUI} in~a~web browser on~the~client side. In~a~web application a~user actively interacts with a~web page, based on~this interaction requests are~sent to~a~web service, responses are~sent back and~visualised in~the~browser.
+    \item \textbf{Web~service} is any~program executed or~continuously running on a~remote computer, with which programs on~other computers communicate over the~\hyperref[internetweb]{Web}, i.e.,~using the~\hyperref[http]{HTTP} protocol.
+          A~program called \hyperref[clientserverarchitecture]{client}, running on a~user's computer, sends a~request to~another~program called \hyperref[clientserverarchitecture]{server} running on~the~remote computer (the~same computer as the~target remote program), the~server delegates the~request to~the~remote program, the~remote program processes the~request and~sends a~response to~the~server, which then delegates it back to~the~client. \warningnonl The~term \textit{web service} is~ambiguous.
+          Sometimes it denotes solely the~remote program, sometimes it includes even the~server.
+          Also, opposite to~a~standard \hyperref[applicationprocessprogramservicethread]{service} the~remote program doesn't have to run continuously.
+          Only the~server does.
+    \item \textbf{Web~application} is basically a~web~service with a~\hyperref[shellcligui]{GUI} in~a~web browser on~the~client side.
+          In~a~web application a~user actively interacts with a~web page, based on~this interaction requests are~sent to~a~web service, responses are~sent back and~visualised in~the~browser.
 \end{itemize}
 \newpage
 
 \newsection{Server}
 \index{Server}
 \label{server}
-Exactly speaking a~server is a~continuously running software getting requests from another software and~sending responses back, i.e.,~providing a~\hyperref[applicationprocessprogramservicethread]{service} for~that other software. Servers are~often running on~specialized computers, which themselves are~called servers and~what many people think that servers~are. But~server software can~be generally running on~any~computer.
+Exactly speaking a~server is a~continuously running software getting requests from another software and~sending responses back, i.e.,~providing a~\hyperref[applicationprocessprogramservicethread]{service} for~that other software.
+Servers are~often running on~specialized computers, which themselves are~called servers and~what many people think that servers~are.
+But~server software can~be generally running on~any~computer.
 Examples of~servers are~\hyperref[webserver]{web servers}, \hyperref[applicationserver]{application servers}, \hyperref[proxy]{proxy servers} etc.
 
 \newsection{Engine}
 \index{Engine}
 \label{engine}
-Engine is any~software performing a~specific task. Usually software performing nontrivial tasks is~denoted as~engine. For~example, \hyperref[jdkjrejvm]{JVM} is~an~engine executing (compiled) Java code. But~even a~simple \textit{Hello World} program is an~engine in~fact.
+Engine is any~software performing a~specific task.
+Usually software performing nontrivial tasks is~denoted as~engine.
+For~example, \hyperref[jdkjrejvm]{JVM} is~an~engine executing (compiled) Java code.
+But~even a~simple \textit{Hello World} program is an~engine in~fact.
 
 \newsection{Distributed System}
 \index{Distributed system}
 \label{distributedsystem}
-It's a~system whose components are~located on~different networked computers, which communicate and~coordinate their actions by~passing messages to~one~another. All~components communicate to~achieve a~common goal. Distributed systems have three main characteristics:
+It's a~system whose components are~located on~different networked computers, which communicate and~coordinate their actions by~passing messages to~one~another.
+All~components communicate to~achieve a~common goal.
+Distributed systems have three main characteristics:
 \begin{itemize}
     \item Components work \hyperref[concurrency]{concurrently}.
     \item There is no global clock\,--\,no~time synchronization among components.
@@ -163,7 +236,8 @@ It's a~system whose components are~located on~different networked computers, whi
 \newsubsection{Distributed Version Control System}
 \index{Distributed version control system}
 \label{distributedversioncontrolsystem}
-It's~a~version control system where each user owns a~copy (mirror) of~the~whole code base including the~whole history. The~typical example of~such system is~\hyperref[git]{Git}.
+It's~a~version control system where each user owns a~copy (mirror) of~the~whole code base including the~whole history.
+The~typical example of~such system is~\hyperref[git]{Git}.
 
 \newsection{Multitasking}
 \index{Multitasking}
@@ -181,7 +255,11 @@ It's~a~version control system where each user owns a~copy (mirror) of~the~whole 
 \newsection{Base64}
 \index{Base64}
 \label{base64}
-It's an~encoding used for~representation of~any array of~bytes as an~ASCII string. The~name refers to the~size of~the~set of~resulting characters, which is~64. It~encodes always three bytes to~four characters. If~the~length of~the~input byte array is~not~divisible by~three, one or~two special bytes are~added to~its~end. This results in~one or~two equals signs at~the~end of~the~resulting string.
+It's an~encoding used for~representation of~any array of~bytes as an~ASCII string.
+The~name refers to the~size of~the~set of~resulting characters, which is~64.
+It~encodes always three bytes to~four characters.
+If~the~length of~the~input byte array is~not~divisible by~three, one or~two special bytes are~added to~its~end.
+This results in~one or~two equals signs at~the~end of~the~resulting string.
 
 \newsection{Shell VS CLI VS GUI}
 \index{Shell}
@@ -190,12 +268,23 @@ It's an~encoding used for~representation of~any array of~bytes as an~ASCII strin
 \label{shellcligui}
 \begin{itemize}
     \item \textbf{Shell} is any software for~controlling \hyperref[os]{operating system}.
-    \item \textbf{CLI} (Command Line Interface) is~a~user interface for~controlling specific software in~a~form of~single text line to~which commands are~typed. Shells typically (but~not~always) exist in~a~CLI form. Windows command line or~a~\hyperref[linux]{Linux} terminal are~shells. There can also be CLIs that are~not shells, for~example, Python console.
-    \item \textbf{GUI} (Graphical User Interface) is~a~user interface for~controlling specific software in~a~graphic form. Even shells can, and~often~do, exist in~a~GUI form. For~example, Windows screen (or~GUI screen of~any~other~\hyperref[os]{OS}) is~a~shell.
+    \item \textbf{CLI} (Command Line Interface) is~a~user interface for~controlling specific software in~a~form of~single text line to~which commands are~typed.
+    Shells typically (but~not~always) exist in~a~CLI form.
+    Windows command line or~a~\hyperref[linux]{Linux} terminal are~shells.
+    There can also be CLIs that are~not shells, for~example, Python console.
+    \item \textbf{GUI} (Graphical User Interface) is~a~user interface for~controlling specific software in~a~graphic form.
+          Even shells can, and~often~do, exist in~a~GUI form.
+          For~example, Windows screen (or~GUI screen of~any~other~\hyperref[os]{OS}) is~a~shell.
 \end{itemize}
 
 \newsection{Application Programming Interface (API)}
 \index{Application programming interface}
 \index{API}
 \label{api}
-It's~a~part of~a~software serving for~communication with other software. The~word \textit{application} is~inaccurate, even \hyperref[applicationprocessprogramservicethread]{services} can~have~API (it's~actually typical part of~a~service). It's~a~very broad term. For~example, when a~browser is~requesting \hyperref[internetweb]{web} pages from a~\hyperref[webserver]{web~server}, it~communicates with the~server~API. When a~process is~supposed to~run under an~\hyperref[os]{OS}, it~communicates with the~API of~that~OS. Methods defined in~a~class form an~API (of~instances) of~that~class. And~so~forth.
+It's~a~part of~a~software serving for~communication with other software.
+The~word \textit{application} is~inaccurate, even \hyperref[applicationprocessprogramservicethread]{services} can~have~API (it's~actually typical part of~a~service).
+It's~a~very broad term.
+For~example, when a~browser is~requesting \hyperref[internetweb]{web} pages from a~\hyperref[webserver]{web~server}, it~communicates with the~server~API.
+When a~process is~supposed to~run under an~\hyperref[os]{OS}, it~communicates with the~API of~that~OS.
+Methods defined in~a~class form an~API (of~instances) of~that~class.
+And~so~forth.

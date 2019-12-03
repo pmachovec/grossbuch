@@ -1,12 +1,20 @@
 \newchapter{Git}
 \index{Git}
 \label{git}
-Git is a~popular \hyperref[distributedversioncontrolsystem]{distributed version control system} and~probably the~most used version control system in~the~World. The~name \textit{Git} isn't any~technical abbreviation, it~denotes an~unpleasant person in British slang. Using this name was an~idea of~the~Git author \href{https://en.wikipedia.org/wiki/Linus_Torvalds}{Linus Torvalds}.
+Git is a~popular \hyperref[distributedversioncontrolsystem]{distributed version control system} and~probably the~most used version control system in~the~World.
+The~name \textit{Git} isn't any~technical abbreviation, it~denotes an~unpleasant person in British slang.
+Using this name was an~idea of~the~Git author \href{https://en.wikipedia.org/wiki/Linus_Torvalds}{Linus Torvalds}.
 
 \newsection{Configuration}
 \index{Git configuration}
 \label{gitconfig}
-The~behavior of~Git can~be adjusted by~the~\textit{git~config} command. Whenever you run the~command, some key--value configuration pair is~stored to~a~configuration file under~a~configuration section. The~syntax of~the~command is \textitquoted{git config section.key value}. Values can~consist of~more words, in~that~case they must be enclosed in~apostrophes or~quotes. Sections can~be further specified in~subsections, the~syntax is \textitquoted{git config section.subsection.key value}. Further separation to~subsubsections is~not~possible. Everything between the~first and~the~last dot is~considered as~one~subsection name, even~if~it~contains other dots.
+The~behavior of~Git can~be adjusted by~the~\textit{git~config} command.
+Whenever you run the~command, some key--value configuration pair is~stored to~a~configuration file under~a~configuration section.
+The~syntax of~the~command is \textitquoted{git config section.key value}.
+Values can~consist of~more words, in~that~case they must be enclosed in~apostrophes or~quotes.
+Sections can~be further specified in~subsections, the~syntax is \textitquoted{git config section.subsection.key value}.
+Further separation to~subsubsections is~not~possible.
+Everything between the~first and~the~last dot is~considered as~one~subsection name, even~if~it~contains other dots.
 
 \example[simple configuration file]:
 \begin{lstlisting}[frame=no]
@@ -21,7 +29,17 @@ The~behavior of~Git can~be adjusted by~the~\textit{git~config} command. Whenever
 \newline
 
 \enlargethispage{-8mm}
-\noindent  You~can set either a~local or~a~global configuration value. The~only difference in~the~syntax is the~\mboxtextitquoted{-{}-global} option just after the~command when setting a~global configuration (\textit{git config \mbox{-{}-global} section.key value}"). Local configuration values are~valid only in a~single repository folder. The~command without the~\mboxtextitquoted{-{}-global} option can~be run only from a~repository folder (not~necessarily the~root, it~works even from~its subfolders). Local configuration entries are~stored to~the~file \mboxtextit{ROOT\_FOLDER/.git/config}. Global configuration values are~valid in all repository folders in~the~system where Git is~installed. The~command with the~\mboxtextitquoted{-{}-global} option can~be run from anywhere. Global configuration entries are~stored to~the~file \mboxtextit{HOME\_FOLDER/.gitconfig}. You can also directly edit configuration files with a~text editor. But~that should be done with caution, if~you~screw the~formatting somehow, your Git can~stop working. When you want to~remove some configuration, use the~\mboxtextitquoted{-{}-unset} option.
+\noindent  You~can set either a~local or~a~global configuration value.
+The~only difference in~the~syntax is the~\mboxtextitquoted{-{}-global} option just after the~command when setting a~global configuration (\textit{git config \mbox{-{}-global} section.key value}").
+Local configuration values are~valid only in a~single repository folder.
+The~command without the~\mboxtextitquoted{-{}-global} option can~be run only from a~repository folder (not~necessarily the~root, it~works even from~its subfolders).
+Local configuration entries are~stored to~the~file \mboxtextit{ROOT\_FOLDER/.git/config}.
+Global configuration values are~valid in all repository folders in~the~system where Git is~installed.
+The~command with the~\mboxtextitquoted{-{}-global} option can~be run from anywhere.
+Global configuration entries are~stored to~the~file \mboxtextit{HOME\_FOLDER/.gitconfig}.
+You can also directly edit configuration files with a~text editor.
+But~that should be done with caution, if~you~screw the~formatting somehow, your Git can~stop working.
+When you want to~remove some configuration, use the~\mboxtextitquoted{-{}-unset} option.
 
 \warning Local configurations override global configurations.
 
@@ -79,7 +97,12 @@ When you install Git, you should set at~least following configurations:
 \newsection{Aliases}
 \index{Git Aliases}
 \index{Aliases in Git}
-When you tend to~use a~same long Git command with lots of~options many times, it's~convenient to~create an~alias for~it. Aliases are~configurations, i.e., they're stored into configuration files and~can~be set by~the~\textit{git config} command. The~syntax is \textitquoted{git config \mbox{-{}-global} alias.name 'value'}. The~value doesn't contain the~keyword \textit{git}. The~global setting is not~necessary, but~aliases are~very rarely set as~local. Also the~value doesn't have to~be enclosed in~apostrophes when~not~containing spaces, but~that's rare when creating aliases.
+When you tend to~use a~same long Git command with lots of~options many times, it's~convenient to~create an~alias for~it.
+Aliases are~configurations, i.e., they're stored into configuration files and~can~be set by~the~\textit{git config} command.
+The~syntax is \textitquoted{git config \mbox{-{}-global} alias.name 'value'}.
+The~value doesn't contain the~keyword \textit{git}.
+The~global setting is not~necessary, but~aliases are~very rarely set as~local.
+Also the~value doesn't have to~be enclosed in~apostrophes when~not~containing spaces, but~that's rare when creating aliases.
 
 \example
 \noindent Consider a~very long Git command:
@@ -104,46 +127,74 @@ When you tend to~use a~same long Git command with lots of~options many times, it
 \newsection{Hooks}
 \index{Git hooks}
 \index{Hooks in Git}
-Git hooks are~scripts that can~be run automatically before, after or~with a~certain Git event like commit or~push. Hooks run before events (pre--commit, pre--push,~\dots) serve mainly for~processed (committed, pushed,~\dots) code verification. They can, for~example, run unit tests. If~a~pre--event hook ends with a~non--zero exit value (which happens when unit tests triggered by~it fail), the~corresponding event isn't executed. Hooks run after events (post--commit, post--merge,~\dots) can~be used for~cleaning temporary data, automatic project publishing to~other places etc. Hooks run with events (prepare--commit--msg, update,~\dots) are~used for~committed data automatic alteration (creating automatic commit message) and~further verification (that's basically useless).
+Git hooks are~scripts that can~be run automatically before, after or~with a~certain Git event like commit or~push.
+Hooks run before events (pre--commit, pre--push,~\dots) serve mainly for~processed (committed, pushed,~\dots) code verification.
+They can, for~example, run unit tests.
+If~a~pre--event hook ends with a~non--zero exit value (which happens when unit tests triggered by~it fail), the~corresponding event isn't executed.
+Hooks run after events (post--commit, post--merge,~\dots) can~be used for~cleaning temporary data, automatic project publishing to~other places etc.
+Hooks run with events (prepare--commit--msg, update,~\dots) are~used for~committed data automatic alteration (creating automatic commit message) and~further verification (that's basically useless).
 
-Hook scripts exist separately for~each local copy of~a~repository (i.e.,~per~user). They're files with names corresponding to~hook names without any~extension (\textit{pre--commit}, \textit{pre--push},~\dots). They're by~default stored in~the~folder \textit{ROOT\_FOLDER/.git/hooks}, but~the~location can~be changed by~the~\textit{core.hooksPath} \hyperref[gitconfig]{configuration}, either relatively to~the~root folder (typically local configuration) or~absolutely (typically global configuration). When you create a~repository (cloning, \hyperref[initrepo]{local initialization}), there's a~template for~each possible hook (called \textit{HOOK\_NAME.sample}) in~the~default folder.
+Hook scripts exist separately for~each local copy of~a~repository (i.e.,~per~user).
+They're files with names corresponding to~hook names without any~extension (\textit{pre--commit}, \textit{pre--push},~\dots).
+They're by~default stored in~the~folder \textit{ROOT\_FOLDER/.git/hooks}, but~the~location can~be changed by~the~\textit{core.hooksPath} \hyperref[gitconfig]{configuration}, either relatively to~the~root folder (typically local configuration) or~absolutely (typically global configuration).
+When you create a~repository (cloning, \hyperref[initrepo]{local initialization}), there's a~template for~each possible hook (called \textit{HOOK\_NAME.sample}) in~the~default folder.
 
-Hooks can~be directly written in~any~\hyperref[scriptinglanguages]{scripting language}. If~you~wanted to~use a~non-scripting language for~a~hook, you~would have~to implement it as~a~separate program and~then call~it from the~hook script.
+Hooks can~be directly written in~any~\hyperref[scriptinglanguages]{scripting language}.
+If~you~wanted to~use a~non-scripting language for~a~hook, you~would have~to implement it as~a~separate program and~then call~it from the~hook script.
 
-A~hook language is~specified by~a~\hyperref[shebang]{shebang}. For~the~hook to~work in~a~certain environment you~need an~\hyperref[compiledinterpretedlanguages]{interpreter} for~the~hook language installed in~that~environment. As~this can't~be guaranteed for~all users, it's~a~good practice to~write hooks in~\hyperref[shbash]{Bash}, because that one is~understood even  by~non--\hyperref[linux]{Unix/Linux} Git installations (there's an~interpreter included). To~specify that a~hook should~be executed in~Bash, put \textit{\#!/bin/sh} as~the~hook \hyperref[shebang]{shebang} to~the~first line (even in~non--Unix/Linux systems).
+A~hook language is~specified by~a~\hyperref[shebang]{shebang}.
+For~the~hook to~work in~a~certain environment you~need an~\hyperref[compiledinterpretedlanguages]{interpreter} for~the~hook language installed in~that~environment.
+As~this can't~be guaranteed for~all users, it's~a~good practice to~write hooks in~\hyperref[shbash]{Bash}, because that one is~understood even  by~non--\hyperref[linux]{Unix/Linux} Git installations (there's an~interpreter included).
+To~specify that a~hook should~be executed in~Bash, put \textit{\#!/bin/sh} as~the~hook \hyperref[shebang]{shebang} to~the~first line (even in~non--Unix/Linux systems).
 
 \newsubsection{Sharing Hooks}
-This can~be tricky, as~the~\textit{ROOT\_FOLDER/.git} folder can't~be committed to~a~repository. You~can~commit hooks in~a~different folder and~then configure the~\textit{core.hooksPath} \hyperref[gitconfig]{configuration}. To~ensure that everybody will~have the~hooks path configured as~you~want, you~can~set the~building software (Gradle, Grunt) to~set~up the~hooks path in~the~first~run.
+This can~be tricky, as~the~\textit{ROOT\_FOLDER/.git} folder can't~be committed to~a~repository.
+You~can~commit hooks in~a~different folder and~then configure the~\textit{core.hooksPath} \hyperref[gitconfig]{configuration}.
+To~ensure that everybody will~have the~hooks path configured as~you~want, you~can~set the~building software (Gradle, Grunt) to~set~up the~hooks path in~the~first~run.
 
 \newsection{Tags}
 \index{Git tags}
 \index{Tags in Git}
-Tags in~Git are like aliases for~commits. A~tag can~be~used instead of~a~hash when referencing a~commit. It's~visible with other information by~its commit in~a~Git history showing tool. One~commit can~have more tags. There can't~be two same tags in~one repository, not~even in~different branches. Tags can't contain spaces and~usage of~special characters is~also restricted.
+Tags in~Git are like aliases for~commits.
+A~tag can~be~used instead of~a~hash when referencing a~commit.
+It's~visible with other information by~its commit in~a~Git history showing tool.
+One~commit can~have more tags.
+There can't~be two same tags in~one repository, not~even in~different branches.
+Tags can't contain spaces and~usage of~special characters is~also restricted.
 
-The~basic command for~tagging is~\textit{git tag}. In~the~basic form without any~parameter or~switch it~displays a~list of~all~tags in~the~local repository, including those from other branches.
+The~basic command for~tagging is~\textit{git tag}.
+In~the~basic form without any~parameter or~switch it~displays a~list of~all~tags in~the~local repository, including those from other branches.
 
 \newsubsection{Lightweight Tags}
-A~lightweight tag is just a~commit alias. To~create a~lightweight tag use the~\textit{git~tag} command in~the~format \textitquoted{git tag TAG\_NAME COMMIT\_HASH}.
+A~lightweight tag is just a~commit alias.
+To~create a~lightweight tag use the~\textit{git~tag} command in~the~format \textitquoted{git tag TAG\_NAME COMMIT\_HASH}.
 
 \example
 \begin{lstlisting}[frame=no]
     git tag exampleTag 1cra2y34ha5h6
 \end{lstlisting}
 
-\noindent Now you can~use the~alias \textitquoted{simpleTag} instead of~the~commit hash, like for~showing differences, rebasing, cherry--picking etc. You~will also see something like this when observing the~commit in~Git~log:
+\noindent Now you can~use the~alias \textitquoted{simpleTag} instead of~the~commit hash, like for~showing differences, rebasing, cherry--picking etc.
+You~will also see something like this when observing the~commit in~Git~log:
 \begin{lstlisting}[frame=no]
     commit 1cra2y34ha5h6 (tag: exampleTag, origin/...)
 \end{lstlisting}
 
 \newsubsection{Annotated Tags}
-\noindent An~annotated tag contains, beside a~commit alias, also information about the~author, time of~creation and~a~nonempty message. It's~also signed with~\hyperref[gpg]{GPG} when \hyperref[gitbasicconfiguration]{configured}. To~create an~annotated tag use the~\textit{git~tag} command with the~switch~\textitquoted{-a}. You~can also directly specify the~message with the~switch \textitquoted{-m}. If~you don't do it, a~text editor window will~appear, like when committing without the~switch.
+\noindent An~annotated tag contains, beside a~commit alias, also information about the~author, time of~creation and~a~nonempty message.
+It's~also signed with~\hyperref[gpg]{GPG} when \hyperref[gitbasicconfiguration]{configured}.
+To~create an~annotated tag use the~\textit{git~tag} command with the~switch~\textitquoted{-a}.
+You~can also directly specify the~message with the~switch \textitquoted{-m}.
+If~you don't do it, a~text editor window will~appear, like when committing without the~switch.
 
 \example
 \begin{lstlisting}[frame=no]
     git tag exampleTag 1cra2y34ha5h6 -a -m "Example message"
 \end{lstlisting}
 
-\noindent Additional information of~annotated tags isn't simply visible. To~see~it you must use the~\hyperref[gitshow]{\textit{show}} command with the~tag name. It~doesn't work with the~commit hash.
+\noindent Additional information of~annotated tags isn't simply visible.
+To~see~it you must use the~\hyperref[gitshow]{\textit{show}} command with the~tag name.
+It~doesn't work with the~commit hash.
 
 \example
 \begin{lstlisting}[frame=no]
@@ -167,7 +218,10 @@ A~lightweight tag is just a~commit alias. To~create a~lightweight tag use the~\t
 \note When you want to~tag the~last commit in~the~actual branch, you~don't have to specify the~commit hash, not~even for~a~lightweight~tag.
 
 \newsubsection{Pushing Tags}
-The~standard \textit{git push} command doesn't publish tags to~remote repositories, not~even when you~push a~fresh commit (a~commit not~in~the~remote repository). Tags must be pushed separately by the~command in~the~format \textit{git push origin TAG\_NAME}. When you have more tags, you~can push them all at~once by~specifying the~option \mboxtextitquoted{-{}-tags} instead of~a~concrete tag name. This will~push all~tags in~all branches you~have in~your local repository.
+The~standard \textit{git push} command doesn't publish tags to~remote repositories, not~even when you~push a~fresh commit (a~commit not~in~the~remote repository).
+Tags must be pushed separately by the~command in~the~format \textit{git push origin TAG\_NAME}.
+When you have more tags, you~can push them all at~once by~specifying the~option \mboxtextitquoted{-{}-tags} instead of~a~concrete tag name.
+This will~push all~tags in~all branches you~have in~your local repository.
 
 \example[pushing a~concrete tag]
 \begin{lstlisting}[frame=no]
@@ -179,10 +233,12 @@ The~standard \textit{git push} command doesn't publish tags to~remote repositori
     git push origin --tags
 \end{lstlisting}
 
-\note Receiving new tags (not~deleted or~edited, see~\hyperref[gittagsynchronization]{further}) from~remote repositories by~fetching or~pulling doesn't require any special handling. It's~performed automatically with standard operations.
+\note Receiving new tags (not~deleted or~edited, see~\hyperref[gittagsynchronization]{further}) from~remote repositories by~fetching or~pulling doesn't require any special handling.
+It's~performed automatically with standard operations.
 
 \newsubsection{Deleting Tags}
-To~delete a~tag from~a~local repository use the~switch~\textitquoted{-d}. To~delete a~tag from~a~remote repository act like when deleting a~branch, i.e.,~either push the~tag to~origin with the~\mboxtextitquoted{-{}-delete} option or~with preceding colon (overriding by~nothing).
+To~delete a~tag from~a~local repository use the~switch~\textitquoted{-d}.
+To~delete a~tag from~a~remote repository act like when deleting a~branch, i.e.,~either push the~tag to~origin with the~\mboxtextitquoted{-{}-delete} option or~with preceding colon (overriding by~nothing).
 
 \example{deleting local tag}
 \begin{lstlisting}[frame=no]
@@ -199,10 +255,13 @@ To~delete a~tag from~a~local repository use the~switch~\textitquoted{-d}. To~del
     git push origin :exampleTag
 \end{lstlisting}
 
-\note Pushing deleted tags can't~be performed in~a~batch with the~\mboxtextitquoted{--tags} switch. You~must alwasy push deleted tags one~by~one.
+\note Pushing deleted tags can't~be performed in~a~batch with the~\mboxtextitquoted{--tags} switch.
+You~must alwasy push deleted tags one~by~one.
 
 \newsubsection{Editing Tags}
-There's no option to~rename a~tag in~one command. You~must tag the~corresponding commit with the~new name and~then delete the~old name. The~order can~be even reversed, but~with creating the~new tag first you can~use the~old tag as~a~commit reference instead of~the~commit hash.
+There's no option to~rename a~tag in~one command.
+You~must tag the~corresponding commit with the~new name and~then delete the~old name.
+The~order can~be even reversed, but~with creating the~new tag first you can~use the~old tag as~a~commit reference instead of~the~commit hash.
 
 \example[expect that \textit{oldTag} already exists]
 \begin{lstlisting}[frame=no]
@@ -214,16 +273,24 @@ There's no option to~rename a~tag in~one command. You~must tag the~corresponding
 
 \newsubsection{Synchronizing Tags with Remote Repositories}
 \label{gittagsynchronization}
-As~already mentioned, freshly fetched commits come even with tags. But~tags added later to, or~deleted from, existing commits, that you already have in~your local repository, must~be downloaded explicitly. To~perform the~synchronization run the~command \textitquoted{git fetch \mbox{-{}-prune} \mbox{-{}-prune-tags}}.
+As~already mentioned, freshly fetched commits come even with tags.
+But~tags added later to, or~deleted from, existing commits, that you already have in~your local repository, must~be downloaded explicitly.
+To~perform the~synchronization run the~command \textitquoted{git fetch \mbox{-{}-prune} \mbox{-{}-prune-tags}}.
 
 \newsubsection{Force Switch (-f)}
-When any tag command would result in~two different commits with the~same tag (creating a~new tag, synchronizing with a~remote repository,~\dots), the~command fails. But~when used with the~switch~\textitquoted{-f}, it~deletes problematic tags from other locations so~that the~current command can~be performed.
+When any tag command would result in~two different commits with the~same tag (creating a~new tag, synchronizing with a~remote repository,~\dots), the~command fails.
+But~when used with the~switch~\textitquoted{-f}, it~deletes problematic tags from other locations so~that the~current command can~be performed.
 
-For~example, consider that in~your local repository you~have a~tag on~a~commit~\textit{A}. In~the~remote repository the~same tag exists on~a~different commit~\textit{B}, that you~also have in~the~repository. When you~run the~\hyperref[gittagsynchronization]{synchronization command} in~the~basic form, it~will fail complaining that it~"would clobber existing tag". But~when you~run it with the~switch~\textitquoted{-f}, the~tag is~removed from the~commit~\textit{A} and~appears at~the~commit~\textit{B} in~your local repository.
+For~example, consider that in~your local repository you~have a~tag on~a~commit~\textit{A}.
+In~the~remote repository the~same tag exists on~a~different commit~\textit{B}, that you~also have in~the~repository.
+When you~run the~\hyperref[gittagsynchronization]{synchronization command} in~the~basic form, it~will fail complaining that it~"would clobber existing tag".
+But~when you~run it with the~switch~\textitquoted{-f}, the~tag is~removed from the~commit~\textit{A} and~appears at~the~commit~\textit{B} in~your local repository.
 
 \newsection{Meld}
 \index{Meld}
-Viewing file differences and~resolving merge conflicts in~a~Shell isn't very comfortable. It's~better to~use some graphical tool that can visualize file differences. And~probably the~best tool for~this is~\href{https://meldmerge.org/}{Meld}, which can~be configured as~the~default difftool and mergetool for~Git.
+Viewing file differences and~resolving merge conflicts in~a~Shell isn't very comfortable.
+It's~better to~use some graphical tool that can visualize file differences.
+And~probably the~best tool for~this is~\href{https://meldmerge.org/}{Meld}, which can~be configured as~the~default difftool and mergetool for~Git.
 
 \newsubsection{Configuration}
 Following examples expect that you already installed meld and~added it to~the~\textit{PATH} system variable.
@@ -255,11 +322,15 @@ Following examples expect that you already installed meld and~added it to~the~\t
         \end{lstlisting}
 \end{itemize}
 
-\note For~the~last configuration the~only part you~should ever change is~the~middle window. The~value \textit{\$BASE} means the~merged file as~it~was when~the~remote branch was~created. Another possibility for~that~one is~\textit{\$MERGED}, which means the~messy merged file at~the~beginning of~merging, i.e., containing special symbols inserted by~Git, which mark the~conflict. Using those values is~not~restricted, theoretically you can put everything everywhere.
+\note For~the~last configuration the~only part you~should ever change is~the~middle window.
+The~value \textit{\$BASE} means the~merged file as~it~was when~the~remote branch was~created.
+Another possibility for~that~one is~\textit{\$MERGED}, which means the~messy merged file at~the~beginning of~merging, i.e., containing special symbols inserted by~Git, which mark the~conflict.
+Using those values is~not~restricted, theoretically you can put everything everywhere.
 \newpage
 
 \newsubsection{Usage}
-You~must use \textit{git difftool} for~viewing file differences and~\textit{git mergetool} for~merging. Short commands \textit{diff} and~\textit{merge} will always use the~Shell console and~it~can't~be changed.
+You~must use \textit{git difftool} for~viewing file differences and~\textit{git mergetool} for~merging.
+Short commands \textit{diff} and~\textit{merge} will always use the~Shell console and~it~can't~be changed.
 
 \begin{itemize}
     \item Show differences of~a~file from the~last committed version:
@@ -280,11 +351,23 @@ You~must use \textit{git difftool} for~viewing file differences and~\textit{git 
         \end{lstlisting}
 \end{itemize}
 
-\warningnonl If~you use a~path to~a~folder instead of~a~file, the~triggered tool will start for~all~files in~the~folder and~its~subfolders one~by~one. When~you~close one~file, another immediately opens. This~is irritating when you~have many files in~the~folder. You~can~fall to~this trap especially when you~accidentally trigger merging without specifying a~file. When running difftool, Meld can graphically show differences among files in~both folder versions. To~do~it run the~\textit{difftool} command with the~\mboxtextitquoted{-{}-dir--diff} option. When merging, there's nothing you~can~do about~it. Just trigger the~\textit{mergetool} command with a~path to~a~specific file every time.
+\warningnonl If~you use a~path to~a~folder instead of~a~file, the~triggered tool will start for~all~files in~the~folder and~its~subfolders one~by~one.
+When~you~close one~file, another immediately opens.
+This~is irritating when you~have many files in~the~folder.
+You~can~fall to~this trap especially when you~accidentally trigger merging without specifying a~file.
+When running difftool, Meld can graphically show differences among files in~both folder versions.
+To~do~it run the~\textit{difftool} command with the~\mboxtextitquoted{-{}-dir--diff} option.
+When merging, there's nothing you~can~do about~it.
+Just trigger the~\textit{mergetool} command with a~path to~a~specific file every time.
 
-\warning For~the~\textit{difftool} command variables \textit{\$LOCAL} and~\textit{\$REMOTE} have a~different meaning from what can~seem obvious. \textit{\$LOCAL} means "before the~change" and~\textit{\$REMOTE} means "after the~change". Therefore, when you run the~command for~a~file that differs from a~repository version (the~first usage example), i.e.,~is~changed locally, you~will~see that local version in~the~right window, which is the~position of~\textit{\$REMOTE} according to~the~configuration. The~same holds when you display differences of~a~file from some old specific commit(the~second usage example)\,--\,the~actual version of~the~file will~be displayed in~the~right window. Get~used to~it, don't switch those variables in~the~configuration, otherwise you can face unexpected behavior. For~example, comparing a~file between two commits (the~third usage example) shows versions of~the~file in~the~order opposite of~the~order of~used commit hashes.
+\warning For~the~\textit{difftool} command variables \textit{\$LOCAL} and~\textit{\$REMOTE} have a~different meaning from what can~seem obvious. \textit{\$LOCAL} means "before the~change" and~\textit{\$REMOTE} means "after the~change".
+Therefore, when you run the~command for~a~file that differs from a~repository version (the~first usage example), i.e.,~is~changed locally, you~will~see that local version in~the~right window, which is the~position of~\textit{\$REMOTE} according to~the~configuration.
+The~same holds when you display differences of~a~file from some old specific commit(the~second usage example)\,--\,the~actual version of~the~file will~be displayed in~the~right window.
+Get~used to~it, don't switch those variables in~the~configuration, otherwise you can face unexpected behavior.
+For~example, comparing a~file between two commits (the~third usage example) shows versions of~the~file in~the~order opposite of~the~order of~used commit hashes.
 
-\note For~the~\textit{mergetool} command variables \textit{\$LOCAL} and~\textit{\$REMOTE} behave as~expected\,--\,\textit{\$LOCAL} means your local branch version, \textit{\$REMOTE} means the~other merged branch. Just remember for~the~malicious branching when \hyperref[gitrebase]{rebasing}.
+\note For~the~\textit{mergetool} command variables \textit{\$LOCAL} and~\textit{\$REMOTE} behave as~expected\,--\,\textit{\$LOCAL} means your local branch version, \textit{\$REMOTE} means the~other merged branch.
+Just remember for~the~malicious branching when \hyperref[gitrebase]{rebasing}.
 \newpage
 
 \newsection{Rebase}
@@ -299,7 +382,8 @@ To~convert an~ordinary folder to~a~Git repository simply navigate to~that folder
 \begin{lstlisting}[frame=no]
     git init
 \end{lstlisting}
-\noindent You now have the~repository folder with the~master branch. Before adding anything new it's advisable to~create the~\textit{.gitignore} file and~commit all the~current contents of~the~folder to the~master branch, i.e.,~to~do an~initial commit, and~then to~connect the~local repository to your Git hub.\\
+\noindent You now have the~repository folder with the~master branch.
+Before adding anything new it's advisable to~create the~\textit{.gitignore} file and~commit all the~current contents of~the~folder to the~master branch, i.e.,~to~do an~initial commit, and~then to~connect the~local repository to your Git hub.\\
 
 \noindent To~connect the~local repository to~your Git hub run:
 \begin{lstlisting}[frame=no]
@@ -314,4 +398,5 @@ To~convert an~ordinary folder to~a~Git repository simply navigate to~that folder
     git push -u origin master
 \end{lstlisting}
 
-\warning The~repository with the~specified name must already exist on~the~Git hub, i.e.,~it~must be created manually in~advance. Creating repositories by~pushing is~not~possible.
+\warning The~repository with the~specified name must already exist on~the~Git hub, i.e.,~it~must be created manually in~advance.
+Creating repositories by~pushing is~not~possible.

@@ -1,53 +1,90 @@
 \newchapter{Cryptography}
 \index{Cryptography}
 \index{Cryptanalysis}
-Cryptography is the practice and study of techniques for~secure communication. It~focuses on~constructing and~analyzing protocols that prevent third parties or~the~public from reading private messages between a~sender and a~receiver, i.e., on~encrypting and~decrypting of~messages. The~study of~breaking cryptographic techniques and~reading encrypted messages by~third parties (i.e., what bad~guys are~doing) is called \textit{cryptanalysis}.
+Cryptography is the practice and study of techniques for~secure communication.
+It~focuses on~constructing and~analyzing protocols that prevent third parties or~the~public from reading private messages between a~sender and a~receiver, i.e., on~encrypting and~decrypting of~messages.
+The~study of~breaking cryptographic techniques and~reading encrypted messages by~third parties (i.e., what bad~guys are~doing) is called \textit{cryptanalysis}.
 
-In~computer cryptography the~encrypted message can~be any~data, i.e., any~set of~bits, most techniques operate with bytes. No~matter what is~encrypted (string, file,~\dots), it's~transferred to~bits and~these are~then given~to an~encryption algorithm, which produces another set of~bits (encrypted data). You~can often encounter a~situation when the~result of an~encryption algorithm is shown as an~ASCII string\,--\,although just a~mess of~characters, there~is no issue with displaying any character (this is not normal for an~arbitrary set of bits/bytes). That's because the~result was in~some (sometimes maliciously hidden) step transferred to~string by~some binary--to--text encoding, most usually \hyperref[base64]{Base64}.
+In~computer cryptography the~encrypted message can~be any~data, i.e., any~set of~bits, most techniques operate with bytes.
+No~matter what is~encrypted (string, file,~\dots), it's~transferred to~bits and~these are~then given~to an~encryption algorithm, which produces another set of~bits (encrypted data).
+You~can often encounter a~situation when the~result of an~encryption algorithm is shown as an~ASCII string\,--\,although just a~mess of~characters, there~is no issue with displaying any character (this is not normal for an~arbitrary set of bits/bytes).
+That's because the~result was in~some (sometimes maliciously hidden) step transferred to~string by~some binary--to--text encoding, most usually \hyperref[base64]{Base64}.
 
 \newsection{Key}
-A~key is an~information (a~parameter) given to a~cryptographic function when encrypting and decrypting messages. Either the~same key is used for both encryption and~decryption (\hyperref[symmetricencryption]{symmetric encryption}) or~there is a~pair of~keys, one for~encryption and~one for~decryption (\hyperref[asymmetricencryption]{asymmetric encryption}).
+A~key is an~information (a~parameter) given to a~cryptographic function when encrypting and decrypting messages.
+Either the~same key is used for both encryption and~decryption (\hyperref[symmetricencryption]{symmetric encryption}) or~there is a~pair of~keys, one for~encryption and~one for~decryption (\hyperref[asymmetricencryption]{asymmetric encryption}).
 
-In~computer cryptography the~key is a~set of~bits, usually bytes, similarly to~data itself. And~similarly to~encrypted data it's often shown as a~printable string. Even in~this case the~binary--to--text encoding is in~action, keys are~not fully printable by~default. Typically the~longer your message is, the~longer key you need.
+In~computer cryptography the~key is a~set of~bits, usually bytes, similarly to~data itself.
+And~similarly to~encrypted data it's often shown as a~printable string.
+Even in~this case the~binary--to--text encoding is in~action, keys are~not fully printable by~default.
+Typically the~longer your message is, the~longer key you need.
 
 \newsection{Symmetric encryption}
 \index{Symmetric encryption}
 \label{symmetricencryption}
-In~this type of~encryption there is~one common key used for~both encryption and~decryption. The~message processing flow~is:
+In~this type of~encryption there is~one common key used for~both encryption and~decryption.
+The~message processing flow~is:
 \begin{itemize}
-    \item A~sender owns the key. He encrypts the~message with the~key and~sends it to a~receiver.
+    \item A~sender owns the key.
+          He encrypts the~message with the~key and~sends it to a~receiver.
     \item The~receiver has the~same key, which he uses to decrypt the message.
 \end{itemize}
 
 \newsubsection{AES}
 \index{AES}
 \index{Initial vector}
-A~typical example of a~symmetric cryptography algorithm is \textit{AES} (\textit{Advanced Encryption Standard}). It~requires the~key to~be 128, 192 or~256 bits (16, 24 or~32 bytes) long, that's why some implementations require the~key to be specified as a~string of~16, 24 or~32 ASCII characters (one~character\,--\,one~byte). The~encryption can~be extended with so~called \textit{initial vector}. It's another set of~bits given to the~algorithm together with the~key when encrypting, but opposite to the~key the~initial vector is usually always different. It must~be then sent to~the receiver together with the~message, because it's needed also for the~message decryption. However, it~can~be sent through a~different secure canal, and as it's quite short, it~can~be encrypted by the~\hyperref[asymmetricencryption]{asymmetric encryption}. The~length of an~initial vector must be always 128 bits (16 bytes).
+A~typical example of a~symmetric cryptography algorithm is \textit{AES} (\textit{Advanced Encryption Standard}).
+It~requires the~key to~be 128, 192 or~256 bits (16, 24 or~32 bytes) long, that's why some implementations require the~key to be specified as a~string of~16, 24 or~32 ASCII characters (one~character\,--\,one~byte).
+The~encryption can~be extended with so~called \textit{initial vector}.
+It's another set of~bits given to the~algorithm together with the~key when encrypting, but opposite to the~key the~initial vector is usually always different.
+It must~be then sent to~the receiver together with the~message, because it's needed also for the~message decryption.
+However, it~can~be sent through a~different secure canal, and as it's quite short, it~can~be encrypted by the~\hyperref[asymmetricencryption]{asymmetric encryption}.
+The~length of an~initial vector must be always 128 bits (16 bytes).
 
-The~big disadvantage of~this approach is that the~key needs to be shared, i.e., two copies of~it must~be distributed to both sender and~receiver. And~during this distribution (e.g., sending it over a~network) it can~be caught by a~bad guy. Reasons why the~symmetric encryption still survives is its high speed and~practically unlimited size of~processed data (opposite to the~\hyperref[asymmetricencryption]{asymmetric encryption}), the~limit is in millions of~\mbox{terabytes}.
+The~big disadvantage of~this approach is that the~key needs to be shared, i.e., two copies of~it must~be distributed to both sender and~receiver.
+And~during this distribution (e.g., sending it over a~network) it can~be caught by a~bad guy.
+Reasons why the~symmetric encryption still survives is its high speed and~practically unlimited size of~processed data (opposite to the~\hyperref[asymmetricencryption]{asymmetric encryption}), the~limit is in millions of~\mbox{terabytes}.
 
 \newsection{Asymmetric encryption}
 \index{Asymmetric encryption}
 \label{asymmetricencryption}
-In~this type of~encryption there are two keys matching to~each other - public and~private. Messages encrypted by a~public key can~be decrypted only~by a~matching private key. That's why it's sometimes also called \textit{public key encryption}\index{Public key encryption}. It can work also in the~reversed way (encrypted by private key, decrypted by public key), which is used in \hyperref[electronicsignature]{electronic signatures}. The~message processing flow~is:
+In~this type of~encryption there are two keys matching to~each other - public and~private.
+Messages encrypted by a~public key can~be decrypted only~by a~matching private key.
+That's why it's sometimes also called \textit{public key encryption}\index{Public key encryption}.
+It can work also in the~reversed way (encrypted by private key, decrypted by public key), which is used in \hyperref[electronicsignature]{electronic signatures}.
+The~message processing flow~is:
 \begin{itemize}
-    \item A~sender owns the~public key. He~encrypts the~message with the~public key and~sends it to a~receiver.
+    \item A~sender owns the~public key.
+          He~encrypts the~message with the~public key and~sends it to a~receiver.
     \item The~receiver has the~matching private key, which he~uses to~decrypt the~message.
 \end{itemize}
 
-\noindent The~main security benefit in this approach is that the~private key used for~discovering messages contents is never shared, only the receiver owns~it. Nobody else can read those messages. Typically the receiver generates a~pair of~keys and sends the~public key to~whoever he~wants to~receive messages from. If someone else gets the~public key, there is no problem, he won't be able to~decrypt messages sent to~the~receiver.
+\noindent The~main security benefit in this approach is that the~private key used for~discovering messages contents is never shared, only the receiver owns~it.
+Nobody else can read those messages.
+Typically the receiver generates a~pair of~keys and sends the~public key to~whoever he~wants to~receive messages from.
+If someone else gets the~public key, there is no problem, he won't be able to~decrypt messages sent to~the~receiver.
 
 \newsubsection{RSA}
 \index{RSA}
-\textit{RSA} is the~most well--known asymmetric encryption algorithm. It's used for~both encrypting sent data and~electronic signatures. The abbreviation is nothing technical, it~consists of initial letters of~names of~authors of~the algorithm\,--\,\textit{Rivest}, \textit{Shamir}, \textit{Adleman}.
+\textit{RSA} is the~most well--known asymmetric encryption algorithm.
+It's used for~both encrypting sent data and~electronic signatures.
+The abbreviation is nothing technical, it~consists of initial letters of~names of~authors of~the algorithm\,--\,\textit{Rivest}, \textit{Shamir}, \textit{Adleman}.
 
-Disadvantages of~this approach are message length limits and~performance demands. In~RSA with a~2048 bits (256~bytes) key the~maximum message length is 245 bytes. And~with too big keys the~computational time grows, the~maximum reasonable key length today is 4096 bits (512~bytes). On~the~other hand with too short key the~security drops, so~the~minimum secure key length today is 2048 bits (256~bytes).
+Disadvantages of~this approach are message length limits and~performance demands.
+In~RSA with a~2048 bits (256~bytes) key the~maximum message length is 245 bytes.
+And~with too big keys the~computational time grows, the~maximum reasonable key length today is 4096 bits (512~bytes).
+On~the~other hand with too short key the~security drops, so~the~minimum secure key length today is 2048 bits (256~bytes).
 
 \newsubsection{RSA Key Length}
 \index{Modulus}
-The~length of a~key is in~fact only the~length of~so called \textit{modulus}, which is some hidden number that both public and~matching private key have in common. There is also additional info encoded in keys, this info is needed for~the~RSA algorithm. That's why both keys in the~pair contain more bits than the number specified during their generation. There is more such info in private keys, that's why private keys are significantly longer than matching public keys.
+The~length of a~key is in~fact only the~length of~so called \textit{modulus}, which is some hidden number that both public and~matching private key have in common.
+There is also additional info encoded in keys, this info is needed for~the~RSA algorithm.
+That's why both keys in the~pair contain more bits than the number specified during their generation.
+There is more such info in private keys, that's why private keys are significantly longer than matching public keys.
 
-\warning Although only some fixed lengths of the~key are~mentioned almost everywhere (512, 1024, 2048, 4096), there is no restriction, the~length can~be any number. However, the~\textit{ssh-keygen} program provided with Git installation, which is usually used for~key generation, doesn't allow number lower than 1024. If~it's the~program's feature or a~general restriction is unknown so~far.
+\warning Although only some fixed lengths of the~key are~mentioned almost everywhere (512, 1024, 2048, 4096), there is no restriction, the~length can~be any number.
+However, the~\textit{ssh-keygen} program provided with Git installation, which is usually used for~key generation, doesn't allow number lower than 1024.
+If~it's the~program's feature or a~general restriction is unknown so~far.
 
 \newsubsection{RSA Key Formats}
 \newline\todo OpenSSH, PKCS1, PKCS8\dots
@@ -65,11 +102,23 @@ The~length of a~key is in~fact only the~length of~so called \textit{modulus}, wh
 
 \newsubsection{Why to use GPG signature in Git}
 \label{gitgpg}
-SSH~keys only serve for~access right to a~\hyperref[git]{Git} repository. They can't~be used for~user identity verification. Anyone who has access to a~GitHub can pretend to be someone else. User names and~emails depend only on the~local Git configuration. For~example, consider that you have an~access to a~GitHub. You~generate an~SSH key on~your computer and~upload it to the~GitHub. And~next you configure your local Git like this:
+SSH~keys only serve for~access right to a~\hyperref[git]{Git} repository.
+They can't~be used for~user identity verification.
+Anyone who has access to a~GitHub can pretend to be someone else.
+User names and~emails depend only on the~local Git configuration.
+For~example, consider that you have an~access to a~GitHub.
+You~generate an~SSH key on~your computer and~upload it to the~GitHub.
+And~next you configure your local Git like this:
 \begin{lstlisting}[frame=no]
     git config --global user.name "Homer Simpson"
     git config --global user.email homersimpson@burnspowerplant.com
 \end{lstlisting}
-\noindent Whoever you are, your commits will look like Homer made them. But~GPG keys are~connected with user names and~addresses, furthermore they're protected by a~password. With a~Git hub requiring GPG signing of~commits you~can't push unsigned commits and~you~can't sign without knowing the~password. When you configure your Git to~sign commits you~can't even commit without signing.
+\noindent Whoever you are, your commits will look like Homer made them.
+But~GPG keys are~connected with user names and~addresses, furthermore they're protected by a~password.
+With a~Git hub requiring GPG signing of~commits you~can't push unsigned commits and~you~can't sign without knowing the~password.
+When you configure your Git to~sign commits you~can't even commit without signing.
 
-If~you could generate and~add keys yourself, it~would lack any~sense. But when there is an~authority that distributes keys (which is usually the~case), your Homer identity is~screwed. The~authority will give you only the~private key that matches your real name and~email and~it will upload matching public key to~the~GitHub itself. The~authority is~usually some application with a~database of~allowed user names and~emails.
+If~you could generate and~add keys yourself, it~would lack any~sense.
+But when there is an~authority that distributes keys (which is usually the~case), your Homer identity is~screwed.
+The~authority will give you only the~private key that matches your real name and~email and~it will upload matching public key to~the~GitHub itself.
+The~authority is~usually some application with a~database of~allowed user names and~emails.

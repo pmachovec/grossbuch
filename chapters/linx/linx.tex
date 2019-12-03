@@ -6,14 +6,23 @@
 \index{Linux}
 \label{unixlinux}
 \begin{itemize}
-    \item \textbf{Unix},~often written in~capital letters (UNIX), was~originally a~\hyperref[shellcligui]{CLI}--controlled~\hyperref[os]{OS} developed in 1969 by~\href{https://en.wikipedia.org/wiki/Bell_Labs}{Bell~Labs} for~their internal use. In~late 1970s Bell~Labs owner \href{https://en.wikipedia.org/wiki/AT\%26T}{AT\&T} started to~sell Unix \hyperref[licencing]{licences} to~outside parties, which created their own enhanced mutations of~the~original~system. Nowadays there is so~called Unix family, which denotes all~\hyperref[os]{operating systems} derived this way from the~original Unix. The~most known Unix of~today is~probably macOS (although having \hyperref[hybridkernel]{hybrid kernel}). \warningnonl Unix systems are~commercial and~their owners don't release source codes (they also had~to~pay for~the~\hyperref[licencing]{licence}).
-    \item \textbf{Linux} was~originally only an~\hyperref[kernel]{OS~kernel} developed in~1991 by~\href{https://en.wikipedia.org/wiki/Linus_Torvalds}{Linus Torvalds}. It~was~heavily inspired by~Unix (they both follow \hyperref[posix]{POSIX} standards), but~opposite to~Unix the~Linux source code was~publicly released under the~\hyperref[gpl]{GNU GPL} licence. \hyperref[os]{Operating systems} said to~be Linux use variations of~that original Linux kernel. Although claimed to~be free, there are~even commercial Linuxes containing some nontrivial enhancements or~specializations, for~example SUSE Linux Enterprise for~\hyperref[server]{server} computers.
+    \item \textbf{Unix},~often written in~capital letters (UNIX), was~originally a~\hyperref[shellcligui]{CLI}--controlled~\hyperref[os]{OS} developed in 1969 by~\href{https://en.wikipedia.org/wiki/Bell_Labs}{Bell~Labs} for~their internal use.
+          In~late 1970s Bell~Labs owner \href{https://en.wikipedia.org/wiki/AT\%26T}{AT\&T} started to~sell Unix \hyperref[licencing]{licences} to~outside parties, which created their own enhanced mutations of~the~original~system.
+          Nowadays there is so~called Unix family, which denotes all~\hyperref[os]{operating systems} derived this way from the~original Unix.
+          The~most known Unix of~today is~probably macOS (although having \hyperref[hybridkernel]{hybrid kernel}). \warningnonl Unix systems are~commercial and~their owners don't release source codes (they also had~to~pay for~the~\hyperref[licencing]{licence}).
+    \item \textbf{Linux} was~originally only an~\hyperref[kernel]{OS~kernel} developed in~1991 by~\href{https://en.wikipedia.org/wiki/Linus_Torvalds}{Linus Torvalds}.
+          It~was~heavily inspired by~Unix (they both follow \hyperref[posix]{POSIX} standards), but~opposite to~Unix the~Linux source code was~publicly released under the~\hyperref[gpl]{GNU GPL} licence. \hyperref[os]{Operating systems} said to~be Linux use variations of~that original Linux kernel.
+          Although claimed to~be free, there are~even commercial Linuxes containing some nontrivial enhancements or~specializations, for~example SUSE Linux Enterprise for~\hyperref[server]{server} computers.
 \end{itemize}
 
 \newsection{POSIX}
 \index{POSIX}
 \label{posix}
-The~abbreviation stands for~\textit{Portable Operating System Interface} (yes,~\textit{X} is~missing). It's~a~set of~standards specifying \hyperref[api]{APIs}, command line \hyperref[shellcligui]{shells} and~utility interfaces. These standards serve for~maintaining compatibility between \hyperref[os]{operating systems}. Any~software working on~one~system following standards will~work even on~a~different system following standards. It's~typical for~Unix and~Linux systems.
+The~abbreviation stands for~\textit{Portable Operating System Interface} (yes,~\textit{X} is~missing).
+It's~a~set of~standards specifying \hyperref[api]{APIs}, command line \hyperref[shellcligui]{shells} and~utility interfaces.
+These standards serve for~maintaining compatibility between \hyperref[os]{operating systems}.
+Any~software working on~one~system following standards will~work even on~a~different system following standards.
+It's~typical for~Unix and~Linux systems.
 \newpage
 
 \newsection{SH VS Bash}
@@ -22,25 +31,36 @@ The~abbreviation stands for~\textit{Portable Operating System Interface} (yes,~\
 \index{Bourne}
 \label{shbash}
 \begin{itemize}
-    \item \textbf{SH}, also \textit{Bourne Shell}, is~a~very old \hyperref[scriptinglanguages]{scripting language} specification (not~one concrete language) following \hyperref[posix]{POSIX} standards. Each~Unix has~its own implementation following the~specification.
-    \item \textbf{Bash} (\textit{Bourne Again Shell}) is~a~concrete language initially fully following the~SH specification, but~nowadays containing many extensions not~included in \hyperref[posix]{POSIX} standards. All~SH scripts work when executed by~Bash, but~not~all Bash scripts necessarily work when~executed by~other SH language.
+    \item \textbf{SH}, also \textit{Bourne Shell}, is~a~very old \hyperref[scriptinglanguages]{scripting language} specification (not~one concrete language) following \hyperref[posix]{POSIX} standards.
+          Each~Unix has~its own implementation following the~specification.
+    \item \textbf{Bash} (\textit{Bourne Again Shell}) is~a~concrete language initially fully following the~SH specification, but~nowadays containing many extensions not~included in \hyperref[posix]{POSIX} standards.
+          All~SH scripts work when executed by~Bash, but~not~all Bash scripts necessarily work when~executed by~other SH language.
 \end{itemize}
 
-\noindent The~typical \hyperref[shebang]{shebang} \textitquoted{\#!/bin/sh} is~a~symbolic link to~an~SH language of~a~specific Unix system. When a~script with this shebang is~executed in~a~certain Unix, the~system automatically uses its SH language.
+\noindent The~typical \hyperref[shebang]{shebang} \textitquoted{\#!/bin/sh} is~a~symbolic link to~an~SH language of~a~specific Unix system.
+When a~script with this shebang is~executed in~a~certain Unix, the~system automatically uses its SH language.
 
 \warning Latest versions of~Debian or~Ubuntu Linuxes don't~use Bash as~their SH language, but~Dash, which still follows \hyperref[posix]{POSIX} standards.
 
 \newsection{APT}
 \index{APT}
 \label{linuxapt}
-APT is an~abbreviation of~\textit{Advanced Packaging Tool}. It's~a~\hyperref[packagemanager]{package manager} for~Debian and~Ubuntu Linuxes. The~\textitquoted{apt} command serves for~handling packages of~APT.
+APT is an~abbreviation of~\textit{Advanced Packaging Tool}.
+It's~a~\hyperref[packagemanager]{package manager} for~Debian and~Ubuntu Linuxes.
+The~\textitquoted{apt} command serves for~handling packages of~APT.
 
 \newsubsection{Apt VS Apt-get}
-The~\textitquoted{apt-get} is~a~predecessor of~the~\textitquoted{apt} command. There's a~possibility of~caching \textitquoted{apt-get} commands, but~it~requires user's active participation. The~newer \textitquoted{apt} command handles caching automatically.
+The~\textitquoted{apt-get} is~a~predecessor of~the~\textitquoted{apt} command.
+There's a~possibility of~caching \textitquoted{apt-get} commands, but~it~requires user's active participation.
+The~newer \textitquoted{apt} command handles caching automatically.
 
 \newsection{Bashrc VS Bash Profile}
 \index{Bashrc}
 \index{Bash profile}
-Both these scripts are a~sort of~initial scripts. The~\textitquoted{.bashrc} script is~executed any time when a~new terminal window is~opened. The~\textitquoted{.bash\_profile} script is~executed after an~user having the~script in~his home folder logins to~the~system, even remotely.
+Both these scripts are a~sort of~initial scripts.
+The~\textitquoted{.bashrc} script is~executed any time when a~new terminal window is~opened.
+The~\textitquoted{.bash\_profile} script is~executed after an~user having the~script in~his home folder logins to~the~system, even remotely.
 
-Generally, to~reload the~\textitquoted{.bashrc} script you must open a~new terminal window. To~reload the~\textitquoted{.bash\_profile} script you~must reboot the~system. However, this can~be substituted by~giving the~path to~the~script to~the~\textitquoted{source} command, i.e.,~by~running \textitquoted{source \textasciitilde/.bashrc} or~\textitquoted{source \textasciitilde/.bash\_profile}.
+Generally, to~reload the~\textitquoted{.bashrc} script you must open a~new terminal window.
+To~reload the~\textitquoted{.bash\_profile} script you~must reboot the~system.
+However, this can~be substituted by~giving the~path to~the~script to~the~\textitquoted{source} command, i.e.,~by~running \textitquoted{source \textasciitilde/.bashrc} or~\textitquoted{source \textasciitilde/.bash\_profile}.

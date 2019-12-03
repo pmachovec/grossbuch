@@ -5,7 +5,11 @@
 \index{OOP}
 \index{Object}
 \label{objectorientedprogramming}
-It's~a~programming paradigm in~which data are~\hyperref[encapsulation]{encapsulated} into objects together with tools for~manipulating these data. An~object holds data in~\hyperref[variablefieldproperty]{fields} (also called attributes) and~provides methods (also called functions) for~manipulating with these data (typically from other objects). Java and~most other languages using the~object paradigm like C\# or C++ are~not~pure object languages, because they contain \hyperref[javadatatypes]{primitive} \hyperref[datatypes]{data types} like \textit{integer} or~\textit{boolean}. In~pure object languages all~data (each variable) must be object. An~example of a~pure object language is Smalltalk (and~there is~probably no~other).
+It's~a~programming paradigm in~which data are~\hyperref[encapsulation]{encapsulated} into objects together with tools for~manipulating these data.
+An~object holds data in~\hyperref[variablefieldproperty]{fields} (also called attributes) and~provides methods (also called functions) for~manipulating with these data (typically from other objects).
+Java and~most other languages using the~object paradigm like C\# or C++ are~not~pure object languages, because they contain \hyperref[javadatatypes]{primitive} \hyperref[datatypes]{data types} like \textit{integer} or~\textit{boolean}.
+In~pure object languages all~data (each variable) must be object.
+An~example of a~pure object language is Smalltalk (and~there is~probably no~other).
 
 \warning Object--oriented programming is~not contradictory to~\hyperref[imperativeprogramming]{imperative programming} (or~even \hyperref[declarativeprogramming]{declarative programming}, see further).
 
@@ -14,21 +18,29 @@ It's~a~programming paradigm in~which data are~\hyperref[encapsulation]{encapsula
 \newsubsection{Encapsulation}
 \index{Encapsulation}
 \label{encapsulation}
-Encapsulation is the~essence of~OOP. It~means having data (\hyperref[variablefieldproperty]{fields}) and~tools for~manipulating these data (methods, functions) in~a~same object (class). The~access to~data and~tools is~restricted, typically by \hyperref[javaaccessmodifiers]{access modifiers}. The~data can~also be objects, i.e.,~objects can~be encapsulated in~other objects. Purposes~are:
+Encapsulation is the~essence of~OOP.
+It~means having data (\hyperref[variablefieldproperty]{fields}) and~tools for~manipulating these data (methods, functions) in~a~same object (class).
+The~access to~data and~tools is~restricted, typically by \hyperref[javaaccessmodifiers]{access modifiers}.
+The~data can~also be objects, i.e.,~objects can~be encapsulated in~other objects.
+Purposes~are:
 \begin{itemize}
     \item \textbf{Maintainability}\,--\,data and~tools for~manipulating them are~at~one place.
     \item \textbf{Security}\,--\,when the~access is~restricted, users can't read or~change data they aren't supposed to read or~change.
     \item \textbf{Changeability}\,--\,when needed, functionality of~encapsulated tools can~be changed without affecting users of~the~object.
 \end{itemize}
 
-\warning Having all \hyperref[variablefieldproperty]{fields} in~an~object private and~providing getters and~setters for~them is not an~encapsulation. This~is just a~convention that most of~OOP languages follow, but~for~example Python, although an~OOP language, accesses fields directly by the~dot notation.
+\warning Having all \hyperref[variablefieldproperty]{fields} in~an~object private and~providing getters and~setters for~them is not an~encapsulation.
+This~is just a~convention that most of~OOP languages follow, but~for~example Python, although an~OOP language, accesses fields directly by the~dot notation.
 
 \newsubsection{Inheritance}
 \index{Inheritance}
 \label{inheritance}
-It's~a~mechanism for~avoiding writing a~code for~a~functionality common for~more objects, i.e.,~for~avoiding code duplicity. The~common code is~written only once in~one ancestor object (parent) and~descendant objects (children), which should contain the~code functionality, just inherit the~ancestor. Purposes~are:
+It's~a~mechanism for~avoiding writing a~code for~a~functionality common for~more objects, i.e.,~for~avoiding code duplicity.
+The~common code is~written only once in~one ancestor object (parent) and~descendant objects (children), which should contain the~code functionality, just inherit the~ancestor.
+Purposes~are:
 \begin{itemize}
-    \item \textbf{Simplicity}\,--\,no~need to~write common code more times. Users can~have multiple implementations in~variables of~the~same \hyperref[datatypes]{data type}, they don't have to~handle exact concrete type for~each place in~their code.
+    \item \textbf{Simplicity}\,--\,no~need to~write common code more times.
+          Users can~have multiple implementations in~variables of~the~same \hyperref[datatypes]{data type}, they don't have to~handle exact concrete type for~each place in~their code.
     \item \textbf{Changeability}\,--\,when common code needs a~change, there's only one place to~change.
     \item \textbf{Maintainability}\,--\,same as~changeability.
 \end{itemize}
@@ -39,7 +51,9 @@ It's~a~mechanism for~avoiding writing a~code for~a~functionality common for~more
 \index{Polymorphism}
 \index{Virtual method}
 \label{polymorphism}
-It~means that one~method or~function of~an~object can~get \hyperref[parameterargument]{arguments} of~various different \hyperref[datatypes]{data types} in~same \hyperref[parameterargument]{parameter} positions. For~example, basic numberic operations (addition, subtraction,~\dots) work with all available number types. Purposes are:
+It~means that one~method or~function of~an~object can~get \hyperref[parameterargument]{arguments} of~various different \hyperref[datatypes]{data types} in~same \hyperref[parameterargument]{parameter} positions.
+For~example, basic numberic operations (addition, subtraction,~\dots) work with all available number types.
+Purposes are:
 \begin{itemize}
     \item \textbf{Simplicity}\,--\,no~need to~have a~different method name for~each possible \hyperref[parameterargument]{argument} type combinations.
     \item \textbf{Maintainability}\,--\,same as~simplicity.
@@ -47,9 +61,14 @@ It~means that one~method or~function of~an~object can~get \hyperref[parameterarg
 
 \noindent There are three types of~the~polymorphism:
 \begin{itemize}
-    \item \textbf{Ad hoc}\,--\,simple overloading based on~argument types. In~one~object there are more method implementations with the~same number of~parameters, but~in~each these parameters have different types. The~correct implementation is~decided by~types of provided arguments, usually during the~code compilation.
-    \item \textbf{Parametrical}\,--\,method parameters have so~called \hyperref[javagenerics]{generic types}, which substitute concrete \hyperref[datatypes]{types}. Correct concrete types are~decided by~used values in~runtime.
-    \item \textbf{Subtype}\,--\,connected with the~\hyperref[inheritance]{inheritance} and~\hyperref[javavirtualmethods]{virtual methods}. There can~be an~ancestor and~a~descendant and you can assign an~instance of~the~descendant to~the~variable of~the~\hyperref[datatype]{type} of~the~ancestor (\textit{Ancestor variable = new Descendant();}). When the~descendant \hyperref[javaoverride]{overrides} a~method \hyperref[declarationdefinition]{defined} in~the~ancestor and~the~method is declared as~\textit{virtual}, calling the~method on~the~variable (which has the~ancestor type) actually triggers the~implementation from the~descendant.
+    \item \textbf{Ad hoc}\,--\,simple overloading based on~argument types.
+          In~one~object there are more method implementations with the~same number of~parameters, but~in~each these parameters have different types.
+          The~correct implementation is~decided by~types of provided arguments, usually during the~code compilation.
+    \item \textbf{Parametrical}\,--\,method parameters have so~called \hyperref[javagenerics]{generic types}, which substitute concrete \hyperref[datatypes]{types}.
+          Correct concrete types are~decided by~used values in~runtime.
+    \item \textbf{Subtype}\,--\,connected with the~\hyperref[inheritance]{inheritance} and~\hyperref[javavirtualmethods]{virtual methods}.
+          There can~be an~ancestor and~a~descendant and you can assign an~instance of~the~descendant to~the~variable of~the~\hyperref[datatype]{type} of~the~ancestor (\textit{Ancestor variable = new Descendant();}).
+          When the~descendant \hyperref[javaoverride]{overrides} a~method \hyperref[declarationdefinition]{defined} in~the~ancestor and~the~method is declared as~\textit{virtual}, calling the~method on~the~variable (which has the~ancestor type) actually triggers the~implementation from the~descendant.
 \end{itemize}
 
 \warning In~Java or~C\# all methods are~virtual by~default and~the~subtype polymorphism is~happening automatically.
@@ -58,19 +77,33 @@ It~means that one~method or~function of~an~object can~get \hyperref[parameterarg
 \index{Abstraction}
 \index{Level of abstraction}
 \label{abstraction}
-It~means hiding implementation details of~objects and~providing only tools to~use objects (methods, functions). When you use some already existing library or~\hyperref[api]{API}, you~don't know and~don't care how it works inside. You~only have some object, call a~method and~get a~result. That's the~abstraction. Purposes~are:
+It~means hiding implementation details of~objects and~providing only tools to~use objects (methods, functions).
+When you use some already existing library or~\hyperref[api]{API}, you~don't know and~don't care how it works inside.
+You~only have some object, call a~method and~get a~result.
+That's the~abstraction.
+Purposes~are:
 \begin{itemize}
-    \item \textbf{Simplicity}\,--\,users of~objects are~not~overwhelmed by internal implementation of~those objects, which can~be very complex. They can~simply incorporate objects to~their own implementations regardless objects complexity.
+    \item \textbf{Simplicity}\,--\,users of~objects are~not~overwhelmed by internal implementation of~those objects, which can~be very complex.
+          They can~simply incorporate objects to~their own implementations regardless objects complexity.
     \item \textbf{Changeability}\,--\,when needed, functionality of~provided tools can~be changed without affecting users of~the~object.
 \end{itemize}
 
-\warning The~abstraction is~broken by the~\hyperref[inheritance]{inheritance concept}\,--\,to~correctly implement a~descendant object you should know the~implementation of~the~ancestor. For~this reason it's~recommended to~avoid inheritance as~much as~possible, unless preventing the~code duplicity.
+\warning The~abstraction is~broken by the~\hyperref[inheritance]{inheritance concept}\,--\,to~correctly implement a~descendant object you should know the~implementation of~the~ancestor.
+For~this reason it's~recommended to~avoid inheritance as~much as~possible, unless preventing the~code duplicity.
 
-\warning \hyperref[javaabstractclasses]{Abstract classes}, \hyperref[javainterfaces]{interfaces} and~similar stuff are~based on~the~\hyperref[inheritance]{inheritance} and~the~\hyperref[polymorphism]{subtype polymorphism} concepts, but~they're sometimes considered to~belong under the~abstraction. Therefore, the~advantage of~having one \hyperref[datatypes]{data type} for~multiple implementations can~be also mentioned for~the~abstraction concept.
+\warning \hyperref[javaabstractclasses]{Abstract classes}, \hyperref[javainterfaces]{interfaces} and~similar stuff are~based on~the~\hyperref[inheritance]{inheritance} and~the~\hyperref[polymorphism]{subtype polymorphism} concepts, but~they're sometimes considered to~belong under the~abstraction.
+Therefore, the~advantage of~having one \hyperref[datatypes]{data type} for~multiple implementations can~be also mentioned for~the~abstraction concept.
 
-\warning Don't confuse the~abstraction with the~\hyperref[encapsulation]{encapsulation concept}. They're tightly coupled and~encapsulation doesn't make any use without the~abstraction. You~can quite often encounter a~definition of~one labeled as~a~definition of~the~other. But~they're different. Abstraction handles object manipulation tools, encapsulation handles (beside others) restriction of~access to~these tools. A~developer cares about the~abstraction during software \hyperref[architecturedesign]{design}, and~about the~encapsulation during implementation. The~abstraction (hiding implementation) is~achieved by method headers, \hyperref[javaabstractclasses]{abstract classes} and~\hyperref[javainterfaces]{interfaces} and~the~encapsulation (restricting access) is~achieved by \hyperref[javaaccessmodifiers]{access modifiers}.
+\warning Don't confuse the~abstraction with the~\hyperref[encapsulation]{encapsulation concept}.
+They're tightly coupled and~encapsulation doesn't make any use without the~abstraction.
+You~can quite often encounter a~definition of~one labeled as~a~definition of~the~other.
+But~they're different.
+Abstraction handles object manipulation tools, encapsulation handles (beside others) restriction of~access to~these tools.
+A~developer cares about the~abstraction during software \hyperref[architecturedesign]{design}, and~about the~encapsulation during implementation.
+The~abstraction (hiding implementation) is~achieved by method headers, \hyperref[javaabstractclasses]{abstract classes} and~\hyperref[javainterfaces]{interfaces} and~the~encapsulation (restricting access) is~achieved by \hyperref[javaaccessmodifiers]{access modifiers}.
 
-Nevertheless, be~aware that deciding how~to~encapsulate \hyperref[javadatatypes]{primitive} variables and~"smaller" objects into "bigger" objects is a~part of~the~\hyperref[architecturedesign]{design}, i.e.,~it~belongs under the~abstraction concept. With varying depth of~\hyperref[variablefieldproperty]{fields} in~the~encapsulation tree we~talk about different levels of~abstraction.
+Nevertheless, be~aware that deciding how~to~encapsulate \hyperref[javadatatypes]{primitive} variables and~"smaller" objects into "bigger" objects is a~part of~the~\hyperref[architecturedesign]{design}, i.e.,~it~belongs under the~abstraction concept.
+With varying depth of~\hyperref[variablefieldproperty]{fields} in~the~encapsulation tree we~talk about different levels of~abstraction.
 
 \example[abstraction without encapsulation]
 \begin{lstlisting}[language=Java]
@@ -79,7 +112,8 @@ Nevertheless, be~aware that deciding how~to~encapsulate \hyperref[javadatatypes]
     doSomethingWithFloat(PI);
 \end{lstlisting}
 
-\noindent The~complicated value is~not encapsulated in~an~object, but~it's~hidden behind a~variable. Something like this can actually happen in~real programming.
+\noindent The~complicated value is~not encapsulated in~an~object, but~it's~hidden behind a~variable.
+Something like this can actually happen in~real programming.
 \newpage
 
 \example[encapsulation without abstraction]
@@ -89,12 +123,15 @@ Nevertheless, be~aware that deciding how~to~encapsulate \hyperref[javadatatypes]
     }
 \end{lstlisting}
 
-\noindent The~value is~encapsulated in~the~class, but~is~not~used inside any~method of~the~class. Something like this doesn't happen in~real programming.
+\noindent The~value is~encapsulated in~the~class, but~is~not~used inside any~method of~the~class.
+Something like this doesn't happen in~real programming.
 
 \newsection{Object VS Data Structure}
 \index{Data structure}
 \label{objectdatastructure}
-A~data structure is similar to~an~object. It's~also a~container for~data stored in~variables. The~difference is that data structures expose all its data and~contain no meaningful tools for~operating with data.
+A~data structure is similar to~an~object.
+It's~also a~container for~data stored in~variables.
+The~difference is that data structures expose all its data and~contain no meaningful tools for~operating with data.
 
 \example[simple data structure]
 \begin{lstlisting}[language=Java]
@@ -135,31 +172,52 @@ A~data structure is similar to~an~object. It's~also a~container for~data stored 
 \index{Control flow}
 \index{Flow of control}
 \label{imperativeprogramming}
-It's a~programming paradigm in which a~program behavior is changed by~specified statements. The~order of~executing statements is~called \textit{control flow}, or~also \textit{flow of~control}. It's~opposite of~the~\hyperref[declarativeprogramming]{declarative programming}.
+It's a~programming paradigm in which a~program behavior is changed by~specified statements.
+The~order of~executing statements is~called \textit{control flow}, or~also \textit{flow of~control}.
+It's~opposite of~the~\hyperref[declarativeprogramming]{declarative programming}.
 
-\warning It is \textbf{not}~contradictory to~\hyperref[objectorientedprogramming]{object--oriented programming}, imperative languages can~be object--oriented. Actually, today's most used object--oriented languages (Java, C\#, C++) are~imperative.
+\warning It is \textbf{not}~contradictory to~\hyperref[objectorientedprogramming]{object--oriented programming}, imperative languages can~be object--oriented.
+Actually, today's most used object--oriented languages (Java, C\#, C++) are~imperative.
 
 \newsection{Procedural Programming}
 \index{Procedural programming}
-It's~a~variation of~the~\hyperref[imperativeprogramming]{imperative programming}. A~procedural program is~a~top--down sequence of~statements\,--\,a~procedure\,--\,that, based on~input \hyperref[parameterargument]{arguments}, performs a~certain action. The~main procedure can~break the~initial problem to~smaller subprocedures and~these can~be broken further until a~subprocedure is~simple enough to~be~solved.
+It's~a~variation of~the~\hyperref[imperativeprogramming]{imperative programming}.
+A~procedural program is~a~top--down sequence of~statements\,--\,a~procedure\,--\,that, based on~input \hyperref[parameterargument]{arguments}, performs a~certain action.
+The~main procedure can~break the~initial problem to~smaller subprocedures and~these can~be broken further until a~subprocedure is~simple enough to~be~solved.
 
-The~\hyperref[imperativeprogramming]{imperative} \hyperref[objectorientedprogramming]{object--oriented} programming partially use the~procedural approach\,--\,a~sequence of~steps is~executed from~the~start to~the~end. But~the~difference is~the~data handling. In~real procedural programming tools for~data manipulation are~not~encapsulated together with data. Data are~passed through the~procedure in~a~form of~a~\hyperref[objectdatastructure]{data structure}, also called \textit{record}, and~adjusted at~various places.
+The~\hyperref[imperativeprogramming]{imperative} \hyperref[objectorientedprogramming]{object--oriented} programming partially use the~procedural approach\,--\,a~sequence of~steps is~executed from~the~start to~the~end.
+But~the~difference is~the~data handling.
+In~real procedural programming tools for~data manipulation are~not~encapsulated together with data.
+Data are~passed through the~procedure in~a~form of~a~\hyperref[objectdatastructure]{data structure}, also called \textit{record}, and~adjusted at~various places.
 
-The~procedural paradigm is easier to~grab than~the~object--oriented paradigm, but~its~main disadvantage is a~very tight coupling of~all~parts of~programs. When some step is changed at~the~beginning of~a~program procedure, it~can~affect data handling and~it~might be necessary to~adjust some following steps. The~bigger the~program~is, the~worse impact changes have.
+The~procedural paradigm is easier to~grab than~the~object--oriented paradigm, but~its~main disadvantage is a~very tight coupling of~all~parts of~programs.
+When some step is changed at~the~beginning of~a~program procedure, it~can~affect data handling and~it~might be necessary to~adjust some following steps.
+The~bigger the~program~is, the~worse impact changes have.
 
-Old~programming languages are procedural, for~example Pascal, C or~Fortran. Even in~modern languages, and~even in~those told to~be object--oriented, it's~possible to~use the~procedural paradigm. When a~program is~small, for~example, a~\hyperref[scriptinglanguages]{script}, it's~more convenient to~handle it as~a~procedure.
+Old~programming languages are procedural, for~example Pascal, C or~Fortran.
+Even in~modern languages, and~even in~those told to~be object--oriented, it's~possible to~use the~procedural paradigm.
+When a~program is~small, for~example, a~\hyperref[scriptinglanguages]{script}, it's~more convenient to~handle it as~a~procedure.
 
 \newsection{Declarative Programming}
 \index{Declarative programming}
 \label{declarativeprogramming}
-It's a~programming paradigm in which programs describe their desired results without explicitly listing commands or steps that must be performed. It's~opposite of~the~\hyperref[imperativeprogramming]{imperative programming}. Typical examples of~declarative languages are~SQL or~Prolog. Oracle's PL/SQL is a~kind of~hybrid language using imperative statements combined with declarative SQL. Even declarative languages can~be \hyperref[objectorientedprogramming]{object--oriented} (there~is an~object extension for~Prolog).
+It's a~programming paradigm in which programs describe their desired results without explicitly listing commands or steps that must be performed.
+It's~opposite of~the~\hyperref[imperativeprogramming]{imperative programming}.
+Typical examples of~declarative languages are~SQL or~Prolog.
+Oracle's PL/SQL is a~kind of~hybrid language using imperative statements combined with declarative SQL.
+Even declarative languages can~be \hyperref[objectorientedprogramming]{object--oriented} (there~is an~object extension for~Prolog).
 \newpage
 
 \newsection{Functional Programming}
 \index{Functional programming}
-It's~a~variation of~the~\hyperref[declarativeprogramming]{declarative programming}. Functional programs can~be expressed as mathematical functions\,--\,for~a~set of~inputs values they produce an~output value. For~one~specific set of~inputs the~output of~a~functional program is always the~same. There are no state changes or~mutable data. An~output can~be changed only by changing the~input.
+It's~a~variation of~the~\hyperref[declarativeprogramming]{declarative programming}.
+Functional programs can~be expressed as mathematical functions\,--\,for~a~set of~inputs values they produce an~output value.
+For~one~specific set of~inputs the~output of~a~functional program is always the~same.
+There are no state changes or~mutable data.
+An~output can~be changed only by changing the~input.
 
-True functional languages, like Haskell or~Erlang, are used in the~academy and~science world rather than in~programming industry. When considering mainstream languages, JavaScript, Python or~Kotlin allow combining standalone functions (not~bound to~objects) with the~standard \hyperref[imperativeprogramming]{imperative paradigm}.
+True functional languages, like Haskell or~Erlang, are used in the~academy and~science world rather than in~programming industry.
+When considering mainstream languages, JavaScript, Python or~Kotlin allow combining standalone functions (not~bound to~objects) with the~standard \hyperref[imperativeprogramming]{imperative paradigm}.
 
 \example[functional \textit{Hello World} in JavaScript]
 \begin{lstlisting}[language=JavaScript]
