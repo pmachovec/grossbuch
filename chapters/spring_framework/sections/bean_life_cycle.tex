@@ -9,7 +9,7 @@ Similarly you~can~define a~method that will be executed before the~\hyperref[spr
 This method is~called \textit{destroy method}.
 
 Each~bean can~have only one initialization and~one destroy method.
-Methods can~have any \hyperref[accessmodifiers]{access modifier} and~any return value.
+Methods can~have any \hyperref[javaaccessmodifiers]{access modifier} and~any return value.
 There~is no~use for~it, therefore, it's~convenient to~make methods private and~with \textit{void} return value.
 Methods can't have any~parameters.
 
@@ -154,7 +154,7 @@ The~destroy method is~called only once\,--\,for~the~singleton instance.
 
 \note There's one significant difference between annotation--based and~XML--based bean life cycle methods  One~bean class can~contain more than one annotated \textit{initialization} or~\textit{destroy} method.
 When the~time of~their execution comes (bean instantiation, context closing), all~such methods are~triggered. \textit{Initialization} methods are~triggered in~the~order reversed from the~order of~methods definition, \textit{destroy} methods are~called in~the~order of~methods definition.
-All~the~other behavior (no~parameters allowed, \textit{destroy methods not~working for~\hyperref[prototypedp]{prototypes},~\dots}) and~conventions (\hyperref[accessmodifiers]{access modifier} \textit{private}, no~return value,~\dots) are~the~same as~for~XML--based bean life cycle methods.
+All~the~other behavior (no~parameters allowed, \textit{destroy methods not~working for~\hyperref[prototypedp]{prototypes},~\dots}) and~conventions (\hyperref[javaaccessmodifiers]{access modifier} \textit{private}, no~return value,~\dots) are~the~same as~for~XML--based bean life cycle methods.
 
 \newsubsection{Configuration with Java Code (No XML)}
 When you define your own bean classes, you~should use \textit{PostConstruct} and~\textit{PreDestroy} (as~described in~the~\hyperref[beanlifecycleannotations]{annotation configuration section}) even with Java code configuration.

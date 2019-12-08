@@ -8,38 +8,41 @@
     escapeinside={(*}{*)},
     frame=single,
     gobble=4,
+    keywordstyle=\color{blue},
     postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}},
     rulecolor=\color{black},
     showstringspaces=false,
+    stringstyle=\color{ForestGreen},
     upquote = true
 }
 
-% Java code listings settings
 \lstdefinelanguage{Java}{
-    commentstyle=\color{ForestGreen},
-    keywordstyle=\color{blue},
-    stringstyle=\color{ForestGreen},
+    commentstyle=\color{LimeGreen},
+    morecomment=[l]{//},
     morekeywords={boolean,char,class,double,float,implements,import,int,package,public,private,protected,static,this},
     morestring=[b]",
     moredelim=[il][\textcolor{LimeGreen}]{@>},
     moredelim=[is][\textcolor{LimeGreen}]{@@>}{<@@}
 }
 
-% JavaScript code listings settings
 \lstdefinelanguage{JavaScript}{
-    commentstyle=\color{ForestGreen},
-    keywordstyle=\color{blue},
-    stringstyle=\color{ForestGreen},
-    morekeywords={function},
+    commentstyle=\color{LimeGreen},
+    morekeywords={console,function},
     morestring=[b]',
 }
 
-% XML code listings settings
+\lstdefinelanguage{Kotlin}{
+    commentstyle=\color{LimeGreen},
+    morecomment=[l]{//},
+    morekeywords={boolean,char,class,constructor,double,float,fun,import,int,lateinit,object,open,package,private,protected,this,val,var},
+    morestring=[b]",
+    moredelim=[il][\textcolor{LimeGreen}]{@>},
+    moredelim=[is][\textcolor{LimeGreen}]{@@>}{<@@}
+}
+
 \lstdefinelanguage{XML}{
     alsoletter={:},
     commentstyle=\color{gray},
-    keywordstyle=\color{blue},
-    stringstyle=\color{ForestGreen},
     morecomment=[s]{<?}{?>},
     morekeywords={class,id,ref,xmlns,xmlns:context,xsi},
     morestring=[b]"
