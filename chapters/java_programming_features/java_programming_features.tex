@@ -148,8 +148,8 @@ The~response is~written to~a~writer instance of~the~\textit{response} object.
     }
 \end{lstlisting}
 
-\newsubsection{Servlet invocation}
-\noindent Each servlet class must have~assigned some URL.
+\newsubsection{Servlet Invocation}
+Each servlet class must have~assigned some~URL.
 When the~\hyperref[applicationserver]{application server} URL, correct port and~the~servlet URL are~invoked (for~example, in~a~web browser address bar), the~\textit{service} method of~the~class is~executed.
 From there other classes and~methods can~be invoked.
 The~content written to~the~writer of~the~response object is~sent back to~the~invoking client (a~web~browser displays it instead of~a~web~page).
@@ -160,6 +160,7 @@ New~servlet classes are~implemented as~extending these classes.
 With this approach a~developer can override only methods he needs, the~original \textit{Servlet} interface doesn't have to be implemented whole again.
 
 \newsubsection{\textit{Service} method VS \textit{doGet} and \textit{doPost}}
+\label{servicedopostdoget}
  Today's servlet classes usually extend the~\textit{HttpServlet} class and~the~logic of~servlets is~implemented by~overriding methods \textit{doGet} and~\textit{doPost} from that class, not~the~original \textit{service}.
 That's because today's servlets are~triggered by web requests from web browsers, which use the~\hyperref[http]{HTTP} protocol.
 This~protocol enables (beside others) two~most common methods of~a~web request\,--\,\textit{GET} and~\textit{POST}.
@@ -170,10 +171,6 @@ When a~servlet is~invoked by~typing its URL to~a~web browser address bar, the~\h
 Eventual parameters available in~the~\textit{request} object can~be written as~a~part of~the~complete URL written to~the~address bar.
 The~\textit{POST} method in~the~request, and~therefore even the~\textit{doPost} method in~the~servlet class, can~be triggered only by submitting a~HTML form configured to~use the~\textit{POST} method or~by~running a~\hyperref[javascript]{JavaScript} function on~the~client side.
 
-\newsubsection{Attribute VS Parameter}
-\index{Attribute}
-\index{Parameter}
-
 \newsection{Java Server Pages (JSP)}
 \index{JSP}
 \index{Java server pages}
@@ -182,15 +179,16 @@ When a~\hyperref[http]{HTTP} request to~a~servlet is~sent from a~web browser, th
 When some meaningful \hyperref[internetweb]{web} page should be displayed, its~whole source code must be written to~the~response, i.e.,~something like this:
 
 \begin{lstlisting}[language=Java]
+    import java.io.IOException;
     import java.io.PrintWriter;
     import javax.servlet.http.HttpServlet;
-    import javax.servlet.ServletRequest;
-    import javax.servlet.ServletResponse;
+    import javax.servlet.http.HttpServletRequest;
+    import javax.servlet.http.HttpServletResponse;
 
     public class ExampleServlet extends HttpServlet {
         ...
-        @Override
-        protected void doGet(ServletRequest request, ServletResponse response) {
+        @>@Override
+        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
             ...
             PrintWriter out = response.getWriter();
             out.print("<html>");
@@ -211,12 +209,17 @@ When a~\hyperref[http]{HTTP} request is~sent to~a~JSP page, its~content (dynamic
 They enable mixing five syntaxes\,--\,HTML, CSS, Java, JavaScript and~\hyperref[el]{EL}\,--\,into one~file.
 And~although this is considered and~known to~be a~VERY bad practice, you can~be sure that a~stressed and~tired developer, pressed by incompetent managers to~finish his job till yesterday (i.e.,~a~standard developer), will create a~real anarchy with this tool in~his~hands.
 
+\newsubsection{Java Standard Tag Library (JSTL)}
+\index{Java standard tag library}
+\index{JSTL}
+\label{jstl}
+
+\newsubsection{Attribute VS Parameter}
+\index{Attribute}
+\index{Parameter}
+
 \newsubsection{Namespaces}
 \index{Namespace}
-
-\newsubsection{Java Standard Tag Library (JSTL)}
-\index{JSTL}
-\index{Java standard tag library}
 
 \newsubsection{Expression Language (EL)}
 \index{Expression language}
