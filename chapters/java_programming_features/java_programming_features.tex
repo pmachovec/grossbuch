@@ -123,7 +123,7 @@ A~Java program executed by~an~\hyperref[applicationserver]{application server} (
 The~implementation of~servlets is~said to~use the servlet~\hyperref[api]{API}
 
 For~each servlet there is~a~class implementing the~interface \textit{javax.servlet.Servlet}.
-This class is~an~entry point of~the~servlet program.
+This class is~an~entry point of~the~servlet program, sometimes the~class alone is (incorrectly) denoted as~\textit{servlet}.
 It~contains methods (enforced by its interface) that are~triggered when the~servlet is initiated (\textit{void init(ServletConfig config)}), when a~request comes to~it (\textit{void service(ServletRequest request, ServletResponse response)} and~when it's~terminated (\textit{void destroy()}).
 Note that even the~\textit{service} method, from which some response is~expected, is~void.
 The~response is~written to~a~writer instance of~the~\textit{response} object.
@@ -217,6 +217,7 @@ And~although this is considered and~known to~be a~VERY bad practice, you can~be 
 \newsubsection{Attribute VS Parameter}
 \index{Attribute}
 \index{Parameter}
+\label{jspattributeparameter}
 
 \newsubsection{Namespaces}
 \index{Namespace}

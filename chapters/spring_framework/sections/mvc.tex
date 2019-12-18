@@ -1,0 +1,274 @@
+\newsection{Spring MVC}
+\index{Spring MVC}
+\index{Model--view--controller}
+\index{MVC}
+\index{Front controller}
+\index{DispatchServlet}
+Spring provides a~set of~tools to~create \hyperref[webserviceapplication]{web applications} based on~the~\hyperref[mvc]{\textit{model--view--controller}} architectural pattern.
+The~client--server communication leverages the~original \hyperref[servlet]{servlet} technology, therefore, it~uses the~same terminology.
+Server side classes are~called \textit{servlets}, data coming from clients are~\textit{parameters} wrapped in~\textit{requests} and~data going back to~clients are~set as~\textit{attributes} to~\textit{responses}.
+Applications are~suitable to~be~deployed on~\hyperref[tomcat]{Tomcat} and,~of~course, they consist of~three basic MVC components.
+
+\begin{itemize}
+    \item \textbf{Model} is~represented by~an~instance of~the~class \textit{Model} from the~package \textitquoted{org.springframework.ui}. Any~object can~be inserted to~the~model instance as~an~attribute (\textitquoted{model.addAttribute(OBJECT,"attributeName")}).
+          At~the~beginning it's empty and~must~be filled with attributes by~the~controller.
+    \item \textbf{View} is~represented by~a~template engine, which gets the~filled model, inserts attributes to~an~HTML page template and~puts a~final HTML page to~the~response.
+          The~basic template engine for~Spring is "good" old \hyperref[jsp]{JSP}, but~nowadays safer technologies can~be used.
+          In~following examples \href{https://www.thymeleaf.org/}{Thymeleaf} will~be~used.
+  Implementation logic of~template engines exists in~a~form of~\hyperref[springinversionofcontrol]{Spring beans}, for~which a~configuration must~be~set.
+    \item \textbf{Controller} consists of~the~Java implementation to~be~run on~the~server.
+          It~gets request parameters, processes them and~inserts attributes to~the~model.
+          There~must~be at~least one controller class with at~least one controller method.
+          Opposite to~old \hyperref[servlet]{servlets} in Spring~MVC URLs are~set for~these methods, not~for~whole classes.
+\end{itemize}
+
+\newsubsection{Basic Request Processing}
+\begin{enumerate}[label=\arabic*)]
+    \item Client triggers an~action sending a~request to~the~server.
+    \item The~request comes to~a~\textit{front controller}. There's a~class called \textit{DispatchServlet} behind this controller.
+          This class is~fully provided by~Spring, you~only configure URL for~it \hyperref[servleturl]{like for~standard servlets}.
+    \item The~front controller creates a~model instance and~forwards it together with the~request to~a~custom controller, which is a~part of~a~concrete application.
+    \item The~custom controller triggers the~server side logic and~inserts attributes to~the~model.
+          At~the~end of~the~logic processing it~forwards the~filled model to~a~template engine.
+    \item Template engine replaces placeholders in a~HTML page template with attributes from the~model and~sends the~final HTML page in~the~response to~the~client.
+\end{enumerate}
+\newpage
+
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (client) at (0, 0) {};
+        \node [bob, minimum size=10mm, monitor] (innerClinet) at (0,0.2) {Client};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (dispatchServlet) at (8, 4) {\fontsize{11}{11} \selectfont DispatchServlet};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (controller) at (8, 0) {Controller};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm, align=center] (templateEngine) at (8, -4) {View\\{\fontsize{10}{10} \selectfont Template Engine}};
+        \node [draw, line width=.3mm] (model1) at (9, 2.4) {Model};
+        \node [draw, line width=.3mm] (model1) at (9, -1.6) {Model};
+
+        \diagramarrow[.3mm]{client.north east}{dispatchServlet.south west}[Request][above=3mm]
+        \diagramarrow{dispatchServlet.south}{controller.north}
+        \diagramarrow{controller.south}{templateEngine.north}
+        \diagramarrow[.3mm]{templateEngine.north west}{client.south east}[Response][below=3mm]
+    \end{tikzpicture}
+    \captit{Spring MVC schema}
+\end{figure}
+
+\newsubsection{Application Deployment on~Tomcat}
+There's no difference from the~\hyperref[tomcatdeployment]{standard Tomcat deployment}.
+A~whole Spring~MVC application is~located in~a~folder under the~Tomcat's \mboxtextit{webapps} folder, configuration is~stored in~the~\mboxtextitquoted{WEB-INF/web.xml} file, Java classes are~located in~\mboxtextitquoted{WEB-INF/classes} and~third party jars are~located in~\mboxtextitquoted{WEB-INF/lib}.
+HTML templates can~be located anywhere in~the~application folder.
+
+Additionally there's the~Spring configuration XML file.
+This~can~be also located anywhere as~it's~referenced in~\mboxtextit{web.xml}, but~it's~common practice to~put~it directly to~the~\mboxtextit{WEB-INF} folder, i.e.,~to~the~same level as~\mboxtextit{web.xml}.
+This file contains, beside others, the~configuration of~\hyperref[springinversionofcontrol]{Spring beans} of~the~chosen template engine.
+When using Thymeleaf, you~must configure three beans\,--\,template resolver, template engine and~view resolver.
+It~isn't important to~know what bean does what, just remember they must~be configured, the~template engine bean uses the~template resolver bean, and~the~view resolver bean uses the~template engine bean.
+For~the~template resolver bean you~must also configure prefix and~suffix.
+Prefix is a~location (relative to~the~application folder) where HTML templates are~located and~suffix is~the~extension of~your HTML templates (e.g.,~\mboxtextitquoted{.html}).
+See~the~example below for~details.
+
+\warning There can~be only one prefix and~suffix. You~must therefore have all templates in~one folder (it~doesn't affect web browser paths, that's configured in~controllers, see~further). Also, all~templates must have the~same extension.
+\newpage
+
+\begin{lstlisting}[language=XML, title=Example of a~\textit{web.xml} file with a~\textit{DispatchServlet} configuration]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <web-app ...>
+      <display-name>APPLICATION NAME</display-name>
+      <absolute-ordering/>
+
+      <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.(*servlet*).DispatcherServlet </servlet-class>
+        <init-param>
+          <param-name>contextConfigLocation</param-name>
+          <param-value>/WEB-INF/configurationFile.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+      </servlet>
+
+      <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+      </servlet-mapping>
+    </web-app>
+\end{lstlisting}
+
+\noindent Controllers are~classes marked by~the~annotation \mboxtextit{@Controller} from the~package \mboxtextitquoted{org.springframework.stereotype}.
+The~annotation extends the~\mboxtextit{@Component} annotation, therefore, controller classes are~visible by~\hyperref[iocannotations]{component scanning}.
+Classes generally don't~extend any other class or~implement an~interface (they~can if~needed).
+
+Controller methods are~marked by~the~annotation \mboxtextit{@RequestMapping} from the~package \mboxtextitquoted{org.springframework.web.bind.annotation}.
+This annotation gets as~a~\hyperref[parameterargument]{parameter} a~string that defines the~URL by~which the~method is~accessed.
+For~proper functionality this string must begin with a~slash.
+The~annotation can~be used even without the~parameter, it's~then equivalent to~specifying an~empty string.
+
+One~controller method can~get as~\hyperref[parameterargument]{parameters} a~whole request, separate request \hyperref[jspattributeparameter]{parameters} and~the~model instance.
+\hyperref[parameterargument]{Arguments} of~controller methods are~variable, they~can~get any~combination of~those objects.
+When using separate request parameters, each corresponding method parameter must~be marked by~the~annotation \mboxtextit{@RequestParam} from the~package \mboxtextitquoted{org.springframework.web.bind.annotation}.
+This annotation gets as~a~\hyperref[parameterargument]{parameter} a~string that must correspond to~the~key of~the~parameter in~the~request.
+Methods can~have any name, but~they must return a~string that must~be the~name of~the~template file to~which the~model should~be forwarded.
+The~name is onle the~plain file name, without any folder path and~even without an~extension. That's defined in~the~Spring configuration.
+
+Values are~written to~the~model instance as~\hyperref[jspattributeparameter]{attribues} and~can~be accessed in~the~HTML template by~the~engine expression language.
+Any~object can~be written to~the~model.
+Thymeleaf expression language provides rich syntax for~various object types processing.
+\newpage
+
+\begin{lstlisting}[language=XML, title={Example of a~Spring XML with Thymeleaf configuration}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans ...>
+      <!-- Main package configuration, expected to be located in WEB-INF/classes -->
+      <context:component-scan base-package="somepackage.subpackage"/>
+
+      <!-- Formatting and validation support -->
+      <mvc:annotation-driven/>
+
+      <!-- Template engine configuration -->
+      <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver. SpringResourceTemplateResolver">
+        <property name="prefix" value="/FOLDER_WITH_TEMPLATES"/>
+        <property name="suffix" value=".html"/>
+        <property name="characterEncoding" value="UTF-8"/>
+      </bean>
+      <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver"/>
+        <property name="enableSpringELCompiler" value="true"/>
+      </bean>
+      <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine"/>
+        <property name="characterEncoding" value="UTF-8"/>
+      </bean>
+    </beans>
+\end{lstlisting}
+
+\warning There is a~slash at~the~beginning of~the~prefix value and~the~suffix value contains the~dot!
+
+\note Even controller classes can~have the~\mboxtextit{@RequestMapping} annotation with some string (beginning with a~slash) defining an~URL.
+URLs defined by~the~annotation for~methods are~then relative to~the~URL of~the~class.
+\newpage
+
+\example[a~controller class and~a~template file]
+\begin{lstlisting}[language=Java, title={Controller class}]
+    package somepackage.subpackage;
+
+    @>@Controller
+    @@>@RequestMapping<@@("/classUrl")
+    public class ControllerClass {
+        @@>@RequestMapping<@@("/methodUrl")
+        public String controllerMethod(HttpServletRequest wholeRequest,
+                                       @@>RequestParam<@@("paramKey") String singleParameter,
+                                       Model model) {
+            // Reading the parameter from the request
+            String parameterFromRequest = wholeRequest.getParameter("paramKey");
+
+            // Writing boolean to the model
+            model.addAttribute("(*\tikzmarknodebf{smvc1java1attr}{modelAttribute}[ForestGreen]*)", parameterFromRequest.equals(singleParameter));
+
+            // Forwarding the model to a template
+            return "(*\tikzmarknodebf{smvc1java1templ}{templateFile}[ForestGreen]*)";
+        }
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=XML, title={Thymeleaf template file called \tikzmarknodebf{smvc1xml1templ}{\textit{templateFile}}\textit{.html}}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE html>
+    <html xmlns:(*\tikzmarknodebf{smvc1xml1th1}{th}[blue]*)="http://www.thymeleaf.org">
+      ...
+      <body>
+        <div (*\tikzmarknodebf{smvc1xml1th2}{th}[blue]*):text="'Result: ' + (*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{smvc1xml1attr}{modelAttribute}[ForestGreen]\textcolor{ForestGreen}{\}}*)"></div>
+      </body>
+    </html>
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{smvc1java1attr}{smvc1xml1attr}
+    \drawarrow{smvc1java1templ}{smvc1xml1templ}[red]
+    \drawarrow{smvc1xml1th1}{smvc1xml1th2}[green]
+\end{tikzpicture}
+
+\noindent When a~request with a~\hyperref[jspattributeparameter]{parameter} with~a~key \mboxtextit{paramkey} is~sent to~the~url \mboxtextitquoted{HOST:PORT/appFolder/classUrl/methodUrl}, a~response containing a~web page with a~simple text \textitquoted{Result: true} is~returned and~displayed in~the~browser (the~parameter retrieved from the~request is always the~same as~the~one retrieved separately).
+
+%\enlargethispage{10mm}
+%\thispagestyle{empty}
+\warning HTML forms are~directed to~controller methods by~the~attribute \mboxtextit{action}.
+When a~form is~submitted, it~replaces the~last part of~the~URL in~the~browser address bar (everything after the~last slash) with the~value of~the~attribute.
+This can~result in~unwanted behavior when the~form is~accessed over a~method with the~\mboxtextit{RequestMapping} annotation without parameters.
+\newpage
+
+\example[problems with a~form without request mapping path]
+\begin{lstlisting}[language=XML, title={Simple HTML form \tikzmarknodebf{smvc2xml1form}{\textit{theForm}}\textit{.html}}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE html>
+    <html>
+      ...
+      <body>
+        <form action="(*\tikzmarknodebf{smvc2xml1meth}{methodUrl}[ForestGreen]*)" method="post">
+          <input type="text" name="(*\tikzmarknodebf{smvc2xml1param}{paramKey}[ForestGreen]*)">
+        </form>
+      </body>
+    </html>
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Controller class}]
+    package somepackage.subpackage;
+
+    @>@Controller
+    @@>@RequestMapping<@@("/classUrl")
+    public class ControllerClass {
+        @@>@RequestMapping<@@ // Request mapping without a path
+        public String showForm() {
+            return "(*\tikzmarknodebf{smvc2java1form}{theForm}[ForestGreen]*)"
+        }
+
+        @@>@RequestMapping<@@("/(*\tikzmarknodebf{smvc2java1meth}{methodUrl}[ForestGreen]*)")
+        public String processForm(@@>RequestParam<@@("(*\tikzmarknodebf{smvc2java1param}{paramKey}[ForestGreen]*)") String singleParameter,
+                                  Model model) {
+            ...DO SOMETHING WITH THE PARAMETER...
+            return "templateFile";
+        }
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{smvc2xml1form}{smvc2java1form}
+    \drawarrow{smvc2xml1meth}{smvc2java1meth}[red]
+    \drawarrow{smvc2xml1param}{smvc2java1param}[green]
+\end{tikzpicture}
+
+\noindent When \mboxtextitquoted{HOST:PORT/appFolder/classUrl} is~accessed in~a~browser, it~displays the~form.
+When the~form is~submitted, it~replaces the~last part of~the~address\,--\,\mboxtextit{classUrl}\,--\,with the~value from~the~\mboxtextit{action} attribute\,--\,\mboxtextit{methodUrl}.
+Therefore, the~request is~forwarded to~\mboxtextitquoted{HOST:PORT/appFolder/methodUrl}, but~the~correct method address is \mboxtextitquoted{HOST:PORT/appFolder/\textbf{classUrl/}methodUrl}.
+The~solution is either to~add \mboxtextitquoted{classUrl/} to~the~\mboxtextit{action} attribute or~to~better organize request mapping paths.
+\newpage
+
+\newsubsection{UTF-8 encoding}
+As~many other applications, Spring~MVC doesn't like non--ASCII characters by~default.
+To~make it properly handling the~UTF-8 encoding you~must add the~character encoding property element into the~template resolver and~Thymeleaf view resolver bean configurations (shown in~an~example above) and~also configure a~filter in~the~\mboxtextit{web.xml} file.
+If~you~have more \mboxtextit{filter} elements there, the~one for~encoding must always go as~first.
+On~the~other hand, it~doesn't matter if the~filter comes before or~after servlet configurations.
+
+\begin{lstlisting}[language=XML, title=Example of a~\textit{web.xml} file with encoding filter configuration]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <web-app ...>
+      <display-name>APPLICATION NAME</display-name>
+      ...
+      <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter </filter-class>
+        <init-param>
+          <param-name>encoding</param-name>
+          <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+          <param-name>forceEncoding</param-name>
+          <param-value>true</param-value>
+        </init-param>
+      </filter>
+      <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+      </filter-mapping>
+    </web-app>
+\end{lstlisting}
+
+\newsubsection{Binding Form Values to Model}
+\todo
+
+\newsubsection{Form Validation}
+\todo

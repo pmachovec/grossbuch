@@ -8,7 +8,7 @@ An~architectural pattern is a~general, reusable solution to~a~commonly occurring
 \index{MVC}
 \label{mvc}
 This pattern is~used for~systems with a~user interface.
-Although initially used for~desktop applications, it's~popular also for~\hyperref[internetweb]{web applications}.
+Although initially used for~desktop applications, it's~popular also for~\hyperref[webserviceapplication]{web applications}.
 It~describes a~system separation to~three \hyperref[loosetightcoupling]{loosely coupled} components, where a~change in~one~component causes only minimal (ideally none) changes in~other two components.
 It~should be possible to~develop, maintain and~reuse each component separately.
 Components are as~expected:
@@ -20,10 +20,10 @@ Components are as~expected:
     \item \textbf{Controller}\,--\,the~application \hyperref[businesslogic]{business logic}, receives commands from~a~user, based on~these commands performs computations with the~model and~based on~results updates the~view.
 \end{itemize}
 
-\enlargethispage{20mm}
+\enlargethispage{30mm}
 \thispagestyle{empty}
-\examplenonl[schema of the MVC pattern connected with a user and a database]
-\begin{center}
+\begin{figure}[ht]
+    \centering
     \begin{tikzpicture}
         \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (view) at (0, 0) {View};
         \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (controller) at (6, 0) {Controller};
@@ -32,10 +32,11 @@ Components are as~expected:
         \node [bob, minimum size=10mm, monitor] (innerUser) at (3,-4.8) {User};
         \node [cylinder, minimum height=30mm, minimum width=30mm, line width=.3mm, draw=black, shape border rotate=90, aspect=.3] (database) at (12,-5) {Database};
 
-        \diagramarrow{controller.west}{view.east}{Updates}{above=3mm}
-        \diagramarrow{controller.east}{model.west}{Works with}{above=3mm}
-        \diagramarrow[.3mm]{view.south east}{user.north}{Results}{left}
-        \diagramarrow{user.north}{controller.south west}{Commands}{right}
-        \diagramarrow{model.south}{database.north}{Based on}{left}
+        \diagramarrow{controller.west}{view.east}[Updates][above=3mm]
+        \diagramarrow{controller.east}{model.west}[Works with][above=3mm]
+        \diagramarrow[.3mm]{view.south east}{user.north}[Results][left]
+        \diagramarrow{user.north}{controller.south west}[Commands][right]
+        \diagramarrow{model.south}{database.north}[Based on][left]
     \end{tikzpicture}
-\end{center}
+    \captit{Schema of the MVC pattern connected with a user and a database}
+\end{figure}
