@@ -22,7 +22,8 @@ The~remaining part of~the~\hyperref[systemmemory]{memory} is~called \textit{user
 \newsubsection{Monolithic Kernel}
 \index{Monolithic kernel}
 \label{monolithickernel}
-It's~an~old--fashioned type of~kernel where all kernel parts, as~described above, use the~kernel space. \hyperref[unixlinux]{Unix and~Linux} systems typically have monolithic kernels.
+It's~an~old--fashioned type of~kernel where all kernel parts, as~described above, use the~kernel space.
+\hyperref[unixlinux]{Unix and~Linux} systems typically have monolithic kernels.
 
 \newsubsection{Microkernel}
 \index{Microkernel}
@@ -99,7 +100,8 @@ They differ in~the~level of~abstraction, i.e.,~in~how~concrete the~description~i
 Pronounced [d\textopeno{}tn\textepsilon{}t], it's~a~multi--purpose framework and~runtime environment, i.e.,~a~\hyperref[platform]{platform}.
 Developed by~Microsoft, it's~available in~Windows by~default, but~nowadays it~can~be downloaded and~used even in~Linux environments.
 Languages \mbox{for~.NET} are~compiled to~CIL (\textit{Common Intermediate Language}, equivalent of~\hyperref[bytecode]{Java bytecode}) and~executed by~CLR (\textit{Common Language Runtime}, equivalent of~\hyperref[jdkjrejvm]{JRE}).
-Examples of~such languages are~C\# or~Visual Basic. \hyperref[powershell]{PowerShell} heavily uses .NET programs in~the~form of~\hyperref[cmdlet]{cmdLets}, but~itself it~has an~\hyperref[compiledinterpretedlanguages]{interpreter}, which doesn't produce~CIL.
+Examples of~such languages are~C\# or~Visual Basic.
+\hyperref[powershell]{PowerShell} heavily uses .NET programs in~the~form of~\hyperref[cmdlet]{cmdLets}, but~itself it~has an~\hyperref[compiledinterpretedlanguages]{interpreter}, which doesn't produce~CIL.
 
 \newsection{Variable VS Field VS Property}
 \index{Variable}
@@ -195,7 +197,8 @@ That isn't a~new definition.
 \label{webserviceapplication}
 \begin{itemize}
     \item \textbf{Web~service} is any~program executed or~continuously running on a~remote computer, with which programs on~other computers communicate over the~\hyperref[internetweb]{Web}, i.e.,~using the~\hyperref[http]{HTTP} protocol.
-          A~program called \hyperref[clientserverarchitecture]{client}, running on a~user's computer, sends a~request to~another~program called \hyperref[clientserverarchitecture]{server} running on~the~remote computer (the~same computer as the~target remote program), the~server delegates the~request to~the~remote program, the~remote program processes the~request and~sends a~response to~the~server, which then delegates it back to~the~client. \warningnonl The~term \textit{web service} is~ambiguous.
+          A~program called \hyperref[clientserverarchitecture]{client}, running on a~user's computer, sends a~request to~another~program called \hyperref[clientserverarchitecture]{server} running on~the~remote computer (the~same computer as the~target remote program), the~server delegates the~request to~the~remote program, the~remote program processes the~request and~sends a~response to~the~server, which then delegates it back to~the~client.
+          \warningnonl The~term \textit{web service} is~ambiguous.
           Sometimes it denotes solely the~remote program, sometimes it includes even the~server.
           Also, opposite to~a~standard \hyperref[applicationprocessprogramservicethread]{service} the~remote program doesn't have to run continuously.
           Only the~server does.

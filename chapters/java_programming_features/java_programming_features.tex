@@ -119,12 +119,13 @@ To~avoid falling to~this trap always treat the~right side to~be calculated first
 \newsection{Servlets}
 \index{Servlet}
 \label{servlet}
-A~Java program executed by~an~\hyperref[applicationserver]{application server} (nowadays most usually \hyperref[tomcat]{Tomcat}) based on~a~request from a~client is~called \textit{servlet}. \hyperref[webserviceapplication]{Web services} implemented in~Java are~servlets.
+A~Java program executed by~an~\hyperref[applicationserver]{application server} (most usually \hyperref[tomcat]{Tomcat}) based on~a~request (theoretically doesn't have to~be~\hyperref[http]{HTTP}, but~nowadays nothing else is~used) from a~client is~called \mboxtextit{servlet}.
+\hyperref[webserviceapplication]{Web services} implemented in~Java are~servlets.
 The~implementation of~servlets is~said to~use the servlet~\hyperref[api]{API}
 
-For~each servlet there is~a~class implementing the~interface \textit{javax.servlet.Servlet}.
-This class is~an~entry point of~the~servlet program, sometimes the~class alone is (incorrectly) denoted as~\textit{servlet}.
-It~contains methods (enforced by its interface) that are~triggered when the~servlet is initiated (\textit{void init(ServletConfig config)}), when a~request comes to~it (\textit{void service(ServletRequest request, ServletResponse response)} and~when it's~terminated (\textit{void destroy()}).
+For~each servlet there is~a~class implementing the~interface \mboxtextitquoted{javax.servlet.Servlet}.
+This class is~an~entry point of~the~servlet program, sometimes the~class alone is (incorrectly) denoted as~\mboxtextit{servlet}.
+It~contains methods (enforced by its interface) that are~triggered when the~servlet is initiated (\textitquoted{void init(ServletConfig config)}), when a~request comes to~it (\textitquoted{void service(ServletRequest request, ServletResponse response)} and~when it's~terminated (\textitquoted{void destroy()}).
 Note that even the~\textit{service} method, from which some response is~expected, is~void.
 The~response is~written to~a~writer instance of~the~\textit{response} object.
 
@@ -163,7 +164,7 @@ With this approach a~developer can override only methods he needs, the~original 
 \label{servicedopostdoget}
  Today's servlet classes usually extend the~\textit{HttpServlet} class and~the~logic of~servlets is~implemented by~overriding methods \textit{doGet} and~\textit{doPost} from that class, not~the~original \textit{service}.
 That's because today's servlets are~triggered by web requests from web browsers, which use the~\hyperref[http]{HTTP} protocol.
-This~protocol enables (beside others) two~most common methods of~a~web request\,--\,\textit{GET} and~\textit{POST}.
+This~protocol enables (beside others) two~most common methods of~a~HTTP request\,--\,\textit{GET} and~\textit{POST}.
 When an~\hyperref[applicationserver]{application server} gets a~\hyperref[http]{HTTP} request, it~actually triggers the~\textit{service} method, but~it~adds a~parameter with the~method type to~the~\textit{request} object.
 Based on~this parameter the~implementation of~the\textit{service} method from the~\textit{HttpServlet} class delegates other parameters to~\textit{doGet} or~\textit{doPost} method, which are~expected to~be overridden by~the~developer (their body is empty in~the~\textit{HttpServlet} class).
 

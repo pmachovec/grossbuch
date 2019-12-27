@@ -360,7 +360,8 @@ To~do~it run the~\textit{difftool} command with the~\mboxtextitquoted{-{}-dir--d
 When merging, there's nothing you~can~do about~it.
 Just trigger the~\textit{mergetool} command with a~path to~a~specific file every time.
 
-\warning For~the~\textit{difftool} command variables \textit{\$LOCAL} and~\textit{\$REMOTE} have a~different meaning from what can~seem obvious. \textit{\$LOCAL} means "before the~change" and~\textit{\$REMOTE} means "after the~change".
+\warning For~the~\textit{difftool} command variables \textit{\$LOCAL} and~\textit{\$REMOTE} have a~different meaning from what can~seem obvious.
+\textit{\$LOCAL} means "before the~change" and~\textit{\$REMOTE} means "after the~change".
 Therefore, when you run the~command for~a~file that differs from a~repository version (the~first usage example), i.e.,~is~changed locally, you~will~see that local version in~the~right window, which is the~position of~\textit{\$REMOTE} according to~the~configuration.
 The~same holds when you display differences of~a~file from some old specific commit(the~second usage example)\,--\,the~actual version of~the~file will~be displayed in~the~right window.
 Get~used to~it, don't switch those variables in~the~configuration, otherwise you can face unexpected behavior.
