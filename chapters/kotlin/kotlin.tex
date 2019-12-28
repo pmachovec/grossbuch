@@ -271,8 +271,7 @@ That's because object functions transformed to~Java methods aren't created as~st
 With the~annotation the~keyword \textit{static} is~added to~the~generated method.
 The~class can~be then used as~the~main class.
 
-\example[main function in~a~companion object]
-\begin{lstlisting}[language=Kotlin]
+\begin{lstlisting}[language=Kotlin,title={Main function in~a~companion object}]
     class simpleClass {
         companion object {
             @>@JvmStatic
@@ -288,15 +287,14 @@ This is the~real Kotlin approach.
 Kotlin enables to~have functions outside classes.
 For~a~file containing these standalone functions a~class with \textitquoted{-kt} at~the~end of~the~name is~generated and~each function has~a~corresponding static method.
 
-\example{standalone main function in a~file \textit{Example.kt}}
-\begin{lstlisting}[language=Kotlin]
+
+\begin{lstlisting}[language=Kotlin,title={A~tandalone main function in a~file \textit{Example.kt}}]
     fun main(args: Array<String>) {
         ...SOME CODE...
     }
 \end{lstlisting}
 
-\example{corresponding Java code}
-\begin{lstlisting}[language=Java]
+\begin{lstlisting}[language=Java,title={Corresponding Java code}]
     public final class ExampleKt {
         public static final void main(@NotNull String[] args) {
             Intrinsics.checkParameterIsNotNull(args, "args");

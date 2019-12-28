@@ -21,6 +21,8 @@
 \newsubsection{Hypertext Transfer Protocol (HTTP)}
 \index{Hypertext transfer protocol}
 \index{HTTP}
+\index{Request line}
+\index{Response line}
 \label{http}
 It's a~protocol for~transferring data over the~\hyperref[internetweb]{web}.
 It's~based on~the~\hyperref[clientserverarchitecture]{client--server architecture}.
@@ -31,7 +33,7 @@ Requests can~contain so~called \mboxtextit{parameters}.
 These are simple key--value pairs, based on~which servers can~react differently to~otherwise same requests.
 This is typical for~\hyperref[applicationserver]{application servers}.
 
-\begin{lstlisting}[title={Example of a~HTTP \textit{POST} request, parameters are at~the~bottom}]
+\begin{lstlisting}[title={Example of a~HTTP \textit{POST} request, parameters are~visible at~the~bottom}]
     POST /someFolder HTTP/1.1
     HOST: www.somepage.com
     User-Agent: Mozilla/5.0
@@ -44,17 +46,24 @@ This is typical for~\hyperref[applicationserver]{application servers}.
     name=Johny&email=jbravo40\%40gmail.com&company=bigzeronothing
 \end{lstlisting}
 
-\noindent The~top part (above the~empty line) is~the~request header.
-It~identifies the~server, the~endpoint on~the~server (first line) and~some other unimportant stuff.
+\noindent The~first line is so~called \textit{request line}.
+It~contains a~HTTP command, which contains method type, target point at~the~server and~HTTP protocol version.
+The~rest of~the~top part (above the~empty line) is~the~request header.
+It~contains request metadata\,--\,additional information about the~request used for~the~request processing by~the~server
 The~bottom part (below the~empty line) is~the~request body.
 It~contains request parameters.
-In~\mboxtextit{GET} methods parameters are~a~part of~the~endpoint in~the~first line and~there's no~body.
+In~\mboxtextit{GET} methods parameters are~a~part of~the~endpoint in~the~request line and~there's no~body.
 
 Server reads the~request, processes it, eventually triggers some \hyperref[webserviceapplication]{web service} and~sens back so~called \mboxtextit{response}.
 Responses have very similar structure to~requests.
-They also have some specification header and~body.
+They also have some an~initial line\,--\,\textit{response line}, header and~body.
+The~response line contains HTTP protocol version and~a~status code\,--\, a~numeric representation of~the~request processing result.
+For~example, the~value 200 means success.
+The~header contains response metadata usable at~the~client side.
+The~body contains actual request processing result for~the~client.
+
 When a~response gets to~a~web browser, the~browser displays the~body contents.
-And~if~the~body contains a~HTML page code, which is usually the~case, the~page is~rendered in~the~browser.
+And~if~the~header of~the~request contains the~content type set to~\mboxtextitquoted{text/html}, which is usually the~case, the~body is~rendered as~a~web page in~the~browser.
 
 \begin{lstlisting}[title={Example of a~HTTP response}]
     HTTP/1.1 200 OK
@@ -72,6 +81,7 @@ And~if~the~body contains a~HTML page code, which is usually the~case, the~page i
 
 \notenonl The~HTTP protocol isn't used only for~displaying \hyperref[internetweb]{web} pages.
 For~example the~\hyperref[rest]{REST} communication between two running programs also uses this protocol.
+In~this case the~content type is \mboxtextitquoted{application/json}.
 
 \newsubsection{SMTP}
 \index{SMTP}
@@ -159,4 +169,30 @@ On~the~other hand, \hyperref[tomcat]{Tomcat} serves mainly for~running Java prog
 \newsection{Representational State Transfer (REST)}
 \index{Representational State Transfer}
 \index{REST}
+\index{RESTful}
 \label{rest}
+It's~a~technique for~transferring data between two \hyperref[applicationprocessprogramservicethread]{programs} using the~\hyperref[http]{HTTP} protocol.
+Transferred data can~be theoretically in~any string form, but~the~most popular nowadays is~the~\hyperref[json]{JSON} format.
+
+The~first program has~the~role of~a~client and~initiates a~standard \hyperref[http]{HTTP} request.
+The~request can, but~doesn't have~to, already contain some JSON data in~the~body.
+It's~responsibility of~the~first program to~create the~JSON string and~include it to~the~request.
+
+The~second program is~a~standard \hyperref[webserviceapplication]{web service}.
+It~gets the~request, parses the~incoming JSON (if~there is~any), creates (another) JSON (also doesn't have~to), includes it to~a~response body and~sends the~response to~the~client program.
+
+\hyperref[webserviceapplication]{Web services} supporting this type of~data transfer are~said to~have \mbox{REST \hyperref[api]{API}}.
+To~make~it more complicated the~\mboxtextitquoted{RESTful} term is~sometimes used.
+You~can~encounter many different combinations of~terms all~denoting a~\hyperref[webserviceapplication]{web service} supporting the~REST data transfer.
+The~overview list follows:
+\begin{itemize}
+    \item Service with REST API
+    \item Service with RESTful API
+    \item REST web service
+    \item RESTful web service
+    \item REST service
+    \item RESTful service
+\end{itemize}
+
+\noindent And~to~make it even more complicated you~can~also encounter a~term \textitquoted{\mbox{RESTful} application} or~\textitquoted{\mbox{RESTful} program}.
+This can~denote both a~client side program or~a~server side web service supporting the~REST communication.
