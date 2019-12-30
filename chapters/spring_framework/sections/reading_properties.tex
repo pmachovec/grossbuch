@@ -1,34 +1,35 @@
 \newsection{Reading values from \textit{.properties} files}
 \index{Properties file}
-Files with the~\mboxtextit{.properties} extension are~popular approach for~dynamic applications configuration.
+\label{properties}
+Files with the~\mboxtextitquoted{.properties} extension are~popular approach for~dynamic applications configuration.
 They're simple text files in~which each line has the~form \textit{identifier=value}.
-When a~\mboxtextit{.properties} file is~added to a~Spring application \hyperref[classpath]{classpath}, it~can~be referenced in~the~Spring configuration file, as~well as values specified in~the~file.
+When a~\mboxtextit{properties} file is~added to a~Spring application \hyperref[classpath]{classpath}, it~can~be referenced in~the~Spring configuration file, as~well as values specified in~the~file.
 
-The~\mboxtextit{.properties} file is~referenced in~the~element \mboxtextit{property--placeholder}, attribute \textit{location}, from the~\hyperref[namespaces]{namespace} \textit{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}.
-The~name of~the~\mboxtextit{.properties} file in~the~attribute \textit{location} must~be preceded by the~part referring to~the~\hyperref[classpath]{classpath}, which~is literally \textitquoted{classpath:} (with the~colon).
+The~\mboxtextit{properties} file is~referenced in~the~element \mboxtextit{property--placeholder}, attribute \textit{location}, from the~\hyperref[namespaces]{namespace} \textit{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}.
+The~name of~the~\mboxtextit{properties} file in~the~attribute \textit{location} must~be preceded by the~part referring to~the~\hyperref[classpath]{classpath}, which~is literally \textitquoted{classpath:} (with the~colon).
 
-Values set in~the~\mboxtextit{.properties} file can~be then referenced as attribute values, typically when \hyperref[injectingliteralvalues]{injecting literal values}, but~can~be used also as bean~IDs when injecting complex beans.
+Values set in~the~\textit{properties} file can~be then referenced as attribute values, typically when \hyperref[injectingliteralvalues]{injecting literal values}, but~can~be used also as bean~IDs when injecting complex beans.
 A~concrete value is~accessed by the~syntax~\textit{\$\{identifier\}}.\\
 
-\warning The~default encoding of~\mboxtextit{.properties} files is~\mbox{ISO~8859--1}, in~which all non--ASCII characters are~written in~the~escaped hexadecimal format (\textit{\textbackslash uAB12}).
+\warning The~default encoding of~\textit{properties} files is~\mbox{ISO~8859--1}, in~which all non--ASCII characters are~written in~the~escaped hexadecimal format (\textit{\textbackslash uAB12}).
 If~you~put real non--ASCII characters into string values, they won't~be processed correctly.
 Some IDEs and~editors even won't let you to~do~that as they automatically insert the~escaped hexadecimal format as~you~type.
 UTF--8 encoding is possible.
-First make sure the~file is~saved in~that format, some IDEs and~editors tend to~preserve the~\mbox{ISO~8859--1} for~\mboxtextit{.properties} files regardless corresponding project settings.
+First make sure the~file is~saved in~that format, some IDEs and~editors tend to~preserve the~\mbox{ISO~8859--1} for~\textit{properties} files regardless corresponding project settings.
 And~next add the~attribute \mboxtextit{file--encoding} with the~value \mboxtextit{utf--8} to~the~element \mboxtextit{property--placeholder}.
 Ignore any~eventual warning about invalid encoding for~the~file type.\\
 
-\warning Some IDEs (IntelliJ Idea for example) can~try to~"help" developers by~fake replacing the~dollar syntax with values from the~\mboxtextit{.properties} file.
+\warning Some IDEs (IntelliJ Idea for example) can~try to~"help" developers by~fake replacing the~dollar syntax with values from the~\mboxtextit{properties} file.
 I.e.,~it~looks like values are~specified directly in~the~XML file.
 The~indicator of~this "replacement" is that values have different color (gray in IntelliJ).
 If~you click on~such value, the~original dollar notation will appear.
 
-\note Using the~\mboxtextit{.properties} extension is only a~convention for~key--value files.
+\note Using the~\mboxtextitquoted{.properties} extension is only a~convention for~key--value files.
 The~name can~be anything, the~important thing is the~format \mboxtextitquoted{key\,=\,value}.
 \newpage
 
 \example[passing values to a constructor]
-\begin{lstlisting}[title={A \mboxtextit{.properties} file called \tikzmarknodebf{readprop1prop1filename}{\textit{constructor.properties}}}]
+\begin{lstlisting}[title={A \textit{properties} file called \tikzmarknodebf{readprop1prop1filename}{\textit{constructor.properties}}}]
     (*\tikzmarknodebf{readprop1prop1intvalue}{intvalue}*)=1
     (*\tikzmarknodebf{readprop1prop1floatvalue}{floatvalue}*)=3.14
     (*\tikzmarknodebf{readprop1prop1stringvalue}{stringvalue}*)=String value
@@ -40,9 +41,9 @@ The~name can~be anything, the~important thing is the~format \mboxtextitquoted{ke
            ...>
       <context:property-placeholder location="classpath:(*\tikzmarknodebf{readprop1xml1filename}{constructor.properties}[ForestGreen]*)" file-encoding="utf-8"/>
       <bean id="someBeanId" class="(*\tikzmarknodebf{readprop1xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tikzmarknodebf{readprop1xml1class}{WantedClass}[ForestGreen]*)">
-        <constructor-arg value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop1xml1intvalue}{intvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
-        <constructor-arg value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop1xml1floatvalue}{floatvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
-        <constructor-arg value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop1xml1stringvalue}{stringvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
+        <constructor-arg value="(*\SSS*){(*\tikzmarknodebf{readprop1xml1intvalue}{intvalue}[ForestGreen]*)}"/>
+        <constructor-arg value="(*\SSS*){(*\tikzmarknodebf{readprop1xml1floatvalue}{floatvalue}[ForestGreen]*)}"/>
+        <constructor-arg value="(*\SSS*){(*\tikzmarknodebf{readprop1xml1stringvalue}{stringvalue}[ForestGreen]*)}"/>
       </bean>
     </beans>
 \end{lstlisting}
@@ -79,7 +80,7 @@ The~name can~be anything, the~important thing is the~format \mboxtextitquoted{ke
 \enlargethispage{20mm}
 \thispagestyle{empty}
 \example[passing values to setters]
-\begin{lstlisting}[title={A \mboxtextit{.properties} file called \tikzmarknodebf{readprop2prop1filename}{\textit{setters.properties}}}]
+\begin{lstlisting}[title={A \textit{properties} file called \tikzmarknodebf{readprop2prop1filename}{\textit{setters.properties}}}]
     (*\tikzmarknodebf{readprop2prop1intvalue}{intvalue}*)=1
     (*\tikzmarknodebf{readprop2prop1floatvalue}{floatvalue}*)=3.14
     (*\tikzmarknodebf{readprop2prop1stringvalue}{stringvalue}*)=String with spaces
@@ -91,9 +92,9 @@ The~name can~be anything, the~important thing is the~format \mboxtextitquoted{ke
            ...>
       <context:property-placeholder location="classpath:(*\tikzmarknodebf{readprop2xml1filename}{setter.properties}[ForestGreen]*)" file-encoding="utf-8"/>
       <bean id="someBeanId" class="(*\tikzmarknodebf{readprop2xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tikzmarknodebf{readprop2xml1class}{WantedClass}[ForestGreen]*)">
-        <property name="(*\tikzmarknodebf{readprop2xml1intvaluefield}{intValueField}[ForestGreen]*)" value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop2xml1intvalue}{intvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
-        <property name="(*\tikzmarknodebf{readprop2xml1floatvaluefield}{floatValueField}[ForestGreen]*)" value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop2xml1floatvalue}{floatvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
-        <property name="(*\tikzmarknodebf{readprop2xml1stringvaluefield}{stringValueField}[ForestGreen]*)" value="(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop2xml1stringvalue}{stringvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)"/>
+        <property name="(*\tikzmarknodebf{readprop2xml1intvaluefield}{intValueField}[ForestGreen]*)" value="(*\SSS*){(*\tikzmarknodebf{readprop2xml1intvalue}{intvalue}[ForestGreen]*)}"/>
+        <property name="(*\tikzmarknodebf{readprop2xml1floatvaluefield}{floatValueField}[ForestGreen]*)" value="(*\SSS*){(*\tikzmarknodebf{readprop2xml1floatvalue}{floatvalue}[ForestGreen]*)}"/>
+        <property name="(*\tikzmarknodebf{readprop2xml1stringvaluefield}{stringValueField}[ForestGreen]*)" value="(*\SSS*){(*\tikzmarknodebf{readprop2xml1stringvalue}{stringvalue}[ForestGreen]*)}"/>
       </bean>
     </beans>
 \end{lstlisting}
@@ -150,7 +151,7 @@ Related fields aren't mentioned in~constructors nor~in~setter methods, they're s
 \enlargethispage{20mm}
 \thispagestyle{empty}
 \example
-\begin{lstlisting}[title={A \mboxtextit{.properties} file called \tikzmarknodebf{readprop3prop1filename}{\textit{annotations.properties}}}]
+\begin{lstlisting}[title={A \textit{properties} file called \tikzmarknodebf{readprop3prop1filename}{\textit{annotations.properties}}}]
     (*\tikzmarknodebf{readprop3prop1intvalue}{intvalue}*)=1
     (*\tikzmarknodebf{readprop3prop1floatvalue}{floatvalue}*)=3.14
     (*\tikzmarknodebf{readprop3prop1stringvalue}{stringvalue}*)=String with spaces
@@ -168,13 +169,13 @@ Related fields aren't mentioned in~constructors nor~in~setter methods, they're s
     package (*\tikzmarknodebf{readprop3java1package}{somepackage.subpackage}*);
 
     public class WantedClass implements WantedClassInterface {
-        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop3java1intvalue}{intvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop3java1intvalue}{intvalue}[ForestGreen]*)}")
         private int intValueField;
 
-        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop3java1floatvalue}{floatvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop3java1floatvalue}{floatvalue}[ForestGreen]*)}")
         private float floatValueField;
 
-        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop3java1stringvalue}{stringvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop3java1stringvalue}{stringvalue}[ForestGreen]*)}")
         private String stringValueField;
 
         public WantedClass(...) {...}
@@ -195,17 +196,17 @@ Related fields aren't mentioned in~constructors nor~in~setter methods, they're s
 
 \newsubsection{Configuration with Java Code (No XML)}
 When using the~Java configuration class, you~must annotate the~class with the~\mboxtextit{PropertySource} annotation.
-It~takes the~\mboxtextit{.properties} file name with the~\mboxtextit{classpath:} prefix as~a~parameter.
-When your \mboxtextit{.properties} file has~the~UTF--8 encoding, you~must use named parameters\,--\,the~file name parameter is~called \textit{value} and~the~encoding parameter is~called \textit{encoding}.
+It~takes the~\textit{properties} file name with the~\mboxtextitquoted{classpath:} prefix as~a~parameter.
+When your \textit{properties} file has~the~UTF--8 encoding, you~must use named parameters\,--\,the~file name parameter is~called \textit{value} and~the~encoding parameter is~called \textit{encoding}.
 It~works for~both component scan and~explicit bean configuration.
 
-Values in~bean classes are~accessed in~the~same way as~when \hyperref[readingpropertiesannotations]{using annotations}\,--\,variables holding values are~annotated with the~\textit{Value} annotation holding the~value identifier from the~\mboxtextit{.properties} file in~curly brackets prefixed by the~dollar sign (\mboxtextit{\$\{identifier\}}).
+Values in~bean classes are~accessed in~the~same way as~when \hyperref[readingpropertiesannotations]{using annotations}\,--\,variables holding values are~annotated with the~\textit{Value} annotation holding the~value identifier from the~\textit{properties} file in~curly brackets prefixed by the~dollar sign (\mboxtextit{\$\{identifier\}}).
 Related fields aren't mentioned in~constructors nor~in~setter methods, they're set automatically.
 
 \enlargethispage{20mm}
 \thispagestyle{empty}
 \example[component scan]
-\begin{lstlisting}[title={A \mboxtextit{.properties} file called \tikzmarknodebf{readprop4prop1filename}{\textit{annotations.properties}}}]
+\begin{lstlisting}[title={A \textit{properties} file called \tikzmarknodebf{readprop4prop1filename}{\textit{annotations.properties}}}]
     (*\tikzmarknodebf{readprop4prop1intvalue}{intvalue}*)=1
     (*\tikzmarknodebf{readprop4prop1floatvalue}{floatvalue}*)=3.14
     (*\tikzmarknodebf{readprop4prop1stringvalue}{stringvalue}*)=String with spaces
@@ -222,13 +223,13 @@ Related fields aren't mentioned in~constructors nor~in~setter methods, they're s
     package (*\tikzmarknodebf{readprop4java2package}{somepackage.subpackage}*)
 
     public class WantedClass implements WantedClassInterface {
-        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop4java2intvalue}{intvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop4java2intvalue}{intvalue}[ForestGreen]*)}")
         private int intValueField;
 
-        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop4java2floatvalue}{floatvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop4java2floatvalue}{floatvalue}[ForestGreen]*)}")
         private float floatValueField;
 
-        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop4java2stringvalue}{stringvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop4java2stringvalue}{stringvalue}[ForestGreen]*)}")
         private String stringValueField;
 
         public WantedClass(...) {...}
@@ -248,7 +249,7 @@ Related fields aren't mentioned in~constructors nor~in~setter methods, they're s
 \newpage
 
 \example[explicit bean configuration]
-\begin{lstlisting}[title={A \mboxtextit{.properties} file called \tikzmarknodebf{readprop5prop1filename}{\textit{annotations.properties}}}]
+\begin{lstlisting}[title={A \textit{properties} file called \tikzmarknodebf{readprop5prop1filename}{\textit{annotations.properties}}}]
     (*\tikzmarknodebf{readprop5prop1intvalue}{intvalue}*)=1
     (*\tikzmarknodebf{readprop5prop1floatvalue}{floatvalue}*)=3.14
     (*\tikzmarknodebf{readprop5prop1stringvalue}{stringvalue}*)=String with spaces
@@ -269,13 +270,13 @@ Related fields aren't mentioned in~constructors nor~in~setter methods, they're s
     package somepackage.subpackage;
 
     public class (*\tikzmarknodebf{readprop5java2class}{WantedClass}*) implements WantedClassInterface {
-        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop5java2intvalue}{intvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop5java2intvalue}{intvalue}[ForestGreen]*)}")
         private int intValueField;
 
-        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop5java2floatvalue}{floatvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop5java2floatvalue}{floatvalue}[ForestGreen]*)}")
         private float floatValueField;
 
-        @@>@Value<@@("(*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{readprop5java2stringvalue}{stringvalue}[ForestGreen]\textcolor{ForestGreen}{\}}*)")
+        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop5java2stringvalue}{stringvalue}[ForestGreen]*)}")
         private String stringValueField;
 
         public (*\tikzmarknodebf{readprop5java2class2}{WantedClass}*)(...) {...}

@@ -154,9 +154,7 @@ URLs defined by~the~annotation for~methods are~then relative to~the~URL of~the~c
     @@>@RequestMapping<@@("/classUrl")
     public class ControllerClass {
         @@>@RequestMapping<@@("/methodUrl")
-        public String controllerMethod(HttpServletRequest wholeRequest,
-                                       @@>RequestParam<@@("paramKey") String singleParameter,
-                                       Model model) {
+        public String controllerMethod(HttpServletRequest wholeRequest, @@>@RequestParam<@@("paramKey") String singleParameter, Model model) {
             // Reading the parameter from the request
             String parameterFromRequest = wholeRequest.getParameter("paramKey");
 
@@ -171,23 +169,20 @@ URLs defined by~the~annotation for~methods are~then relative to~the~URL of~the~c
 \begin{lstlisting}[language=XML, title={Thymeleaf template file called \tikzmarknodebf{smvc1xml1templ}{\textit{templateFile}}\textit{.html}}]
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE html>
-    <html xmlns:(*\tikzmarknodebf{smvc1xml1th1}{th}[blue]*)="http://www.thymeleaf.org">
+    <html xmlns:th="http://www.thymeleaf.org">
       ...
       <body>
-        <div (*\tikzmarknodebf{smvc1xml1th2}{th}[blue]*):text="'Result: ' + (*\textcolor{ForestGreen}{\$\{}\tikzmarknodebf{smvc1xml1attr}{modelAttribute}[ForestGreen]\textcolor{ForestGreen}{\}}*)"></div>
+        <div th:text="'Result: ' + (*\SSS*){(*\tikzmarknodebf{smvc1xml1attr}{modelAttribute}[ForestGreen]*)}"></div>
       </body>
     </html>
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{smvc1java1attr}{smvc1xml1attr}
     \drawarrow{smvc1java1templ}{smvc1xml1templ}[red]
-    \drawarrow{smvc1xml1th1}{smvc1xml1th2}[green]
 \end{tikzpicture}
 
 \noindent When a~request with a~\hyperref[jspattributeparameter]{parameter} with~a~key \mboxtextit{paramkey} is~sent to~the~url \mboxtextitquoted{HOST:PORT/appFolder/classUrl/methodUrl}, a~response containing a~web page with a~simple text \textitquoted{Result: true} is~returned and~displayed in~the~browser (the~parameter retrieved from the~request is always the~same as~the~one retrieved separately).
 
-%\enlargethispage{10mm}
-%\thispagestyle{empty}
 \warning HTML forms are~directed to~controller methods by~the~attribute \mboxtextit{action}.
 When a~form is~submitted, it~replaces the~last part of~the~URL in~the~browser address bar (everything after the~last slash) with the~value of~the~attribute.
 This can~result in~unwanted behavior when the~form is~accessed over a~method with the~\mboxtextit{RequestMapping} annotation without parameters.
@@ -218,7 +213,7 @@ This can~result in~unwanted behavior when the~form is~accessed over a~method wit
         }
 
         @@>@RequestMapping<@@("/(*\tikzmarknodebf{smvc2java1meth}{methodUrl}[ForestGreen]*)")
-        public String processForm(@@>RequestParam<@@("(*\tikzmarknodebf{smvc2java1param}{paramKey}[ForestGreen]*)") String singleParameter,
+        public String processForm(@@>@RequestParam<@@("(*\tikzmarknodebf{smvc2java1param}{paramKey}[ForestGreen]*)") String singleParameter,
                                   Model model) {
             ...DO SOMETHING WITH THE PARAMETER...
             return "templateFile";
@@ -266,9 +261,287 @@ On~the~other hand, it~doesn't matter if the~filter comes before or~after servlet
       </filter-mapping>
     </web-app>
 \end{lstlisting}
+\newpage
 
 \newsubsection{Binding Form Values to Model}
-\todo
+So~far when a~form was~submitted, its values\,--\,request parameters\,--\,were extracted manually one by~one.
+But~there's a~possibility to~automatically encapsulate them into \hyperref[pojo]{POJOs}, which are~available as~the~model attributes.
+I.e.,~instead of reading request parameters separately and~inserting them to~some POJOs for~further processing (e.g.,~storing to~a~database), you~get those POJOs directly.
+\newline
+
+\noindent \textbf{Inputs with values provided by users:}\\
+\noindent This is a~simple use case.
+In~a~form there's a~"free" value input field (text, number, email) where a~user can~type any~value matching the~field type (absolutely anything to~a~text field, any~number to~a~number field etc.).
+The~input has~a~Thymeleaf attribute \mboxtextit{th:field} used for~mapping to~a~POJO field.
+For~such~input a~field with a~getter and~a~setter with matching names are~created in~the~desired POJO class and~Spring simply assigns the~typed value to~the~field.
+Yes,~there's a~possibility of~type mismatch (e.g.,~text inserted to~an~integer field) and~the~code must~be prepared for~it.
+Usual trick is~to~have POJO fields all String and~convert them to~other types in~try--catch blocks deeper in~the~program.
+The~POJO must~be already present in~the~model when the~form is~submitted.
+Because of~this the~POJO must~be created and~inserted to~the~model in~the~controller method responsible for~displaying the~form.
+\newline
+
+\noindent \textbf{Inputs with fixed values:}\\
+\noindent For~dropdowns the~principle is completely the~same as~for~"free" inputs.
+There's a~field with a~getter and~a~setter with names matching the~\mboxtextit{th:field} attribute of~the~\mboxtextit{select} element in~the~form and~a~selected value (content of~the~\textit{value} attribute of~the~\textit{option} element) is~assigned to~the~field.
+
+For~inputs without an~enclosing parent element, like radios and~checkboxes, there's a~slight difference.
+The~identifying attribute (which appears in~each input element), is~the~original HTML \mboxtextit{name}, not~the~Thymeleaf \mboxtextit{th:field}.
+Getters and~setters of~POJO fields must match that~one.
+
+Inputs with fixed values can~be generated from a~collection in~the~code (map, list,\dots) or~even from a~\hyperref[properties]{\mboxtextit{properties}} file.
+A~\mboxtextit{properties} file must~be included in~the~Spring configuration, retrieved in~the~controller and~added to~the~model as~a~separate attribute.
+Iteration over the~collection members is~performed by~the~Thymeleaf attribute \mboxtextit{th:each}.
+For~dropdowns this attribute is~assigned to~a~single \mboxtextit{option} element.
+For~radios and~checkboxes there must~be a~single \mboxtextit{input} element enclosed in~a~special Thymeleaf element \mboxtextit{th:block} and~this element gets the~\mboxtextit{th:each} attribute.
+
+It's~also possible to~bind inputs enabling to~set multiple values, like checkboxes and~multiselects.
+For~such inputs POJO fields must~be arrays, not~simple strings.
+\newpage
+
+\examplenonl[binding text input to \hyperref[pojo]{POJO} String field]
+\enlargethispage{20mm}
+\thispagestyle{empty}
+\begin{lstlisting}[language=Java, title={POJO class with one String field}]
+    public class (*\tikzmarknodebf{smvc3java1pojo}{PojoClass}*) {
+        private String pojoField;
+
+        public String get(*\tikzmarknodebf{smvc3java1field1}{PojoField}*)() {
+            return pojoField;
+        }
+
+        public String set(*\tikzmarknodebf{smvc3java1field2}{PojoField}*)(String pojoField) {
+            this.pojoField = pojoField;
+        }
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=XML, title={HTML form setting the field}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+      ...
+      <body>
+        <form method="post" th:object="(*\SSS*){(*\tikzmarknodebf{smvc3xml1mapping}{mappingId}[ForestGreen]*)}" th:action="@{(*\tikzmarknodebf{smvc3xml1class}{/classUrl}[ForestGreen]\tikzmarknodebf{smvc3xml1meth}{/methodUrl}[ForestGreen]*)}">
+          <input type="text" th:field="*{(*\tikzmarknodebf{smvc3xml1field}{pojoField}[ForestGreen]*)}">
+        </form>
+      </body>
+    </html>
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Controller displaying and processing the form}]
+    @>@Controller
+    @@>@RequestMapping<@@("(*\tikzmarknodebf{smvc3java2class}{/classUrl}[ForestGreen]*)")
+    public class ControllerClass {
+        @>@RequestMapping
+        public String showForm(Model model) {
+            // Adding the POJO to model
+            model.addAttribute("(*\tikzmarknodebf{smvc3java2mapping1}{mappingId}[ForestGreen]*)", new (*\tikzmarknodebf{smvc3java2pojo1}{PojoClass}*)())
+            return "theForm"
+        }
+    
+        @@>@RequestMapping<@@("(*\tikzmarknodebf{smvc3java2meth}{/methodUrl}[ForestGreen]*)")
+        public String processForm(@@>@ModelAttribute<@@("(*\tikzmarknodebf{smvc3java2mapping2}{mappingId}[ForestGreen]*)") (*\tikzmarknodebf{smvc3java2pojo2}{PojoClass}*) pojo) {
+            String pojoField = pojo.getPojoField();
+            ...DO SOMETHING WITH THE POJO FIELD...
+            return "...SOMETHING...";
+        }
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{smvc3java1pojo.east}{[xshift=3mm] smvc3java2pojo1.north}[black][.3][bend left=18mm]
+    \drawarrow{smvc3java1pojo.east}{smvc3java2pojo2.north}[black][.3][bend left=18mm]
+    \drawarrow{smvc3java1field1.south}{[xshift=-3mm] smvc3xml1field.north}[red]
+    \drawarrow{smvc3java1field2.south}{[xshift=-3mm] smvc3xml1field.north}[red]
+    \drawarrow{[xshift=3mm] smvc3xml1mapping.south}{smvc3java2mapping1.north}[green]
+    \drawarrow{[xshift=3mm] smvc3xml1mapping.south}{smvc3java2mapping2.north}[green]
+    \drawarrow{smvc3xml1class}{smvc3java2class}[blue]
+    \drawarrow{smvc3xml1meth}{smvc3java2meth}[Magenta]
+\end{tikzpicture}
+\newpage
+
+\examplenonl[binding dropdown created from map]
+\begin{lstlisting}[language=Java, title={POJO class with one String field}]
+    public class PojoClass {
+        private String dropdownField;
+        private LinkedHashMap<String, String> dropdownMap;
+
+        public PojoClass() { // Constructor
+            ...dropdownMap initialization...
+        }
+
+        public LinkedHashMap<String, String> get(*\tikzmarknodebf{smvc4java1map}{DropdownMap}*)() {
+            return dropdownMap;
+        }
+
+        public String get(*\tikzmarknodebf{smvc4java1field1}{DropdownField}*)() {
+            return dropdownField;
+        }
+
+        public void set(*\tikzmarknodebf{smvc4java1field2}{DropdownField}*)(String dropdownField) {
+            this.dropdownField = dropdownField;
+        }
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=XML, title={HTML form setting the field}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+      ...
+      <body>
+        <form ...>
+          <select th:field="*{(*\tikzmarknodebf{smvc4xml1field}{dropdownField}[ForestGreen]*)}">
+            <option th:each="mapEntry: (*\SSS*){mappingId.(*\tikzmarknodebf{smvc4xml1map}{dropdownMap}[ForestGreen]*).entrySet()}" th:value="${mapEntry.key}" th:text="${mapEntry.value}"/>
+          </select>
+        </form>
+      </body>
+    </html>
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{smvc4java1map}{smvc4xml1map}
+    \drawarrow{smvc4java1field1.south}{smvc4xml1field.north}[red]
+    \drawarrow{smvc4java1field2.south}{smvc4xml1field.north}[red]
+\end{tikzpicture}
+
+\notenonl Controller would be the same as in the previous example.
+\newpage
+
+\example[binding checkbox created from a \textit{properties} file]
+\enlargethispage{10mm}
+\begin{lstlisting}[language=Java, title={POJO class with one array field}]
+    public class PojoClass {
+        private String[] checkboxField;
+
+        public String get(*\tikzmarknodebf{smvc5java1field1}{CheckboxField}*)() {
+            return dropdownField;
+        }
+
+        public void set(*\tikzmarknodebf{smvc5java1field2}{CheckboxField}*)(String[] checkboxField) {
+            this.checkboxField = checkboxField;
+        }
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=XML, title={HTML form setting the field}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+      ...
+      <body>
+        <form ...>
+          <th:block th:each="mapEntry: (*\SSS*){mappingId.(*\tikzmarknodebf{smvc5xml1map}{checkboxMap}[ForestGreen]*).entrySet()}">
+            <input type="checkbox" name="(*\tikzmarknodebf{smvc5xml1field}{checkboxField}[ForestGreen]*)" th:value="(*\SSS*){mapEntry.key}"><span th:text="(*\SSS*){mapEntry.value}"/><br/>
+          </select>
+        </form>
+      </body>
+    </html>
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Controller converting \textit{properties} file to a map}]
+    @>@Controller
+    @@>@RequestMapping<@@("...")
+    public class ControllerClass {
+        @@>@Value<@@("#{(*\tikzmarknodebf{smvc5java2props}{propertiesFileId}[ForestGreen]*)}") // Parsing the properties file
+        private val mapFromPropertiesFile: LinkedHashMap<String, String>;
+
+        @>@RequestMapping
+        public String showForm(Model model) {
+            ...
+            model.addAttribute("(*\tikzmarknodebf{smvc5java2map}{checkboxMap}[ForestGreen]*)", mapFromPropertiesFile)
+            ...
+        }
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+    \coordinate(smvc5java2propsdummy) at (smvc5java2props |-,0);
+    \drawarrow{smvc5java1field1.south}{smvc5xml1field.north}
+    \drawarrow{smvc5java1field2.south}{smvc5xml1field.north}
+    \drawarrow{smvc5xml1map}{smvc5java2map}[red]
+    \drawarrow[stealth-]{[xshift=9mm] smvc5java2props.south}{[xshift=9mm] smvc5java2propsdummy}[green]
+\end{tikzpicture}
+\newpage
+
+\begin{lstlisting}[language=XML, title={Spring XML configuration}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans ...>
+      ...
+      <util:properties id="(*\tikzmarknodebf{smvc5xml2props}{propertiesFileId}[ForestGreen]*)" location="WEB-INF/fileName.properties"/>
+      ...
+    </beans>
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay, shift={(current page.north west)}]
+    \coordinate(smvc5xml2propsdummy) at (smvc5xml2props |-,0);
+    \drawarrow[-stealth]{[xshift=-10.9mm] smvc5xml2propsdummy}{[xshift=-10.9mm] smvc5xml2props.north}[green]
+\end{tikzpicture}
 
 \newsubsection{Form Validation}
+The~\hyperref[hibernate]{Hibernate} project, which is more known for~its~JPA, also provides tools for~Spring~MVC form validations.
+It~consists~of special annotations that can~be added to~POJO class fields and~with specific \hyperref[parameterargument]{parameters} restrict the~field content and~define an~error message.
+For~example, you~can restrict a~String field to~contain only alphanumeric characters by~a~regular expression, you~can~restrict a~number field range by~specifying minimum and~maximum~etc.
+When such a~restriction isn't followed in~the~corresponding field input (a~user inserts a~non--matching value), an~error can~be detected on~an~instance of~the~class \mboxtextit{BindingResult}, which is given to~the~form--processing controller method as~another \hyperref[parameterargument]{argument}.
+A~proper reaction can~then be carried~out.
+
+Typical use case is to~return to~the~form page and~display some warning with the~error message defined earlier.
+When the~model attribute of~the~form--processing controller method has~another annotation \mboxtextit{@Valid}, it's~possible to~detect the~invalid field, retrieve the~error message, insert it to~a~special element (which is hidden by~default) and~make this element visible.
+Everything in~the~form template code.
+\newpage
+
+\examplenonl[string field validation allowing ASCII letters only]
+\enlargethispage{10mm}
+\thispagestyle{empty}
+\begin{lstlisting}[language=Java, title={POJO class with restricted String field}]
+    public class (*\tikzmarknodebf{smvc6java1pojo}{PojoClass}*) {
+        @@>@Pattern<@@(regexp = "[a-zA-Z]+", message = "ASCII letters only")
+        private String pojoField;
+
+        public String get(*\tikzmarknodebf{smvc6java1field1}{PojoField}*)() {
+            return dropdownField;
+        }
+
+        public void set(*\tikzmarknodebf{smvc6java1field2}{PojoField}*)(String pojoField) {
+            this.pojoField = pojoField;
+        }
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=XML, title={HTML form \tikzmarknodebf{smvc6xml1form}{\textit{theForm}}\textit{.html} setting the field}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+      ...
+      <body>
+        <form th:object="(*\SSS*){(*\tikzmarknodebf{smvc6xml1mapping}{mappingId}[ForestGreen]*)}" ...>
+          <input type="text" th:field="*{(*\tikzmarknodebf{smvc6xml1field1}{pojoField}[ForestGreen]*)}">
+        </form>
+        <div th:if="(*\SSS*){#fields.hasErrors('(*\tikzmarknodebf{smvc6xml1field2}{pojoField}[ForestGreen]*)')}" th:errors="*{(*\tikzmarknodebf{smvc6xml1field3}{pojoField}[ForestGreen]*)}"/>
+        <!-- The div is invisible by default, and would still be even if it had some content -->
+      </body>
+    </html>
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Controller processing the form}]
+    @>@Controller
+    @@>@RequestMapping<@@("...")
+    public class ControllerClass {
+        @@>@RequestMapping<@@("...")
+        public String processForm(@@>@Valid @ModelAttribute<@@("(*\tikzmarknodebf{smvc6java2mapping}{mappingId}[ForestGreen]*)") (*\tikzmarknodebf{smvc6java2pojo}{PojoClass}*) pojo, BindingResult bindingResult) {
+            if (bindingResult.hasErrors()) {
+                return "(*\tikzmarknodebf{smvc6java2form}{theForm}[ForestGreen]*)";
+            } else {
+                ...DO SOMETHING ELSE...
+            }
+        }
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{smvc6java1pojo}{smvc6java2pojo}
+    \drawarrow{[xshift=-3mm] smvc6java1field1.south east}{smvc6xml1field1.north}[red]
+    \drawarrow{[xshift=-3mm] smvc6java1field2.south east}{smvc6xml1field1.north}[red]
+    \drawarrow{smvc6xml1field1.south}{smvc6xml1field2.north}[red]
+    \drawarrow{smvc6xml1field1.south}{smvc6xml1field3.north}[red]
+    \drawarrow{[xshift=3mm] smvc6xml1form.south west}{smvc6java2form.north}[green]
+    \drawarrow{[xshift=-3mm] smvc6xml1mapping.south east}{smvc6java2mapping.north}[blue]
+\end{tikzpicture}
+\newpage
+
+\noindent When the~form is~submitted with a~"wrong" value in~the~field, it's~detected in~the~\mboxtextit{BindingResult} instance and~the~controller method returns the~form (like a~method initially displaying the~form).
+In~the~form the~error on~the~field is~detected and~the~(initially invisible) \textit{div} is~made visible and~the~error message from the~POJO field is~set as~the~\textit{div} content.
+
+\newsubsection{Custom Validation Annotations}
+\todo
+
+\newsubsection{Request Preprocessing}
 \todo
