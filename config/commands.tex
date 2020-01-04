@@ -6,6 +6,8 @@
 
 \NewDocumentCommand{\includechapter}{m}{\include{chapters/#1/#1}}
 
+\NewDocumentCommand{\includeepchapter}{m m}{\include{chapters/#1/#2/#2}}
+
 \NewDocumentCommand{\inputsection}{m m}{\input{chapters/#1/sections/#2}}
 
 \RenewDocumentCommand{\newline}{}{\vspace{\baselineskip}}
@@ -32,11 +34,37 @@
 
 \NewDocumentCommand{\tikzmarknodebf}{m m O{black}}{\tikzmarknode{#1}{\textbfcolor{#3}{#2}}}
 
-\NewDocumentCommand{\textitquoted}{m}{"\textit{#1}"}
+\NewDocumentCommand{\itq}{m}{"\textit{#1}"}
 
-\NewDocumentCommand{\mboxtextit}{m}{\mbox{\textit{#1}}}
+\NewDocumentCommand{\mbit}{m}{\mbox{\textit{#1}}}
 
-\NewDocumentCommand{\mboxtextitquoted}{m}{\mbox{\textitquoted{#1}}}
+\NewDocumentCommand{\mboxbreak}{m}{\mbox{#1}\allowbreak}
+
+\NewDocumentCommand{\mbl}{>{\SplitList{;;}}m}{\ProcessList{#1}{\mboxbreak}}
+
+\newif\iffirstitem
+\firstitemtrue
+
+\NewDocumentCommand{\spacembox}{m}{%
+  \iffirstitem
+    \mbl{#1}%
+    \firstitemfalse
+  \else
+    \space\mbl{#1}%
+  \fi
+}
+
+\NewDocumentCommand{\mbls}{>{\SplitList{;;;}}m}{\ProcessList{#1}{\spacembox}\firstitemtrue}
+
+\NewDocumentCommand{\mbitq}{m}{\mbox{\itq{#1}}}
+
+\NewDocumentCommand{\mbitl}{m}{\textit{\mbl{#1}}}
+
+\NewDocumentCommand{\mbitls}{m}{\textit{\mbls{#1}}}
+
+\NewDocumentCommand{\mbitql}{m}{\itq{\mbl{#1}}}
+
+\NewDocumentCommand{\mbitqls}{m}{\itq{\mbls{#1}}}
 
 \NewDocumentCommand{\drawarrow}{O{stealth-stealth} m m O{black} O{.3} O{}}{\draw[#1,line width=.6mm,shorten <=2pt,shorten >=2pt,#4,opacity=#5] (#2) to[#6] (#3);}
 

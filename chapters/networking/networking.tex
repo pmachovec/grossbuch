@@ -26,10 +26,10 @@
 \label{http}
 It's a~protocol for~transferring data over the~\hyperref[internetweb]{web}.
 It's~based on~the~\hyperref[clientserverarchitecture]{client--server architecture}.
-A~client, typically (but~not~necessarily) a~web browser, sends so~called \mboxtextit{request} to~a~server.
+A~client, typically (but~not~necessarily) a~web browser, sends so~called \mbit{request} to~a~server.
 It's~just a~bunch of~text encapsulating client's requirements\,--\,what does it want from the~server.
-There are many types of~requests, but~the~most important are~\mboxtextit{GET} and~\mboxtextit{POST}.
-Requests can~contain so~called \mboxtextit{parameters}.
+There are many types of~requests, but~the~most important are~\mbit{GET} and~\mbit{POST}.
+Requests can~contain so~called \mbit{parameters}.
 These are simple key--value pairs, based on~which servers can~react differently to~otherwise same requests.
 This is typical for~\hyperref[applicationserver]{application servers}.
 
@@ -52,9 +52,9 @@ The~rest of~the~top part (above the~empty line) is~the~request header.
 It~contains request metadata\,--\,additional information about the~request used for~the~request processing by~the~server
 The~bottom part (below the~empty line) is~the~request body.
 It~contains request parameters.
-In~\mboxtextit{GET} methods parameters are~a~part of~the~endpoint in~the~request line and~there's no~body.
+In~\mbit{GET} methods parameters are~a~part of~the~endpoint in~the~request line and~there's no~body.
 
-Server reads the~request, processes it, eventually triggers some \hyperref[webserviceapplication]{web service} and~sens back so~called \mboxtextit{response}.
+Server reads the~request, processes it, eventually triggers some \hyperref[webserviceapplication]{web service} and~sens back so~called \mbit{response}.
 Responses have very similar structure to~requests.
 They also have some an~initial line\,--\,\textit{response line}, header and~body.
 The~response line contains HTTP protocol version and~a~status code\,--\, a~numeric representation of~the~request processing result.
@@ -63,7 +63,7 @@ The~header contains response metadata usable at~the~client side.
 The~body contains actual request processing result for~the~client.
 
 When a~response gets to~a~web browser, the~browser displays the~body contents.
-And~if~the~header of~the~request contains the~content type set to~\mboxtextitquoted{text/html}, which is usually the~case, the~body is~rendered as~a~web page in~the~browser.
+And~if~the~header of~the~request contains the~content type set to~\mbitq{text/html}, which is usually the~case, the~body is~rendered as~a~web page in~the~browser.
 
 \begin{lstlisting}[title={Example of a~HTTP response}]
     HTTP/1.1 200 OK
@@ -81,7 +81,7 @@ And~if~the~header of~the~request contains the~content type set to~\mboxtextitquo
 
 \notenonl The~HTTP protocol isn't used only for~displaying \hyperref[internetweb]{web} pages.
 For~example the~\hyperref[rest]{REST} communication between two running programs also uses this protocol.
-In~this case the~content type is \mboxtextitquoted{application/json}.
+In~this case the~content type is \mbitq{application/json}.
 
 \newsubsection{SMTP}
 \index{SMTP}
@@ -140,7 +140,7 @@ For~example, consider that \textit{www.something.com} refers to~some computer wi
 The~default home folder of~Apache HTTP servers is \textit{/home/www} and hasn't been configured otherwise in~this example.
 You~enter \textit{www.something.com/one/two/three.html} to your web browser's address bar.
 This sends a~\hyperref[http]{HTTP} request.
-The~computer is reached over~\hyperref[dns]{DNS}, the~server gets the~request and it looks for the~file \mboxtextit{/home/www/one/two/three.html}.
+The~computer is reached over~\hyperref[dns]{DNS}, the~server gets the~request and it looks for the~file \mbit{/home/www/one/two/three.html}.
 If~the~file is found, its contents are~appended to~a~\hyperref[http]{HTTP} response, returned to your web browser and displayed.
 If~not, you get the~dinosaur.
 
@@ -182,7 +182,7 @@ The~second program is~a~standard \hyperref[webserviceapplication]{web service}.
 It~gets the~request, parses the~incoming JSON (if~there is~any), creates (another) JSON (also doesn't have~to), includes it to~a~response body and~sends the~response to~the~client program.
 
 \hyperref[webserviceapplication]{Web services} supporting this type of~data transfer are~said to~have \mbox{REST \hyperref[api]{API}}.
-To~make~it more complicated the~\mboxtextitquoted{RESTful} term is~sometimes used.
+To~make~it more complicated the~\mbitq{RESTful} term is~sometimes used.
 You~can~encounter many different combinations of~terms all~denoting a~\hyperref[webserviceapplication]{web service} supporting the~REST data transfer.
 The~overview list follows:
 \begin{itemize}
@@ -194,5 +194,9 @@ The~overview list follows:
     \item RESTful service
 \end{itemize}
 
-\noindent And~to~make it even more complicated you~can~also encounter a~term \textitquoted{\mbox{RESTful} application} or~\textitquoted{\mbox{RESTful} program}.
+\noindent And~to~make it even more complicated you~can~also encounter a~term \itq{\mbox{RESTful} application} or~\itq{\mbox{RESTful} program}.
 This can~denote both a~client side program or~a~server side web service supporting the~REST communication.
+
+\newsection{GraphQL}
+\index{GraphQL}
+\label{graphql}

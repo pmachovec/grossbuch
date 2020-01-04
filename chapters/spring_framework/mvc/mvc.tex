@@ -1,0 +1,32 @@
+\newchapter{Spring MVC}
+\index{Spring MVC}
+\index{Model--view--controller}
+\index{MVC}
+\index{Front controller}
+\index{DispatchServlet}
+
+Spring provides a~set of~tools to~create \hyperref[webserviceapplication]{web applications} based on~the~\hyperref[mvc]{\textit{model--view--controller}} architectural pattern.
+The~client--server communication leverages the~original \hyperref[servlet]{servlet} technology, therefore, it~uses the~same terminology.
+Server side classes are~called \textit{servlets}, data coming from clients are~\textit{parameters} wrapped in~\textit{requests} and~data going back to~clients are~set as~\textit{attributes} to~\textit{responses}.
+Applications are~suitable to~be~deployed on~\hyperref[tomcat]{Tomcat} and,~of~course, they consist of~three basic MVC components.
+
+\begin{itemize}
+    \item \textbf{Model} is~represented by~an~instance of~the~class \textit{Model} from the~package \itq{org.springframework.ui}. Any~object can~be inserted to~the~model instance as~an~attribute (\itq{model.addAttribute(OBJECT,"attributeName")}).
+    At~the~beginning it's empty and~must~be filled with attributes by~the~controller.
+    \item \textbf{View} is~represented by~a~template engine, which gets the~filled model, inserts attributes to~an~HTML page template and~puts a~final HTML page to~the~response.
+    The~basic template engine for~Spring is "good" old \hyperref[jsp]{JSP}, but~nowadays safer technologies can~be used.
+    In~following examples \href{https://www.thymeleaf.org/}{Thymeleaf} will~be~used.
+    Implementation logic of~template engines exists in~a~form of~\hyperref[springinversionofcontrol]{Spring beans}, for~which a~configuration must~be~set.
+    \item \textbf{Controller} consists of~the~Java implementation to~be~run on~the~server.
+    It~gets request parameters, processes them and~inserts attributes to~the~model.
+    There~must~be at~least one controller class with at~least one controller method.
+    Opposite to~old \hyperref[servlet]{servlets} in Spring~MVC URLs are~set for~these methods, not~for~whole classes.
+\end{itemize}
+\newpage
+
+\inputsection{spring_framework/mvc}{request_processing}
+\inputsection{spring_framework/mvc}{tomcat}
+\inputsection{spring_framework/mvc}{utf8}
+\inputsection{spring_framework/mvc}{form_binding}
+\inputsection{spring_framework/mvc}{form_validation}
+\newpage

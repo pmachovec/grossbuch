@@ -94,12 +94,12 @@ With growing number of~beans the~XML configuration file becomes too verbose.
 Therefore, newer versions of~Spring support configuring bean~IDs using \hyperref[javaannotation]{Java annotations} inside bean~classes.
 
 Spring must be told by~the~XML configuration file to~scan classes in~a~particular package for~components.
-This is done by~the~element \mboxtextit{component-scan}, attribute \mboxtextit{base-package}, from the~\hyperref[namespaces]{namespace} \mboxtextitquoted{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}.
-The~convention is to~call the namespace as \mboxtextit{context} in the~XML file.
-Bean classes contain bean~IDs as~a~parameter of~the~class annotation \mboxtextit{@Component}.
+This is done by~the~element \mbit{component-scan}, attribute \mbit{base-package}, from the~\hyperref[namespaces]{namespace} \mbitq{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}.
+The~convention is to~call the namespace as \mbit{context} in the~XML file.
+Bean classes contain bean~IDs as~a~parameter of~the~class annotation \mbit{@Component}.
 The~annotation is processed in~runtime, therefore, if~you~make a~mistake in~it, you~won't find~out during application build.
 
-Component scanning works even for~all~subpackages of~the~package specified in~the~\mboxtextit{component-scan} element.
+Component scanning works even for~all~subpackages of~the~package specified in~the~\mbit{component-scan} element.
 \newpage
 
 \examplenonl[inversion of control with annotations]
@@ -182,7 +182,7 @@ The~\textit{Configuration} annotation doesn't allow multiple occurrence\,--\,its
 \newsubsection{Configuration with Java Code (No XML)}
 \label{iocnoxml}
 The~configuration XML can~be avoided completely, it's~possible to~implement a~special configuration class and~describe beans in~it.
-The~class reference is then given to~the~constructor of~the~\hyperref[springcontainrer]{Spring container} implementation \mboxtextit{AnnotationConfigApplicationContext} (instead of~the~XML file given to~the~\mboxtextit{ClassPathXmlApplicationContext} constructor).
+The~class reference is then given to~the~constructor of~the~\hyperref[springcontainrer]{Spring container} implementation \mbit{AnnotationConfigApplicationContext} (instead of~the~XML file given to~the~\mbit{ClassPathXmlApplicationContext} constructor).
 
 A~configuration class is~annotated with the~\textit{Configuration} annotation.
 In~the~simplest form it's~also annotated with the~\textit{ComponentScan} annotation, which gets a~package name as~a~parameter.

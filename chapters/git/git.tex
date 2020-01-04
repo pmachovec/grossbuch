@@ -10,9 +10,9 @@ Using this name was an~idea of~the~Git author \href{https://en.wikipedia.org/wik
 \label{gitconfig}
 The~behavior of~Git can~be adjusted by~the~\textit{git~config} command.
 Whenever you run the~command, some key--value configuration pair is~stored to~a~configuration file under~a~configuration section.
-The~syntax of~the~command is \textitquoted{git config section.key value}.
+The~syntax of~the~command is \itq{git config section.key value}.
 Values can~consist of~more words, in~that~case they must be enclosed in~apostrophes or~quotes.
-Sections can~be further specified in~subsections, the~syntax is \textitquoted{git config section.subsection.key value}.
+Sections can~be further specified in~subsections, the~syntax is \itq{git config section.subsection.key value}.
 Further separation to~subsubsections is~not~possible.
 Everything between the~first and~the~last dot is~considered as~one~subsection name, even~if~it~contains other dots.
 
@@ -30,16 +30,16 @@ Everything between the~first and~the~last dot is~considered as~one~subsection na
 
 \enlargethispage{-8mm}
 \noindent  You~can set either a~local or~a~global configuration value.
-The~only difference in~the~syntax is the~\mboxtextitquoted{-{}-global} option just after the~command when setting a~global configuration (\textit{git config \mbox{-{}-global} section.key value}").
+The~only difference in~the~syntax is the~\mbitq{-{}-global} option just after the~command when setting a~global configuration (\textit{git config \mbox{-{}-global} section.key value}").
 Local configuration values are~valid only in a~single repository folder.
-The~command without the~\mboxtextitquoted{-{}-global} option can~be run only from a~repository folder (not~necessarily the~root, it~works even from~its subfolders).
-Local configuration entries are~stored to~the~file \mboxtextit{ROOT\_FOLDER/.git/config}.
+The~command without the~\mbitq{-{}-global} option can~be run only from a~repository folder (not~necessarily the~root, it~works even from~its subfolders).
+Local configuration entries are~stored to~the~file \mbit{ROOT\_FOLDER/.git/config}.
 Global configuration values are~valid in all repository folders in~the~system where Git is~installed.
-The~command with the~\mboxtextitquoted{-{}-global} option can~be run from anywhere.
-Global configuration entries are~stored to~the~file \mboxtextit{HOME\_FOLDER/.gitconfig}.
+The~command with the~\mbitq{-{}-global} option can~be run from anywhere.
+Global configuration entries are~stored to~the~file \mbit{HOME\_FOLDER/.gitconfig}.
 You can also directly edit configuration files with a~text editor.
 But~that should be done with caution, if~you~screw the~formatting somehow, your Git can~stop working.
-When you want to~remove some configuration, use the~\mboxtextitquoted{-{}-unset} option.
+When you want to~remove some configuration, use the~\mbitq{-{}-unset} option.
 
 \warning Local configurations override global configurations.
 
@@ -99,7 +99,7 @@ When you install Git, you should set at~least following configurations:
 \index{Aliases in Git}
 When you tend to~use a~same long Git command with lots of~options many times, it's~convenient to~create an~alias for~it.
 Aliases are~configurations, i.e., they're stored into configuration files and~can~be set by~the~\textit{git config} command.
-The~syntax is \textitquoted{git config \mbox{-{}-global} alias.name 'value'}.
+The~syntax is \itq{git config \mbox{-{}-global} alias.name 'value'}.
 The~value doesn't contain the~keyword \textit{git}.
 The~global setting is not~necessary, but~aliases are~very rarely set as~local.
 Also the~value doesn't have to~be enclosed in~apostrophes when~not~containing spaces, but~that's rare when creating aliases.
@@ -167,14 +167,14 @@ In~the~basic form without any~parameter or~switch it~displays a~list of~all~tags
 
 \newsubsection{Lightweight Tags}
 A~lightweight tag is just a~commit alias.
-To~create a~lightweight tag use the~\textit{git~tag} command in~the~format \textitquoted{git tag TAG\_NAME COMMIT\_HASH}.
+To~create a~lightweight tag use the~\textit{git~tag} command in~the~format \itq{git tag TAG\_NAME COMMIT\_HASH}.
 
 \example
 \begin{lstlisting}[frame=no]
     git tag exampleTag 1cra2y34ha5h6
 \end{lstlisting}
 
-\noindent Now you can~use the~alias \textitquoted{simpleTag} instead of~the~commit hash, like for~showing differences, rebasing, cherry--picking etc.
+\noindent Now you can~use the~alias \itq{simpleTag} instead of~the~commit hash, like for~showing differences, rebasing, cherry--picking etc.
 You~will also see something like this when observing the~commit in~Git~log:
 \begin{lstlisting}[frame=no]
     commit 1cra2y34ha5h6 (tag: exampleTag, origin/...)
@@ -183,8 +183,8 @@ You~will also see something like this when observing the~commit in~Git~log:
 \newsubsection{Annotated Tags}
 \noindent An~annotated tag contains, beside a~commit alias, also information about the~author, time of~creation and~a~nonempty message.
 It's~also signed with~\hyperref[gpg]{GPG} when \hyperref[gitbasicconfiguration]{configured}.
-To~create an~annotated tag use the~\textit{git~tag} command with the~switch~\textitquoted{-a}.
-You~can also directly specify the~message with the~switch \textitquoted{-m}.
+To~create an~annotated tag use the~\textit{git~tag} command with the~switch~\itq{-a}.
+You~can also directly specify the~message with the~switch \itq{-m}.
 If~you don't do it, a~text editor window will~appear, like when committing without the~switch.
 
 \example
@@ -220,7 +220,7 @@ It~doesn't work with the~commit hash.
 \newsubsection{Pushing Tags}
 The~standard \textit{git push} command doesn't publish tags to~remote repositories, not~even when you~push a~fresh commit (a~commit not~in~the~remote repository).
 Tags must be pushed separately by the~command in~the~format \textit{git push origin TAG\_NAME}.
-When you have more tags, you~can push them all at~once by~specifying the~option \mboxtextitquoted{-{}-tags} instead of~a~concrete tag name.
+When you have more tags, you~can push them all at~once by~specifying the~option \mbitq{-{}-tags} instead of~a~concrete tag name.
 This will~push all~tags in~all branches you~have in~your local repository.
 
 \example[pushing a~concrete tag]
@@ -237,8 +237,8 @@ This will~push all~tags in~all branches you~have in~your local repository.
 It's~performed automatically with standard operations.
 
 \newsubsection{Deleting Tags}
-To~delete a~tag from~a~local repository use the~switch~\textitquoted{-d}.
-To~delete a~tag from~a~remote repository act like when deleting a~branch, i.e.,~either push the~tag to~origin with the~\mboxtextitquoted{-{}-delete} option or~with preceding colon (overriding by~nothing).
+To~delete a~tag from~a~local repository use the~switch~\itq{-d}.
+To~delete a~tag from~a~remote repository act like when deleting a~branch, i.e.,~either push the~tag to~origin with the~\mbitq{-{}-delete} option or~with preceding colon (overriding by~nothing).
 
 \example{deleting local tag}
 \begin{lstlisting}[frame=no]
@@ -255,7 +255,7 @@ To~delete a~tag from~a~remote repository act like when deleting a~branch, i.e.,~
     git push origin :exampleTag
 \end{lstlisting}
 
-\note Pushing deleted tags can't~be performed in~a~batch with the~\mboxtextitquoted{--tags} switch.
+\note Pushing deleted tags can't~be performed in~a~batch with the~\mbitq{--tags} switch.
 You~must alwasy push deleted tags one~by~one.
 
 \newsubsection{Editing Tags}
@@ -275,16 +275,16 @@ The~order can~be even reversed, but~with creating the~new tag first you can~use 
 \label{gittagsynchronization}
 As~already mentioned, freshly fetched commits come even with tags.
 But~tags added later to, or~deleted from, existing commits, that you already have in~your local repository, must~be downloaded explicitly.
-To~perform the~synchronization run the~command \textitquoted{git fetch \mbox{-{}-prune} \mbox{-{}-prune-tags}}.
+To~perform the~synchronization run the~command \itq{git fetch \mbox{-{}-prune} \mbox{-{}-prune-tags}}.
 
 \newsubsection{Force Switch (-f)}
 When any tag command would result in~two different commits with the~same tag (creating a~new tag, synchronizing with a~remote repository,~\dots), the~command fails.
-But~when used with the~switch~\textitquoted{-f}, it~deletes problematic tags from other locations so~that the~current command can~be performed.
+But~when used with the~switch~\itq{-f}, it~deletes problematic tags from other locations so~that the~current command can~be performed.
 
 For~example, consider that in~your local repository you~have a~tag on~a~commit~\textit{A}.
 In~the~remote repository the~same tag exists on~a~different commit~\textit{B}, that you~also have in~the~repository.
 When you~run the~\hyperref[gittagsynchronization]{synchronization command} in~the~basic form, it~will fail complaining that it~"would clobber existing tag".
-But~when you~run it with the~switch~\textitquoted{-f}, the~tag is~removed from the~commit~\textit{A} and~appears at~the~commit~\textit{B} in~your local repository.
+But~when you~run it with the~switch~\itq{-f}, the~tag is~removed from the~commit~\textit{A} and~appears at~the~commit~\textit{B} in~your local repository.
 
 \newsection{Meld}
 \index{Meld}
@@ -356,7 +356,7 @@ When~you~close one~file, another immediately opens.
 This~is irritating when you~have many files in~the~folder.
 You~can~fall to~this trap especially when you~accidentally trigger merging without specifying a~file.
 When running difftool, Meld can graphically show differences among files in~both folder versions.
-To~do~it run the~\textit{difftool} command with the~\mboxtextitquoted{-{}-dir--diff} option.
+To~do~it run the~\textit{difftool} command with the~\mbitq{-{}-dir--diff} option.
 When merging, there's nothing you~can~do about~it.
 Just trigger the~\textit{mergetool} command with a~path to~a~specific file every time.
 
@@ -401,3 +401,6 @@ Before adding anything new it's advisable to~create the~\textit{.gitignore} file
 
 \warning The~repository with the~specified name must already exist on~the~Git hub, i.e.,~it~must be created manually in~advance.
 Creating repositories by~pushing is~not~possible.
+
+\newsection{Deleting Packages from GitHub}
+\label{githubdeletepackage}

@@ -2,7 +2,7 @@
 
 \newsection{Constructors}
 \label{kotlinconstructor}
-A~standard constructor for~a~Kotlin class is~created by~the~keyword \textitquoted{constructor}.
+A~standard constructor for~a~Kotlin class is~created by~the~keyword \itq{constructor}.
 This~is equivalent to~constructors in~Java.
 Overloading of~constructors by~different \hyperref[parameterargument]{parameters} is~possible.
 
@@ -22,8 +22,8 @@ Overloading of~constructors by~different \hyperref[parameterargument]{parameters
 \newsubsection{Primary Constructor}
 \index{Primary constructor}
 \label{kotlinprimaryconstructor}
-Typical constructor usage in~Java is just assigning received \hyperref[parameterargument]{arguments} to~class variables (\textitquoted{this.someVariable = someVariable;}).
-In~Kotlin there's a~syntax called \textitquoted{primary constructor} for~simplifying this.
+Typical constructor usage in~Java is just assigning received \hyperref[parameterargument]{arguments} to~class variables (\itq{this.someVariable = someVariable;}).
+In~Kotlin there's a~syntax called \itq{primary constructor} for~simplifying this.
 It~works by~specifying variables with types in~brackets directly in~a~class header (see~the~example).
 It's~possible to~have both primary and~standard constructors, but~standard must always call the~primary~one.
 Also, standard must have different \hyperref[parameterargument]{parameters}, it's~still constructor overloading.
@@ -97,9 +97,9 @@ It~isn't necessary to~assign an~object instance to~a~variable, it~can~be referre
     println(SimpleObject.value)   // Will print "two
 \end{lstlisting}
 
-\noindent Objects can't~be inherited and~don't allow to~be~declared with the~keyword \textitquoted{open}.
+\noindent Objects can't~be inherited and~don't allow to~be~declared with the~keyword \itq{open}.
 They also can't~have \hyperref[kotlinconstructor]{constructors}, not~even \hyperref[kotlinprimaryconstructor]{primary}.
-However, this can~be hacked by~\hyperref[kotlinoperatoroverload]{overloading the~operator} \textitquoted{invoke}.
+However, this can~be hacked by~\hyperref[kotlinoperatoroverload]{overloading the~operator} \itq{invoke}.
 
 \example[object looking like having a~constructor]
 \begin{lstlisting}[language=Kotlin]
@@ -147,7 +147,7 @@ This can~be important when dealing with \hyperref[objectinitblock]{initializer b
 \index{Companion object}
 \label{companionobject}
 It's~an~\hyperref[kotlinobject]{object} \hyperref[declarationdefinition]{defined} inside a~standard class.
-It~doesn't have own name, it's~just a~code block labeled as \textitquoted{companion object}.
+It~doesn't have own name, it's~just a~code block labeled as \itq{companion object}.
 \hyperref[variablefieldproperty]{Fields} and~functions \hyperref[declarationdefinition]{defined} inside a~companion object can~be~accessed over the~main class, like \hyperref[javastatic][static] members in~Java.
 Companion objects basically represent those special instances created by~Java for~\hyperref[javastatic][static] members.
 
@@ -169,10 +169,10 @@ This prevents unwanted overriding of~the~singleton instance \hyperref[variablefi
 \index{Initializer block}
 \index{Init block}
 \label{kotlininitblock}
-These are code blocks labeled by~the~keyword \textitquoted{init}.
+These are code blocks labeled by~the~keyword \itq{init}.
 They can~appear in~classes even in~\hyperref[kotlinobject]{objects} including \hyperref[companionobject]{companion objects}.
 They're executed at~the~initialization of~their holding objects.
-They can~access \hyperref[variablefieldproperty]{fields} of~their holding structures (classes or~objects), but~if~these aren't initialized with the~holding structure (which can~happen for~\textit{lateinit} \hyperref[variablefieldproperty]{fields}), it~thows the~exception \textitquoted{UninitializedPropertyAccessException}.
+They can~access \hyperref[variablefieldproperty]{fields} of~their holding structures (classes or~objects), but~if~these aren't initialized with the~holding structure (which can~happen for~\textit{lateinit} \hyperref[variablefieldproperty]{fields}), it~thows the~exception \itq{UninitializedPropertyAccessException}.
 
 There can~be more initializer blocks in~one class or~object.
 In~that case they're executed in~the~top--down order of~their \hyperref[declarationdefinition]{definition}.
@@ -249,7 +249,7 @@ It~seems simple at~the~first glance\,--\,just \hyperref[declarationdefinition]{d
 \end{lstlisting}
 
 \noindent But~it~doesn't work like this.
-\hyperref[jdkjrejvm]{JRE}~won't trigger a~class with such function, it~will~complain that it~\textitquoted{could not find or~load main class}.
+\hyperref[jdkjrejvm]{JRE}~won't trigger a~class with such function, it~will~complain that it~\itq{could not find or~load main class}.
 Compare the~definition with the~Java definition of~the~\textit{main} method:
 \begin{lstlisting}[frame=no, language=Java]
     public static void main(String[] args) {
@@ -285,7 +285,7 @@ The~class can~be then used as~the~main class.
 \newsubsection{In~a~standalone function}
 This is the~real Kotlin approach.
 Kotlin enables to~have functions outside classes.
-For~a~file containing these standalone functions a~class with \textitquoted{-kt} at~the~end of~the~name is~generated and~each function has~a~corresponding static method.
+For~a~file containing these standalone functions a~class with \itq{-kt} at~the~end of~the~name is~generated and~each function has~a~corresponding static method.
 
 
 \begin{lstlisting}[language=Kotlin,title={A~tandalone main function in a~file \textit{Example.kt}}]

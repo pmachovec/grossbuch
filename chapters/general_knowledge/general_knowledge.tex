@@ -126,9 +126,9 @@ Examples of~such languages are~C\# or~Visual Basic.
     \item \textbf{Parameter} is a~\hyperref[variablefieldproperty]{variable} in~a~method \hyperref[declarationdefinition]{declaration}.
     \item \textbf{Argument} is a~concrete value of~a~parameter.
 \end{itemize}
-For~example consider a~method \mboxtextitquoted{doSomething(String someVariable)}.
-The~\mboxtextit{someVariable} is~a~parameter.
-When you call \mboxtextitquoted{doSomething("someValue")}, then \mboxtextit{someValue} is an~argument.
+For~example consider a~method \mbitq{doSomething(String someVariable)}.
+The~\mbit{someVariable} is~a~parameter.
+When you call \mbitq{doSomething("someValue")}, then \mbit{someValue} is an~argument.
 
 \warning Don't get confused by the~term \textit{attribute}.
 That's either a~different name for~a~\hyperref[variablefieldproperty]{field} of~an~object or~for~a~\hyperref[relationaldatabase]{relational database} table column.
@@ -142,7 +142,7 @@ A~data type, usually written exactly before the~variable in~the~code, is~an~info
 Each~programming language can~theoretically interpret the~same value differently, but~basics like numbers corresponding to~characters are~usually the~same.
 For~example consider the~value 1100001.
 When treated as~the~\textit{integer} type (\textit{int}~in some languages), it~represents the~number~97.
-When treated as~the~\textit{character} type (\textit{char}~in some languages), it~represents the~minuscule letter~\textitquoted{a}.
+When treated as~the~\textit{character} type (\textit{char}~in some languages), it~represents the~minuscule letter~\itq{a}.
 
 \newsection{Declaration VS Definition}
 \index{Declaration}
@@ -151,15 +151,15 @@ When treated as~the~\textit{character} type (\textit{char}~in some languages), i
 \begin{itemize}
     \item \textbf{Declaration of~a~variable} means specifying the~variable name, \hyperref[datatypes]{type} and~eventually \hyperref[javaaccessmodifiers]{access level}.
           It~doesn't include assigning a~value to~the~variable.
-          Example: \mboxtextitquoted{private int a;}.
+          Example: \mbitq{private int a;}.
     \item \textbf{Declaration of~a~method (or~a~function)} is the~method header.
           It~consists of~the~method name, return value \hyperref[datatypes]{type}, number, names and~\hyperref[datatypes]{types} of~arguments of~the~method and~eventually its \hyperref[javaaccessmodifiers]{access level}.
-          Example: \mboxtextitquoted{public void doSomething(int a);}.
+          Example: \mbitq{public void doSomething(int a);}.
     \item \textbf{Definition of~a~variable} means assigning a~value to~the~variable.
-          It~can~immediately follow the~variable definition (\textitquoted{private int a = 1;}) or~appear later as~a~separate command (\textitquoted{private int a; ...
+          It~can~immediately follow the~variable definition (\itq{private int a = 1;}) or~appear later as~a~separate command (\itq{private int a; ...
 a = 1;}).
     \item \textbf{Definition of~a~method (or~a~function)} is the~method header with the~method body.
-          Example: \mboxtextitquoted{public void doSomething(int a) \{ ... \}}".
+          Example: \mbitq{public void doSomething(int a) \{ ... \}}".
 \end{itemize}
 \newpage
 
@@ -197,7 +197,7 @@ That isn't a~new definition.
 \label{webserviceapplication}
 \begin{itemize}
     \item \textbf{Web~service} is any~program executed or~continuously running on a~remote computer, with which programs on~other computers communicate over the~\hyperref[internetweb]{Web}, i.e.,~using the~\hyperref[http]{HTTP} protocol.
-          A~program called \hyperref[clientserverarchitecture]{\mboxtextit{client}}, running on a~user's computer, sends a~request to~another~program called \hyperref[clientserverarchitecture]{\mboxtextit{server}} running on~the~remote computer (the~same computer as the~target remote program), the~server delegates the~request to~the~remote program, the~remote program processes the~request and~sends a~response to~the~server, which then delegates it back to~the~client.
+          A~program called \hyperref[clientserverarchitecture]{\mbit{client}}, running on a~user's computer, sends a~request to~another~program called \hyperref[clientserverarchitecture]{\mbit{server}} running on~the~remote computer (the~same computer as the~target remote program), the~server delegates the~request to~the~remote program, the~remote program processes the~request and~sends a~response to~the~server, which then delegates it back to~the~client.
           \warningnonl The~term \textit{web service} is~ambiguous.
           Sometimes it denotes solely the~remote program, sometimes it includes even the~server.
           Also, opposite to~a~standard \hyperref[applicationprocessprogramservicethread]{service} the~remote program doesn't have to run continuously.

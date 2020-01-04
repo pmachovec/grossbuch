@@ -1,0 +1,177 @@
+\newsection{Application Deployment on~Tomcat}
+There's no difference from the~\hyperref[tomcatdeployment]{standard Tomcat deployment}.
+A~whole Spring~MVC application is~located in~a~folder under the~Tomcat's \mbit{webapps} folder, configuration is~stored in~the~\mbitq{WEB-INF/web.xml} file, Java classes are~located in~\mbitq{WEB-INF/classes} and~third party jars are~located in~\mbitq{WEB-INF/lib}.
+HTML templates can~be located anywhere in~the~application folder.
+
+Additionally there's the~Spring configuration XML file.
+This~can~be also located anywhere as~it's~referenced in~\mbit{web.xml}, but~it's~common practice to~put~it directly to~the~\mbit{WEB-INF} folder, i.e.,~to~the~same level as~\mbit{web.xml}.
+This file contains, beside others, the~configuration of~\hyperref[springinversionofcontrol]{Spring beans} of~the~chosen template engine.
+When using Thymeleaf, you~must configure three beans\,--\,template resolver, template engine and~view resolver.
+It~isn't important to~know what bean does what, just remember they must~be configured, the~template engine bean uses the~template resolver bean, and~the~view resolver bean uses the~template engine bean.
+For~the~template resolver bean you~must also configure prefix and~suffix.
+Prefix is a~location (relative to~the~application folder) where HTML templates are~located and~suffix is~the~extension of~your HTML templates (e.g.,~\mbitq{.html}).
+See~the~example below for~details.
+
+\warning There can~be only one prefix and~suffix. You~must therefore have all templates in~one folder (it~doesn't affect web browser paths, that's configured in~controllers, see~further). Also, all~templates must have the~same extension.
+
+\begin{lstlisting}[language=XML, title=Example of a~\textit{web.xml} file with a~\textit{DispatchServlet} configuration]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <web-app ...>
+      <display-name>APPLICATION NAME</display-name>
+      <absolute-ordering/>
+
+      <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.(*servlet*).DispatcherServlet </servlet-class>
+        <init-param>
+          <param-name>contextConfigLocation</param-name>
+          <param-value>/WEB-INF/configurationFile.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+      </servlet>
+
+      <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+      </servlet-mapping>
+    </web-app>
+\end{lstlisting}
+\newpage
+
+\noindent Controllers are~classes marked by~the~annotation \mbit{@Controller} from the~package \mbitq{org.springframework.stereotype}.
+The~annotation extends the~\mbit{@Component} annotation, therefore, controller classes are~visible by~\hyperref[iocannotations]{component scanning}.
+Classes generally don't~extend any other class or~implement an~interface (they~can if~needed).
+
+Controller methods are~marked by~the~annotation \mbit{@RequestMapping} from the~package \mbitq{org.springframework.web.bind.annotation}.
+This annotation gets as~a~\hyperref[parameterargument]{parameter} a~string that defines the~URL by~which the~method is~accessed.
+For~proper functionality this string must begin with a~slash.
+The~annotation can~be used even without the~parameter, it's~then equivalent to~specifying an~empty string.
+
+One~controller method can~get as~\hyperref[parameterargument]{parameters} a~whole request, separate request \hyperref[jspattributeparameter]{parameters} and~the~model instance.
+\hyperref[parameterargument]{Arguments} of~controller methods are~variable, they~can~get any~combination of~those objects.
+When using separate request parameters, each corresponding method parameter must~be marked by~the~annotation \mbit{@RequestParam} from the~package \mbitq{org.springframework.web.bind.annotation}.
+This annotation gets as~a~\hyperref[parameterargument]{parameter} a~string that must correspond to~the~key of~the~parameter in~the~request.
+Methods can~have any name, but~they must return a~string that must~be the~name of~the~template file to~which the~model should~be forwarded.
+The~name is onle the~plain file name, without any folder path and~even without an~extension. That's defined in~the~Spring configuration.
+
+Values are~written to~the~model instance as~\hyperref[jspattributeparameter]{attribues} and~can~be accessed in~the~HTML template by~the~engine expression language.
+Any~object can~be written to~the~model.
+Thymeleaf expression language provides rich syntax for~various object types processing.
+
+\enlargethispage{30mm}
+\thispagestyle{empty}
+\begin{lstlisting}[language=XML, title={Example of a~Spring XML with Thymeleaf configuration}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans ...>
+      <!-- Main package configuration, expected to be located in WEB-INF/classes -->
+      <context:component-scan base-package="somepackage.subpackage"/>
+
+      <!-- Formatting and validation support -->
+      <mvc:annotation-driven/>
+
+      <!-- Template engine configuration -->
+      <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver. SpringResourceTemplateResolver">
+        <property name="prefix" value="/FOLDER_WITH_TEMPLATES"/>
+        <property name="suffix" value=".html"/>
+        <property name="characterEncoding" value="UTF-8"/>
+      </bean>
+      <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver"/>
+        <property name="enableSpringELCompiler" value="true"/>
+      </bean>
+      <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine"/>
+        <property name="characterEncoding" value="UTF-8"/>
+      </bean>
+    </beans>
+\end{lstlisting}
+\newpage
+
+\warning There is a~slash at~the~beginning of~the~prefix value and~the~suffix value contains the~dot!
+
+\note Even controller classes can~have the~\mbit{@RequestMapping} annotation with some string (beginning with a~slash) defining an~URL.
+URLs defined by~the~annotation for~methods are~then relative to~the~URL of~the~class.
+
+\example[a~controller class and~a~template file]
+\begin{lstlisting}[language=Java, title={Controller class}]
+    package somepackage.subpackage;
+
+    @>@Controller
+    @@>@RequestMapping<@@("/classUrl")
+    public class ControllerClass {
+        @@>@RequestMapping<@@("/methodUrl")
+        public String controllerMethod(HttpServletRequest wholeRequest, @@>@RequestParam<@@("paramKey") String singleParameter, Model model) {
+            // Reading the parameter from the request
+            String parameterFromRequest = wholeRequest.getParameter("paramKey");
+
+            // Writing boolean to the model
+            model.addAttribute("(*\tikzmarknodebf{smvc1java1attr}{modelAttribute}[ForestGreen]*)", parameterFromRequest.equals(singleParameter));
+
+            // Forwarding the model to a template
+            return "(*\tikzmarknodebf{smvc1java1templ}{templateFile}[ForestGreen]*)";
+        }
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=XML, title={Thymeleaf template file called \tikzmarknodebf{smvc1xml1templ}{\textit{templateFile}}\textit{.html}}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+      ...
+      <body>
+        <div th:text="'Result: ' + (*\SSS*){(*\tikzmarknodebf{smvc1xml1attr}{modelAttribute}[ForestGreen]*)}"></div>
+      </body>
+    </html>
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{smvc1java1attr}{smvc1xml1attr}
+    \drawarrow{smvc1java1templ}{smvc1xml1templ}[red]
+\end{tikzpicture}
+
+\noindent When a~request with a~\hyperref[jspattributeparameter]{parameter} with~a~key \mbit{paramkey} is~sent to~the~url \mbitq{HOST:PORT/appFolder/classUrl/methodUrl}, a~response containing a~web page with a~simple text \itq{Result: true} is~returned and~displayed in~the~browser (the~parameter retrieved from the~request is always the~same as~the~one retrieved separately).
+
+\warning HTML forms are~directed to~controller methods by~the~attribute \mbit{action}.
+When a~form is~submitted, it~replaces the~last part of~the~URL in~the~browser address bar (everything after the~last slash) with the~value of~the~attribute.
+This can~result in~unwanted behavior when the~form is~accessed over a~method with the~\mbit{RequestMapping} annotation without parameters.
+
+\example[problems with a~form without request mapping path]
+\begin{lstlisting}[language=XML, title={Simple HTML form \tikzmarknodebf{smvc2xml1form}{\textit{theForm}}\textit{.html}}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE html>
+    <html>
+      ...
+      <body>
+        <form action="(*\tikzmarknodebf{smvc2xml1meth}{methodUrl}[ForestGreen]*)" method="post">
+          <input type="text" name="(*\tikzmarknodebf{smvc2xml1param}{paramKey}[ForestGreen]*)">
+        </form>
+      </body>
+    </html>
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Controller class}]
+    package somepackage.subpackage;
+
+    @>@Controller
+    @@>@RequestMapping<@@("/classUrl")
+    public class ControllerClass {
+        @@>@RequestMapping<@@ // Request mapping without a path
+        public String showForm() {
+            return "(*\tikzmarknodebf{smvc2java1form}{theForm}[ForestGreen]*)"
+        }
+
+        @@>@RequestMapping<@@("/(*\tikzmarknodebf{smvc2java1meth}{methodUrl}[ForestGreen]*)")
+        public String processForm(@@>@RequestParam<@@("(*\tikzmarknodebf{smvc2java1param}{paramKey}[ForestGreen]*)") String singleParameter,
+                                  Model model) {
+            ...DO SOMETHING WITH THE PARAMETER...
+            return "templateFile";
+        }
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{smvc2xml1form}{smvc2java1form}
+    \drawarrow{smvc2xml1meth}{smvc2java1meth}[red]
+    \drawarrow{smvc2xml1param}{smvc2java1param}[green]
+\end{tikzpicture}
+
+\noindent When \mbitq{HOST:PORT/appFolder/classUrl} is~accessed in~a~browser, it~displays the~form.
+When the~form is~submitted, it~replaces the~last part of~the~address\,--\,\mbit{classUrl}\,--\,with the~value from~the~\mbit{action} attribute\,--\,\mbit{methodUrl}.
+Therefore, the~request is~forwarded to~\mbitq{HOST:PORT/appFolder/methodUrl}, but~the~correct method address is \mbitq{HOST:PORT/appFolder/\textbf{classUrl/}methodUrl}.
+The~solution is either to~add \mbitq{classUrl/} to~the~\mbit{action} attribute or~to~better organize request mapping paths.

@@ -1,0 +1,73 @@
+\newsection{Form Validation}
+The~\hyperref[hibernate]{Hibernate} project, which is more known for~its~JPA, also provides tools for~Spring~MVC form validations.
+It~consists~of special annotations that can~be added to~POJO class fields and~with specific \hyperref[parameterargument]{parameters} restrict the~field content and~define an~error message.
+For~example, you~can restrict a~String field to~contain only alphanumeric characters by~a~regular expression, you~can~restrict a~number field range by~specifying minimum and~maximum~etc.
+When such a~restriction isn't followed in~the~corresponding field input (a~user inserts a~non--matching value), an~error can~be detected on~an~instance of~the~class \mbit{BindingResult}, which is given to~the~form--processing controller method as~another \hyperref[parameterargument]{argument}.
+A~proper reaction can~then be carried~out.
+
+Typical use case is to~return to~the~form page and~display some warning with the~error message defined earlier.
+When the~model attribute of~the~form--processing controller method has~another annotation \mbit{@Valid}, it's~possible to~detect the~invalid field, retrieve the~error message, insert it to~a~special element (which is hidden by~default) and~make this element visible.
+Everything in~the~form template code.
+\newpage
+
+\examplenonl[string field validation allowing ASCII letters only]
+\enlargethispage{10mm}
+\thispagestyle{empty}
+\begin{lstlisting}[language=Java, title={POJO class with restricted String field}]
+    public class (*\tikzmarknodebf{smvc6java1pojo}{PojoClass}*) {
+        @@>@Pattern<@@(regexp = "[a-zA-Z]+", message = "ASCII letters only")
+        private String pojoField;
+
+        public String get(*\tikzmarknodebf{smvc6java1field1}{PojoField}*)() {
+            return dropdownField;
+        }
+
+        public void set(*\tikzmarknodebf{smvc6java1field2}{PojoField}*)(String pojoField) {
+            this.pojoField = pojoField;
+        }
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=XML, title={HTML form \tikzmarknodebf{smvc6xml1form}{\textit{theForm}}\textit{.html} setting the field}]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+      ...
+      <body>
+        <form th:object="(*\SSS*){(*\tikzmarknodebf{smvc6xml1mapping}{mappingId}[ForestGreen]*)}" ...>
+          <input type="text" th:field="*{(*\tikzmarknodebf{smvc6xml1field1}{pojoField}[ForestGreen]*)}">
+        </form>
+        <div th:if="(*\SSS*){#fields.hasErrors('(*\tikzmarknodebf{smvc6xml1field2}{pojoField}[ForestGreen]*)')}" th:errors="*{(*\tikzmarknodebf{smvc6xml1field3}{pojoField}[ForestGreen]*)}"/>
+        <!-- The div is invisible by default, and would still be even if it had some content -->
+      </body>
+    </html>
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Controller processing the form}]
+    @>@Controller
+    @@>@RequestMapping<@@("...")
+    public class ControllerClass {
+        @@>@RequestMapping<@@("...")
+        public String processForm(@@>@Valid @ModelAttribute<@@("(*\tikzmarknodebf{smvc6java2mapping}{mappingId}[ForestGreen]*)") (*\tikzmarknodebf{smvc6java2pojo}{PojoClass}*) pojo, BindingResult bindingResult) {
+            if (bindingResult.hasErrors()) {
+                return "(*\tikzmarknodebf{smvc6java2form}{theForm}[ForestGreen]*)";
+            } else {
+                ...DO SOMETHING ELSE...
+            }
+        }
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{smvc6java1pojo}{smvc6java2pojo}
+    \drawarrow{[xshift=-3mm] smvc6java1field1.south east}{smvc6xml1field1.north}[red]
+    \drawarrow{[xshift=-3mm] smvc6java1field2.south east}{smvc6xml1field1.north}[red]
+    \drawarrow{smvc6xml1field1.south}{smvc6xml1field2.north}[red]
+    \drawarrow{smvc6xml1field1.south}{smvc6xml1field3.north}[red]
+    \drawarrow{[xshift=3mm] smvc6xml1form.south west}{smvc6java2form.north}[green]
+    \drawarrow{[xshift=-3mm] smvc6xml1mapping.south east}{smvc6java2mapping.north}[blue]
+\end{tikzpicture}
+\newpage
+
+\noindent When the~form is~submitted with a~"wrong" value in~the~field, it's~detected in~the~\mbit{BindingResult} instance and~the~controller method returns the~form (like a~method initially displaying the~form).
+In~the~form the~error on~the~field is~detected and~the~(initially invisible) \textit{div} is~made visible and~the~error message from the~POJO field is~set as~the~\textit{div} content.
+
+\newsubsection{Custom Validation Annotations}
+\todo

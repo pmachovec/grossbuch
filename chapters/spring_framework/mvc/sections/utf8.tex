@@ -1,0 +1,30 @@
+\newsection{UTF-8 encoding}
+As~many other applications, Spring~MVC doesn't like non--ASCII characters by~default.
+To~make it properly handling the~UTF-8 encoding you~must add the~character encoding property element into the~template resolver and~Thymeleaf view resolver bean configurations (shown in~an~example above) and~also configure a~filter in~the~\mbit{web.xml} file.
+If~you~have more \mbit{filter} elements there, the~one for~encoding must always go as~first.
+On~the~other hand, it~doesn't matter if the~filter comes before or~after servlet configurations.
+
+\begin{lstlisting}[language=XML, title=Example of a~\textit{web.xml} file with encoding filter configuration]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <web-app ...>
+      <display-name>APPLICATION NAME</display-name>
+      ...
+      <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter </filter-class>
+        <init-param>
+          <param-name>encoding</param-name>
+          <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+          <param-name>forceEncoding</param-name>
+          <param-value>true</param-value>
+        </init-param>
+      </filter>
+      <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+      </filter-mapping>
+    </web-app>
+\end{lstlisting}
+\newpage

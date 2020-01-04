@@ -1,56 +1,14 @@
 \newchapter{JavaScript}
 \index{JavaScript}
 
-\newsection{Let VS Var}
+\newsection{Var VS Let VS Const}
+\index{Const}
 \index{Let}
 \index{Var}
 
 \newsection{Double VS Tripple Equals (\textquotedbl==\textquotedbl~VS~\textquotedbl===\textquotedbl)}
 \index{Double equals}
 \index{Tripple equals}
-
-\newsection{Node.js}
-\index{Node.js}
-\label{nodejs}
-
-\newsection{NPM}
-\index{NPM}
-\index{Node Package Manager}
-\label{npm}
-NPM~stands for~\textit{Node Package Manager}.
-It's~a~\hyperref[packagemanager]{package manager} for~the~\hyperref[nodejs]{Node.js} \hyperref[platform]{platform}.
-The~official web site is~\href{https://www.npmjs.com/}{\textit{www.npmjs.com}}.
-It's~provided together with a~Node.js installation, it~isn't needed to~install it separately.
-
-\newsubsection{Configuration}
-NPM~configuration is~stored in~\mboxtextitquoted{key=value} pairs.
-There's a~lot of~built--in pairs, but~you~can (and~often must) specify others.
-There~are four locations where you~can create a~key--value file called \textitquoted{npmrc} or~\textitquoted{.npmrc}, each level overrides eventual same configuration from~lower levels:
-\begin{enumerate}
-    \item \textbf{Project--specific:} \textit{PROJECT\_FOLDER/.npmrc}
-    \item \textbf{User--specific:} \textit{HOME\_FOLDER/.npmrc}
-    \item \textbf{Global:} \textit{PREFIX/etc/npmrc}; the~\textitquoted{PREFIX} denotes a~value of~the~configuration pair with~the~key~\textitquoted{prefix}.
-The~value points to~a~folder where NPM installs packages.
-If~not~specified, it~defaults to~the~\mbox{Node.js} installation folder.
-    \item \textbf{Built--in:} \textit{NPM\_FOLDER/npmrc}; it~does~\textbf{not} contain built--in configuration pairs.
-\end{enumerate}
-
-\noindent Configurations can~be set even from~a~\hyperref[shellcligui]{CLI} by~the~command \textitquoted{npm config set KEY VALUE}.
-This will add the~pair to the~user--specific configuration file (2nd~level).
-If~you~want to~edit any~other configuration level, you~must manually edit the~corresponding file.
-
-\note System variables can~be used in~NPM configurations with the~syntax \mboxtextitquoted{\$\{VARIABLE\}}.
-
-\newsubsection{Registries}
-A~repository with packages for~NPM is~called \textit{registry}.
-By~default NPM uses the~registry with the~url \href{https://registry.npmjs.org/}{\textit{https://registry.npmjs.org/}} available on~the~\hyperref[internetweb]{web}.
-Another registry, even local, can~be configured by~the~key \mboxtextitquoted{registry}.
-There can~be only~one (main) registry configured at~a~time.
-If~you~need more, you~must use a~\hyperref[npmscope]{scope}.
-
-\newsubsection{Scopes}
-\index{Scope}
-\label{npmscope}
 
 \newsection{JavaScript Object Notation (JSON)}
 \index{JavaScript Object Notation}

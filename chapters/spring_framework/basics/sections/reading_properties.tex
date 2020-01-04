@@ -1,12 +1,12 @@
 \newsection{Reading values from \textit{.properties} files}
 \index{Properties file}
 \label{properties}
-Files with the~\mboxtextitquoted{.properties} extension are~popular approach for~dynamic applications configuration.
+Files with the~\mbitq{.properties} extension are~popular approach for~dynamic applications configuration.
 They're simple text files in~which each line has the~form \textit{identifier=value}.
-When a~\mboxtextit{properties} file is~added to a~Spring application \hyperref[classpath]{classpath}, it~can~be referenced in~the~Spring configuration file, as~well as values specified in~the~file.
+When a~\mbit{properties} file is~added to a~Spring application \hyperref[classpath]{classpath}, it~can~be referenced in~the~Spring configuration file, as~well as values specified in~the~file.
 
-The~\mboxtextit{properties} file is~referenced in~the~element \mboxtextit{property--placeholder}, attribute \textit{location}, from the~\hyperref[namespaces]{namespace} \textit{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}.
-The~name of~the~\mboxtextit{properties} file in~the~attribute \textit{location} must~be preceded by the~part referring to~the~\hyperref[classpath]{classpath}, which~is literally \textitquoted{classpath:} (with the~colon).
+The~\mbit{properties} file is~referenced in~the~element \mbit{property--placeholder}, attribute \textit{location}, from the~\hyperref[namespaces]{namespace} \textit{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}.
+The~name of~the~\mbit{properties} file in~the~attribute \textit{location} must~be preceded by the~part referring to~the~\hyperref[classpath]{classpath}, which~is literally \itq{classpath:} (with the~colon).
 
 Values set in~the~\textit{properties} file can~be then referenced as attribute values, typically when \hyperref[injectingliteralvalues]{injecting literal values}, but~can~be used also as bean~IDs when injecting complex beans.
 A~concrete value is~accessed by the~syntax~\textit{\$\{identifier\}}.\\
@@ -16,16 +16,16 @@ If~you~put real non--ASCII characters into string values, they won't~be processe
 Some IDEs and~editors even won't let you to~do~that as they automatically insert the~escaped hexadecimal format as~you~type.
 UTF--8 encoding is possible.
 First make sure the~file is~saved in~that format, some IDEs and~editors tend to~preserve the~\mbox{ISO~8859--1} for~\textit{properties} files regardless corresponding project settings.
-And~next add the~attribute \mboxtextit{file--encoding} with the~value \mboxtextit{utf--8} to~the~element \mboxtextit{property--placeholder}.
+And~next add the~attribute \mbit{file--encoding} with the~value \mbit{utf--8} to~the~element \mbit{property--placeholder}.
 Ignore any~eventual warning about invalid encoding for~the~file type.\\
 
-\warning Some IDEs (IntelliJ Idea for example) can~try to~"help" developers by~fake replacing the~dollar syntax with values from the~\mboxtextit{properties} file.
+\warning Some IDEs (IntelliJ Idea for example) can~try to~"help" developers by~fake replacing the~dollar syntax with values from the~\mbit{properties} file.
 I.e.,~it~looks like values are~specified directly in~the~XML file.
 The~indicator of~this "replacement" is that values have different color (gray in IntelliJ).
 If~you click on~such value, the~original dollar notation will appear.
 
-\note Using the~\mboxtextitquoted{.properties} extension is only a~convention for~key--value files.
-The~name can~be anything, the~important thing is the~format \mboxtextitquoted{key\,=\,value}.
+\note Using the~\mbitq{.properties} extension is only a~convention for~key--value files.
+The~name can~be anything, the~important thing is the~format \mbitq{key\,=\,value}.
 \newpage
 
 \example[passing values to a constructor]
@@ -195,12 +195,12 @@ Related fields aren't mentioned in~constructors nor~in~setter methods, they're s
 \newpage
 
 \newsubsection{Configuration with Java Code (No XML)}
-When using the~Java configuration class, you~must annotate the~class with the~\mboxtextit{PropertySource} annotation.
-It~takes the~\textit{properties} file name with the~\mboxtextitquoted{classpath:} prefix as~a~parameter.
+When using the~Java configuration class, you~must annotate the~class with the~\mbit{PropertySource} annotation.
+It~takes the~\textit{properties} file name with the~\mbitq{classpath:} prefix as~a~parameter.
 When your \textit{properties} file has~the~UTF--8 encoding, you~must use named parameters\,--\,the~file name parameter is~called \textit{value} and~the~encoding parameter is~called \textit{encoding}.
 It~works for~both component scan and~explicit bean configuration.
 
-Values in~bean classes are~accessed in~the~same way as~when \hyperref[readingpropertiesannotations]{using annotations}\,--\,variables holding values are~annotated with the~\textit{Value} annotation holding the~value identifier from the~\textit{properties} file in~curly brackets prefixed by the~dollar sign (\mboxtextit{\$\{identifier\}}).
+Values in~bean classes are~accessed in~the~same way as~when \hyperref[readingpropertiesannotations]{using annotations}\,--\,variables holding values are~annotated with the~\textit{Value} annotation holding the~value identifier from the~\textit{properties} file in~curly brackets prefixed by the~dollar sign (\mbit{\$\{identifier\}}).
 Related fields aren't mentioned in~constructors nor~in~setter methods, they're set automatically.
 
 \enlargethispage{20mm}

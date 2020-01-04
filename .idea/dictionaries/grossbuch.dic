@@ -1,4 +1,5 @@
 acro
+artifactory
 bytecode
 depbeanid
 depclass
@@ -20,6 +21,9 @@ mergetool
 meth
 multiselect
 multiselects
+npmjs
+npmrc
+npmrcs
 parameterargument
 preprocessing
 propsdummy
@@ -33,6 +37,7 @@ singinit
 smvc
 stringvalue
 stringvaluefield
+subfolder
 subprocedure
 subprocedures
 syntaxes

@@ -119,13 +119,13 @@ To~avoid falling to~this trap always treat the~right side to~be calculated first
 \newsection{Servlets}
 \index{Servlet}
 \label{servlet}
-A~Java program executed by~an~\hyperref[applicationserver]{application server} (most usually \hyperref[tomcat]{Tomcat}) based on~a~request (theoretically doesn't have to~be~\hyperref[http]{HTTP}, but~nowadays nothing else is~used) from a~client is~called \mboxtextit{servlet}.
+A~Java program executed by~an~\hyperref[applicationserver]{application server} (most usually \hyperref[tomcat]{Tomcat}) based on~a~request (theoretically doesn't have to~be~\hyperref[http]{HTTP}, but~nowadays nothing else is~used) from a~client is~called \mbit{servlet}.
 \hyperref[webserviceapplication]{Web services} implemented in~Java are~servlets.
 The~implementation of~servlets is~said to~use the servlet~\hyperref[api]{API}
 
-For~each servlet there is~a~class implementing the~interface \mboxtextitquoted{javax.servlet.Servlet}.
-This class is~an~entry point of~the~servlet program, sometimes the~class alone is (incorrectly) denoted as~\mboxtextit{servlet}.
-It~contains methods (enforced by its interface) that are~triggered when the~servlet is initiated (\textitquoted{void init(ServletConfig config)}), when a~request comes to~it (\textitquoted{void service(ServletRequest request, ServletResponse response)} and~when it's~terminated (\textitquoted{void destroy()}).
+For~each servlet there is~a~class implementing the~interface \mbitq{javax.servlet.Servlet}.
+This class is~an~entry point of~the~servlet program, sometimes the~class alone is (incorrectly) denoted as~\mbit{servlet}.
+It~contains methods (enforced by its interface) that are~triggered when the~servlet is initiated (\itq{void init(ServletConfig config)}), when a~request comes to~it (\itq{void service(ServletRequest request, ServletResponse response)} and~when it's~terminated (\itq{void destroy()}).
 Note that even the~\textit{service} method, from which some response is~expected, is~void.
 The~response is~written to~a~writer instance of~the~\textit{response} object.
 

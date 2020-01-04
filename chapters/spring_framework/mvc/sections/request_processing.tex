@@ -1,0 +1,30 @@
+\newsection{Basic Request Processing}
+\begin{enumerate}[label=\arabic*)]
+    \item Client triggers an~action sending a~request to~the~server.
+    \item The~request comes to~a~\textit{front controller}. There's a~class called \textit{DispatchServlet} behind this controller.
+          This class is~fully provided by~Spring, you~only configure URL for~it \hyperref[servleturl]{like for~standard servlets}.
+    \item The~front controller creates a~model instance and~forwards it together with the~request to~a~custom controller, which is a~part of~a~concrete application.
+    \item The~custom controller triggers the~server side logic and~inserts attributes to~the~model.
+          At~the~end of~the~logic processing it~forwards the~filled model to~a~template engine.
+    \item Template engine replaces placeholders in a~HTML page template with attributes from the~model and~sends the~final HTML page in~the~response to~the~client.
+\end{enumerate}
+
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (client) at (0, 0) {};
+        \node [bob, minimum size=10mm, monitor] (innerClinet) at (0,0.2) {Client};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (dispatchServlet) at (8, 4) {\fontsize{11}{11} \selectfont DispatchServlet};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (controller) at (8, 0) {Controller};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm, align=center] (templateEngine) at (8, -4) {View\\{\fontsize{10}{10} \selectfont Template Engine}};
+        \node [draw, line width=.3mm] (model1) at (9, 2.4) {Model};
+        \node [draw, line width=.3mm] (model1) at (9, -1.6) {Model};
+
+        \diagramarrow[.3mm]{client.north east}{dispatchServlet.south west}[Request][above=3mm]
+        \diagramarrow{dispatchServlet.south}{controller.north}
+        \diagramarrow{controller.south}{templateEngine.north}
+        \diagramarrow[.3mm]{templateEngine.north west}{client.south east}[Response][below=3mm]
+    \end{tikzpicture}
+    \captit{Spring MVC schema}
+\end{figure}
+\newpage
