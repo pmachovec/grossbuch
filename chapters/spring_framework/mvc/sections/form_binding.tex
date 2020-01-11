@@ -53,7 +53,7 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
     <html xmlns:th="http://www.thymeleaf.org">
       ...
       <body>
-        <form method="post" th:object="(*\SSS*){(*\tikzmarknodebf{smvc3xml1mapping}{mappingId}[ForestGreen]*)}" th:action="@{(*\tikzmarknodebf{smvc3xml1class}{/classUrl}[ForestGreen]\tikzmarknodebf{smvc3xml1meth}{/methodUrl}[ForestGreen]*)}">
+        <form method="post" th:object="(*\Sc*){(*\tikzmarknodebf{smvc3xml1mapping}{mappingId}[ForestGreen]*)}" th:action="@{(*\tikzmarknodebf{smvc3xml1class}{/classUrl}[ForestGreen]\tikzmarknodebf{smvc3xml1meth}{/methodUrl}[ForestGreen]*)}">
           <input type="text" th:field="*{(*\tikzmarknodebf{smvc3xml1field}{pojoField}[ForestGreen]*)}">
         </form>
       </body>
@@ -121,7 +121,7 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
       <body>
         <form ...>
           <select th:field="*{(*\tikzmarknodebf{smvc4xml1field}{dropdownField}[ForestGreen]*)}">
-            <option th:each="mapEntry: (*\SSS*){mappingId.(*\tikzmarknodebf{smvc4xml1map}{dropdownMap}[ForestGreen]*).entrySet()}" th:value="${mapEntry.key}" th:text="${mapEntry.value}"/>
+            <option th:each="mapEntry: (*\Sc*){mappingId.(*\tikzmarknodebf{smvc4xml1map}{dropdownMap}[ForestGreen]*).entrySet()}" th:value="${mapEntry.key}" th:text="${mapEntry.value}"/>
           </select>
         </form>
       </body>
@@ -158,8 +158,8 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
       ...
       <body>
         <form ...>
-          <th:block th:each="mapEntry: (*\SSS*){mappingId.(*\tikzmarknodebf{smvc5xml1map}{checkboxMap}[ForestGreen]*).entrySet()}">
-            <input type="checkbox" name="(*\tikzmarknodebf{smvc5xml1field}{checkboxField}[ForestGreen]*)" th:value="(*\SSS*){mapEntry.key}"><span th:text="(*\SSS*){mapEntry.value}"/><br/>
+          <th:block th:each="mapEntry: (*\Sc*){mappingId.(*\tikzmarknodebf{smvc5xml1map}{checkboxMap}[ForestGreen]*).entrySet()}">
+            <input type="checkbox" name="(*\tikzmarknodebf{smvc5xml1field}{checkboxField}[ForestGreen]*)" th:value="(*\Sc*){mapEntry.key}"><span th:text="(*\Sc*){mapEntry.value}"/><br/>
           </select>
         </form>
       </body>

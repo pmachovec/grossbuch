@@ -41,9 +41,9 @@ The~name can~be anything, the~important thing is the~format \mbitq{key\,=\,value
            ...>
       <context:property-placeholder location="classpath:(*\tikzmarknodebf{readprop1xml1filename}{constructor.properties}[ForestGreen]*)" file-encoding="utf-8"/>
       <bean id="someBeanId" class="(*\tikzmarknodebf{readprop1xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tikzmarknodebf{readprop1xml1class}{WantedClass}[ForestGreen]*)">
-        <constructor-arg value="(*\SSS*){(*\tikzmarknodebf{readprop1xml1intvalue}{intvalue}[ForestGreen]*)}"/>
-        <constructor-arg value="(*\SSS*){(*\tikzmarknodebf{readprop1xml1floatvalue}{floatvalue}[ForestGreen]*)}"/>
-        <constructor-arg value="(*\SSS*){(*\tikzmarknodebf{readprop1xml1stringvalue}{stringvalue}[ForestGreen]*)}"/>
+        <constructor-arg value="(*\Sc*){(*\tikzmarknodebf{readprop1xml1intvalue}{intvalue}[ForestGreen]*)}"/>
+        <constructor-arg value="(*\Sc*){(*\tikzmarknodebf{readprop1xml1floatvalue}{floatvalue}[ForestGreen]*)}"/>
+        <constructor-arg value="(*\Sc*){(*\tikzmarknodebf{readprop1xml1stringvalue}{stringvalue}[ForestGreen]*)}"/>
       </bean>
     </beans>
 \end{lstlisting}
@@ -92,9 +92,9 @@ The~name can~be anything, the~important thing is the~format \mbitq{key\,=\,value
            ...>
       <context:property-placeholder location="classpath:(*\tikzmarknodebf{readprop2xml1filename}{setter.properties}[ForestGreen]*)" file-encoding="utf-8"/>
       <bean id="someBeanId" class="(*\tikzmarknodebf{readprop2xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tikzmarknodebf{readprop2xml1class}{WantedClass}[ForestGreen]*)">
-        <property name="(*\tikzmarknodebf{readprop2xml1intvaluefield}{intValueField}[ForestGreen]*)" value="(*\SSS*){(*\tikzmarknodebf{readprop2xml1intvalue}{intvalue}[ForestGreen]*)}"/>
-        <property name="(*\tikzmarknodebf{readprop2xml1floatvaluefield}{floatValueField}[ForestGreen]*)" value="(*\SSS*){(*\tikzmarknodebf{readprop2xml1floatvalue}{floatvalue}[ForestGreen]*)}"/>
-        <property name="(*\tikzmarknodebf{readprop2xml1stringvaluefield}{stringValueField}[ForestGreen]*)" value="(*\SSS*){(*\tikzmarknodebf{readprop2xml1stringvalue}{stringvalue}[ForestGreen]*)}"/>
+        <property name="(*\tikzmarknodebf{readprop2xml1intvaluefield}{intValueField}[ForestGreen]*)" value="(*\Sc*){(*\tikzmarknodebf{readprop2xml1intvalue}{intvalue}[ForestGreen]*)}"/>
+        <property name="(*\tikzmarknodebf{readprop2xml1floatvaluefield}{floatValueField}[ForestGreen]*)" value="(*\Sc*){(*\tikzmarknodebf{readprop2xml1floatvalue}{floatvalue}[ForestGreen]*)}"/>
+        <property name="(*\tikzmarknodebf{readprop2xml1stringvaluefield}{stringValueField}[ForestGreen]*)" value="(*\Sc*){(*\tikzmarknodebf{readprop2xml1stringvalue}{stringvalue}[ForestGreen]*)}"/>
       </bean>
     </beans>
 \end{lstlisting}
@@ -169,13 +169,13 @@ Related fields aren't mentioned in~constructors nor~in~setter methods, they're s
     package (*\tikzmarknodebf{readprop3java1package}{somepackage.subpackage}*);
 
     public class WantedClass implements WantedClassInterface {
-        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop3java1intvalue}{intvalue}[ForestGreen]*)}")
+        @@>@Value<@@("(*\Sc*){(*\tikzmarknodebf{readprop3java1intvalue}{intvalue}[ForestGreen]*)}")
         private int intValueField;
 
-        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop3java1floatvalue}{floatvalue}[ForestGreen]*)}")
+        @@>@Value<@@("(*\Sc*){(*\tikzmarknodebf{readprop3java1floatvalue}{floatvalue}[ForestGreen]*)}")
         private float floatValueField;
 
-        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop3java1stringvalue}{stringvalue}[ForestGreen]*)}")
+        @@>@Value<@@("(*\Sc*){(*\tikzmarknodebf{readprop3java1stringvalue}{stringvalue}[ForestGreen]*)}")
         private String stringValueField;
 
         public WantedClass(...) {...}
@@ -223,13 +223,13 @@ Related fields aren't mentioned in~constructors nor~in~setter methods, they're s
     package (*\tikzmarknodebf{readprop4java2package}{somepackage.subpackage}*)
 
     public class WantedClass implements WantedClassInterface {
-        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop4java2intvalue}{intvalue}[ForestGreen]*)}")
+        @@>@Value<@@("(*\Sc*){(*\tikzmarknodebf{readprop4java2intvalue}{intvalue}[ForestGreen]*)}")
         private int intValueField;
 
-        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop4java2floatvalue}{floatvalue}[ForestGreen]*)}")
+        @@>@Value<@@("(*\Sc*){(*\tikzmarknodebf{readprop4java2floatvalue}{floatvalue}[ForestGreen]*)}")
         private float floatValueField;
 
-        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop4java2stringvalue}{stringvalue}[ForestGreen]*)}")
+        @@>@Value<@@("(*\Sc*){(*\tikzmarknodebf{readprop4java2stringvalue}{stringvalue}[ForestGreen]*)}")
         private String stringValueField;
 
         public WantedClass(...) {...}
@@ -270,13 +270,13 @@ Related fields aren't mentioned in~constructors nor~in~setter methods, they're s
     package somepackage.subpackage;
 
     public class (*\tikzmarknodebf{readprop5java2class}{WantedClass}*) implements WantedClassInterface {
-        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop5java2intvalue}{intvalue}[ForestGreen]*)}")
+        @@>@Value<@@("(*\Sc*){(*\tikzmarknodebf{readprop5java2intvalue}{intvalue}[ForestGreen]*)}")
         private int intValueField;
 
-        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop5java2floatvalue}{floatvalue}[ForestGreen]*)}")
+        @@>@Value<@@("(*\Sc*){(*\tikzmarknodebf{readprop5java2floatvalue}{floatvalue}[ForestGreen]*)}")
         private float floatValueField;
 
-        @@>@Value<@@("(*\SSS*){(*\tikzmarknodebf{readprop5java2stringvalue}{stringvalue}[ForestGreen]*)}")
+        @@>@Value<@@("(*\Sc*){(*\tikzmarknodebf{readprop5java2stringvalue}{stringvalue}[ForestGreen]*)}")
         private String stringValueField;
 
         public (*\tikzmarknodebf{readprop5java2class2}{WantedClass}*)(...) {...}

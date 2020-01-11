@@ -1,14 +1,237 @@
 \newchapter{JavaScript}
 \index{JavaScript}
+\label{javascripts}
+
+\newsection{ECMAScript}
+\label{ecmascript}
+It's~a~standard for~\hyperref[scriptinglanguages]{scripting languages}.
+The~\mbitq{ECMA} stands for~\itq{European Computer Manufacturers Association}.
+This is the~organization for~standards that created the~ECMAScript standard.
+
+ECMAScript defines a~large number of~keywords and~features that a~\hyperref[scriptinglanguages]{scripting language} must provide.
+JavaScript is~the~most well--known language following the~ECMAScript standard, but~there are others like ActionScript or~JScript.
+Actually, there's no single JavaScript.
+Each~\hyperref[internetweb]{web} browser or~\hyperref[compiledinterpretedlanguages]{interpeter} can~process the~JavaScript code in~its own way in~the~background.
+But~because all~these implementations follow the~ECMAScript standard, the~syntax is~always the~same.
+
+\warning TypeScript doesn't follow the~ECMAScript standard, it's~only an~extension of~the~standard.
+ECMAScript doesn't define data types used in~TypeScript.
+In~other words, each~ECMAScript code is~a~valid TypeScript code, but~not~each TypeScript code is a~valid ECMAScript code.
 
 \newsection{Var VS Let VS Const}
 \index{Const}
 \index{Let}
 \index{Var}
+These are JavaScript key words starting a~variable \hyperref[declarationdefinition]{declaration}.
+They define the~variable scope visibility and~changeability.
 
-\newsection{Double VS Tripple Equals (\textquotedbl==\textquotedbl~VS~\textquotedbl===\textquotedbl)}
-\index{Double equals}
-\index{Tripple equals}
+\begin{itemize}
+    \item \mbitq{Var}~variables are~visible in the nearest function block, but~\mbitq{let} and~\mbitq{const} variables are visible in the nearest enclosing block, which can~be smaller than a function block.
+          Accessing a~\mbitq{let} variable outside its enclosing block causes a~\mbit{ReferenceError} and~all the~following code isn't reached.
+    \item \mbitq{Var}~variables can~be redeclared in~the~same (function) block, i.e.~you~can declare \mbitqls{var a =;;;...;} more times in~the~same (function) block.
+          \mbitq{Let}~variables can~be only rewritten in~the~same (enclosing) block.
+          \mbitq{Const}~variables can't~be even rewritten.
+    \item \mbitq{Var}~variables can~be used even before their declaration, but~they're always \mbit{undefined}.
+          Assigning a~value to~a~\mbitq{var}~variable before its declaration results in~an~error.
+    \item Variables of~all~three types are~accessible from anywhere when declared in~the~executable code outside any~block.
+          However, only \mbitq{var}~variables are~available in~the~\mbit{window} object.
+\end{itemize}
+
+\newsection{Modularity}
+\label{javascriptmodularity}
+JavaScript was initially created as~a~\hyperref[scriptinglanguages]{scripting language} for~writing only small scripts incorporated to~ordinary \hyperref[internetweb]{web} pages.
+It~wasn't designed for~writing large code structures separated into multiple files.
+However, with the~\hyperref[internetweb]{web} evolution a~need for~complex JavaScript implementations actually came onto scene.
+And~the~JavaScript code modularity problem was~born\dots
+
+The~only multiple file solution supported by~the~original JavaScript is to~load each file\,--\,module\,--\, in~a~separate \mbit{script} element.
+Elements must~be specified in~the~correct order.
+For~example, consider three modules \textit{A}, \textit{B} and~\textit{C}.
+A~\hyperref[internetweb]{web} page uses some functionality \hyperref[declarationdefinition]{defined} in~the~module~\textit{A}.
+But~this functionality uses some other functionality from~the~module~\textit{B} and~that one uses some functionality from the~module~\textit{C}.
+Then you~must put exactly this into the~page:
+
+\begin{lstlisting}[language=XML,frame=no]
+    <script src="C.js"></script>
+    <script src="B.js"></script>
+    <script src="A.js"></script>
+\end{lstlisting}
+
+\noindent If~you somehow change the~order, the~page loading will fail, and~exactly at~this point.
+I.e.,~some mess can~be displayed in~the~browser.
+
+Furthermore, this module loading is~synchronous.
+Page loading waits for~each module until it's fully loaded and~only then it~continues with another~one.
+When modules are~big, it~has of~course a~negative impact to~the~performance.
+
+And~finally, this module loading doesn't check if~the~loaded module is~actually used.
+It~just loads it.
+Consider that you~remove the~dependency of~\textit{B} on~\textit{C} in~the~\textit{B}'s code in~the~previous example.
+You~don't need to~load the~module~\textit{C} any~more.
+But~until you~remove its \mbit{script} element from the~page source code, it~still will~be loaded and~affecting the~performance.
+
+\newsection{Asynchronous Module Definition\,--\,AMD}
+\index{Asynchronous module definition}
+\index{AMD}
+\label{amd}
+It's~a~standard (sometimes also said to~be~\hyperref[api]{API}), which specifies writing JavaScript modules as~bodies of~large functions.
+These modules can~be~treated as~classes and~the~code can~follow the~\hyperref[objectorientedprogramming]{object--oriented programming paradigm}.
+Correct implementation of~the~standard should load modules asynchronously, in~the~correct order, only if~they're really used and~with minimal need of~adjusting \hyperref[internetweb]{web} pages source code.
+I.e.,~it~should address all~problems of~the~\hyperref[javascriptmodularity]{default JavaScript modularity}.
+
+\enlargethispage{20mm}
+\thispagestyle{empty}
+\newsubsection{Syntax}
+\label{amdsyntax}
+The~main function containing a~module\,--\,equivalent of~a~class\,--\,is~called \mbitq{define}.
+It~gets an~array of~paths to~other modules (dependencies), and~a~function callback, usually anonymous, which contains the~actual module functional body.
+\hyperref[parameterargument]{Parameters} of~the~callback are~handlers to~modules specified in~the~path array, the~order and~count must match.
+If~a~module doesn't use any functionality from other modules (it~has no~dependencies), it~isn't necessary to~specify an~empty array.
+The~\mbitq{define} function can~contain only the~callback without \hyperref[parameterargument]{parameters}.
+Return statement of~the~callback contains handlers to~module members, which should~be available on~the~module.
+Members with such handlers are~equivalent to~\hyperref[javapublic]{public} members of~a~class.
+Other members are~equivalent to~\hyperref[javaprivate]{private} members.
+\newpage
+
+\example[AMD module]
+\begin{lstlisting}[language=JavaScript]
+    define(['PATH_TO_OTHER_MODULE'], function((*\tikzmarknodebf{js1othmod1}{otherModuleHandler}*)) {
+      let privateVariable = ...;
+      let (*\tikzmarknodebf{js1modvar1}{publicVariable}*) = ...;
+
+      function privateFunction() {
+        ...
+        (*\tikzmarknodebf{js1othmod2}{otherModuleHandler}*).publicFunctionFromOtherModule();
+        ...
+      }
+
+      function (*\tikzmarknodebf{js1modfunc1}{publicFunction}*)() {
+        ...
+        privateFunction();
+        ...
+      }
+
+      return {
+        publicVariable: (*\tikzmarknodebf{js1modvar2}{publicVariable}*),
+        publicFunction: (*\tikzmarknodebf{js1modfunc2}{publicFunction}*)
+      }
+    });
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{js1othmod1.south}{[xshift=9mm] js1othmod2.north}
+    \drawarrow{[xshift=-3mm] js1modvar1.south}{[xshift=-9mm] js1modvar2.north}[red]
+    \drawarrow{[xshift=6mm] js1modfunc1.south}{js1modfunc2.north}[green]
+\end{tikzpicture}
+
+\example[AMD module without dependencies]
+\enlargethispage{10mm}
+\begin{lstlisting}[language=JavaScript]
+    define(function() {
+      let privateVariable = ...;
+      let (*\tikzmarknodebf{js2modvar1}{publicVariable}*) = ...;
+
+      function privateFunction() {
+        ...
+      }
+
+      function (*\tikzmarknodebf{js2modfunc1}{publicFunction}*)() {
+        ...
+        privateFunction();
+        ...
+      }
+
+      return {
+        publicVariable: (*\tikzmarknodebf{js2modvar2}{publicVariable}*),
+        publicFunction: (*\tikzmarknodebf{js2modfunc2}{publicFunction}*)
+      }
+    });
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{[xshift=-3mm] js2modvar1.south}{[xshift=-9mm] js2modvar2.north}
+    \drawarrow{[xshift=6mm] js2modfunc1.south}{js2modfunc2.north}[red]
+\end{tikzpicture}
+\newpage
+
+\newsubsection{Usage in web pages}
+AMD~modules can't~be included into a~\hyperref[internetweb]{web} page directly.
+They must~be called from another script and~this script can~be included into a~\hyperref[internetweb]{web} page.
+Syntax of~this main script isn't standardised and~in~each AMD implementation it~can~be different.
+
+\newsection{RequireJS}
+\index{RequireJS}
+\label{requirejs}
+\href{https://requirejs.org}{RequireJS} is widely used implementation of~\hyperref[amd]{AMD}.
+Modules syntax exactly follows the~\hyperref[amdsyntax]{AMD standard}.
+Using modules from a~\hyperref[internetweb]{web} page, however, is~specific.
+
+You~should have one main file, which is referred from a~\mbit{script} element inside~a~page \mbit{header} element.
+From this file you~should assign functionality to~elements in~the~corresponding \hyperref[internetweb]{web} page.
+And~from this file you can~call \hyperref[amd]{AMD} modules.
+If~the~page design forces you to~have the~\mbit{script} element somewhere else than in~the~\mbit{header} element or~to~have multiple \mbit{script} elements, then the~design is~bad and~should~be changed.
+
+The~main file looks almost the~same as~a~standard \hyperref[amd]{AMD} module, only the~big enclosing function is~called \mbitq{requirejs}.
+It~also doesn't have the~\mbit{return} statement;
+It~can~contain RequireJS configuration (before the~main \mbit{requirejs} function), which usually specifies aliases for~paths to~third party libraries like \hyperref[jquery]{jQuery}.
+The~code inside this function is~executed like in~a~standard JavaScript file from the~top to~the~bottom.
+
+Referring the~main file from a~page is~slightly different from \hyperref[javascriptmodularity]{standard JavaScript module referral}.
+The~\mbit{src} attribute of~the~\mbit{script} element must contain path to~the~RequireJS library file (called \mbitq{require.js} by~default).
+The~main script path is~specified in~the~\mbitq{data-main} element, and~it~can't contain the~\mbitq{.js} extension of~the~file.
+The~extension is~expected, if~the~file doesn't have it, it~won't~work.
+
+\note RequireJS is~usable even in~\hyperref[nodejs]{Node.js}.
+Node.js already contains the~\hyperref[commonjs]{CommonJS} technique for~modularization, but~the~performance is generally worse than with RequireJS.
+Furthermore, when using RequireJS, you~can~develop a~functionality on~the~Node.js platform (server side), but~later use~it on~the~client side and~preserve the~effectiveness.
+\newpage
+
+\example[assigning action to~a~button with RequireJS and jQuery]
+\begin{lstlisting}[language=JavaScript,title={Main JavaScript file \textit{\tikzmarknodebf{js3mainscript}{main}.js}}]
+    requirejs.config({
+      paths: {
+        ...
+        (*\tikzmarknodebf{js3mainjquery1}{jquery}*): 'SOME_PATH/jquery-X.Y.Z.js'
+        ...
+      }
+    });
+
+    requirejs(['(*\tikzmarknodebf{js3mainjquery2}{jquery}[ForestGreen]*)', 'SOME_PATH/amd_module'],
+    function((*\$*), amdModuleHandler) {
+      (*\$*)('#(*\tikzmarknodebf{js3mainbutton}{buttonId}[ForestGreen]*)').click(function() {
+        ...
+        amdModuleHandler.amdModuleFunction();
+        ...
+      });
+    });
+\end{lstlisting}
+\begin{lstlisting}[language=XML,title={Web page file loading the JavaScript file}]
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        ...
+        <script data-main="SOME_PATH/(*\tikzmarknodebf{js3htmlscript}{main}[ForestGreen]*)" src="SOME_OTHER_PATH/require.js"></script>
+        ...
+      </head>
+      <body>
+        ...
+        <button id="(*\tikzmarknodebf{js3htmlbutton}{buttonId}[ForestGreen]*)">BUTTON_LABEL</button>
+        ...
+      </body>
+    </html>
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{js3mainscript.south}{js3htmlscript.north}
+    \drawarrow{js3mainjquery1.south}{js3mainjquery2.north}[red]
+    \drawarrow{js3mainbutton.south}{js3htmlbutton.north}[green]
+\end{tikzpicture}
+\newpage
+
+\newsection{Native Modularity}
+All~JavaScript implementations following the~\hyperref[ecmascript]{ECMAScript~6} (ES6, released in~2015) or~later provide modularity by~default.
+There's no~need for~external libraries any~more.
+The~major drawback is that the~syntax doesn't correspond to~any~existing implementation.
+All~scripts written in~\hyperref[requirejs]{RequireJS}, \hyperref[commonjs]{CommonJS} or~any~other third-party library syntax still need their external libraries and~they don't use the~new native JavaScript modularity.
+
+\todo
 
 \newsection{JavaScript Object Notation (JSON)}
 \index{JavaScript Object Notation}

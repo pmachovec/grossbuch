@@ -3,8 +3,8 @@
 \index{Node Package Manager}
 \label{npm}
 It's~a~\hyperref[packagemanager]{package manager} for~the~\hyperref[nodejs]{Node.js} \hyperref[platform]{platform}.
-The~official web site is~\href{https://www.npmjs.com/}{\textit{www.npmjs.com}}.
 It's~provided together with a~Node.js installation, it~isn't needed to~install it separately.
+The~official web site is~\href{https://www.npmjs.com/}{\textit{www.npmjs.com}}.
 
 \newsection{Configuration}
 \label{npmconfig}
@@ -36,7 +36,8 @@ With (unique) scopes you~can~configure an~unlimited number of~registries.
 However, remember that packages installed from scoped registries have limitations, see~\hyperref[nsmscopedpackages]~further.
 
 \newsubsection{Installed Packages Usage}
-Installed package are~available as~standard \hyperref[nodejsmodule]{modules} by~their names.
+\label{npmpackageusage}
+Installed package are~available as~standard \hyperref[commonjs]{CommonJS} modules by~their names.
 Specifying a~whole path to~a~package is~not~needed.
 They can~be loaded even \hyperref[amd]{asynchronously}.
 
@@ -46,7 +47,7 @@ They can~be loaded even \hyperref[amd]{asynchronously}.
     packageHandler.doSomething(...);
 \end{lstlisting}
 
-\example[loading package with \hyperref[amd]{\textit{requirejs}}]
+\example[loading package with \hyperref[requirejs]{\textit{RequireJS}}]
 \begin{lstlisting}[language=JavaScript]
     let requirejs = require('requirejs');
     ...
@@ -101,7 +102,7 @@ But~similarly to~\hyperref[gradle]{Gradle} it's also possible to~use a~local fol
 Simply choose a~folder and~copy the~project folder there.
 It~should contain the~\mbit{package.json} file and~source files.
 The~\mbit{node\_modules} doesn't have to~be~included. When the~project is~installed by~NPM, all~dependencies will~be~downloaded automatically.
-The~\mbit{package.json} file must contain package name, three--number version and~the~path to~the~main \hyperref[nodejsmodule]{Node.js module} file.
+The~\mbit{package.json} file must contain package name, three--number version and~the~path to~the~root file.
 And~of~course dependencies must~be mentioned to~be~automatically downloaded.
 
 \example[\mbit{package.json} file of~a~distributable project]
@@ -192,7 +193,7 @@ The~only option here is switching \hyperref[npmprofile]{profiles}.
 What is possible is to~refer to~multiple GitHub user registries.
 Configure a~first user registry as~described above, but~for~others use user names as~scopes, not~as~final parts of~URLs.
 You~should~have something like this in \mbit{.npmrc} file:
-\begin{lstlisting}
+\begin{lstlisting}[frame=no]
     registry=https://npm.pkg.github.com/USER1
     @USER2:registry=//npm.pkg.github.com
     @USER3:registry=//npm.pkg.github.com

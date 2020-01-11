@@ -33,10 +33,10 @@ Everything in~the~form template code.
     <html xmlns:th="http://www.thymeleaf.org">
       ...
       <body>
-        <form th:object="(*\SSS*){(*\tikzmarknodebf{smvc6xml1mapping}{mappingId}[ForestGreen]*)}" ...>
+        <form th:object="(*\Sc*){(*\tikzmarknodebf{smvc6xml1mapping}{mappingId}[ForestGreen]*)}" ...>
           <input type="text" th:field="*{(*\tikzmarknodebf{smvc6xml1field1}{pojoField}[ForestGreen]*)}">
         </form>
-        <div th:if="(*\SSS*){#fields.hasErrors('(*\tikzmarknodebf{smvc6xml1field2}{pojoField}[ForestGreen]*)')}" th:errors="*{(*\tikzmarknodebf{smvc6xml1field3}{pojoField}[ForestGreen]*)}"/>
+        <div th:if="(*\Sc*){#fields.hasErrors('(*\tikzmarknodebf{smvc6xml1field2}{pojoField}[ForestGreen]*)')}" th:errors="*{(*\tikzmarknodebf{smvc6xml1field3}{pojoField}[ForestGreen]*)}"/>
         <!-- The div is invisible by default, and would still be even if it had some content -->
       </body>
     </html>
