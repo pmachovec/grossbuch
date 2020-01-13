@@ -404,3 +404,55 @@ Creating repositories by~pushing is~not~possible.
 
 \newsection{Deleting Packages from GitHub}
 \label{githubdeletepackage}
+GitHub can~be used as~a~package repository, also called \mbit{registry}, for~various \hyperref[packagemanager]{package managers}.
+Package managers usually provide tools how~to~publish a~package to~GitHub.
+But~they generally don't allow to~remove a~package once published.
+Deleting a~published package is~considered to~be a~bad practice, therefore, GitHub makes it as~complicated as~possible.
+You~must send special queries to~the~the~GitHub \hyperref[graphql]{GraphQL}~\hyperref[api]{API}\,--\,\hyperref[https]{HTTPS} POST requests to~the~URL \mbitql{https://;;api.;;github.;;com/;graphql}.
+The~best approach is to~use \href{https://www.getpostman.com/}{Postman}, you~can~also use~\hyperref[curl]{cURL}.
+
+Each~package can~be published many times in~many versions.
+At~first you~need GitHub internal ID of~the~version of~the~package you~want to~delete.
+For~this you~need a~token with package reading right for~your GitHub account.
+Put~the~following key--value pair \mbitqls{Authorization:;;;bearer;;;THE\_TOKEN\_HASH} to~the~request header and~write the~request body like this:
+\begin{lstlisting}
+    query {
+      repository(owner:"USER_NAME",name:"REPOSITORY_NAME") {
+        registryPackages(first:1,name:"PACKAGE_NAME") {
+          nodes {
+            versions(first:10) {
+              nodes {
+                id,version
+              }
+            }
+          }
+        }
+      }
+    }
+\end{lstlisting}
+
+\noindent If~the~version to~delete is older than 10 newest, you~can~increase the~inner \mbitq{first} \hyperref[parameterargument]{argument}.
+You~can~also use \mbitq{last} instead, in~that case the~listing goes from oldest versions.
+The~response to~the~request contains similar \hyperref[json]{JSON} string, from which it's~possible to~read the~GitHub internal~ID.
+It's~a~\hyperref[base64]{Base64} string.
+
+With~the~ID it's~possible to~construct the~request for~actual package deletion.
+For~this you need a~token with package deleting right.
+Add~the~token to~the~request header as~previously (\mbitqls{Authorization:;;;bearer;;;THE\_TOKEN\_HASH}).
+Add~another key--value pair \mbitqls{Accept:;;;application/;;vnd.;;github.;;package-;;deletes-;;preview+;;json} to~the~header and~write the~body like this:
+\begin{lstlisting}
+    mutation {
+      deletePackageVersion(input: {
+        packageVersionId:"THE_ID_FROM_PREVIOUS_REQUEST"
+      }) {
+        success
+    }
+}
+\end{lstlisting}
+
+\noindent After submitting you~should~get a~response confirming successful package deletion.
+
+\warning The~deleted version is blocked from another use and~can't~be unblocked.
+I.e.,~you~will never be able to~publish a~package of~the~same name and~version to~the~same repository.
+The~only possible workaround is~to~delete the~whole repository.
+And~that can~be problematic if~you~have other stuff there.
