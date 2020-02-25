@@ -22,22 +22,22 @@ By~calling module member handlers (defined previously in~the~\mbit{module.export
 \example{CommonJS module \hyperref[declarationdefinition]{definition} and~usage}
 \enlargethispage{20mm}
 \thispagestyle{empty}
-\begin{lstlisting}[language=JavaScript,title={Module file \mbit{\tikzmarknodebf{node1modfile}{moduleFile}.js}}]
-    let (*\tikzmarknodebf{node1modvar1}{moduleVariable}*) = ...;
+\begin{lstlisting}[language=JavaScript,title={Module file \mbit{\tmnbf{node1modfile}{moduleFile}.js}}]
+    let (*\tmnbf{node1modvar1}{moduleVariable}*) = ...;
 
-    function (*\tikzmarknodebf{node1modfunc1}{moduleFunction}*)() {
+    function (*\tmnbf{node1modfunc1}{moduleFunction}*)() {
       ...
     }
 
     module.exports = {
-      (*\tikzmarknodebf{node1modhand1}{moduleVariable}*): (*\tikzmarknodebf{node1modvar2}{moduleVariable}*),
-      (*\tikzmarknodebf{node1modhand2}{moduleFunction}*): (*\tikzmarknodebf{node1modfunc2}{moduleFunction}*)
+      (*\tmnbf{node1modhand1}{moduleVariable}*): (*\tmnbf{node1modvar2}{moduleVariable}*),
+      (*\tmnbf{node1modhand2}{moduleFunction}*): (*\tmnbf{node1modfunc2}{moduleFunction}*)
     }
 \end{lstlisting}
 \begin{lstlisting}[language=JavaScript,title={JavaScript executable file using the~module}]
-    let moduleHandler = require('MODULE_FOLDER_PATH/(*\tikzmarknodebf{node1filefile}{moduleFile}[ForestGreen]*)');
-    let simpleVar1 = moduleHandler.(*\tikzmarknodebf{node1filehand1}{moduleVariable}*); // Using module variable
-    let simpleVar2 = moduleHandler.(*\tikzmarknodebf{node1filehand2}{moduleFunction}*)(); // Using module function
+    let moduleHandler = require('MODULE_FOLDER_PATH/(*\tmnbf{node1filefile}{moduleFile}[ForestGreen]*)');
+    let simpleVar1 = moduleHandler.(*\tmnbf{node1filehand1}{moduleVariable}*); // Using module variable
+    let simpleVar2 = moduleHandler.(*\tmnbf{node1filehand2}{moduleFunction}*)(); // Using module function
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{node1modfile.south}{node1filefile.north}

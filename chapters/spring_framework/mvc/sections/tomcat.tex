@@ -57,9 +57,8 @@ The~name is onle the~plain file name, without any folder path and~even without a
 Values are~written to~the~model instance as~\hyperref[jspattributeparameter]{attribues} and~can~be accessed in~the~HTML template by~the~engine expression language.
 Any~object can~be written to~the~model.
 Thymeleaf expression language provides rich syntax for~various object types processing.
+\newpage
 
-\enlargethispage{30mm}
-\thispagestyle{empty}
 \begin{lstlisting}[language=XML, title={Example of a~Spring XML with Thymeleaf configuration}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
@@ -85,12 +84,12 @@ Thymeleaf expression language provides rich syntax for~various object types proc
       </bean>
     </beans>
 \end{lstlisting}
-\newpage
 
 \warning There is a~slash at~the~beginning of~the~prefix value and~the~suffix value contains the~dot!
 
 \note Even controller classes can~have the~\mbit{@RequestMapping} annotation with some string (beginning with a~slash) defining an~URL.
 URLs defined by~the~annotation for~methods are~then relative to~the~URL of~the~class.
+\newpage
 
 \example[a~controller class and~a~template file]
 \begin{lstlisting}[language=Java, title={Controller class}]
@@ -105,20 +104,20 @@ URLs defined by~the~annotation for~methods are~then relative to~the~URL of~the~c
             String parameterFromRequest = wholeRequest.getParameter("paramKey");
 
             // Writing boolean to the model
-            model.addAttribute("(*\tikzmarknodebf{smvc1java1attr}{modelAttribute}[ForestGreen]*)", parameterFromRequest.equals(singleParameter));
+            model.addAttribute("(*\tmnbf{smvc1java1attr}{modelAttribute}[ForestGreen]*)", parameterFromRequest.equals(singleParameter));
 
             // Forwarding the model to a template
-            return "(*\tikzmarknodebf{smvc1java1templ}{templateFile}[ForestGreen]*)";
+            return "(*\tmnbf{smvc1java1templ}{templateFile}[ForestGreen]*)";
         }
     }
 \end{lstlisting}
-\begin{lstlisting}[language=XML, title={Thymeleaf template file called \tikzmarknodebf{smvc1xml1templ}{\textit{templateFile}}\textit{.html}}]
+\begin{lstlisting}[language=XML, title={Thymeleaf template file called \tmnbf{smvc1xml1templ}{\textit{templateFile}}\textit{.html}}]
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org">
       ...
       <body>
-        <div th:text="'Result: ' + (*\Sc*){(*\tikzmarknodebf{smvc1xml1attr}{modelAttribute}[ForestGreen]*)}"></div>
+        <div th:text="'Result: ' + (*\Sc*){(*\tmnbf{smvc1xml1attr}{modelAttribute}[ForestGreen]*)}"></div>
       </body>
     </html>
 \end{lstlisting}
@@ -128,20 +127,21 @@ URLs defined by~the~annotation for~methods are~then relative to~the~URL of~the~c
 \end{tikzpicture}
 
 \noindent When a~request with a~\hyperref[jspattributeparameter]{parameter} with~a~key \mbit{paramkey} is~sent to~the~url \mbitq{HOST:PORT/appFolder/classUrl/methodUrl}, a~response containing a~web page with a~simple text \itq{Result: true} is~returned and~displayed in~the~browser (the~parameter retrieved from the~request is always the~same as~the~one retrieved separately).
+\newpage
 
 \warning HTML forms are~directed to~controller methods by~the~attribute \mbit{action}.
 When a~form is~submitted, it~replaces the~last part of~the~URL in~the~browser address bar (everything after the~last slash) with the~value of~the~attribute.
 This can~result in~unwanted behavior when the~form is~accessed over a~method with the~\mbit{RequestMapping} annotation without parameters.
 
 \example[problems with a~form without request mapping path]
-\begin{lstlisting}[language=XML, title={Simple HTML form \tikzmarknodebf{smvc2xml1form}{\textit{theForm}}\textit{.html}}]
+\begin{lstlisting}[language=XML, title={Simple HTML form \tmnbf{smvc2xml1form}{\textit{theForm}}\textit{.html}}]
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE html>
     <html>
       ...
       <body>
-        <form action="(*\tikzmarknodebf{smvc2xml1meth}{methodUrl}[ForestGreen]*)" method="post">
-          <input type="text" name="(*\tikzmarknodebf{smvc2xml1param}{paramKey}[ForestGreen]*)">
+        <form action="(*\tmnbf{smvc2xml1meth}{methodUrl}[ForestGreen]*)" method="post">
+          <input type="text" name="(*\tmnbf{smvc2xml1param}{paramKey}[ForestGreen]*)">
         </form>
       </body>
     </html>
@@ -154,11 +154,11 @@ This can~result in~unwanted behavior when the~form is~accessed over a~method wit
     public class ControllerClass {
         @@>@RequestMapping<@@ // Request mapping without a path
         public String showForm() {
-            return "(*\tikzmarknodebf{smvc2java1form}{theForm}[ForestGreen]*)"
+            return "(*\tmnbf{smvc2java1form}{theForm}[ForestGreen]*)"
         }
 
-        @@>@RequestMapping<@@("/(*\tikzmarknodebf{smvc2java1meth}{methodUrl}[ForestGreen]*)")
-        public String processForm(@@>@RequestParam<@@("(*\tikzmarknodebf{smvc2java1param}{paramKey}[ForestGreen]*)") String singleParameter,
+        @@>@RequestMapping<@@("/(*\tmnbf{smvc2java1meth}{methodUrl}[ForestGreen]*)")
+        public String processForm(@@>@RequestParam<@@("(*\tmnbf{smvc2java1param}{paramKey}[ForestGreen]*)") String singleParameter,
                                   Model model) {
             ...DO SOMETHING WITH THE PARAMETER...
             return "templateFile";

@@ -27,31 +27,31 @@ To~set a~destroy method put the~method's name to~the~attribute \textit{destroy-m
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
-      <bean id="(*\tikzmarknodebf{lc1xml1singbeanid}{singletonBeanId}[ForestGreen]*)" class="somepackage.subpackage.CommonClass" init-method="(*\tikzmarknodebf{lc1xml1singinit}{initMethod}[ForestGreen]*)" destroy-method="(*\tikzmarknodebf{lc1xml1singdestroy}{destroyMethod}[ForestGreen]*)">
+      <bean id="(*\tmnbf{lc1xml1singbeanid}{singletonBeanId}[ForestGreen]*)" class="somepackage.subpackage.CommonClass" init-method="(*\tmnbf{lc1xml1singinit}{initMethod}[ForestGreen]*)" destroy-method="(*\tmnbf{lc1xml1singdestroy}{destroyMethod}[ForestGreen]*)">
           ...
       </bean>
-      <bean id="(*\tikzmarknodebf{lc1xml1protbeanid}{prototypeBeanId}[ForestGreen]*)" class="somepackage.subpackage.CommonClass" scope="prototype" init-method="(*\tikzmarknodebf{lc1xml1protinit}{initMethod}[ForestGreen]*)" destroy-method="(*\tikzmarknodebf{lc1xml1protdestroy}{destroyMethod}[ForestGreen]*)">
+      <bean id="(*\tmnbf{lc1xml1protbeanid}{prototypeBeanId}[ForestGreen]*)" class="somepackage.subpackage.CommonClass" scope="prototype" init-method="(*\tmnbf{lc1xml1protinit}{initMethod}[ForestGreen]*)" destroy-method="(*\tmnbf{lc1xml1protdestroy}{destroyMethod}[ForestGreen]*)">
         ...
       </bean>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Snippet of a common bean class}]
-    private void (*\tikzmarknodebf{lc1java1init}{initMethod}*)() {
+    private void (*\tmnbf{lc1java1init}{initMethod}*)() {
         ...DO SOMETHING...
     }
 
-    private void (*\tikzmarknodebf{lc1java1destroy}{destroyMethod}*)() {
+    private void (*\tmnbf{lc1java1destroy}{destroyMethod}*)() {
         ...DO SOMETHING...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
 
-    CommonClassInterface singletonInstance1 = context.getBean("(*\tikzmarknodebf{lc1java2singbeanid1}{singletonBeanId}[ForestGreen]*)", CommonClassInterface.class);
-    CommonClassInterface singletonInstance2 = context.getBean("(*\tikzmarknodebf{lc1java2singbeanid2}{singletonBeanId}[ForestGreen]*)", CommonClassInterface.class);
+    CommonClassInterface singletonInstance1 = context.getBean("(*\tmnbf{lc1java2singbeanid1}{singletonBeanId}[ForestGreen]*)", CommonClassInterface.class);
+    CommonClassInterface singletonInstance2 = context.getBean("(*\tmnbf{lc1java2singbeanid2}{singletonBeanId}[ForestGreen]*)", CommonClassInterface.class);
 
-    CommonClassInterface prototypeInstance1 = context.getBean("(*\tikzmarknodebf{lc1java2protbeanid1}{prototypeBeanId}[ForestGreen]*)", CommonClassInterface.class);
-    CommonClassInterface prototypeInstance2 = context.getBean("(*\tikzmarknodebf{lc1java2protbeanid2}{prototypeBeanId}[ForestGreen]*)", CommonClassInterface.class);
+    CommonClassInterface prototypeInstance1 = context.getBean("(*\tmnbf{lc1java2protbeanid1}{prototypeBeanId}[ForestGreen]*)", CommonClassInterface.class);
+    CommonClassInterface prototypeInstance2 = context.getBean("(*\tmnbf{lc1java2protbeanid2}{prototypeBeanId}[ForestGreen]*)", CommonClassInterface.class);
 
     context.close();
 \end{lstlisting}
@@ -84,7 +84,7 @@ You~must download it or~load it as~a~dependency.
 \begin{lstlisting}[language=Java, title={Singleton bean class}]
     import javax.annotations.*;
 
-    @@>@Component<@@("(*\tikzmarknodebf{lc2java1singbeanid}{singletonBeanId}[ForestGreen]*)")
+    @@>@Component<@@("(*\tmnbf{lc2java1singbeanid}{singletonBeanId}[ForestGreen]*)")
     public class SingletonClass implements SingletonClassInterface {
         ...
         @>@PostConstruct
@@ -101,7 +101,7 @@ You~must download it or~load it as~a~dependency.
 \begin{lstlisting}[language=Java, title={Prototype bean class}]
     import javax.annotations.*;
 
-    @@>@Component<@@("(*\tikzmarknodebf{lc2java2protbeanid}{prototypeBeanId}[ForestGreen]*)")
+    @@>@Component<@@("(*\tmnbf{lc2java2protbeanid}{prototypeBeanId}[ForestGreen]*)")
     @@>@Scope<@@("prototype")
     public class PrototypeClass implements PrototypeClassInterface {
         ...
@@ -126,11 +126,11 @@ You~must download it or~load it as~a~dependency.
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
 
-    CommonClassInterface singletonInstance1 = context.getBean("(*\tikzmarknodebf{lc2java3singbeanid1}{singletonBeanId}[ForestGreen]*)", SingletonClassInterface.class);
-    CommonClassInterface singletonInstance2 = context.getBean("(*\tikzmarknodebf{lc2java3singbeanid2}{singletonBeanId}[ForestGreen]*)", SingletonClassInterface.class);
+    CommonClassInterface singletonInstance1 = context.getBean("(*\tmnbf{lc2java3singbeanid1}{singletonBeanId}[ForestGreen]*)", SingletonClassInterface.class);
+    CommonClassInterface singletonInstance2 = context.getBean("(*\tmnbf{lc2java3singbeanid2}{singletonBeanId}[ForestGreen]*)", SingletonClassInterface.class);
 
-    CommonClassInterface prototypeInstance1 = context.getBean("(*\tikzmarknodebf{lc2java3protbeanid1}{prototypeBeanId}[ForestGreen]*)", PrototypeClassInterface.class);
-    CommonClassInterface prototypeInstance2 = context.getBean("(*\tikzmarknodebf{lc2java3protbeanid2}{prototypeBeanId}[ForestGreen]*)", PrototypeClassInterface.class);
+    CommonClassInterface prototypeInstance1 = context.getBean("(*\tmnbf{lc2java3protbeanid1}{prototypeBeanId}[ForestGreen]*)", PrototypeClassInterface.class);
+    CommonClassInterface prototypeInstance2 = context.getBean("(*\tmnbf{lc2java3protbeanid2}{prototypeBeanId}[ForestGreen]*)", PrototypeClassInterface.class);
 
     context.close();
 \end{lstlisting}
@@ -171,7 +171,7 @@ With this approach you can configure only one initialization method and~one dest
 \begin{lstlisting}[language=Java, title={Singleton bean class with multiple life cycle methods}]
     import javax.annotations.*;
 
-    @@>@Component<@@("(*\tikzmarknodebf{lc4java1singbeanid}{singletonBeanId}[ForestGreen]*)")
+    @@>@Component<@@("(*\tmnbf{lc4java1singbeanid}{singletonBeanId}[ForestGreen]*)")
     public class SingletonClass implements SingletonClassInterface {
         ...
         @>@PostConstruct
@@ -198,7 +198,7 @@ With this approach you can configure only one initialization method and~one dest
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
 
-    CommonClassInterface singletonInstance = context.getBean("(*\tikzmarknodebf{lc4java2singbeanid}{singletonBeanId}[ForestGreen]*)", SingletonClassInterface.class);
+    CommonClassInterface singletonInstance = context.getBean("(*\tmnbf{lc4java2singbeanid}{singletonBeanId}[ForestGreen]*)", SingletonClassInterface.class);
 
     context.close();
 \end{lstlisting}
@@ -214,36 +214,36 @@ If~the~bean scope was~set to~prototype, \textit{destroy} methods wouldn't be tri
 \example[life cycle methods configuration in a configuration class]
 \begin{lstlisting}[language=Java, title={Configuration class}]@>@Configuration
     @>@Configuration
-    public class (*\tikzmarknodebf{lc5java1configclass}{ConfigurationClass}*) {
-        @@>@Bean<@@(initMethod = "(*\tikzmarknodebf{lc5java1singinit}{initMethod}[ForestGreen]*)", destroyMethod = "(*\tikzmarknodebf{lc5java1singdestroy}{destroyMethod}[ForestGreen]*)")
-        public CommonClassInterface (*\tikzmarknodebf{lc5java11singbeanid}{singletonBeanMethod}*)() {
+    public class (*\tmnbf{lc5java1configclass}{ConfigurationClass}*) {
+        @@>@Bean<@@(initMethod = "(*\tmnbf{lc5java1singinit}{initMethod}[ForestGreen]*)", destroyMethod = "(*\tmnbf{lc5java1singdestroy}{destroyMethod}[ForestGreen]*)")
+        public CommonClassInterface (*\tmnbf{lc5java11singbeanid}{singletonBeanMethod}*)() {
             return new CommonClass(...);
         }
 
-        @@>@Bean<@@(initMethod = "(*\tikzmarknodebf{lc5java1protinit}{initMethod}[ForestGreen]*)", destroyMethod = "(*\tikzmarknodebf{lc5java1protdestroy}{destroyMethod}[ForestGreen]*)")
+        @@>@Bean<@@(initMethod = "(*\tmnbf{lc5java1protinit}{initMethod}[ForestGreen]*)", destroyMethod = "(*\tmnbf{lc5java1protdestroy}{destroyMethod}[ForestGreen]*)")
         @@>@Scope<@@("prototype")
-        public CommonClassInterface (*\tikzmarknodebf{lc5java11protbeanid}{prototypeBeanMethod}*)() {
+        public CommonClassInterface (*\tmnbf{lc5java11protbeanid}{prototypeBeanMethod}*)() {
             return new CommonClass(...);
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Snippet of a common bean class}]
-    private void (*\tikzmarknodebf{lc5java2init}{initMethod}*)() {
+    private void (*\tmnbf{lc5java2init}{initMethod}*)() {
         ...DO SOMETHING...
     }
 
-    private void (*\tikzmarknodebf{lc5java2destroy}{destroyMethod}*)() {
+    private void (*\tmnbf{lc5java2destroy}{destroyMethod}*)() {
         ...DO SOMETHING...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
-    ClassPathXmlApplicationContext context = new AnnotationConfigApplicationContext((*\tikzmarknodebf{lc5java3configclass}{ConfigurationClass}*).class);
+    ClassPathXmlApplicationContext context = new AnnotationConfigApplicationContext((*\tmnbf{lc5java3configclass}{ConfigurationClass}*).class);
 
-    CommonClassInterface singletonInstance1 = context.getBean("(*\tikzmarknodebf{lc5java3singbeanid1}{singletonBeanMethod}[ForestGreen]*)", CommonClassInterface.class);
-    CommonClassInterface singletonInstance2 = context.getBean("(*\tikzmarknodebf{lc5java3singbeanid2}{singletonBeanMethod}[ForestGreen]*)", CommonClassInterface.class);
+    CommonClassInterface singletonInstance1 = context.getBean("(*\tmnbf{lc5java3singbeanid1}{singletonBeanMethod}[ForestGreen]*)", CommonClassInterface.class);
+    CommonClassInterface singletonInstance2 = context.getBean("(*\tmnbf{lc5java3singbeanid2}{singletonBeanMethod}[ForestGreen]*)", CommonClassInterface.class);
 
-    CommonClassInterface prototypeInstance1 = context.getBean("(*\tikzmarknodebf{lc5java3protbeanid1}{prototypeBeanMethod}[ForestGreen]*)", CommonClassInterface.class);
-    CommonClassInterface prototypeInstance2 = context.getBean("(*\tikzmarknodebf{lc5java3protbeanid2}{prototypeBeanMethod}[ForestGreen]*)", CommonClassInterface.class);
+    CommonClassInterface prototypeInstance1 = context.getBean("(*\tmnbf{lc5java3protbeanid1}{prototypeBeanMethod}[ForestGreen]*)", CommonClassInterface.class);
+    CommonClassInterface prototypeInstance2 = context.getBean("(*\tmnbf{lc5java3protbeanid2}{prototypeBeanMethod}[ForestGreen]*)", CommonClassInterface.class);
 
     context.close();
 \end{lstlisting}

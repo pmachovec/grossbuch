@@ -70,37 +70,37 @@ A~language exists for~each of~these categories.
 
 \newsubsection{Statically VS Dynamically Typed Languages}
 \begin{itemize}
-    \item \textbf{Statically typed language} checks correctness of~data types before a~program can~be~executed, typically (but~not necessarily, see~further) during the~\hyperref[compiledinterpretedlanguages]{compilation}.
-          As~a~compulsory part of~the~source code for~each variable it~must~be stated what type it~has.
-          For~example, if~you~\hyperref[declarationdefinition]{declare} a~variable as~string and~then assign a~number to~it, your~program won't even start.
-          Statically typed languages are~more time--consuming during development (the~code is~more verbose), but~programs are~generally faster, more stable and~easier to~debug.
-    \item \textbf{Dynamically typed language} doesn't check correctness of~data.
-          A~type of~a~variable is~decided at~program runtime based on~the~first assignment of~a~value to~that~variable.
-When later in~the~program some other type value is~assigned to~the~variable, the~program can (but~doesn't always have~to) fail.
-For~example, if~you~assign a~string to~a~variable and~then try to~multiply~it by~a~number, the~(running) program will~fail at~the~multiplication step.
-Source code is~easier to~write in~dynamically typed languages, but~programs are~generally slower, more unstable and~harder to~debug.
+    \itembf{Statically typed language} checks correctness of~data types before a~program can~be~executed, typically (but~not necessarily, see~further) during \hyperref[compiledinterpretedlanguages]{compilation}.
+            As~a~compulsory part of~the~source code for~each variable it~must~be stated what type it~has.
+            For~example, if~you~\hyperref[declarationdefinition]{declare} a~variable as~string and~then assign a~number to~it, your~program won't even start.
+            Statically typed languages are~more time--consuming during development (the~code is~more verbose), but~programs are~generally faster, more stable and~easier to~debug.
+    \itembf{Dynamically typed language} doesn't check correctness of~data.
+            A~type of~a~variable is~decided at~program runtime based on~the~first assignment of~a~value to~that~variable.
+            When later in~the~program some other type value is~assigned to~the~variable, the~program can (but~doesn't always have~to) fail.
+            For~example, if~you~assign a~string to~a~variable and~then try to~multiply~it by~a~number, the~(running) program will~fail at~the~multiplication step.
+            Source code is~easier to~write in~dynamically typed languages, but~programs are~generally slower, more unstable and~harder to~debug.
 \end{itemize}
 
-\warning Usual definition of~statically typed languages says that the~type check is~performed during a~compilation.
+\warning Usual definition of~statically typed languages says that the~type check is~performed during compilation.
 This implies that languages, for~which an~\hyperref[compiledinterpretedlanguages]{interpreter} exist, can't~be statically typed, because there's no~compilation for~them.
-However, the~static check really means before a~program execution.
+However, this is not~necessarily true.
 Although it's extremely rare, there can~be a~type check before interpreting, i.e.,~directly executing, a~source code.
 Some variations of~Haskell do~this.
 
 \newsubsection{Strongly VS Weakly Typed Languages}
 \begin{itemize}
-    \item \textbf{Strongly typed language} doesn't allow changes of~a~variable type.
-          Once a~variable type is~decided, either before or~at~runtime, it's~fixed until the~program ends.
-          For~example, consider a~dynamically typed language and~a~variable.
-          At~first a~string is~assigned to~the~variable.
-          When you~then try to~assign a~number to~it, the~program will~fail (at~runtime).
-          Strongly typed languages are~more time--consuming during development, but~programs are~generally more stable and~easier to~debug.
-    \item \textbf{Weakly typed language} allows variable type changes.
-          Various values of~various types can~be assigned to~one~variable through a~program.
-          Consider the~same example\,--\,a~dynamically typed language and~a~variable.
-          At~first a~string is~assigned to~the~variable.
-          This time, when you try to~assign a~number to~it, the~original string will~be overridden by~the~number and~program will~continue running.
-          Source code is~easier to~write in~weakly typed languages, but~programs can~behave unexpectedly and~are~harder to~debug.
+    \itembf{Strongly typed language} doesn't allow changes of~a~variable type.
+            Once a~variable type is~decided, either before or~at~runtime, it's~fixed until the~program ends.
+            For~example, consider a~dynamically typed language and~a~variable.
+            At~first a~string is~assigned to~the~variable.
+            When you~then try to~assign a~number to~it, the~program will~fail (at~runtime).
+            Strongly typed languages are~more time--consuming during development, but~programs are~generally more stable and~easier to~debug.
+    \itembf{Weakly typed language} allows variable type changes.
+            Various values of~various types can~be assigned to~one~variable through a~program.
+            Consider the~same example\,--\,a~dynamically typed language and~a~variable.
+            At~first a~string is~assigned to~the~variable.
+            This time, when you try to~assign a~number to~it, the~original string will~be overridden by~the~number and~program will~continue running.
+            Source code is~easier to~write in~weakly typed languages, but~programs can~behave unexpectedly and~are~harder to~debug.
 \end{itemize}
 
 \warning Although it~may~seem impossible, statically weakly typed languages do~exist, namely C and~C++.

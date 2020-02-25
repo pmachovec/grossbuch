@@ -1,8 +1,8 @@
 \newsection{Form Validation}
 The~\hyperref[hibernate]{Hibernate} project, which is more known for~its~JPA, also provides tools for~Spring~MVC form validations.
-It~consists~of special annotations that can~be added to~POJO class fields and~with specific \hyperref[parameterargument]{parameters} restrict the~field content and~define an~error message.
-For~example, you~can restrict a~String field to~contain only alphanumeric characters by~a~regular expression, you~can~restrict a~number field range by~specifying minimum and~maximum~etc.
-When such a~restriction isn't followed in~the~corresponding field input (a~user inserts a~non--matching value), an~error can~be detected on~an~instance of~the~class \mbit{BindingResult}, which is given to~the~form--processing controller method as~another \hyperref[parameterargument]{argument}.
+It~consists~of special \hyperref[javaannotation]{annotations} that can~be added to~POJO class fields and~with specific \hyperref[parameterargument]{parameters} restrict the~field content and~define an~error message.
+For~example, you~can restrict a~String field to~contain only alphanumeric characters by~a~regular expression, or~you~can~restrict a~number field range by~specifying minimum and~maximum~etc.
+When such restriction isn't followed in~the~corresponding field input (a~user inserts a~non--matching value), an~error can~be detected on~an~instance of~the~class \mbit{BindingResult}, which is given to~the~form--processing controller method as~another \hyperref[parameterargument]{argument}.
 A~proper reaction can~then be carried~out.
 
 Typical use case is to~return to~the~form page and~display some warning with the~error message defined earlier.
@@ -14,29 +14,29 @@ Everything in~the~form template code.
 \enlargethispage{10mm}
 \thispagestyle{empty}
 \begin{lstlisting}[language=Java, title={POJO class with restricted String field}]
-    public class (*\tikzmarknodebf{smvc6java1pojo}{PojoClass}*) {
+    public class (*\tmnbf{smvc6java1pojo}{PojoClass}*) {
         @@>@Pattern<@@(regexp = "[a-zA-Z]+", message = "ASCII letters only")
         private String pojoField;
 
-        public String get(*\tikzmarknodebf{smvc6java1field1}{PojoField}*)() {
+        public String get(*\tmnbf{smvc6java1field1}{PojoField}*)() {
             return dropdownField;
         }
 
-        public void set(*\tikzmarknodebf{smvc6java1field2}{PojoField}*)(String pojoField) {
+        public void set(*\tmnbf{smvc6java1field2}{PojoField}*)(String pojoField) {
             this.pojoField = pojoField;
         }
     }
 \end{lstlisting}
-\begin{lstlisting}[language=XML, title={HTML form \tikzmarknodebf{smvc6xml1form}{\textit{theForm}}\textit{.html} setting the field}]
+\begin{lstlisting}[language=XML, title={HTML form \tmnbf{smvc6xml1form}{\textit{theForm}}\textit{.html} setting the field}]
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org">
       ...
       <body>
-        <form th:object="(*\Sc*){(*\tikzmarknodebf{smvc6xml1mapping}{mappingId}[ForestGreen]*)}" ...>
-          <input type="text" th:field="*{(*\tikzmarknodebf{smvc6xml1field1}{pojoField}[ForestGreen]*)}">
+        <form th:object="(*\Sc*){(*\tmnbf{smvc6xml1mapping}{mappingId}[ForestGreen]*)}" ...>
+          <input type="text" th:field="*{(*\tmnbf{smvc6xml1field1}{pojoField}[ForestGreen]*)}">
         </form>
-        <div th:if="(*\Sc*){#fields.hasErrors('(*\tikzmarknodebf{smvc6xml1field2}{pojoField}[ForestGreen]*)')}" th:errors="*{(*\tikzmarknodebf{smvc6xml1field3}{pojoField}[ForestGreen]*)}"/>
+        <div th:if="(*\Sc*){#fields.hasErrors('(*\tmnbf{smvc6xml1field2}{pojoField}[ForestGreen]*)')}" th:errors="*{(*\tmnbf{smvc6xml1field3}{pojoField}[ForestGreen]*)}"/>
         <!-- The div is invisible by default, and would still be even if it had some content -->
       </body>
     </html>
@@ -46,9 +46,9 @@ Everything in~the~form template code.
     @@>@RequestMapping<@@("...")
     public class ControllerClass {
         @@>@RequestMapping<@@("...")
-        public String processForm(@@>@Valid @ModelAttribute<@@("(*\tikzmarknodebf{smvc6java2mapping}{mappingId}[ForestGreen]*)") (*\tikzmarknodebf{smvc6java2pojo}{PojoClass}*) pojo, BindingResult bindingResult) {
+        public String processForm(@@>@Valid @ModelAttribute<@@("(*\tmnbf{smvc6java2mapping}{mappingId}[ForestGreen]*)") (*\tmnbf{smvc6java2pojo}{PojoClass}*) pojo, BindingResult bindingResult) {
             if (bindingResult.hasErrors()) {
-                return "(*\tikzmarknodebf{smvc6java2form}{theForm}[ForestGreen]*)";
+                return "(*\tmnbf{smvc6java2form}{theForm}[ForestGreen]*)";
             } else {
                 ...DO SOMETHING ELSE...
             }

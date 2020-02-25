@@ -27,19 +27,19 @@ Alternatively, you~can~run your jars with Gradle or~Maven, which enable adding s
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
-      <bean id="(*\tikzmarknodebf{ioc1xml1beanid}{wantedBeanId}[ForestGreen]*)" class="(*\tikzmarknodebf{ioc1xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tikzmarknodebf{ioc1xml1class}{WantedClass}[ForestGreen]*)"/>
+      <bean id="(*\tmnbf{ioc1xml1beanid}{wantedBeanId}[ForestGreen]*)" class="(*\tmnbf{ioc1xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tmnbf{ioc1xml1class}{WantedClass}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class}]
-    package (*\tikzmarknodebf{ioc1java1package}{somepackage.subpackage}*);
+    package (*\tmnbf{ioc1java1package}{somepackage.subpackage}*);
 
-    public class (*\tikzmarknodebf{ioc1java1class}{WantedClass}*) implements (*\tikzmarknodebf{ioc1java1interface}{WantedClassInterface}*) {
+    public class (*\tmnbf{ioc1java1class}{WantedClass}*) implements (*\tmnbf{ioc1java1interface}{WantedClassInterface}*) {
         ...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
-    (*\tikzmarknodebf{ioc1java2interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{ioc1java2beanid}{wantedBeanId}[ForestGreen]*)", (*\tikzmarknodebf{ioc1java2interface2}{WantedClassInterface}*).class);
+    (*\tmnbf{ioc1java2interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{ioc1java2beanid}{wantedBeanId}[ForestGreen]*)", (*\tmnbf{ioc1java2interface2}{WantedClassInterface}*).class);
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{ioc1xml1beanid}{ioc1java2beanid}
@@ -65,19 +65,19 @@ In~that case the~bean Java class name of~course appears even in the~Java code.
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
-      <bean id="(*\tikzmarknodebf{ioc2xml1beanid}{wantedBeanId}[ForestGreen]*)" class="(*\tikzmarknodebf{ioc2xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tikzmarknodebf{ioc2xml1class}{WantedClass}[ForestGreen]*)"/>
+      <bean id="(*\tmnbf{ioc2xml1beanid}{wantedBeanId}[ForestGreen]*)" class="(*\tmnbf{ioc2xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tmnbf{ioc2xml1class}{WantedClass}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class}]
-    package (*\tikzmarknodebf{ioc2java1package}{somepackage.subpackage}*);
+    package (*\tmnbf{ioc2java1package}{somepackage.subpackage}*);
 
-    public class (*\tikzmarknodebf{ioc2java1class}{WantedClass}*) implements WantedClassInterface {
+    public class (*\tmnbf{ioc2java1class}{WantedClass}*) implements WantedClassInterface {
         ...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
-    (*\tikzmarknodebf{ioc2java2class}{WantedClass}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{ioc2java2beanid}{wantedBeanId}[ForestGreen]*)", (*\tikzmarknodebf{ioc2java2class2}{WantedClass}*).class);
+    (*\tmnbf{ioc2java2class}{WantedClass}*) wantedClassInstance = context.getBean("(*\tmnbf{ioc2java2beanid}{wantedBeanId}[ForestGreen]*)", (*\tmnbf{ioc2java2class2}{WantedClass}*).class);
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{ioc2xml1beanid}{ioc2java2beanid}
@@ -108,20 +108,20 @@ Component scanning works even for~all~subpackages of~the~package specified in~th
     <beans ...
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
-      <context:component-scan base-package="(*\tikzmarknodebf{ioc3xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
+      <context:component-scan base-package="(*\tmnbf{ioc3xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class}]
-    package (*\tikzmarknodebf{ioc3java1package}{somepackage.subpackage}*).subsubpackage;
+    package (*\tmnbf{ioc3java1package}{somepackage.subpackage}*).subsubpackage;
 
-    @@>@Component<@@("(*\tikzmarknodebf{ioc3java1beanid}{wantedBeanId}[ForestGreen]*)")
-    public class WantedClass implements (*\tikzmarknodebf{ioc3java1interface}{WantedClassInterface}*) {
+    @@>@Component<@@("(*\tmnbf{ioc3java1beanid}{wantedBeanId}[ForestGreen]*)")
+    public class WantedClass implements (*\tmnbf{ioc3java1interface}{WantedClassInterface}*) {
         ...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
-    (*\tikzmarknodebf{ioc3java2interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{ioc3java2beanid}{wantedBeanId}[ForestGreen]*)", (*\tikzmarknodebf{ioc3java2interface2}{WantedClassInterface}*).class);
+    (*\tmnbf{ioc3java2interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{ioc3java2beanid}{wantedBeanId}[ForestGreen]*)", (*\tmnbf{ioc3java2interface2}{WantedClassInterface}*).class);
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{ioc3xml1package}{ioc3java1package}
@@ -146,20 +146,20 @@ However, if~the~second letter of~the~bean class name is~in~uppercase (e.g.,~some
     <beans ...
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
-      <context:component-scan base-package="(*\tikzmarknodebf{ioc4xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
+      <context:component-scan base-package="(*\tmnbf{ioc4xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class}]
-    package (*\tikzmarknodebf{ioc4java1package}{somepackage.subpackage}*);
+    package (*\tmnbf{ioc4java1package}{somepackage.subpackage}*);
 
     @>@Component
-    public class (*\tikzmarknodebf{ioc4java1class}{WantedClass}*) implements (*\tikzmarknodebf{ioc4java1interface}{WantedClassInterface}*) {
+    public class (*\tmnbf{ioc4java1class}{WantedClass}*) implements (*\tmnbf{ioc4java1interface}{WantedClassInterface}*) {
         ...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
-    (*\tikzmarknodebf{ioc4java2interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{ioc4java2beanid}{wantedClass}[ForestGreen]*)", (*\tikzmarknodebf{ioc4java2interface2}{WantedClassInterface}*).class);
+    (*\tmnbf{ioc4java2interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{ioc4java2beanid}{wantedClass}[ForestGreen]*)", (*\tmnbf{ioc4java2interface2}{WantedClassInterface}*).class);
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{ioc4xml1package}{ioc4java1package}
@@ -176,7 +176,7 @@ On~the~other hand, if~you configure a~bean class with some~ID by~annotations and
 You~will~be able to~get the~bean class instance with both~IDs.
 
 \warning Opposite to the~XML configuration you~can't configure more IDs for~a~bean class with the~annotation configuration.
-The~\textit{Configuration} annotation doesn't allow multiple occurrence\,--\,its declaration in~Spring implementation isn't annotated with the~\hyperref[annotationsrepeatable]{\textit{Repeatable}} annotation.
+The~\textit{Configuration} annotation doesn't allow multiple occurrence\,--\,its declaration in~Spring implementation isn't annotated with the~\mbit{@Repeatable} annotation.
 \newpage
 
 \newsubsection{Configuration with Java Code (No XML)}
@@ -195,19 +195,19 @@ It's~an~equivalent of~specifying the~\hyperref[iocannotations]{\textit{component
     package confpackage.confsubpackage;
 
     @>@Configuration
-    @@>@ComponentScan<@@("(*\tikzmarknodebf{ioc5java1package}{somepackage.subpackage}[ForestGreen]*)")
-    public class (*\tikzmarknodebf{ioc5java1configclass}{ConfigurationClass}*) {}
+    @@>@ComponentScan<@@("(*\tmnbf{ioc5java1package}{somepackage.subpackage}[ForestGreen]*)")
+    public class (*\tmnbf{ioc5java1configclass}{ConfigurationClass}*) {}
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class}]
-    package (*\tikzmarknodebf{ioc5java2package}{somepackage.subpackage}*);
+    package (*\tmnbf{ioc5java2package}{somepackage.subpackage}*);
 
-    public class (*\tikzmarknodebf{ioc5java2class}{WantedClass}*) implements (*\tikzmarknodebf{ioc5java2interface}{WantedClassInterface}*) {
+    public class (*\tmnbf{ioc5java2class}{WantedClass}*) implements (*\tmnbf{ioc5java2interface}{WantedClassInterface}*) {
         ...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tikzmarknodebf{ioc5java3configclass}{ConfigurationClass}*).class);
-    (*\tikzmarknodebf{ioc5java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{ioc5java3beanid}{wantedClass}[ForestGreen]*)", (*\tikzmarknodebf{ioc5java3interface2}{WantedClassInterface}*).class);
+    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tmnbf{ioc5java3configclass}{ConfigurationClass}*).class);
+    (*\tmnbf{ioc5java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{ioc5java3beanid}{wantedClass}[ForestGreen]*)", (*\tmnbf{ioc5java3interface2}{WantedClassInterface}*).class);
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{[xshift=-6mm] ioc5java1package.south}{ioc5java2package}
@@ -230,23 +230,23 @@ In that case the bean ID is the same as the~bean--creating method.
     package confpackage.confsubpackage;
 
     @>@Configuration
-    public class (*\tikzmarknodebf{ioc6java1configclass}{ConfigurationClass}*) {
-        @@>@Bean<@@("(*\tikzmarknodebf{ioc6java1beanid}{wantedBeanId}[ForestGreen]*)")
-        public (*\tikzmarknodebf{ioc6java1interface}{WantedClassInterface}*) wantedBeanMethod() {
-            return new (*\tikzmarknodebf{ioc6java1class}{WantedClass}*)();
+    public class (*\tmnbf{ioc6java1configclass}{ConfigurationClass}*) {
+        @@>@Bean<@@("(*\tmnbf{ioc6java1beanid}{wantedBeanId}[ForestGreen]*)")
+        public (*\tmnbf{ioc6java1interface}{WantedClassInterface}*) wantedBeanMethod() {
+            return new (*\tmnbf{ioc6java1class}{WantedClass}*)();
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class}]
     package somepackage.subpackage;
 
-    public class (*\tikzmarknodebf{ioc6java2class}{WantedClass}*) implements (*\tikzmarknodebf{ioc6java2interface}{WantedClassInterface}*) {
+    public class (*\tmnbf{ioc6java2class}{WantedClass}*) implements (*\tmnbf{ioc6java2interface}{WantedClassInterface}*) {
         ...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tikzmarknodebf{ioc6java3configclass}{ConfigurationClass}*).class);
-    (*\tikzmarknodebf{ioc6java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{ioc6java3beanid}{wantedBeanId}[ForestGreen]*)", (*\tikzmarknodebf{ioc6java3interface2}{WantedClassInterface}*).class);
+    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tmnbf{ioc6java3configclass}{ConfigurationClass}*).class);
+    (*\tmnbf{ioc6java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{ioc6java3beanid}{wantedBeanId}[ForestGreen]*)", (*\tmnbf{ioc6java3interface2}{WantedClassInterface}*).class);
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{ioc6java1configclass}{ioc6java3configclass}
@@ -263,23 +263,23 @@ In that case the bean ID is the same as the~bean--creating method.
     package confpackage.confsubpackage;
 
     @>@Configuration
-    public class (*\tikzmarknodebf{ioc6java1configclass}{ConfigurationClass}*) {
+    public class (*\tmnbf{ioc6java1configclass}{ConfigurationClass}*) {
         @>@Bean
-        public (*\tikzmarknodebf{ioc6java1interface}{WantedClassInterface}*) (*\tikzmarknodebf{ioc6java1beanid}{wantedBeanMethod}*)() {
-            return new (*\tikzmarknodebf{ioc6java1class}{WantedClass}*)();
+        public (*\tmnbf{ioc6java1interface}{WantedClassInterface}*) (*\tmnbf{ioc6java1beanid}{wantedBeanMethod}*)() {
+            return new (*\tmnbf{ioc6java1class}{WantedClass}*)();
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class}]
     package somepackage.subpackage;
 
-    public class (*\tikzmarknodebf{ioc6java2class}{WantedClass}*) implements (*\tikzmarknodebf{ioc6java2interface}{WantedClassInterface}*) {
+    public class (*\tmnbf{ioc6java2class}{WantedClass}*) implements (*\tmnbf{ioc6java2interface}{WantedClassInterface}*) {
         ...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tikzmarknodebf{ioc6java3configclass}{ConfigurationClass}*).class);
-    (*\tikzmarknodebf{ioc6java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{ioc6java3beanid}{wantedBeanMethod}[ForestGreen]*)", (*\tikzmarknodebf{ioc6java3interface2}{WantedClassInterface}*).class);
+    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tmnbf{ioc6java3configclass}{ConfigurationClass}*).class);
+    (*\tmnbf{ioc6java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{ioc6java3beanid}{wantedBeanMethod}[ForestGreen]*)", (*\tmnbf{ioc6java3interface2}{WantedClassInterface}*).class);
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{ioc6java1configclass}{ioc6java3configclass}
@@ -292,7 +292,7 @@ In that case the bean ID is the same as the~bean--creating method.
 
 \noindent Similarly to~the~XML configuration you~can configure multiple bean IDs for~the~same bean class.
 To~do~it you~must specify multiple \textit{Bean}--annotated methods returning the~same class instance.
-The~\textit{Bean} annotation doesn't allow multiple occurrence\,--\,its declaration in~Spring implementation isn't annotated with the~\hyperref[annotationsrepeatable]{\textit{Repeatable}} annotation.
+The~\textit{Bean} annotation doesn't allow multiple occurrence\,--\,its declaration in~Spring implementation isn't annotated with the~\mbit{@Repeatable} annotation.
 
 \warning As~the~configuration class is an~equivalent of~the~XML configuration file, it~also overrides the~\hyperref[iocannotations]{annotation configuration}.
 If~you create a~bean class with the~\textit{Configuration} annotation, then configure the~same bean~ID in~the~configuration class, and~then ask the~\hyperref[springcontainrer]{Spring container} for~the~bean, the~configuration from the~class will~be used.

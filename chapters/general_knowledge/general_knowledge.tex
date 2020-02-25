@@ -80,16 +80,16 @@ Gradle or~Maven with a~connection to~Maven repositories can~also be considered a
 Both these terms denote some description of~a~system before its implementation.
 They differ in~the~level of~abstraction, i.e.,~in~how~concrete the~description~is.
 \begin{itemize}
-    \item \textbf{Architecture} is a~high abstraction level.
-          It~describes main components of~a~system, their properties and~relations among them.
-          Examples of~such components are~used programming language, individual functional parts to~implement, \hyperref[databases]{database} software or~\hyperref[server]{servers}.
+    \itembf{Architecture} is a~high abstraction level.
+            It~describes main components of~a~system, their properties and~relations among them.
+            Examples of~such components are~used programming language, individual functional parts to~implement, \hyperref[databases]{database} software or~\hyperref[server]{servers}.
           One~architecture can~be used for~multiple designs.
           Solutions for~issues commonly occurring in~software architectures are~described by~\hyperref[architecturalpatterns]{architectural patterns}.
-    \item \textbf{Design} is a~low abstraction level.
-          It~describes implementation details more in~detail, like classes, functions, their relations etc.
-          Software design can~be described by~an~UML diagram.
-          There can~be more designs for~one~system, each~describing different part of~the~system.
-          Solutions for~issues commonly occurring in~software designs are~described by~\hyperref[designpatterns]{design patterns}.
+    \itembf{Design} is a~low abstraction level.
+            It~describes implementation details more in~detail, like classes, functions, their relations etc.
+            Software design can~be described by~an~UML diagram.
+            There can~be more designs for~one~system, each~describing different part of~the~system.
+            Solutions for~issues commonly occurring in~software designs are~described by~\hyperref[designpatterns]{design patterns}.
 \end{itemize}
 
 \newsection{.NET}
@@ -109,11 +109,11 @@ Examples of~such languages are~C\# or~Visual Basic.
 \index{Property}
 \label{variablefieldproperty}
 \begin{itemize}
-    \item \textbf{Variable} is a~general term denoting data with named identifier.
-    \item \textbf{Field} is a~variable defined in~a~class outside any~method.
-          Fields store parts of~class instance states.
-          Class constants are~fields, variables defined inside \mbox{methods/functions} and~cycles are~not.
-    \item \textbf{Property} is a~field that is~exposed to~outside of~the~class, typically by~getters and~setters.
+    \itembf{Variable} is a~general term denoting data with named identifier.
+    \itembf{Field} is a~variable defined in~a~class outside any~method.
+            Fields store parts of~class instance states.
+            Class constants are~fields, variables defined inside \mbox{methods/functions} and~cycles are~not.
+    \itembf{Property} is a~field that is~exposed to~outside of~the~class, typically by~getters and~setters.
 \end{itemize}
 \newpage
 
@@ -123,8 +123,8 @@ Examples of~such languages are~C\# or~Visual Basic.
 \index{Parameter}
 \label{parameterargument}
 \begin{itemize}
-    \item \textbf{Parameter} is a~\hyperref[variablefieldproperty]{variable} in~a~method \hyperref[declarationdefinition]{declaration}.
-    \item \textbf{Argument} is a~concrete value of~a~parameter.
+    \itembf{Parameter} is a~\hyperref[variablefieldproperty]{variable} in~a~method \hyperref[declarationdefinition]{declaration}.
+    \itembf{Argument} is a~concrete value of~a~parameter.
 \end{itemize}
 For~example consider a~method \mbitq{doSomething(String someVariable)}.
 The~\mbit{someVariable} is~a~parameter.
@@ -149,17 +149,17 @@ When treated as~the~\textit{character} type (\textit{char}~in some languages), i
 \index{Definition}
 \label{declarationdefinition}
 \begin{itemize}
-    \item \textbf{Declaration of~a~variable} means specifying the~variable name, \hyperref[datatypes]{type} and~eventually \hyperref[javaaccessmodifiers]{access level}.
-          It~doesn't include assigning a~value to~the~variable.
-          Example: \mbitq{private int a;}.
-    \item \textbf{Declaration of~a~method (or~a~function)} is the~method header.
-          It~consists of~the~method name, return value \hyperref[datatypes]{type}, number, names and~\hyperref[datatypes]{types} of~arguments of~the~method and~eventually its \hyperref[javaaccessmodifiers]{access level}.
-          Example: \mbitq{public void doSomething(int a);}.
-    \item \textbf{Definition of~a~variable} means assigning a~value to~the~variable.
-          It~can~immediately follow the~variable definition (\itq{private int a = 1;}) or~appear later as~a~separate command (\itq{private int a; ...
+    \itembf{Declaration of~a~variable} means specifying the~variable name, \hyperref[datatypes]{type} and~eventually \hyperref[javaaccessmodifiers]{access level}.
+            It~doesn't include assigning a~value to~the~variable.
+            Example: \mbitq{private int a;}.
+    \itembf{Declaration of~a~method (or~a~function)} is the~method header.
+            It~consists of~the~method name, return value \hyperref[datatypes]{type}, number, names and~\hyperref[datatypes]{types} of~arguments of~the~method and~eventually its \hyperref[javaaccessmodifiers]{access level}.
+            Example: \mbitq{public void doSomething(int a);}.
+    \itembf{Definition of~a~variable} means assigning a~value to~the~variable.
+            It~can~immediately follow the~variable definition (\itq{private int a = 1;}) or~appear later as~a~separate command (\itq{private int a; ...
 a = 1;}).
-    \item \textbf{Definition of~a~method (or~a~function)} is the~method header with the~method body.
-          Example: \mbitq{public void doSomething(int a) \{ ... \}}".
+    \itembf{Definition of~a~method (or~a~function)} is the~method header with the~method body.
+            Example: \mbitq{public void doSomething(int a) \{ ... \}}".
 \end{itemize}
 \newpage
 
@@ -180,15 +180,15 @@ That isn't a~new definition.
 \index{Computer program}
 \label{applicationprocessprogramservicethread}
 \begin{itemize}
-    \item \textbf{Program} is the~most general term of these.
-          It's included in all others.
-          A~computer program is a~set of~instructions that can~be executed on a~computer.
-    \item \textbf{Application} is a~computer program with which, when it's executed, users actively interact.
-    \item \textbf{Process} is a~particular executed and~running instance of a~program.
-    \item \textbf{Service} is a~process that runs continuously in the~background without active interaction with a~user.
-          I.e., it's the opposite of application.
-    \item \textbf{Thread} is a~set of consecutive steps performed one by~one in a~process.
-          A~process can~be separated to~more threads which can run in~parallel (if~the~program implementation supports~it).
+    \itembf{Program} is the~most general term of these.
+            It's included in all others.
+            A~computer program is a~set of~instructions that can~be executed on a~computer.
+    \itembf{Application} is a~computer program with which, when it's executed, users actively interact.
+    \itembf{Process} is a~particular executed and~running instance of a~program.
+    \itembf{Service} is a~process that runs continuously in the~background without active interaction with a~user.
+            I.e., it's the opposite of application.
+    \itembf{Thread} is a~set of consecutive steps performed one by~one in a~process.
+            A~process can~be separated to~more threads which can run in~parallel (if~the~program implementation supports~it).
 \end{itemize}
 
 \newsubsection{Web Service VS Web Application}
@@ -196,14 +196,14 @@ That isn't a~new definition.
 \index{Web application}
 \label{webserviceapplication}
 \begin{itemize}
-    \item \textbf{Web~service} is any~program executed or~continuously running on a~remote computer, with which programs on~other computers communicate over the~\hyperref[internetweb]{Web}, i.e.,~using the~\hyperref[http]{HTTP} protocol.
-          A~program called \hyperref[clientserverarchitecture]{\mbit{client}}, running on a~user's computer, sends a~request to~another~program called \hyperref[clientserverarchitecture]{\mbit{server}} running on~the~remote computer (the~same computer as the~target remote program), the~server delegates the~request to~the~remote program, the~remote program processes the~request and~sends a~response to~the~server, which then delegates it back to~the~client.
-          \warningnonl The~term \textit{web service} is~ambiguous.
-          Sometimes it denotes solely the~remote program, sometimes it includes even the~server.
-          Also, opposite to~a~standard \hyperref[applicationprocessprogramservicethread]{service} the~remote program doesn't have to run continuously.
-          Only the~server does.
-    \item \textbf{Web~application} is basically a~web~service with a~\hyperref[shellcligui]{GUI} in~a~web browser on~the~client side.
-          In~a~web application a~user actively interacts with a~web page, based on~this interaction requests are~sent to~a~web service, responses are~sent back and~visualised in~the~browser.
+    \itembf{Web~service} is any~program executed or~continuously running on a~remote computer, with which programs on~other computers communicate over the~\hyperref[internetweb]{Web}, i.e.,~using the~\hyperref[http]{HTTP} protocol.
+            A~program called \hyperref[clientserverarchitecture]{\mbit{client}}, running on a~user's computer, sends a~request to~another~program called \hyperref[clientserverarchitecture]{\mbit{server}} running on~the~remote computer (the~same computer as the~target remote program), the~server delegates the~request to~the~remote program, the~remote program processes the~request and~sends a~response to~the~server, which then delegates it back to~the~client.
+            \warningnonl The~term \textit{web service} is~ambiguous.
+            Sometimes it denotes solely the~remote program, sometimes it includes even the~server.
+            Also, opposite to~a~standard \hyperref[applicationprocessprogramservicethread]{service} the~remote program doesn't have to run continuously.
+            Only the~server does.
+    \itembf{Web~application} is basically a~web~service with a~\hyperref[shellcligui]{GUI} in~a~web browser on~the~client side.
+            In~a~web application a~user actively interacts with a~web page, based on~this interaction requests are~sent to~a~web service, responses are~sent back and~visualised in~the~browser.
 \end{itemize}
 \newpage
 
@@ -270,14 +270,14 @@ This results in~one or~two equals signs at~the~end of~the~resulting string.
 \index{GUI}
 \label{shellcligui}
 \begin{itemize}
-    \item \textbf{Shell} is any software for~controlling \hyperref[os]{operating system}.
-    \item \textbf{CLI} (Command Line Interface) is~a~user interface for~controlling specific software in~a~form of~single text line to~which commands are~typed.
-    Shells typically (but~not~always) exist in~a~CLI form.
-    Windows command line or~a~\hyperref[linux]{Linux} terminal are~shells.
-    There can also be CLIs that are~not shells, for~example, Python console.
-    \item \textbf{GUI} (Graphical User Interface) is~a~user interface for~controlling specific software in~a~graphic form.
-          Even shells can, and~often~do, exist in~a~GUI form.
-          For~example, Windows screen (or~GUI screen of~any~other~\hyperref[os]{OS}) is~a~shell.
+    \itembf{Shell} is any software for~controlling \hyperref[os]{operating system}.
+    \itembf{CLI} (Command Line Interface) is~a~user interface for~controlling specific software in~a~form of~single text line to~which commands are~typed.
+            Shells typically (but~not~always) exist in~a~CLI form.
+            Windows command line or~a~\hyperref[linux]{Linux} terminal are~shells.
+            There can also be CLIs that are~not shells, for~example, Python console.
+    \itembf{GUI} (Graphical User Interface) is~a~user interface for~controlling specific software in~a~graphic form.
+            Even shells can, and~often~do, exist in~a~GUI form.
+            For~example, Windows screen (or~GUI screen of~any~other~\hyperref[os]{OS}) is~a~shell.
 \end{itemize}
 
 \newsection{Application Programming Interface (API)}

@@ -13,10 +13,10 @@ This~can~be achieved by~specifying the~attribute \textit{scope} with the~value \
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
-      <bean id="(*\tikzmarknodebf{bs1xml1singbeanid}{singletonBeanId}[ForestGreen]*)" class="somepackage.subpackage.SingletonClass">
+      <bean id="(*\tmnbf{bs1xml1singbeanid}{singletonBeanId}[ForestGreen]*)" class="somepackage.subpackage.SingletonClass">
         ...
       </bean>
-      <bean id="(*\tikzmarknodebf{bs1xml1protbeanid}{prototypeBeanId}[ForestGreen]*)" class="somepackage.subpackage.PrototypeClass" scope="prototype">
+      <bean id="(*\tmnbf{bs1xml1protbeanid}{prototypeBeanId}[ForestGreen]*)" class="somepackage.subpackage.PrototypeClass" scope="prototype">
         ...
       </bean>
     </beans>
@@ -24,11 +24,11 @@ This~can~be achieved by~specifying the~attribute \textit{scope} with the~value \
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
 
-    SingletonClassInterface singletonInstance1 = context.getBean("(*\tikzmarknodebf{bs1java1singbeanid1}{singletonBeanId}[ForestGreen]*)", SingletonClassInterface.class);
-    SingletonClassInterface singletonInstance2 = context.getBean("(*\tikzmarknodebf{bs1java1singbeanid2}{singletonBeanId}[ForestGreen]*)", SingletonClassInterface.class);
+    SingletonClassInterface singletonInstance1 = context.getBean("(*\tmnbf{bs1java1singbeanid1}{singletonBeanId}[ForestGreen]*)", SingletonClassInterface.class);
+    SingletonClassInterface singletonInstance2 = context.getBean("(*\tmnbf{bs1java1singbeanid2}{singletonBeanId}[ForestGreen]*)", SingletonClassInterface.class);
 
-    PrototypeClassInterface prototypeInstance1 = context.getBean("(*\tikzmarknodebf{bs1java1protbeanid1}{prototypeBeanId}[ForestGreen]*)", PrototypeClassInterface.class);
-    PrototypeClassInterface prototypeInstance2 = context.getBean("(*\tikzmarknodebf{bs1java1protbeanid2}{prototypeBeanId}[ForestGreen]*)", PrototypeClassInterface.class);
+    PrototypeClassInterface prototypeInstance1 = context.getBean("(*\tmnbf{bs1java1protbeanid1}{prototypeBeanId}[ForestGreen]*)", PrototypeClassInterface.class);
+    PrototypeClassInterface prototypeInstance2 = context.getBean("(*\tmnbf{bs1java1protbeanid2}{prototypeBeanId}[ForestGreen]*)", PrototypeClassInterface.class);
 
     context.close();
 \end{lstlisting}

@@ -95,25 +95,25 @@ Other members are~equivalent to~\hyperref[javaprivate]{private} members.
 
 \example[AMD module]
 \begin{lstlisting}[language=JavaScript]
-    define(['PATH_TO_OTHER_MODULE'], function((*\tikzmarknodebf{js1othmod1}{otherModuleHandler}*)) {
+    define(['PATH_TO_OTHER_MODULE'], function((*\tmnbf{js1othmod1}{otherModuleHandler}*)) {
       let privateVariable = ...;
-      let (*\tikzmarknodebf{js1modvar1}{publicVariable}*) = ...;
+      let (*\tmnbf{js1modvar1}{publicVariable}*) = ...;
 
       function privateFunction() {
         ...
-        (*\tikzmarknodebf{js1othmod2}{otherModuleHandler}*).publicFunctionFromOtherModule();
+        (*\tmnbf{js1othmod2}{otherModuleHandler}*).publicFunctionFromOtherModule();
         ...
       }
 
-      function (*\tikzmarknodebf{js1modfunc1}{publicFunction}*)() {
+      function (*\tmnbf{js1modfunc1}{publicFunction}*)() {
         ...
         privateFunction();
         ...
       }
 
       return {
-        publicVariable: (*\tikzmarknodebf{js1modvar2}{publicVariable}*),
-        publicFunction: (*\tikzmarknodebf{js1modfunc2}{publicFunction}*)
+        publicVariable: (*\tmnbf{js1modvar2}{publicVariable}*),
+        publicFunction: (*\tmnbf{js1modfunc2}{publicFunction}*)
       }
     });
 \end{lstlisting}
@@ -128,21 +128,21 @@ Other members are~equivalent to~\hyperref[javaprivate]{private} members.
 \begin{lstlisting}[language=JavaScript]
     define(function() {
       let privateVariable = ...;
-      let (*\tikzmarknodebf{js2modvar1}{publicVariable}*) = ...;
+      let (*\tmnbf{js2modvar1}{publicVariable}*) = ...;
 
       function privateFunction() {
         ...
       }
 
-      function (*\tikzmarknodebf{js2modfunc1}{publicFunction}*)() {
+      function (*\tmnbf{js2modfunc1}{publicFunction}*)() {
         ...
         privateFunction();
         ...
       }
 
       return {
-        publicVariable: (*\tikzmarknodebf{js2modvar2}{publicVariable}*),
-        publicFunction: (*\tikzmarknodebf{js2modfunc2}{publicFunction}*)
+        publicVariable: (*\tmnbf{js2modvar2}{publicVariable}*),
+        publicFunction: (*\tmnbf{js2modfunc2}{publicFunction}*)
       }
     });
 \end{lstlisting}
@@ -185,18 +185,18 @@ Furthermore, when using RequireJS, you~can~develop a~functionality on~the~Node.j
 \newpage
 
 \example[assigning action to~a~button with RequireJS and jQuery]
-\begin{lstlisting}[language=JavaScript,title={Main JavaScript file \textit{\tikzmarknodebf{js3mainscript}{main}.js}}]
+\begin{lstlisting}[language=JavaScript,title={Main JavaScript file \textit{\tmnbf{js3mainscript}{main}.js}}]
     requirejs.config({
       paths: {
         ...
-        (*\tikzmarknodebf{js3mainjquery1}{jquery}*): 'SOME_PATH/jquery-X.Y.Z.js'
+        (*\tmnbf{js3mainjquery1}{jquery}*): 'SOME_PATH/jquery-X.Y.Z.js'
         ...
       }
     });
 
-    requirejs(['(*\tikzmarknodebf{js3mainjquery2}{jquery}[ForestGreen]*)', 'SOME_PATH/amd_module'],
+    requirejs(['(*\tmnbf{js3mainjquery2}{jquery}[ForestGreen]*)', 'SOME_PATH/amd_module'],
     function((*\$*), amdModuleHandler) {
-      (*\$*)('#(*\tikzmarknodebf{js3mainbutton}{buttonId}[ForestGreen]*)').click(function() {
+      (*\$*)('#(*\tmnbf{js3mainbutton}{buttonId}[ForestGreen]*)').click(function() {
         ...
         amdModuleHandler.amdModuleFunction();
         ...
@@ -208,12 +208,12 @@ Furthermore, when using RequireJS, you~can~develop a~functionality on~the~Node.j
     <html lang="en">
       <head>
         ...
-        <script data-main="SOME_PATH/(*\tikzmarknodebf{js3htmlscript}{main}[ForestGreen]*)" src="SOME_OTHER_PATH/require.js"></script>
+        <script data-main="SOME_PATH/(*\tmnbf{js3htmlscript}{main}[ForestGreen]*)" src="SOME_OTHER_PATH/require.js"></script>
         ...
       </head>
       <body>
         ...
-        <button id="(*\tikzmarknodebf{js3htmlbutton}{buttonId}[ForestGreen]*)">BUTTON_LABEL</button>
+        <button id="(*\tmnbf{js3htmlbutton}{buttonId}[ForestGreen]*)">BUTTON_LABEL</button>
         ...
       </body>
     </html>

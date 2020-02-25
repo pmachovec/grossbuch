@@ -13,12 +13,12 @@ It~describes a~system separation to~three \hyperref[loosetightcoupling]{loosely 
 It~should be possible to~develop, maintain and~reuse each component separately.
 Components are as~expected:
 \begin{itemize}
-    \item \textbf{Model}\,--\,an~abstraction of~data with which the~system operates, for~example classes representing records in~database tables.
-          It's~independent of~other two~components.
+    \itembfd{Model} an~abstraction of~data with which the~system operates, for~example classes representing records in~database tables.
+             It's~independent of~other two~components.
           \warningnonl It~does~\textbf{not} include the~database itself.
-    \item \textbf{View}\,--\,information displayed to~a~user, for~example a~\hyperref[web] page with results of~a~\hyperref[webserviceapplication]{web service} computation.
-          Often is a~part of~\hyperref[shellcligui]{GUI}, which also serves for~sending commands to~the~controller from the~user.
-    \item \textbf{Controller}\,--\,the~application \hyperref[businesslogic]{business logic}, receives commands from~a~user, based on~these commands performs computations with the~model and~based on~results updates the~view.
+    \itembfd{View} information displayed to~a~user, for~example a~\hyperref[web] page with results of~a~\hyperref[webserviceapplication]{web service} computation.
+             Often is a~part of~\hyperref[shellcligui]{GUI}, which also serves for~sending commands to~the~controller from the~user.
+    \itembfd{Controller} the~application \hyperref[businesslogic]{business logic}, receives commands from~a~user, based on~these commands performs computations with the~model and~based on~results updates the~view.
 \end{itemize}
 
 \enlargethispage{30mm}

@@ -51,38 +51,38 @@ It~will~fail only at~runtime.
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
-      <bean id="(*\tikzmarknodebf{di1xml1depbeanid}{dependencyBeanId}[ForestGreen]*)" class="(*\tikzmarknodebf{di1xml1deppackage}{deppackage.depsubpackage}[ForestGreen]*).(*\tikzmarknodebf{di1xml1depclass}{DependencyClass}[ForestGreen]*)"/>
-      <bean id="(*\tikzmarknodebf{di1xml1beanid}{wantedBeanId}[ForestGreen]*)" class="(*\tikzmarknodebf{di1xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tikzmarknodebf{di1xml1class}{WantedClass}[ForestGreen]*)">
-        <constructor-arg ref="(*\tikzmarknodebf{di1xml1depbeanid2}{dependencyBeanId}[ForestGreen]*)"/>
+      <bean id="(*\tmnbf{di1xml1depbeanid}{dependencyBeanId}[ForestGreen]*)" class="(*\tmnbf{di1xml1deppackage}{deppackage.depsubpackage}[ForestGreen]*).(*\tmnbf{di1xml1depclass}{DependencyClass}[ForestGreen]*)"/>
+      <bean id="(*\tmnbf{di1xml1beanid}{wantedBeanId}[ForestGreen]*)" class="(*\tmnbf{di1xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tmnbf{di1xml1class}{WantedClass}[ForestGreen]*)">
+        <constructor-arg ref="(*\tmnbf{di1xml1depbeanid2}{dependencyBeanId}[ForestGreen]*)"/>
       </bean>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Dependency class}]
-    package (*\tikzmarknodebf{di1java1deppackage}{deppackage.depsubpackage}*);
+    package (*\tmnbf{di1java1deppackage}{deppackage.depsubpackage}*);
 
-    public class (*\tikzmarknodebf{di1java1depclass}{DependencyClass}*) implements (*\tikzmarknodebf{di1java1depinterface}{DependencyInterface}*) {
+    public class (*\tmnbf{di1java1depclass}{DependencyClass}*) implements (*\tmnbf{di1java1depinterface}{DependencyInterface}*) {
         ...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
-    package (*\tikzmarknodebf{di1java2package}{somepackage.subpackage}*);
+    package (*\tmnbf{di1java2package}{somepackage.subpackage}*);
 
-    public class (*\tikzmarknodebf{di1java2class}{WantedClass}*) implements (*\tikzmarknodebf{di1java2interface}{WantedClassInterface}*) {
-        private (*\tikzmarknodebf{di1java2depinterface}{DependencyInterface}*) dependencyField;
+    public class (*\tmnbf{di1java2class}{WantedClass}*) implements (*\tmnbf{di1java2interface}{WantedClassInterface}*) {
+        private (*\tmnbf{di1java2depinterface}{DependencyInterface}*) dependencyField;
 
-        public (*\tikzmarknodebf{di1java2class2}{WantedClass}*)((*\tikzmarknodebf{di1java2depinterface2}{DependencyInterface}*) dependencyValue) {
+        public (*\tmnbf{di1java2class2}{WantedClass}*)((*\tmnbf{di1java2depinterface2}{DependencyInterface}*) dependencyValue) {
             dependencyField = dependencyValue;
         }
 
-        public WHATEVER (*\tikzmarknodebf{di1java2usedep}{useDependency}*)() {
+        public WHATEVER (*\tmnbf{di1java2usedep}{useDependency}*)() {
             ...DO SOMETHING WITH THE DEPENDENCY FIELD...
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
-    (*\tikzmarknodebf{di1java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{di1java3beanid}{wantedBeanId}[ForestGreen]*)", (*\tikzmarknodebf{di1java3interface2}{WantedClassInterface}*).class);
-    wantedClassInstance.(*\tikzmarknodebf{di1java3usedep}{useDependency}*)();
+    (*\tmnbf{di1java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di1java3beanid}{wantedBeanId}[ForestGreen]*)", (*\tmnbf{di1java3interface2}{WantedClassInterface}*).class);
+    wantedClassInstance.(*\tmnbf{di1java3usedep}{useDependency}*)();
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{di1xml1depbeanid}{di1xml1depbeanid2}
@@ -106,40 +106,40 @@ It~will~fail only at~runtime.
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
-      <bean id="(*\tikzmarknodebf{di2xml1depbeanid}{dependencyBeanId}[ForestGreen]*)" class="(*\tikzmarknodebf{di2xml1deppackage}{deppackage.depsubpackage}[ForestGreen]*).(*\tikzmarknodebf{di2xml1depclass}{DependencyClass}[ForestGreen]*)"/>
-      <bean id="(*\tikzmarknodebf{di2xml1beanid}{wantedBeanId}[ForestGreen]*)" class="(*\tikzmarknodebf{di2xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tikzmarknodebf{di2xml1class}{WantedClass}[ForestGreen]*)">
-        <property name="(*\tikzmarknodebf{di2xml1depfield}{dependencyField}[ForestGreen]*)" ref="(*\tikzmarknodebf{di2xml1depbeanid2}{dependencyBeanId}[ForestGreen]*)"/>
+      <bean id="(*\tmnbf{di2xml1depbeanid}{dependencyBeanId}[ForestGreen]*)" class="(*\tmnbf{di2xml1deppackage}{deppackage.depsubpackage}[ForestGreen]*).(*\tmnbf{di2xml1depclass}{DependencyClass}[ForestGreen]*)"/>
+      <bean id="(*\tmnbf{di2xml1beanid}{wantedBeanId}[ForestGreen]*)" class="(*\tmnbf{di2xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tmnbf{di2xml1class}{WantedClass}[ForestGreen]*)">
+        <property name="(*\tmnbf{di2xml1depfield}{dependencyField}[ForestGreen]*)" ref="(*\tmnbf{di2xml1depbeanid2}{dependencyBeanId}[ForestGreen]*)"/>
       </bean>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Dependency class}]
-    package (*\tikzmarknodebf{di2java1deppackage}{deppackage.depsubpackage}*);
+    package (*\tmnbf{di2java1deppackage}{deppackage.depsubpackage}*);
 
-    public class (*\tikzmarknodebf{di2java1depclass}{DependencyClass}*) implements (*\tikzmarknodebf{di2java1depinterface}{DependencyInterface}*) {
+    public class (*\tmnbf{di2java1depclass}{DependencyClass}*) implements (*\tmnbf{di2java1depinterface}{DependencyInterface}*) {
         ...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and the setter method}]
-    package (*\tikzmarknodebf{di2java2package}{somepackage.subpackage}*);
+    package (*\tmnbf{di2java2package}{somepackage.subpackage}*);
 
-    public class (*\tikzmarknodebf{di2java2class}{WantedClass}*) implements (*\tikzmarknodebf{di2java2interface}{WantedClassInterface}*) {
-        private (*\tikzmarknodebf{di2java2depinterface}{DependencyInterface}*) dependencyField;
+    public class (*\tmnbf{di2java2class}{WantedClass}*) implements (*\tmnbf{di2java2interface}{WantedClassInterface}*) {
+        private (*\tmnbf{di2java2depinterface}{DependencyInterface}*) dependencyField;
 
-        public (*\tikzmarknodebf{di2java2class2}{WantedClass}*)() {}
+        public (*\tmnbf{di2java2class2}{WantedClass}*)() {}
 
-        public void set(*\tikzmarknodebf{di2java2depfield}{DependencyField}*)((*\tikzmarknodebf{di2java2depinterface2}{DependencyInterface}*) dependencyValue) {
+        public void set(*\tmnbf{di2java2depfield}{DependencyField}*)((*\tmnbf{di2java2depinterface2}{DependencyInterface}*) dependencyValue) {
             dependencyField = dependencyValue;
         }
 
-        public WHATEVER (*\tikzmarknodebf{di2java2usedep}{useDependency}*)() {
+        public WHATEVER (*\tmnbf{di2java2usedep}{useDependency}*)() {
             ...DO SOMETHING WITH THE DEPENDENCY FIELD...
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
-    (*\tikzmarknodebf{di2java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{di2java3beanid}{wantedBeanId}[ForestGreen]*)", (*\tikzmarknodebf{di2java3interface2}{WantedClassInterface}*).class);
-    wantedClassInstance.(*\tikzmarknodebf{di2java3usedep}{useDependency}*)();
+    (*\tmnbf{di2java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di2java3beanid}{wantedBeanId}[ForestGreen]*)", (*\tmnbf{di2java3interface2}{WantedClassInterface}*).class);
+    wantedClassInstance.(*\tmnbf{di2java3usedep}{useDependency}*)();
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{di2xml1depbeanid2.north}{di2xml1depbeanid.east}[black][.3][bend right=18mm]
@@ -162,30 +162,30 @@ It~will~fail only at~runtime.
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
-      <bean id="(*\tikzmarknodebf{di3xml1beanid}{wantedBeanId}[ForestGreen]*)" class="(*\tikzmarknodebf{di3xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tikzmarknodebf{di3xml1class}{WantedClass}[ForestGreen]*)">
+      <bean id="(*\tmnbf{di3xml1beanid}{wantedBeanId}[ForestGreen]*)" class="(*\tmnbf{di3xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tmnbf{di3xml1class}{WantedClass}[ForestGreen]*)">
         <constructor-arg value="someValue"/>
       </bean>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
-    package (*\tikzmarknodebf{di3java1package}{somepackage.subpackage}*);
+    package (*\tmnbf{di3java1package}{somepackage.subpackage}*);
 
-    public class (*\tikzmarknodebf{di3java1class}{WantedClass}*) implements (*\tikzmarknodebf{di3java1interface}{WantedClassInterface}*) {
+    public class (*\tmnbf{di3java1class}{WantedClass}*) implements (*\tmnbf{di3java1interface}{WantedClassInterface}*) {
         private String concreteValueField;
 
-        public (*\tikzmarknodebf{di3java1class2}{WantedClass}*)(String concreteValue) {
+        public (*\tmnbf{di3java1class2}{WantedClass}*)(String concreteValue) {
             concreteValueField = concreteValue;
         }
 
-        public WHATEVER (*\tikzmarknodebf{di3java1usevalue}{useConcreteValue}*)() {
+        public WHATEVER (*\tmnbf{di3java1usevalue}{useConcreteValue}*)() {
             ...DO SOMETHING WITH THE CONCRETE VALUE FIELD...
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
-    (*\tikzmarknodebf{di3java2interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{di3java2beanid}{wantedBeanId}[ForestGreen]*)", (*\tikzmarknodebf{di3java2interface2}{WantedClassInterface}*).class);
-    wantedClassInstance.(*\tikzmarknodebf{di3java2usevalue}{useConcreteValue}*)();
+    (*\tmnbf{di3java2interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di3java2beanid}{wantedBeanId}[ForestGreen]*)", (*\tmnbf{di3java2interface2}{WantedClassInterface}*).class);
+    wantedClassInstance.(*\tmnbf{di3java2usevalue}{useConcreteValue}*)();
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{di3xml1beanid.south}{di3java2beanid.north}[black][.3][bend right]
@@ -202,32 +202,32 @@ It~will~fail only at~runtime.
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
-      <bean id="(*\tikzmarknodebf{di4xml1beanid}{wantedBeanId}[ForestGreen]*)" class="(*\tikzmarknodebf{di4xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tikzmarknodebf{di4xml1class}{WantedClass}[ForestGreen]*)">
-        <property name="(*\tikzmarknodebf{di4xml1valuefield}{concreteValueField}[ForestGreen]*)" value="someValue"/>
+      <bean id="(*\tmnbf{di4xml1beanid}{wantedBeanId}[ForestGreen]*)" class="(*\tmnbf{di4xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tmnbf{di4xml1class}{WantedClass}[ForestGreen]*)">
+        <property name="(*\tmnbf{di4xml1valuefield}{concreteValueField}[ForestGreen]*)" value="someValue"/>
       </bean>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and the setter method}]
-    package (*\tikzmarknodebf{di4java1package}{somepackage.subpackage}*);
+    package (*\tmnbf{di4java1package}{somepackage.subpackage}*);
 
-    public class (*\tikzmarknodebf{di4java1class}{WantedClass}*) implements (*\tikzmarknodebf{di4java1interface}{WantedClassInterface}*) {
+    public class (*\tmnbf{di4java1class}{WantedClass}*) implements (*\tmnbf{di4java1interface}{WantedClassInterface}*) {
         private String concreteValueField;
 
-        public (*\tikzmarknodebf{di4java1class2}{WantedClass}*)() {}
+        public (*\tmnbf{di4java1class2}{WantedClass}*)() {}
 
-        public void set(*\tikzmarknodebf{di4java1valuefield}{ConcreteValueField}*)(String concreteValue) {
+        public void set(*\tmnbf{di4java1valuefield}{ConcreteValueField}*)(String concreteValue) {
             concreteValueField = concreteValue;
         }
 
-        public WHATEVER (*\tikzmarknodebf{di4java1usevalue}{useConcreteValue}*)() {
+        public WHATEVER (*\tmnbf{di4java1usevalue}{useConcreteValue}*)() {
             ...DO SOMETHING WITH THE CONCRETE VALUE FIELD...
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
-    (*\tikzmarknodebf{di4java2interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{di4java2beanid}{wantedBeanId}[ForestGreen]*)", (*\tikzmarknodebf{di4java2interface2}{WantedClassInterface}*).class);
-    wantedClassInstance.(*\tikzmarknodebf{di4java2usevalue}{useConcreteValue}*)();
+    (*\tmnbf{di4java2interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di4java2beanid}{wantedBeanId}[ForestGreen]*)", (*\tmnbf{di4java2interface2}{WantedClassInterface}*).class);
+    wantedClassInstance.(*\tmnbf{di4java2usevalue}{useConcreteValue}*)();
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{di4xml1beanid}{di4java2beanid}[black][.3][bend right]
@@ -281,38 +281,38 @@ When using field injection, the~annotation is~applied directly to~the~field vari
     <beans ...
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
-      <context:component-scan base-package="(*\tikzmarknodebf{di5xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
+      <context:component-scan base-package="(*\tmnbf{di5xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package deppackage.depsubpackage;
 
     @>@Component
-    public class DependencyClass implements (*\tikzmarknodebf{di5java1depinterface}{DependencyInterface}*) {
+    public class DependencyClass implements (*\tmnbf{di5java1depinterface}{DependencyInterface}*) {
         ...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
-    package (*\tikzmarknodebf{di5java2package}{somepackage.subpackage}*);
+    package (*\tmnbf{di5java2package}{somepackage.subpackage}*);
 
     @>@Component
-    public class (*\tikzmarknodebf{di5java2class}{WantedClass}*) implements (*\tikzmarknodebf{di5java2interface}{WantedClassInterface}*) {
-        private (*\tikzmarknodebf{di5java2depinterface}{DependencyInterface}*) dependencyField;
+    public class (*\tmnbf{di5java2class}{WantedClass}*) implements (*\tmnbf{di5java2interface}{WantedClassInterface}*) {
+        private (*\tmnbf{di5java2depinterface}{DependencyInterface}*) dependencyField;
 
         @>@Autowired
-        public (*\tikzmarknodebf{di5java2class2}{WantedClass}*)()((*\tikzmarknodebf{di5java2depinterface2}{DependencyInterface}*) dependencyValue) {
+        public (*\tmnbf{di5java2class2}{WantedClass}*)()((*\tmnbf{di5java2depinterface2}{DependencyInterface}*) dependencyValue) {
             dependencyField = dependencyValue;
         }
 
-        public WHATEVER (*\tikzmarknodebf{di5java2usedep}{useDependency}*)() {
+        public WHATEVER (*\tmnbf{di5java2usedep}{useDependency}*)() {
             ...DO SOMETHING WITH THE DEPENDENCY FIELD...
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
-    (*\tikzmarknodebf{di5java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{di5java3beanid}{wantedClass}[ForestGreen]*)", (*\tikzmarknodebf{di5java3interface2}{WantedClassInterface}*).class);
-    wantedClassInstance.(*\tikzmarknodebf{di5java3usedep}{useDependency}*)();
+    (*\tmnbf{di5java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di5java3beanid}{wantedClass}[ForestGreen]*)", (*\tmnbf{di5java3interface2}{WantedClassInterface}*).class);
+    wantedClassInstance.(*\tmnbf{di5java3usedep}{useDependency}*)();
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{di5xml1package}{di5java2package}
@@ -333,40 +333,40 @@ When using field injection, the~annotation is~applied directly to~the~field vari
     <beans ...
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
-      <context:component-scan base-package="(*\tikzmarknodebf{di6xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
+      <context:component-scan base-package="(*\tmnbf{di6xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package deppackage.depsubpackage;
 
     @>@Component
-    public class DependencyClass implements (*\tikzmarknodebf{di6java1depinterface}{DependencyInterface}*) {
+    public class DependencyClass implements (*\tmnbf{di6java1depinterface}{DependencyInterface}*) {
         ...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and the setter method}]
-    package (*\tikzmarknodebf{di6java2package}{somepackage.subpackage}*);
+    package (*\tmnbf{di6java2package}{somepackage.subpackage}*);
 
     @>@Component
-    public class (*\tikzmarknodebf{di6java2class}{WantedClass}*) implements (*\tikzmarknodebf{di6java2interface}{WantedClassInterface}*) {
-        private (*\tikzmarknodebf{di6java2depinterface}{DependencyInterface}*) dependencyField;
+    public class (*\tmnbf{di6java2class}{WantedClass}*) implements (*\tmnbf{di6java2interface}{WantedClassInterface}*) {
+        private (*\tmnbf{di6java2depinterface}{DependencyInterface}*) dependencyField;
 
-        public (*\tikzmarknodebf{di6java2class2}{WantedClass}*)() {}
+        public (*\tmnbf{di6java2class2}{WantedClass}*)() {}
 
         @>@Autowired
-        public void setDependencyField((*\tikzmarknodebf{di6java2depinterface2}{DependencyInterface}*) dependencyValue){
+        public void setDependencyField((*\tmnbf{di6java2depinterface2}{DependencyInterface}*) dependencyValue){
             dependencyField = dependencyValue;
         }
 
-        public WHATEVER (*\tikzmarknodebf{di6java2usedep}{useDependency}*)() {
+        public WHATEVER (*\tmnbf{di6java2usedep}{useDependency}*)() {
             ...DO SOMETHING WITH THE DEPENDENCY FIELD...
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
-    (*\tikzmarknodebf{di6java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{di6java3beanid}{wantedClass}[ForestGreen]*)", (*\tikzmarknodebf{di6java3interface2}{WantedClassInterface}*).class);
-    wantedClassInstance.(*\tikzmarknodebf{di6java3usedep}{useDependency}*)();
+    (*\tmnbf{di6java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di6java3beanid}{wantedClass}[ForestGreen]*)", (*\tmnbf{di6java3interface2}{WantedClassInterface}*).class);
+    wantedClassInstance.(*\tmnbf{di6java3usedep}{useDependency}*)();
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{di6xml1package}{di6java2package}
@@ -386,36 +386,36 @@ When using field injection, the~annotation is~applied directly to~the~field vari
     <beans ...
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
-      <context:component-scan base-package="(*\tikzmarknodebf{di7xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
+      <context:component-scan base-package="(*\tmnbf{di7xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package deppackage.depsubpackage;
 
     @>@Component
-    public class DependencyClass implements (*\tikzmarknodebf{di7java1depinterface}{DependencyInterface}*) {
+    public class DependencyClass implements (*\tmnbf{di7java1depinterface}{DependencyInterface}*) {
         ...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor}]
-    package (*\tikzmarknodebf{di7java2package}{somepackage.subpackage}*);
+    package (*\tmnbf{di7java2package}{somepackage.subpackage}*);
 
     @>@Component
-    public class (*\tikzmarknodebf{di7java2class}{WantedClass}*) implements (*\tikzmarknodebf{di7java2interface}{WantedClassInterface}*) {
+    public class (*\tmnbf{di7java2class}{WantedClass}*) implements (*\tmnbf{di7java2interface}{WantedClassInterface}*) {
         @>@Autowired
-        private (*\tikzmarknodebf{di7java2depinterface}{DependencyInterface}*) dependencyField;
+        private (*\tmnbf{di7java2depinterface}{DependencyInterface}*) dependencyField;
 
-        public (*\tikzmarknodebf{di7java2class2}{WantedClass}*)() {}
+        public (*\tmnbf{di7java2class2}{WantedClass}*)() {}
 
-        public WHATEVER (*\tikzmarknodebf{di7java2usedep}{useDependency}*)() {
+        public WHATEVER (*\tmnbf{di7java2usedep}{useDependency}*)() {
             ...DO SOMETHING WITH THE DEPENDENCY FIELD...
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
-    (*\tikzmarknodebf{di7java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{di7java3beanid}{wantedClass}[ForestGreen]*)", (*\tikzmarknodebf{di7java3interface2}{WantedClassInterface}*).class);
-    wantedClassInstance.(*\tikzmarknodebf{di7java3usedep}{useDependency}*)();
+    (*\tmnbf{di7java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di7java3beanid}{wantedClass}[ForestGreen]*)", (*\tmnbf{di7java3interface2}{WantedClassInterface}*).class);
+    wantedClassInstance.(*\tmnbf{di7java3usedep}{useDependency}*)();
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{di7xml1package}{di7java2package}
@@ -436,38 +436,38 @@ When using field injection, the~annotation is~applied directly to~the~field vari
     <beans ...
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
-      <context:component-scan base-package="(*\tikzmarknodebf{di8xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
+      <context:component-scan base-package="(*\tmnbf{di8xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package deppackage.depsubpackage;
 
     @>@Component
-    public class (*\tikzmarknodebf{di8java1depclass}{DependencyClass}*) implements (*\tikzmarknodebf{di8java1depinterface}{DependencyInterface}*) {
+    public class (*\tmnbf{di8java1depclass}{DependencyClass}*) implements (*\tmnbf{di8java1depinterface}{DependencyInterface}*) {
         ...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
-    package (*\tikzmarknodebf{di8java2package}{somepackage.subpackage}*);
+    package (*\tmnbf{di8java2package}{somepackage.subpackage}*);
 
     @>@Component
-    public class (*\tikzmarknodebf{di8java2class}{WantedClass}*) implements (*\tikzmarknodebf{di8java2interface}{WantedClassInterface}*) {
-        private (*\tikzmarknodebf{di8java2depinterface}{DependencyInterface}*) dependencyField;
+    public class (*\tmnbf{di8java2class}{WantedClass}*) implements (*\tmnbf{di8java2interface}{WantedClassInterface}*) {
+        private (*\tmnbf{di8java2depinterface}{DependencyInterface}*) dependencyField;
 
         @>@Autowired
-        public (*\tikzmarknodebf{di8java2class2}{WantedClass}*)(@@>@Qualifier<@@("(*\tikzmarknodebf{di8java2depbeanid}{dependencyClass}[ForestGreen]*)") (*\tikzmarknodebf{di8java2depinterface2}{DependencyInterface}*) dependencyValue) {
+        public (*\tmnbf{di8java2class2}{WantedClass}*)(@@>@Qualifier<@@("(*\tmnbf{di8java2depbeanid}{dependencyClass}[ForestGreen]*)") (*\tmnbf{di8java2depinterface2}{DependencyInterface}*) dependencyValue) {
             dependencyField = dependencyValue;
         }
 
-        public WHATEVER (*\tikzmarknodebf{di8java2usedep}{useDependency}*)() {
+        public WHATEVER (*\tmnbf{di8java2usedep}{useDependency}*)() {
             ...DO SOMETHING WITH THE DEPENDENCY FIELD...
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
-    (*\tikzmarknodebf{di8java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{di8java3beanid}{wantedClass}[ForestGreen]*)", (*\tikzmarknodebf{di8java3interface2}{WantedClassInterface}*).class);
-    wantedClassInstance.(*\tikzmarknodebf{di8java3usedep}{useDependency}*)();
+    (*\tmnbf{di8java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di8java3beanid}{wantedClass}[ForestGreen]*)", (*\tmnbf{di8java3interface2}{WantedClassInterface}*).class);
+    wantedClassInstance.(*\tmnbf{di8java3usedep}{useDependency}*)();
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{di8xml1package}{di8java2package}
@@ -488,40 +488,40 @@ When using field injection, the~annotation is~applied directly to~the~field vari
     <beans ...
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
-      <context:component-scan base-package="(*\tikzmarknodebf{di9xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
+      <context:component-scan base-package="(*\tmnbf{di9xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package deppackage.depsubpackage;
 
     @>@Component
-    public class (*\tikzmarknodebf{di9java1depclass}{DependencyClass}*) implements (*\tikzmarknodebf{di9java1depinterface}{DependencyInterface}*) {
+    public class (*\tmnbf{di9java1depclass}{DependencyClass}*) implements (*\tmnbf{di9java1depinterface}{DependencyInterface}*) {
         ...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and the setter method}]
-    package (*\tikzmarknodebf{di9java2package}{somepackage.subpackage}*);
+    package (*\tmnbf{di9java2package}{somepackage.subpackage}*);
 
     @>@Component
-    public class (*\tikzmarknodebf{di9java2class}{WantedClass}*) implements (*\tikzmarknodebf{di9java2interface}{WantedClassInterface}*) {
-        private (*\tikzmarknodebf{di9java2depinterface}{DependencyInterface}*) dependencyField;
+    public class (*\tmnbf{di9java2class}{WantedClass}*) implements (*\tmnbf{di9java2interface}{WantedClassInterface}*) {
+        private (*\tmnbf{di9java2depinterface}{DependencyInterface}*) dependencyField;
 
-        public (*\tikzmarknodebf{di9java2class2}{WantedClass}*)() {}
+        public (*\tmnbf{di9java2class2}{WantedClass}*)() {}
 
         @>@Autowired
-        public void setDependencyField(@@>@Qualifier<@@("(*\tikzmarknodebf{di9java2depbeanid}{dependencyClass}[ForestGreen]*)") (*\tikzmarknodebf{di9java2depinterface2}{DependencyInterface}*) dependencyValue) {
+        public void setDependencyField(@@>@Qualifier<@@("(*\tmnbf{di9java2depbeanid}{dependencyClass}[ForestGreen]*)") (*\tmnbf{di9java2depinterface2}{DependencyInterface}*) dependencyValue) {
             dependencyField = dependencyValue;
         }
 
-        public WHATEVER (*\tikzmarknodebf{di9java2usedep}{useDependency}*)() {
+        public WHATEVER (*\tmnbf{di9java2usedep}{useDependency}*)() {
             ...DO SOMETHING WITH THE DEPENDENCY FIELD...
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
-    (*\tikzmarknodebf{di9java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{di9java3beanid}{wantedClass}[ForestGreen]*)", (*\tikzmarknodebf{di9java3interface2}{WantedClassInterface}*).class);
-    wantedClassInstance.(*\tikzmarknodebf{di9java3usedep}{useDependency}*)();
+    (*\tmnbf{di9java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di9java3beanid}{wantedClass}[ForestGreen]*)", (*\tmnbf{di9java3interface2}{WantedClassInterface}*).class);
+    wantedClassInstance.(*\tmnbf{di9java3usedep}{useDependency}*)();
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{di9xml1package}{di9java2package}
@@ -542,37 +542,37 @@ When using field injection, the~annotation is~applied directly to~the~field vari
     <beans ...
            xmlns:context="http://www.springframework.org/schema/context"
            ...>
-      <context:component-scan base-package="(*\tikzmarknodebf{di10xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
+      <context:component-scan base-package="(*\tmnbf{di10xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package deppackage.depsubpackage;
 
     @>@Component
-    public class (*\tikzmarknodebf{di10java1depclass}{DependencyClass}*) implements (*\tikzmarknodebf{di10java1depinterface}{DependencyInterface}*) {
+    public class (*\tmnbf{di10java1depclass}{DependencyClass}*) implements (*\tmnbf{di10java1depinterface}{DependencyInterface}*) {
         ...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor}]
-    package (*\tikzmarknodebf{di10java2package}{somepackage.subpackage}*);
+    package (*\tmnbf{di10java2package}{somepackage.subpackage}*);
 
     @>@Component
-    public class (*\tikzmarknodebf{di10java2class}{WantedClass}*) implements (*\tikzmarknodebf{di10java2interface}{WantedClassInterface}*) {
+    public class (*\tmnbf{di10java2class}{WantedClass}*) implements (*\tmnbf{di10java2interface}{WantedClassInterface}*) {
         @>@Autowired
-        @@>@Qualifier<@@("(*\tikzmarknodebf{di10java2depbeanid}{dependencyClass}[ForestGreen]*)")
-        private (*\tikzmarknodebf{di10java2depinterface}{DependencyInterface}*) dependencyField;
+        @@>@Qualifier<@@("(*\tmnbf{di10java2depbeanid}{dependencyClass}[ForestGreen]*)")
+        private (*\tmnbf{di10java2depinterface}{DependencyInterface}*) dependencyField;
 
-        public (*\tikzmarknodebf{di10java2class2}{WantedClass}*)() {}
+        public (*\tmnbf{di10java2class2}{WantedClass}*)() {}
 
-        public WHATEVER (*\tikzmarknodebf{di10java2usedep}{useDependency}*)() {
+        public WHATEVER (*\tmnbf{di10java2usedep}{useDependency}*)() {
             ...DO SOMETHING WITH THE DEPENDENCY FIELD...
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
-    (*\tikzmarknodebf{di10java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{di10java3beanid}{wantedClass}[ForestGreen]*)", (*\tikzmarknodebf{di10java3interface2}{WantedClassInterface}*).class);
-    wantedClassInstance.(*\tikzmarknodebf{di10java3usedep}{useDependency}*)();
+    (*\tmnbf{di10java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di10java3beanid}{wantedClass}[ForestGreen]*)", (*\tmnbf{di10java3interface2}{WantedClassInterface}*).class);
+    wantedClassInstance.(*\tmnbf{di10java3usedep}{useDependency}*)();
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{di10xml1package}{[xshift=-6mm] di10java2package.north}
@@ -614,44 +614,44 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
     package confpackage.confsubpackage;
 
     @>@Configuration
-    public class (*\tikzmarknodebf{di11java1configclass}{ConfigurationClass}*) {
+    public class (*\tmnbf{di11java1configclass}{ConfigurationClass}*) {
         @>@Bean
-        public (*\tikzmarknodebf{di11java1depinterface}{DependencyInterface}*) (*\tikzmarknodebf{di11java1depbeanid}{dependencyBeanMethod}*)() {
-            return new (*\tikzmarknodebf{di11java1depclass}{DependencyClass}*)(...);
+        public (*\tmnbf{di11java1depinterface}{DependencyInterface}*) (*\tmnbf{di11java1depbeanid}{dependencyBeanMethod}*)() {
+            return new (*\tmnbf{di11java1depclass}{DependencyClass}*)(...);
         }
 
         @>@Bean
-        public (*\tikzmarknodebf{di11java1interface}{WantedClassInterface}*) (*\tikzmarknodebf{di11java1beanid}{wantedBeanMethod}*)() {
-            return new (*\tikzmarknodebf{di11java1class}{WantedClass}*)((*\tikzmarknodebf{di11java1depbeanid2}{dependencyBeanMethod}*)());
+        public (*\tmnbf{di11java1interface}{WantedClassInterface}*) (*\tmnbf{di11java1beanid}{wantedBeanMethod}*)() {
+            return new (*\tmnbf{di11java1class}{WantedClass}*)((*\tmnbf{di11java1depbeanid2}{dependencyBeanMethod}*)());
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package deppackage.depsubpackage;
 
-    public class (*\tikzmarknodebf{di11java2depclass}{DependencyClass}*) implements (*\tikzmarknodebf{di11java2depinterface}{DependencyInterface}*) {
+    public class (*\tmnbf{di11java2depclass}{DependencyClass}*) implements (*\tmnbf{di11java2depinterface}{DependencyInterface}*) {
         ...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
     package somepackage.subpackage;
 
-    public class (*\tikzmarknodebf{di11java3class}{WantedClass}*) implements (*\tikzmarknodebf{di11java3interface}{WantedClassInterface}*) {
-        private (*\tikzmarknodebf{di11java3depinterface}{DependencyInterface}*) dependencyField;
+    public class (*\tmnbf{di11java3class}{WantedClass}*) implements (*\tmnbf{di11java3interface}{WantedClassInterface}*) {
+        private (*\tmnbf{di11java3depinterface}{DependencyInterface}*) dependencyField;
 
-        public (*\tikzmarknodebf{di11java3class2}{WantedClass}*)((*\tikzmarknodebf{di11java3depinterface2}{DependencyInterface}*) dependencyValue) {
+        public (*\tmnbf{di11java3class2}{WantedClass}*)((*\tmnbf{di11java3depinterface2}{DependencyInterface}*) dependencyValue) {
             dependencyField = dependencyValue;
         }
 
-        public WHATEVER (*\tikzmarknodebf{di11java3usedep}{useDependency}*)() {
+        public WHATEVER (*\tmnbf{di11java3usedep}{useDependency}*)() {
             ...DO SOMETHING WITH THE DEPENDENCY FIELD...
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tikzmarknodebf{di11java4configclass}{ConfigurationClass}*).class);
-    (*\tikzmarknodebf{di11java4interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{di11java4beanid}{wantedBeanMethod}[ForestGreen]*)", (*\tikzmarknodebf{di11java4interface2}{WantedClassInterface}*).class);
-    wantedClassInstance.(*\tikzmarknodebf{di11java4usedep}{useDependency}*)();
+    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tmnbf{di11java4configclass}{ConfigurationClass}*).class);
+    (*\tmnbf{di11java4interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di11java4beanid}{wantedBeanMethod}[ForestGreen]*)", (*\tmnbf{di11java4interface2}{WantedClassInterface}*).class);
+    wantedClassInstance.(*\tmnbf{di11java4usedep}{useDependency}*)();
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{di11java1configclass}{[xshift=6mm] di11java4configclass.north}
@@ -678,16 +678,16 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
     package confpackage.confsubpackage;
 
     @>@Configuration
-    public class (*\tikzmarknodebf{di12java1configclass}{ConfigurationClass}*) {
+    public class (*\tmnbf{di12java1configclass}{ConfigurationClass}*) {
         @>@Bean
-        public (*\tikzmarknodebf{di12java1depinterface}{DependencyInterface}*) (*\tikzmarknodebf{di12java1depbeanid}{dependencyBeanMethod}*)() {
-            return new (*\tikzmarknodebf{di12java1depclass}{DependencyClass}*)(...);
+        public (*\tmnbf{di12java1depinterface}{DependencyInterface}*) (*\tmnbf{di12java1depbeanid}{dependencyBeanMethod}*)() {
+            return new (*\tmnbf{di12java1depclass}{DependencyClass}*)(...);
         }
 
         @>@Bean
-        public (*\tikzmarknodebf{di12java1interface}{WantedClassInterface}*) (*\tikzmarknodebf{di12java1beanid}{wantedBeanMethod}*)() {
-            (*\tikzmarknodebf{di12java1class}{WantedClass}*) wantedClassInstance = new (*\tikzmarknodebf{di12java1class2}{WantedClass}*)();
-            wantedClassInstance.(*\tikzmarknodebf{di12java1valuefield}{setDependencyField}*)((*\tikzmarknodebf{di12java1depbeanid2}{dependencyBeanMethod}*)());
+        public (*\tmnbf{di12java1interface}{WantedClassInterface}*) (*\tmnbf{di12java1beanid}{wantedBeanMethod}*)() {
+            (*\tmnbf{di12java1class}{WantedClass}*) wantedClassInstance = new (*\tmnbf{di12java1class2}{WantedClass}*)();
+            wantedClassInstance.(*\tmnbf{di12java1valuefield}{setDependencyField}*)((*\tmnbf{di12java1depbeanid2}{dependencyBeanMethod}*)());
             return wantedClassInstance;
         }
     }
@@ -695,31 +695,31 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package deppackage.depsubpackage;
 
-    public class (*\tikzmarknodebf{di12java2depclass}{DependencyClass}*) implements (*\tikzmarknodebf{di12java2depinterface}{DependencyInterface}*) {
+    public class (*\tmnbf{di12java2depclass}{DependencyClass}*) implements (*\tmnbf{di12java2depinterface}{DependencyInterface}*) {
         ...
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and the setter method}]
     package somepackage.subpackage;
 
-    public class (*\tikzmarknodebf{di12java3class}{WantedClass}*) implements (*\tikzmarknodebf{di12java3interface}{WantedClassInterface}*) {
-        private (*\tikzmarknodebf{di12java3depinterface}{DependencyInterface}*) dependencyField;
+    public class (*\tmnbf{di12java3class}{WantedClass}*) implements (*\tmnbf{di12java3interface}{WantedClassInterface}*) {
+        private (*\tmnbf{di12java3depinterface}{DependencyInterface}*) dependencyField;
 
-        public (*\tikzmarknodebf{di12java3class2}{WantedClass}*)() {}
+        public (*\tmnbf{di12java3class2}{WantedClass}*)() {}
 
-        public void (*\tikzmarknodebf{di12java3valuefield}{setDependencyField}*)((*\tikzmarknodebf{di12java3depinterface2}{DependencyInterface}*) dependencyField){
+        public void (*\tmnbf{di12java3valuefield}{setDependencyField}*)((*\tmnbf{di12java3depinterface2}{DependencyInterface}*) dependencyField){
             dependencyField = dependencyValue;
         }
 
-        public WHATEVER (*\tikzmarknodebf{di12java3usedep}{useDependency}*)() {
+        public WHATEVER (*\tmnbf{di12java3usedep}{useDependency}*)() {
             ...DO SOMETHING WITH THE DEPENDENCY FIELD...
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tikzmarknodebf{di12java4configclass}{ConfigurationClass}*).class);
-    (*\tikzmarknodebf{di12java4interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{di12java4beanid}{wantedBeanMethod}[ForestGreen]*)", (*\tikzmarknodebf{di12java4interface2}{WantedClassInterface}*).class);
-    wantedClassInstance.(*\tikzmarknodebf{di12java4usedep}{useDependency}*)();
+    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tmnbf{di12java4configclass}{ConfigurationClass}*).class);
+    (*\tmnbf{di12java4interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di12java4beanid}{wantedBeanMethod}[ForestGreen]*)", (*\tmnbf{di12java4interface2}{WantedClassInterface}*).class);
+    wantedClassInstance.(*\tmnbf{di12java4usedep}{useDependency}*)();
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{di12java1configclass}{[xshift=3mm] di12java4configclass.north}
@@ -746,32 +746,32 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
     package confpackage.confsubpackage;
 
     @>@Configuration
-    public class (*\tikzmarknodebf{di13java1configclass}{ConfigurationClass}*) {
+    public class (*\tmnbf{di13java1configclass}{ConfigurationClass}*) {
         @>@Bean
-        public (*\tikzmarknodebf{di13java1interface}{WantedClassInterface}*) (*\tikzmarknodebf{di13java1beanid}{wantedBeanMethod}*)() {
-            return new (*\tikzmarknodebf{di13java1class}{WantedClass}*)("someValue");
+        public (*\tmnbf{di13java1interface}{WantedClassInterface}*) (*\tmnbf{di13java1beanid}{wantedBeanMethod}*)() {
+            return new (*\tmnbf{di13java1class}{WantedClass}*)("someValue");
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
     package somepackage.subpackage;
 
-    public class (*\tikzmarknodebf{di13java2class}{WantedClass}*) implements (*\tikzmarknodebf{di13java2interface}{WantedClassInterface}*) {
+    public class (*\tmnbf{di13java2class}{WantedClass}*) implements (*\tmnbf{di13java2interface}{WantedClassInterface}*) {
         private String concreteValueField;
 
-        public (*\tikzmarknodebf{di13java2class2}{WantedClass}*)(String concreteValue) {
+        public (*\tmnbf{di13java2class2}{WantedClass}*)(String concreteValue) {
             concreteValueField = concreteValue;
         }
 
-        public WHATEVER (*\tikzmarknodebf{di13java2usevalue}{useConcreteValue}*)() {
+        public WHATEVER (*\tmnbf{di13java2usevalue}{useConcreteValue}*)() {
             ...DO SOMETHING WITH THE CONCRETE VALUE FIELD...
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tikzmarknodebf{di13java3configclass}{ConfigurationClass}*).class);
-    (*\tikzmarknodebf{di13java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{di13java3beanid}{wantedBeanMethod}[ForestGreen]*)", (*\tikzmarknodebf{di13java3interface2}{WantedClassInterface}*).class);
-    wantedClassInstance.(*\tikzmarknodebf{di13java3usevalue}{useConcreteValue}*)();
+    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tmnbf{di13java3configclass}{ConfigurationClass}*).class);
+    (*\tmnbf{di13java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di13java3beanid}{wantedBeanMethod}[ForestGreen]*)", (*\tmnbf{di13java3interface2}{WantedClassInterface}*).class);
+    wantedClassInstance.(*\tmnbf{di13java3usevalue}{useConcreteValue}*)();
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{di13java1configclass}{[xshift=3mm] di13java3configclass.north}
@@ -790,11 +790,11 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
     package confpackage.confsubpackage;
 
     @>@Configuration
-    public class (*\tikzmarknodebf{di14java1configclass}{ConfigurationClass}*) {
+    public class (*\tmnbf{di14java1configclass}{ConfigurationClass}*) {
         @>@Bean
-        public (*\tikzmarknodebf{di14java1interface}{WantedClassInterface}*) (*\tikzmarknodebf{di14java1beanid}{wantedBeanMethod}*)() {
-            (*\tikzmarknodebf{di14java1class}{WantedClass}*) wantedClassInstance = new (*\tikzmarknodebf{di14java1class2}{WantedClass}*)();
-            wantedClassInstance.(*\tikzmarknodebf{di14java1valuefield}{setConcreteValueField}*)("someValue");
+        public (*\tmnbf{di14java1interface}{WantedClassInterface}*) (*\tmnbf{di14java1beanid}{wantedBeanMethod}*)() {
+            (*\tmnbf{di14java1class}{WantedClass}*) wantedClassInstance = new (*\tmnbf{di14java1class2}{WantedClass}*)();
+            wantedClassInstance.(*\tmnbf{di14java1valuefield}{setConcreteValueField}*)("someValue");
             return wantedClassInstance;
         }
     }
@@ -802,24 +802,24 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and the setter method}]
     package somepackage.subpackage;
 
-    public class (*\tikzmarknodebf{di14java2class}{WantedClass}*) implements (*\tikzmarknodebf{di14java2interface}{WantedClassInterface}*) {
+    public class (*\tmnbf{di14java2class}{WantedClass}*) implements (*\tmnbf{di14java2interface}{WantedClassInterface}*) {
         private String concreteValueField;
 
-        public (*\tikzmarknodebf{di14java2class2}{WantedClass}*)() {}
+        public (*\tmnbf{di14java2class2}{WantedClass}*)() {}
 
-        public void (*\tikzmarknodebf{di14java2valuefield}{setConcreteValueField}*)(String concreteValue) {
+        public void (*\tmnbf{di14java2valuefield}{setConcreteValueField}*)(String concreteValue) {
             concreteValueField = concreteValue;
         }
 
-        public WHATEVER (*\tikzmarknodebf{di14java2usevalue}{useConcreteValue}*)() {
+        public WHATEVER (*\tmnbf{di14java2usevalue}{useConcreteValue}*)() {
             ...DO SOMETHING WITH THE CONCRETE VALUE FIELD...
         }
     }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Usage}]
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tikzmarknodebf{di14java3configclass}{ConfigurationClass}*).class);
-    (*\tikzmarknodebf{di14java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tikzmarknodebf{di14java3beanid}{wantedBeanMethod}[ForestGreen]*)", (*\tikzmarknodebf{di14java3interface2}{WantedClassInterface}*).class);
-    wantedClassInstance.(*\tikzmarknodebf{di14java3usevalue}{useConcreteValue}*)();
+    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tmnbf{di14java3configclass}{ConfigurationClass}*).class);
+    (*\tmnbf{di14java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di14java3beanid}{wantedBeanMethod}[ForestGreen]*)", (*\tmnbf{di14java3interface2}{WantedClassInterface}*).class);
+    wantedClassInstance.(*\tmnbf{di14java3usevalue}{useConcreteValue}*)();
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{di14java1configclass}{[xshift=3mm] di14java3configclass.north}

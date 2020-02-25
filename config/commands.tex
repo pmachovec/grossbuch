@@ -32,7 +32,7 @@
 
 \NewDocumentCommand{\example}{O{}}{\newline\examplenonl[#1]}
 
-\NewDocumentCommand{\tikzmarknodebf}{m m O{black}}{\tikzmarknode{#1}{\textbfcolor{#3}{#2}}}
+\NewDocumentCommand{\tmnbf}{m m O{black}}{\tikzmarknode{#1}{\textbfcolor{#3}{#2}}}
 
 \NewDocumentCommand{\itq}{m}{"\textit{#1}"}
 
@@ -75,3 +75,7 @@
 \NewDocumentCommand{\captit}{m}{\caption*{\textit{#1}}}
 
 \NewDocumentCommand{\Sc}{O{ForestGreen}}{\textcolor{#1}{\$}}
+
+\NewDocumentCommand{\itembf}{m}{\item \textbf{#1}}
+
+\NewDocumentCommand{\itembfd}{m}{\itembf{#1}~--}

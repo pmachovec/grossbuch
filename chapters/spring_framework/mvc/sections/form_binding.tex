@@ -35,14 +35,14 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
 \enlargethispage{20mm}
 \thispagestyle{empty}
 \begin{lstlisting}[language=Java, title={POJO class with one String field}]
-    public class (*\tikzmarknodebf{smvc3java1pojo}{PojoClass}*) {
+    public class (*\tmnbf{smvc3java1pojo}{PojoClass}*) {
         private String pojoField;
 
-        public String get(*\tikzmarknodebf{smvc3java1field1}{PojoField}*)() {
+        public String get(*\tmnbf{smvc3java1field1}{PojoField}*)() {
             return pojoField;
         }
 
-        public String set(*\tikzmarknodebf{smvc3java1field2}{PojoField}*)(String pojoField) {
+        public String set(*\tmnbf{smvc3java1field2}{PojoField}*)(String pojoField) {
             this.pojoField = pojoField;
         }
     }
@@ -53,25 +53,25 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
     <html xmlns:th="http://www.thymeleaf.org">
       ...
       <body>
-        <form method="post" th:object="(*\Sc*){(*\tikzmarknodebf{smvc3xml1mapping}{mappingId}[ForestGreen]*)}" th:action="@{(*\tikzmarknodebf{smvc3xml1class}{/classUrl}[ForestGreen]\tikzmarknodebf{smvc3xml1meth}{/methodUrl}[ForestGreen]*)}">
-          <input type="text" th:field="*{(*\tikzmarknodebf{smvc3xml1field}{pojoField}[ForestGreen]*)}">
+        <form method="post" th:object="(*\Sc*){(*\tmnbf{smvc3xml1mapping}{mappingId}[ForestGreen]*)}" th:action="@{(*\tmnbf{smvc3xml1class}{/classUrl}[ForestGreen]\tmnbf{smvc3xml1meth}{/methodUrl}[ForestGreen]*)}">
+          <input type="text" th:field="*{(*\tmnbf{smvc3xml1field}{pojoField}[ForestGreen]*)}">
         </form>
       </body>
     </html>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Controller displaying and processing the form}]
     @>@Controller
-    @@>@RequestMapping<@@("(*\tikzmarknodebf{smvc3java2class}{/classUrl}[ForestGreen]*)")
+    @@>@RequestMapping<@@("(*\tmnbf{smvc3java2class}{/classUrl}[ForestGreen]*)")
     public class ControllerClass {
         @>@RequestMapping
         public String showForm(Model model) {
             // Adding the POJO to model
-            model.addAttribute("(*\tikzmarknodebf{smvc3java2mapping1}{mappingId}[ForestGreen]*)", new (*\tikzmarknodebf{smvc3java2pojo1}{PojoClass}*)())
+            model.addAttribute("(*\tmnbf{smvc3java2mapping1}{mappingId}[ForestGreen]*)", new (*\tmnbf{smvc3java2pojo1}{PojoClass}*)())
             return "theForm"
         }
 
-        @@>@RequestMapping<@@("(*\tikzmarknodebf{smvc3java2meth}{/methodUrl}[ForestGreen]*)")
-        public String processForm(@@>@ModelAttribute<@@("(*\tikzmarknodebf{smvc3java2mapping2}{mappingId}[ForestGreen]*)") (*\tikzmarknodebf{smvc3java2pojo2}{PojoClass}*) pojo) {
+        @@>@RequestMapping<@@("(*\tmnbf{smvc3java2meth}{/methodUrl}[ForestGreen]*)")
+        public String processForm(@@>@ModelAttribute<@@("(*\tmnbf{smvc3java2mapping2}{mappingId}[ForestGreen]*)") (*\tmnbf{smvc3java2pojo2}{PojoClass}*) pojo) {
             String pojoField = pojo.getPojoField();
             ...DO SOMETHING WITH THE POJO FIELD...
             return "...SOMETHING...";
@@ -100,15 +100,15 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
             ...dropdownMap initialization...
         }
 
-        public LinkedHashMap<String, String> get(*\tikzmarknodebf{smvc4java1map}{DropdownMap}*)() {
+        public LinkedHashMap<String, String> get(*\tmnbf{smvc4java1map}{DropdownMap}*)() {
             return dropdownMap;
         }
 
-        public String get(*\tikzmarknodebf{smvc4java1field1}{DropdownField}*)() {
+        public String get(*\tmnbf{smvc4java1field1}{DropdownField}*)() {
             return dropdownField;
         }
 
-        public void set(*\tikzmarknodebf{smvc4java1field2}{DropdownField}*)(String dropdownField) {
+        public void set(*\tmnbf{smvc4java1field2}{DropdownField}*)(String dropdownField) {
             this.dropdownField = dropdownField;
         }
     }
@@ -120,8 +120,8 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
       ...
       <body>
         <form ...>
-          <select th:field="*{(*\tikzmarknodebf{smvc4xml1field}{dropdownField}[ForestGreen]*)}">
-            <option th:each="mapEntry: (*\Sc*){mappingId.(*\tikzmarknodebf{smvc4xml1map}{dropdownMap}[ForestGreen]*).entrySet()}" th:value="${mapEntry.key}" th:text="${mapEntry.value}"/>
+          <select th:field="*{(*\tmnbf{smvc4xml1field}{dropdownField}[ForestGreen]*)}">
+            <option th:each="mapEntry: (*\Sc*){mappingId.(*\tmnbf{smvc4xml1map}{dropdownMap}[ForestGreen]*).entrySet()}" th:value="${mapEntry.key}" th:text="${mapEntry.value}"/>
           </select>
         </form>
       </body>
@@ -142,11 +142,11 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
     public class PojoClass {
         private String[] checkboxField;
 
-        public String get(*\tikzmarknodebf{smvc5java1field1}{CheckboxField}*)() {
+        public String get(*\tmnbf{smvc5java1field1}{CheckboxField}*)() {
             return dropdownField;
         }
 
-        public void set(*\tikzmarknodebf{smvc5java1field2}{CheckboxField}*)(String[] checkboxField) {
+        public void set(*\tmnbf{smvc5java1field2}{CheckboxField}*)(String[] checkboxField) {
             this.checkboxField = checkboxField;
         }
     }
@@ -158,8 +158,8 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
       ...
       <body>
         <form ...>
-          <th:block th:each="mapEntry: (*\Sc*){mappingId.(*\tikzmarknodebf{smvc5xml1map}{checkboxMap}[ForestGreen]*).entrySet()}">
-            <input type="checkbox" name="(*\tikzmarknodebf{smvc5xml1field}{checkboxField}[ForestGreen]*)" th:value="(*\Sc*){mapEntry.key}"><span th:text="(*\Sc*){mapEntry.value}"/><br/>
+          <th:block th:each="mapEntry: (*\Sc*){mappingId.(*\tmnbf{smvc5xml1map}{checkboxMap}[ForestGreen]*).entrySet()}">
+            <input type="checkbox" name="(*\tmnbf{smvc5xml1field}{checkboxField}[ForestGreen]*)" th:value="(*\Sc*){mapEntry.key}"><span th:text="(*\Sc*){mapEntry.value}"/><br/>
           </select>
         </form>
       </body>
@@ -169,13 +169,13 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
     @>@Controller
     @@>@RequestMapping<@@("...")
     public class ControllerClass {
-        @@>@Value<@@("#{(*\tikzmarknodebf{smvc5java2props}{propertiesFileId}[ForestGreen]*)}") // Parsing the properties file
+        @@>@Value<@@("#{(*\tmnbf{smvc5java2props}{propertiesFileId}[ForestGreen]*)}") // Parsing the properties file
         private val mapFromPropertiesFile: LinkedHashMap<String, String>;
 
         @>@RequestMapping
         public String showForm(Model model) {
             ...
-            model.addAttribute("(*\tikzmarknodebf{smvc5java2map}{checkboxMap}[ForestGreen]*)", mapFromPropertiesFile)
+            model.addAttribute("(*\tmnbf{smvc5java2map}{checkboxMap}[ForestGreen]*)", mapFromPropertiesFile)
             ...
         }
     }
@@ -193,7 +193,7 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
       ...
-      <util:properties id="(*\tikzmarknodebf{smvc5xml2props}{propertiesFileId}[ForestGreen]*)" location="WEB-INF/fileName.properties"/>
+      <util:properties id="(*\tmnbf{smvc5xml2props}{propertiesFileId}[ForestGreen]*)" location="WEB-INF/fileName.properties"/>
       ...
     </beans>
 \end{lstlisting}
