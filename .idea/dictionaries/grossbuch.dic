@@ -1,7 +1,10 @@
 acro
 annot
-annotpkg
+annotarray
 annotationpackage
+annotpkg
+annotstring
+annotvalid
 artifactory
 bytecode
 decompilation
@@ -69,6 +72,10 @@ usageparam
 usedep
 usevalue
 usingjavaannotations
+validannot
+validarray
+validstring
+validstringtype
 valuefield
 xshift
 yshift

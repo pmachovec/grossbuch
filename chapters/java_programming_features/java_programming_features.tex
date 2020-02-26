@@ -18,6 +18,7 @@ Although annotations have no direct effect on~the~annotated code operation, they
 The~most typically used annotation is \hyperref[javaoverride]{\mbit{@Override}}.
 
 \newsubsection{Custom Annotations}
+\label{javacustomannotations}
 Annotations aren't just fixed, developers can~create their own.
 Annotation \hyperref[declarationdefinition]{definition} looks like a~simple class \hyperref[declarationdefinition]{definition}.
 The~key word stating that an~annotation is~defined is \mbitq{@interface} (with the~at~sign at~the~beginning).
@@ -25,6 +26,7 @@ Annotation classes can~contain method \hyperref[declarationdefinition]{declarati
 These method headers are~always public and~cant't~get an~\hyperref[javaaccessmodifiers]{access modifier}.
 They can~be~followed by~the~keyword \mbitq{default} followed by~a~default value of~the~corresponding \hyperref[parameterargument]{parameter}.
 The~default value type must match the~return type from the~method header.
+If~a~parameter method doesn't have assigned default value, then the~parameter is~compulsory when using the~annotation.
 
 Annotation usage and~behavior is~defined by~other, Java built--in annotations, sometimes called \textit{metaannotations}.
 There are many of~them, but~only \mbitq{@Retention} and~\mbitq{@Target} are~necessary.

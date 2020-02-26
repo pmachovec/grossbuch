@@ -14,46 +14,46 @@ Everything in~the~form template code.
 \enlargethispage{10mm}
 \thispagestyle{empty}
 \begin{lstlisting}[language=Java, title={POJO class with restricted String field}]
-    public class (*\tmnbf{smvc6java1pojo}{PojoClass}*) {
-        @@>@Pattern<@@(regexp = "[a-zA-Z]+", message = "ASCII letters only")
-        private String pojoField;
+public class (*\tmnbf{smvc6java1pojo}{PojoClass}*) {
+    @@>@Pattern<@@(regexp = "[a-zA-Z]+", message = "ASCII letters only")
+    private String pojoField;
 
-        public String get(*\tmnbf{smvc6java1field1}{PojoField}*)() {
-            return dropdownField;
-        }
-
-        public void set(*\tmnbf{smvc6java1field2}{PojoField}*)(String pojoField) {
-            this.pojoField = pojoField;
-        }
+    public String get(*\tmnbf{smvc6java1field1}{PojoField}*)() {
+        return dropdownField;
     }
+
+    public void set(*\tmnbf{smvc6java1field2}{PojoField}*)(String pojoField) {
+        this.pojoField = pojoField;
+    }
+}
 \end{lstlisting}
 \begin{lstlisting}[language=XML, title={HTML form \tmnbf{smvc6xml1form}{\textit{theForm}}\textit{.html} setting the field}]
-    <?xml version="1.0" encoding="UTF-8"?>
-    <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org">
-      ...
-      <body>
-        <form th:object="(*\Sc*){(*\tmnbf{smvc6xml1mapping}{mappingId}[ForestGreen]*)}" ...>
-          <input type="text" th:field="*{(*\tmnbf{smvc6xml1field1}{pojoField}[ForestGreen]*)}">
-        </form>
-        <div th:if="(*\Sc*){#fields.hasErrors('(*\tmnbf{smvc6xml1field2}{pojoField}[ForestGreen]*)')}" th:errors="*{(*\tmnbf{smvc6xml1field3}{pojoField}[ForestGreen]*)}"/>
-        <!-- The div is invisible by default, and would still be even if it had some content -->
-      </body>
-    </html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+...
+<body>
+<form th:object="(*\Sc*){(*\tmnbf{smvc6xml1mapping}{mappingId}[ForestGreen]*)}" ...>
+<input type="text" th:field="*{(*\tmnbf{smvc6xml1field1}{pojoField}[ForestGreen]*)}">
+</form>
+<div th:if="(*\Sc*){#fields.hasErrors('(*\tmnbf{smvc6xml1field2}{pojoField}[ForestGreen]*)')}" th:errors="*{(*\tmnbf{smvc6xml1field3}{pojoField}[ForestGreen]*)}"/>
+<!-- The div is invisible by default, and would still be even if it had some content -->
+</body>
+</html>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Controller processing the form}]
-    @>@Controller
+@>@Controller
+@@>@RequestMapping<@@("...")
+public class ControllerClass {
     @@>@RequestMapping<@@("...")
-    public class ControllerClass {
-        @@>@RequestMapping<@@("...")
-        public String processForm(@@>@Valid @ModelAttribute<@@("(*\tmnbf{smvc6java2mapping}{mappingId}[ForestGreen]*)") (*\tmnbf{smvc6java2pojo}{PojoClass}*) pojo, BindingResult bindingResult) {
-            if (bindingResult.hasErrors()) {
-                return "(*\tmnbf{smvc6java2form}{theForm}[ForestGreen]*)";
-            } else {
-                ...DO SOMETHING ELSE...
-            }
+    public String processForm(@@>@Valid @ModelAttribute<@@("(*\tmnbf{smvc6java2mapping}{mappingId}[ForestGreen]*)") (*\tmnbf{smvc6java2pojo}{PojoClass}*) pojo, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "(*\tmnbf{smvc6java2form}{theForm}[ForestGreen]*)";
+        } else {
+            ...DO SOMETHING ELSE...
         }
     }
+}
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{smvc6java1pojo}{smvc6java2pojo}
@@ -70,4 +70,73 @@ Everything in~the~form template code.
 In~the~form the~error on~the~field is~detected and~the~(initially invisible) \textit{div} is~made visible and~the~error message from the~POJO field is~set as~the~\textit{div} content.
 
 \newsubsection{Custom Validation Annotations}
-\todo
+Form validation doesn't have to~use only annotations provided by~Hibernate.
+It's~possible to~create \hyperref[javacustomannotations]{custom annotations} for~validation.
+The~annotation class target must~be \mbit{FIELD} and~the~retention must~be \mbit{RUNTIME}.
+The~class must~be also annotated with \mbitq{@Constraint}, which has~a~\hyperref[parameterargument]{parameter} \mbit{validatedBy}, which gets one~or~more references to~validator classes (there's rarely more than~one, see~further how~to~create~it).
+The~class can~contain additional parameter methods, but~three are~compulsory:
+\begin{itemize}
+    \itembfd{message} string, the~error message, used even in~Hibernate
+    \itembfd{groups} array of~class references, groups for~related constraints
+    \itembfd{payload} array of~class references extending the~\mbitq{Payload} interface, custom details about validation failures (severity level, error code etc.)
+\end{itemize}
+\noindent It~isn't necessary to~interact with \mbit{groups} or~\mbit{payload} in~any~way.
+They just need to~be~\hyperref[declarationdefinition]{defined}.
+It's~OK to~simply set their default values to~empty arrays.
+
+At~least one validator class must~be created for~a~validation annotation.
+This class must implement the~interface \mbitq{ConstraintValidator}, which~is a~\hyperref[javagenerics]{generic type} taking two references.
+The~first one is the~validation annotation class and~the~second one is~the~type of~the~validated field (most likely, but~not~necessarily, string).
+The~interface enforces two~methods:
+\begin{itemize}
+    \itembfd{initialize} void, instance of~the~annotation class as~a~parameter, serves for~accessing annotation parameter values
+    \itembfd{isValid} boolean, validated field value and~constraint validator context as~parameters, should return \mbit{false} when the~field value is~supposed to~be~invalid, otherwise \mbit{true}, field value parameter name (the~first~one) doesn't have to~correspond a~variable in~POJO or~a~field~ID in~a~form
+\end{itemize}
+The~annotation can~then~be applied to~a~POJO field.
+The~validator class isn't specified anywhere else.
+\newpage
+
+\example
+\begin{lstlisting}[language=Java, title={Custom validation annotation class}]
+@@>@Constraint<@@(validatedBy = (*\tmnbf{smvc7annotvalid}{CustomValidator}*))
+@@>@Retention<@@(RetentionPolicy.RUNTIME)
+@@>@Target<@@(ElementType.FIELD)
+public @interface (*\tmnbf{smvc7annot}{CustomAnnotation}*) {
+    String[] (*\tmnbf{smvc7annotarray}{stringArray}*)() default {"simpleArrayMember"};
+    String (*\tmnbf{smvc7annotstring}{simpleString}*)() default "simpleStringValue";
+    String message() default "Something is wrong";
+    Class<?> groups() default {};
+    Class<? extends Payload> payload() default {};
+}
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Custom validator class, validated field must contain either a~value from the~array or~must~be equal to~the~simple string}]
+public class (*\tmnbf{smvc7valid}{CustomValidator}*) implements ConstraintValidator<(*\tmnbf{smvc7validannot1}{CustomAnnotation}*), (*\tmnbf{smvc7validstringtype1}{String}*)> {
+    private String[] stringArray;
+    private String simpleString;
+
+    @>@Override
+    public void initialize((*\tmnbf{smvc7validannot2}{CustomAnnotation}*) customAnnotation) {
+        stringArray = customAnnotation.(*\tmnbf{smvc7validarray}{stringArray}*)();
+        simpleString = customAnnotation.(*\tmnbf{smvc7validstring}{simpleString}*)();
+    }
+
+    @>@Override
+    public boolean isValid((*\tmnbf{smvc7validstringtype2}{String}*) validatedFieldValue, ConstraintValidatorContext context) {
+        if (!Arrays.asList(stringArray).contains(validatedFieldValue) && (!simpleString.equals(validatedFieldValue)) {
+            return false;
+        }
+
+        return false;
+    }
+}
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{smvc7annotvalid.south}{smvc7valid.north}
+    \drawarrow{smvc7annot.south}{[xshift=-6mm] smvc7validannot1.north}[red]
+    \drawarrow{smvc7annot.south}{[xshift=-6mm] smvc7validannot2.north}[red]
+    \drawarrow{smvc7annotarray.south}{[xshift=3mm] smvc7validarray.north}[green]
+    \drawarrow{smvc7annotstring.south}{[xshift=-3mm] smvc7validstring.north}[blue]
+    \drawarrow{smvc7validstringtype1.south}{smvc7validstringtype2.north}[Magenta]
+\end{tikzpicture}
+\noindent Usage in~a~POJO class is~the~same as~when using Hibernate validation annotations.
+\newpage
