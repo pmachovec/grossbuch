@@ -287,7 +287,6 @@ This is the~real Kotlin approach.
 Kotlin enables to~have functions outside classes.
 For~a~file containing these standalone functions a~class with \itq{-kt} at~the~end of~the~name is~generated and~each function has~a~corresponding static method.
 
-
 \begin{lstlisting}[language=Kotlin,title={A~tandalone main function in a~file \textit{Example.kt}}]
     fun main(args: Array<String>) {
         ...SOME CODE...
@@ -299,6 +298,28 @@ For~a~file containing these standalone functions a~class with \itq{-kt} at~the~e
         public static final void main(@NotNull String[] args) {
             Intrinsics.checkParameterIsNotNull(args, "args");
             ...SOME CODE...
+        }
+    }
+\end{lstlisting}
+
+\noindent Since Kotlin~1.3 \mbit{args} can~be omitted when not needed.
+The~generated \hyperref[bytecode]{bytecode}, however, still contains~it.
+
+\begin{lstlisting}[language=Kotlin,title={A~tandalone main function without \mbit{args}}]
+    fun main() {
+        ...SOME CODE...
+    }
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java,title={Corresponding Java code}]
+    public final class ExampleKt {
+        public static final void main() {
+            ...SOME CODE...
+        }
+
+        // (*\Sc[LimeGreen]*)FF: synthetic method
+        public static void main(String[] var0) {
+            main();
         }
     }
 \end{lstlisting}
