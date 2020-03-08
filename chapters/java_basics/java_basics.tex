@@ -1,4 +1,5 @@
 \newchapter{Java Basics}
+\label{java}
 
 \newsection{Bytecode}
 \index{Bytecode}
@@ -42,15 +43,15 @@ This refers to \textit{.class} files with bytecode, because the bytecode is~a~fo
     \itembf{JRE} stands for~\textit{Java Runtime Environment}.
             It's~the~most important part of~JDK, which serves for running already compiled code, i.e.,~it's the software transforming \hyperref[bytecode]{bytecode} to machine code.
     \itembf{JVM} stands for~\textit{Java Virtual Machine}.
-            It's~the~most important part of JRE, which actually runs the code (transfers \hyperref[bytecode]{bytecode} to machine code), however it can't work alone\,--\,it requires additional tools provided~by~JRE.
+            It's~the~most important part of JRE, which actually runs the code (transfers \hyperref[bytecode]{bytecode} to machine code), however it can't work alone\,--\,it requires additional tools provided~by~JRE\@.
 \end{itemize}
 
 \noindent JDK,~JRE and~JVM are platform--dependent, i.e.,~you~need these things different for~Windows, different for~Linux etc.
 The~thing which is~portable is~only the~\hyperref[bytecode]{bytecode}.
 When you only want to run Java programs, it's~OK to~install only~JRE, which is~smaller.
-However, when you intend to develop Java applications, you of~course need to install~JDK.
+However, when you intend to develop Java applications, you of~course need to install~JDK\@.
 be aware that when installing JDK (from Oracle), it~also installs a~separate JRE and computers tend to use this JRE by~default.
-You should completely ignore this separate JRE.
+You should completely ignore this separate JRE\@.
 To~do~it you~must set the~environment variable \textit{JAVA\_HOME} to~the~folder of~JDK (not~its~subfolder \textit{bin}, that's added to~the~\textit{Path} variable).
 
 \newsubsection{Typical parts of JDK, that are not included in JRE}

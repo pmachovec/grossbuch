@@ -52,7 +52,7 @@ Alternatively, you~can~run your jars with Gradle or~Maven, which enable adding s
 \noindent You~can configure more IDs for~the~same bean class by~multiple \textit{bean} elements (the~\textit{id}~attribute can't occur multiple times in~one \textit{bean} element).
 You~can even specify more XML configuration files (or~even none at~all), the~constructor \mbox{\textit{ClassPathXmlApplicationContext}} accepts any~number of~(string) parameters (even zero).
 
-The~wanted class is~specified only in~the~XML.
+The~wanted class is~specified only in~the~XML\@.
 In~the~Java code only the~interface, which the~class implements, is~used.
 The~class \textit{ClassPathXmlApplicationContext} comes from the~Spring package \textit{org.springframework.context.support}.
 
@@ -168,7 +168,7 @@ However, if~the~second letter of~the~bean class name is~in~uppercase (e.g.,~some
     \drawarrow{ioc4java1interface.south}{ioc4java2interface2}[green]
 \end{tikzpicture}
 
-\warningnonl The~XML configuration overrides the~annotation configuration, even if you configure the~component scanning in~the~XML.
+\warningnonl The~XML configuration overrides the~annotation configuration, even if you configure the~component scanning in~the~XML\@.
 If~you create a~bean class with the~\textit{Configuration} annotation, then configure the~same bean~ID in~the~XML configuration file, and~then ask the~\hyperref[springcontainrer]{Spring container} for~the~bean, the~XML configuration will~be used.
 This can~be especially tricky with the~default behavior that you don't have to~specify, e.g., the~singleton \hyperref[beanscope]{bean scope}.
 

@@ -1,6 +1,6 @@
 \newchapter{General Knowledge}
 
-\newsection{Operating System\,--OS\,}
+\newsection{Operating System\,--\,OS}
 \index{Operating system}
 \index{OS}
 \label{os}
@@ -49,9 +49,43 @@ Today's top commercial \hyperref[os]{operating systems} like Windows or~macOS ha
 This term has~multiple meanings.
 It~can~denote:
 \begin{enumerate}[label=\arabic*)]
-    \item A~set of~tools for~writing and~running \hyperref[applicationprocessprogramservicethread]{programs}, like Java (the~language and~\hyperref[jdkjrejvm]{JDK}) or~\hyperref[dotnet]{.NET}
-    \item A~combination of~\hyperref[os]{OS} and~hardware
+    \item A~set of~tools for~writing and~running \hyperref[applicationprocessprogramservicethread]{programs}, like Java (the~language and~\hyperref[jdkjrejvm]{JDK}) or~\hyperref[dotnet]{.NET}.
+    \item A~combination of~\hyperref[os]{OS} and~hardware.
 \end{enumerate}
+
+\newsection{Character Set VS Encoding}
+\index{Character set}
+\index{Encoding}
+\index{ASCII}
+\index{Unicode}
+\label{charactersetencoding}
+\begin{itemize}
+    \itembf{Character set} is a~list of~characters, with which a~computer is~capable to~work.
+            Each~computer has a~character set.
+            Even software can~have a~character set (such~software then runs only on~computers supporting that character set).
+            \mbit{ASCII}~and~\mbit{Unicode} are~typical examples of~character~sets.
+    \itembfd{Encoding} computers work only with numbers.
+             Each character of a~character set is~represented as~a~number.
+             And~encoding specifies which number (code) corresponds to~which character.
+             To~make things confusing, the~ASCII character set encoding is~also called~\mbit{ASCII}.
+             Unicode character set has~more encodings like \hyperref[utf]{\mbit{UTF--8} or~\mbit{UTF--16}}.
+\end{itemize}
+
+\newsection{UTF--8 VS UTF--16}
+\index{UTF--8}
+\index{UTF--16}
+\label{utf}
+\begin{itemize}
+    \itembf{UTF--8} is a~superset of~ASCII encoding.
+            I.e.,~codes of~basic characters included in~the~ASCII character set are~the~same in~UTF--8 and~ASCII encodings.
+            This is helpful when converting characters from~one encoding to~the~other.
+            The~number of~consumed bytes per~character encoded in~\mbox{UTF--8} varies from~1 to~4~bytes depending on~the~need.
+    \itembf{UTF--16} uses different codes and,~despite its name, is~incompatible with~\mbox{UTF--8}.
+            It~consumes 2 or~4 bytes per~character.
+            Codes of~Asian languages characters are~lower in~\mbox{UTF--16} than in~\mbox{UTF--8}, and~generally where \mbox{UTF--8} uses 3~bytes, there \mbox{UTF--16} uses only 2~bytes.
+            Therefore, \mbox{UTF--16} is more effective when dealing with Asian languages.
+            Also, \hyperref[java]{Java} and~\hyperref[dotnet]{.NET} work better with~it (only Chuck Norris knows~why).
+\end{itemize}
 
 \newsection{Package Manager}
 \index{Package manager}
@@ -71,7 +105,6 @@ Not~only \hyperref[os]{operating systems} have package managers.
 Some programming languages or~platforms also have their package managers.
 For~example, Python has \href{https://pypi.org/}{PyPI} and~Node.js has~\hyperref[npm]{NPM}.
 Gradle or~Maven with a~connection to~Maven repositories can~also be considered as~package managers (for~Java).
-\newpage
 
 \newsection{Architecture VS Design}
 \index{Architecture}
@@ -101,7 +134,7 @@ Pronounced [d\textopeno{}tn\textepsilon{}t], it's~a~multi--purpose framework and
 Developed by~Microsoft, it's~available in~Windows by~default, but~nowadays it~can~be downloaded and~used even in~Linux environments.
 Languages \mbox{for~.NET} are~compiled to~CIL (\textit{Common Intermediate Language}, equivalent of~\hyperref[bytecode]{Java bytecode}) and~executed by~CLR (\textit{Common Language Runtime}, equivalent of~\hyperref[jdkjrejvm]{JRE}).
 Examples of~such languages are~C\# or~Visual Basic.
-\hyperref[powershell]{PowerShell} heavily uses .NET programs in~the~form of~\hyperref[cmdlet]{cmdLets}, but~itself it~has an~\hyperref[compiledinterpretedlanguages]{interpreter}, which doesn't produce~CIL.
+\hyperref[powershell]{PowerShell} heavily uses .NET programs in~the~form of~\hyperref[cmdlet]{cmdLets}, but~itself it~has an~\hyperref[compiledinterpretedlanguages]{interpreter}, which doesn't produce~CIL\@.
 
 \newsection{Variable VS Field VS Property}
 \index{Variable}
@@ -115,7 +148,6 @@ Examples of~such languages are~C\# or~Visual Basic.
             Class constants are~fields, variables defined inside \mbox{methods/functions} and~cycles are~not.
     \itembf{Property} is a~field that is~exposed to~outside of~the~class, typically by~getters and~setters.
 \end{itemize}
-\newpage
 
 \newsection{Parameter VS Argument}
 \index{Argument}
@@ -156,12 +188,10 @@ When treated as~the~\textit{character} type (\textit{char}~in some languages), i
             It~consists of~the~method name, return value \hyperref[datatypes]{type}, number, names and~\hyperref[datatypes]{types} of~arguments of~the~method and~eventually its \hyperref[javaaccessmodifiers]{access level}.
             Example: \mbitq{public void doSomething(int a);}.
     \itembf{Definition of~a~variable} means assigning a~value to~the~variable.
-            It~can~immediately follow the~variable definition (\itq{private int a = 1;}) or~appear later as~a~separate command (\itq{private int a; ...
-a = 1;}).
+            It~can~immediately follow the~variable definition (\itq{private int a = 1;}) or~appear later as~a~separate command (\itq{private int a; \dots a = 1;}).
     \itembf{Definition of~a~method (or~a~function)} is the~method header with the~method body.
-            Example: \mbitq{public void doSomething(int a) \{ ... \}}".
+            Example: \mbitq{public void doSomething(int a) \{ \dots \}}".
 \end{itemize}
-\newpage
 
 \noindent Generally a~declaration informs \hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} about some structure.
 Definition allocates a~memory for~the~structure.
@@ -287,7 +317,7 @@ This results in~one or~two equals signs at~the~end of~the~resulting string.
 It's~a~part of~a~software serving for~communication with other software.
 The~word \textit{application} is~inaccurate, even \hyperref[applicationprocessprogramservicethread]{services} can~have~API (it's~actually typical part of~a~service).
 It's~a~very broad term.
-For~example, when a~browser is~requesting \hyperref[internetweb]{web} pages from a~\hyperref[webserver]{web~server}, it~communicates with the~server~API.
-When a~process is~supposed to~run under an~\hyperref[os]{OS}, it~communicates with the~API of~that~OS.
+For~example, when a~browser is~requesting \hyperref[internetweb]{web} pages from a~\hyperref[webserver]{web~server}, it~communicates with the~server~API\@.
+When a~process is~supposed to~run under an~\hyperref[os]{OS}, it~communicates with the~API of~that~OS\@.
 Methods defined in~a~class form an~API (of~instances) of~that~class.
 And~so~forth.

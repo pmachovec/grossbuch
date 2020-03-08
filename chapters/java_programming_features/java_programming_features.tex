@@ -107,7 +107,9 @@ It's~desirable to~\hyperref[javaoverride]{override} the~\mbitq{init} method, ret
 Interactions with the~compilation process (breaking compilation, printing warnings, \dots) in~the~\mbit{process} method are~then done through this messager, namely through its method \mbitq{printMessage}.
 The~method can~take up~to~four \hyperref[parameterargument]{parameters}, but~only first two are~important:
 \begin{itemize}
-    \itembfd{Kind} a~member of~the~enum \mbitq{Diagnostic.Kind}. Specifies the~action to~perform. For~example, the~value \mbitq{ERROR} will~cause the~compilation to~fail.
+    \itembfd{Kind} a~member of~the~enum \mbitq{Diagnostic.Kind}.
+             Specifies the~action to~perform.
+             For~example, the~value \mbitq{ERROR} will~cause the~compilation to~fail.
     \itembfd{Message} character sequence (can~be string) with the~message to~display.
 \end{itemize}
 \noindent Nevertheless, it's~convenient to~use the~three--parameter version.
@@ -293,7 +295,7 @@ The~response is~written to~a~writer instance of~the~\textit{response} object.
 \end{lstlisting}
 
 \newsubsection{Servlet Invocation}
-Each servlet class must have~assigned some~URL.
+Each servlet class must have~assigned some~URL\@.
 When the~\hyperref[applicationserver]{application server} URL, correct port and~the~servlet URL are~invoked (for~example, in~a~web browser address bar), the~\textit{service} method of~the~class is~executed.
 From there other classes and~methods can~be invoked.
 The~content written to~the~writer of~the~response object is~sent back to~the~invoking client (a~web~browser displays it instead of~a~web~page).

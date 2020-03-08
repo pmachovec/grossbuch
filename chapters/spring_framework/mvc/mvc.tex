@@ -11,7 +11,8 @@ Server side classes are~called \textit{servlets}, data coming from clients are~\
 Applications are~suitable to~be~deployed on~\hyperref[tomcat]{Tomcat} and,~of~course, they consist of~three basic MVC components.
 
 \begin{itemize}
-    \itembf{Model} is~represented by~an~instance of~the~class \textit{Model} from the~package \itq{org.springframework.ui}. Any~object can~be inserted to~the~model instance as~an~attribute (\itq{model.addAttribute(OBJECT,"attributeName")}).
+    \itembf{Model} is~represented by~an~instance of~the~class \textit{Model} from the~package \itq{org.springframework.ui}.
+            Any~object can~be inserted to~the~model instance as~an~attribute (\itq{model.addAttribute(OBJECT,"attributeName")}).
             At~the~beginning it's empty and~must~be filled with attributes by~the~controller.
     \itembf{View} is~represented by~a~template engine, which gets the~filled model, inserts attributes to~an~HTML page template and~puts a~final HTML page to~the~response.
             The~basic template engine for~Spring is "good" old \hyperref[jsp]{JSP}, but~nowadays safer technologies can~be used.

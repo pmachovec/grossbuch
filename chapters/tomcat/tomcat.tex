@@ -76,7 +76,7 @@ Go~to \textit{File $\rightarrow$ Settings $\rightarrow$ Build,~Execution,~Deploy
 As~IntelliJ is more focused to~have projects separated (opposite to~Eclipse, where you can have all projects in one window), you need a~project created and~you assign a~Tomcat installation to~that project.
 With a~project opened in~IntelliJ go~to \textit{Run $\rightarrow$ Edit~Configurations}, click on~the~\textit{plus} symbol, from displayed dropdown menu select \textit{Tomcat Server} $\rightarrow$ \textit{Local} (no~problem setting remote if you have~one), fill the~configuration form (it's~quite intuitive) and~click~\textit{OK}.
 
-\warning You~need the~ultimate edition of~IntelliJ.
+\warning You~need the~ultimate edition of~IntelliJ\@.
 The~community (free) version doesn't support application server integration.
 So~basically if~you don't get a~license from your employer, you're screwed.
 
@@ -88,16 +88,25 @@ If~the~application contains some Java code (e.g.,~\hyperref[servlet]{servlets}),
 If~the~application uses some third party libraries (e.g.,~\hyperref[jstl]{JSTL}; yes,~Tomcat doesn't understand JSTL by~default), their jars must~be located in~\mbitq{APPLICATION\_FOLDER/WEB-INF/lib}.
 If~you deploy more applications using same external libraries, you~can put their jars directly to~\itq{TOMCAT\_FOLDER/lib} among other libraries available by~default.
 
-It~isn't necessary to~create folders and~copy files manually. A~\hyperref[webserviceapplication]{web application} is usually packed in~a~war archive, where the~correct folder structure already exists (IDEs~and~build tools construct it automatically). A~war archive can~be copied to~the~\mbitq{TOMCAT\_FOLDER/webapps} folder. Tomcat unpacks it automatically on~startup.
+It~isn't necessary to~create folders and~copy files manually.
+A~\hyperref[webserviceapplication]{web application} is usually packed in~a~war archive, where the~correct folder structure already exists (IDEs~and~build tools construct it automatically).
+A~war archive can~be copied to~the~\mbitq{TOMCAT\_FOLDER/webapps} folder.
+Tomcat unpacks it automatically on~startup.
 
 \newsubsection{Deploying wars without restart}
 
 \newsubsection{Deployment from IntelliJ Idea}
-\warning Do not set the~application context under the~deployment tab to~plain slash. This~would override the~\textit{ROOT} folder under \textit{webapps} and~you would loose the~Tomcat default application.
+\warning Do not set the~application context under the~deployment tab to~plain slash.
+This~would override the~\textit{ROOT} folder under \textit{webapps} and~you would loose the~Tomcat default application.
 
 \newsection{Setting Servlet URLs}
 \label{servleturl}
-A~\hyperref[webserviceapplication]{web application} run by~Tomcat has~a~configuration file \mbit{web.xml} located in~the~\itq{\mbox{APPLICATION\_FOLDER/} \mbox{WEB-INF/}} folder. The~basic element of~this XML file enclosing everything else is~\mbitq{web-app}. As~a~direct descendant of~this~element there can~be the~\mbitq{servlet} element binding a~servlet class with some name. Then there's the~\mbitq{servlet-mapping} element which binds the~name with an~URL part, which must start with the~slash symbol. When this URL part is~appended to~the~application URL in~a~web browser, it~triggers the~\hyperref[servicedopostdoget]{\textit{doGet}} method of~the~corresponding servlet class. See the~example for~exact element names.
+A~\hyperref[webserviceapplication]{web application} run by~Tomcat has~a~configuration file \mbit{web.xml} located in~the~\itq{\mbox{APPLICATION\_FOLDER/} \mbox{WEB-INF/}} folder.
+The~basic element of~this XML file enclosing everything else is~\mbitq{web-app}.
+As~a~direct descendant of~this~element there can~be the~\mbitq{servlet} element binding a~servlet class with some name.
+Then there's the~\mbitq{servlet-mapping} element which binds the~name with an~URL part, which must start with the~slash symbol.
+When this URL part is~appended to~the~application URL in~a~web browser, it~triggers the~\hyperref[servicedopostdoget]{\textit{doGet}} method of~the~corresponding servlet class.
+See the~example for~exact element names.
 
 \example[\textit{web.xml} file with servlet mapping]
 \begin{lstlisting}[language=XML]
@@ -116,7 +125,8 @@ A~\hyperref[webserviceapplication]{web application} run by~Tomcat has~a~configur
 
 \noindent An~example of~a~matching address in~a~web browser is~\itq{\mbox{locallhost:8080/} \mbox{exampleapp/} \mbox{exampleurl}}.
 
-A~different URL can~be set even for~a~\hyperref[jsp]{JSP} or~HTML page. The~configuration is almost the~same, only instead~of the~\mbitq{servlet-class} element there~is \mbitq{jsp-file} (even for~HTML pages).
+A~different URL can~be set even for~a~\hyperref[jsp]{JSP} or~HTML page.
+The~configuration is almost the~same, only instead~of the~\mbitq{servlet-class} element there~is \mbitq{jsp-file} (even for~HTML pages).
 
 \example[servlet mapping for~a~JSP page]
 \begin{lstlisting}[language=XML]

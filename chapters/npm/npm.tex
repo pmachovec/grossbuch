@@ -81,7 +81,8 @@ Their names define profile names, they don't have extensions.
 There's a~Node.js implementation of~this behavior called \mbitq{npmrc} (yes,~like the~configuration file) available in~the~default NPM~registry.
 Install~it globally as~any~other package.
 A~default profile called \mbitq{default} will~be created from~the~actual configuration.
-To~create a~new~profile run \mbitqls{npmrc -c;;;PROFILE\_NAME}. To~switch to~a~different profile run \mbitqls{npmrc;;;PROFILE\_NAME}.
+To~create a~new~profile run \mbitqls{npmrc -c;;;PROFILE\_NAME}.
+To~switch to~a~different profile run \mbitqls{npmrc;;;PROFILE\_NAME}.
 To~see a~list of~available profiles run \mbitq{npmrc} without any parameter.
 To~delete a~profile delete the~corresponding file under the~\mbitq{HOME/.npmrcs} folder.
 \newpage
@@ -101,7 +102,8 @@ But~similarly to~\hyperref[gradle]{Gradle} it's also possible to~use a~local fol
 \label{npmpublishlocal}
 Simply choose a~folder and~copy the~project folder there.
 It~should contain the~\mbit{package.json} file and~source files.
-The~\mbit{node\_modules} doesn't have to~be~included. When the~project is~installed by~NPM, all~dependencies will~be~downloaded automatically.
+The~\mbit{node\_modules} doesn't have to~be~included.
+When the~project is~installed by~NPM, all~dependencies will~be~downloaded automatically.
 The~\mbit{package.json} file must contain package name, three--number version and~the~path to~the~root file.
 And~of~course dependencies must~be mentioned to~be~automatically downloaded.
 
@@ -164,7 +166,7 @@ See~the~following example for~the~exact syntax.
 \noindent With the~\mbit{package.json} ready in~\hyperref[shellcligui]{CLI} go to~the~project root folder (where the~\mbit{package.json} should~be located) and~simply run \mbitq{npm publish}.
 \newline
 
-\noindent To~install the~package in~a~different project you must configure the~main NPM registry (the~one without a~\hyperref[npmscope]{scope}) to~the~user--specific GitHub NPM registry~URL.
+\noindent To~install the~package in~a~different project you must configure the~main NPM registry (the~one without a~\hyperref[npmscope]{scope}) to~the~user--specific GitHub NPM registry~URL\@.
 I.e.,~there must~be something like \mbitqls{registry=;;https://;;npm.pkg.github.com/;;USER\_NAME} in~global or~project--specific \mbit{.npmrc} file.
 GitHub registry is~connected with the~default NPM registry and~NPM~installation of~other features will still work.
 However, if~you~already have the~main registry configured to~some other URL,  you're screwed, see~\hyperref[multipleregistries]{further}.
