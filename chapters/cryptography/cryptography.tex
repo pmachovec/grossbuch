@@ -63,11 +63,12 @@ The~message processing flow~is:
 Nobody else can read those messages.
 Typically the receiver generates a~pair of~keys and sends the~public key to~whoever he~wants to~receive messages from.
 If someone else gets the~public key, there is no problem, he won't be able to~decrypt messages sent to~the~receiver.
+\newpage
 
 \newsubsection{RSA}
 \index{RSA}
 \textit{RSA} is the~most well--known asymmetric encryption algorithm.
-It's used for~both encrypting sent data and~electronic signatures.
+It's used for~both encrypting sent data and~\hyperref[electronicsignature]{electronic signatures}.
 The abbreviation is nothing technical, it~consists of initial letters of~names of~authors of~the algorithm\,--\,\textit{Rivest}, \textit{Shamir}, \textit{Adleman}.
 
 Disadvantages of~this approach are message length limits and~performance demands.
@@ -84,23 +85,53 @@ There is more such info in private keys, that's why private keys are significant
 
 \warning Although only some fixed lengths of the~key are~mentioned almost everywhere (512, 1024, 2048, 4096), there is no restriction, the~length can~be any number.
 However, the~\textit{ssh-keygen} program provided with Git installation, which is usually used for~key generation, doesn't allow number lower than 1024.
-If~it's the~program's feature or a~general restriction is unknown so~far.
 
 \newsubsection{RSA Key Formats}
 \newline\todo OpenSSH, PKCS1, PKCS8\dots
 
-\newsection{Electronic signature}
+\newsection{Electronic Signature}
 \index{Electronic signature}
 \label{electronicsignature}
+Electronic signature uses the~\hyperref[asymmetricencryption]{asymmetric encryption principle} to~verify the~identity of~a~data sender.
+The~application of~keys is reversed than in~the~standard asymmetric encryption.
+A~sender uses the~private key to~sign sent data and~a~receiver uses the~public key to~verify the~signature.
 
-\newsubsection{PGP}
+A~hash is generated from the~sent message.
+The~hashing function must work so that even a~slight change of~the~message causes a~significant change of~the~hash.
+The~hash is then encrypted with th~sender's private key.
+This encrypted hash is the~electronic signature of~the~message and~it's sent together with the~original message to~the~receiver.
+The receiver creates the~hash from the~original message and~decrypts the~signature, which gives him another hash.
+He~compares the~hash of~the~message and~the~hash of~the~signature.
+If~they match, the~signature is verified.
+
+\newsection{Certification Authority}
+\index{Certification authority}
+\label{certificationauthority}
+It's~something (typically some trusted and~state certified company) which can verify that public keys used for~\hyperref[asymmetricencryption]{asymmetric encryption} and~\hyperref[electronicsignature]{electronic signatures} really belong to~users they claim (a~public key identifies a~user).
+In~standard asymmetric encryption it~serves for~senders to~verify that they really encrypt messages with public keys they got from receivers.
+In~electronic signature it~serves for~receivers to~verify that public keys they use for~the~signature verification really belong to~senders they get messages from.
+
+Certification authorities are usually paid, that sucks.
+An alternative can~be key sharing servers used~by some dedicated software like \hyperref[pgpgpg]{PGP} (this is commercial software though) or~ \hyperref[pgpgpg]{GPG} (that's true free).
+
+\newsubsection{PGP and GPG}
 \index{PGP}
-
-\newsubsection{GPG}
 \index{GPG}
-\label{gpg}
+\index{Pretty Good Privacy}
+\index{GNU Privacy Guard}
+\label{pgpgpg}
+These are computer programs for~\hyperref[asymmetricencryption]{asymmetric encryption} and~\hyperref[electronicsignature]{electronic signatures}.
+Users either send their public keys directly to~each other or~they can~upload them to~dedicated servers, from where other users can~download them.
+These servers can~serve as~alternatives to~\hyperref[certificationauthority]{certification authorities}.
 
-\newsubsection{Why to use GPG signature in Git}
+User's keys are~stored in~the~local program installation and~accessed by~passwords.
+When using private keys (decrypting a message, signing), the~user doesn't have to~copy the~whole long key anywhere, he~only provides the~password.
+
+PGP~stands for~\itq{Pretty Good Privacy}.
+It's~a~commercial software,~i.e.,~users need to~pay for~it.
+GPG,~standing for~\itq{GNU Privacy Guard}, is~a~free alternative.
+
+\newsection{Why to use GPG signature in Git}
 \label{gitgpg}
 SSH~keys only serve for~access right to a~\hyperref[git]{Git} repository.
 They can't~be used for~user identity verification.
@@ -119,6 +150,7 @@ With a~Git hub requiring GPG signing of~commits you~can't push unsigned commits 
 When you configure your Git to~sign commits you~can't even commit without signing.
 
 If~you could generate and~add keys yourself, it~would lack any~sense.
-But when there is an~authority that distributes keys (which is usually the~case), your Homer identity is~screwed.
+But~when there is an~authority that distributes keys (which is usually the~case), your Homer identity is~screwed.
 The~authority will give you only the~private key that matches your real name and~email and~it will upload matching public key to~the~GitHub itself.
 The~authority is~usually some application with a~database of~allowed user names and~emails.
+Typically a~\hyperref[pgpgpg]{GPG} server is~used.
