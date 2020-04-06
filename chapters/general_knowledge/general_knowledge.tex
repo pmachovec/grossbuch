@@ -321,3 +321,19 @@ For~example, when a~browser is~requesting \hyperref[internetweb]{web} pages from
 When a~process is~supposed to~run under an~\hyperref[os]{OS}, it~communicates with the~API of~that~OS\@.
 Methods defined in~a~class form an~API (of~instances) of~that~class.
 And~so~forth.
+
+\newsection{Authentication VS Authorization}
+\index{Authentication}
+\index{Authorization}
+\label{authenticationauthorization}
+\begin{itemize}
+    \itembf{Authentication} is a~process of~validating user's identity.
+            For~example, a~user, before he~can~start using an~\hyperref[applicationprocessprogramservicethread]{application}, must somehow prove who~he~is.
+            And~he~does this typically by providing user name and~password.
+            The~application contains an~authentication mechanism, which verifies the~user's identity (or~not).
+            In~multi--factor authentication the~user must provide more proofs, for~example, a~code arriving to~his mobile as~SMS.
+            Fingerprint or~eye scans, known mostly from American movies (but~existing even in~real world), are~also forms of~authentication.
+    \itembf{Authorization} is a~process of~validating user's rights to~access various resources.
+            User's identity must~be~known for~authorization, therefore, it~must follow an~authentication (which provides the~identity).
+            For~example, a~company's internal information system contains an~authorization mechanism, which authorizes every employee to~access the~system, but~only very few employees are~authorized to~access information about wages in~that system.
+\end{itemize}

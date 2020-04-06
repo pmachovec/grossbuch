@@ -112,7 +112,7 @@ In~standard asymmetric encryption it~serves for~senders to~verify that they real
 In~electronic signature it~serves for~receivers to~verify that public keys they use for~the~signature verification really belong to~senders they get messages from.
 
 Certification authorities are usually paid, that sucks.
-An alternative can~be key sharing servers used~by some dedicated software like \hyperref[pgpgpg]{PGP} (this is commercial software though) or~ \hyperref[pgpgpg]{GPG} (that's true free).
+An alternative can~be key sharing servers used~by some dedicated software like \hyperref[pgpgpg]{PGP} (this is commercial software though) or~\hyperref[pgpgpg]{GPG} (that's true free).
 
 \newsubsection{PGP and GPG}
 \index{PGP}
@@ -120,7 +120,7 @@ An alternative can~be key sharing servers used~by some dedicated software like \
 \index{Pretty Good Privacy}
 \index{GNU Privacy Guard}
 \label{pgpgpg}
-These are computer programs for~\hyperref[asymmetricencryption]{asymmetric encryption} and~\hyperref[electronicsignature]{electronic signatures}.
+These are computer programs for~handling \hyperref[asymmetricencryption]{asymmetric encryption} and~\hyperref[electronicsignature]{electronic signatures}.
 Users either send their public keys directly to~each other or~they can~upload them to~dedicated servers, from where other users can~download them.
 These servers can~serve as~alternatives to~\hyperref[certificationauthority]{certification authorities}.
 
@@ -152,5 +152,4 @@ When you configure your Git to~sign commits you~can't even commit without signin
 If~you could generate and~add keys yourself, it~would lack any~sense.
 But~when there is an~authority that distributes keys (which is usually the~case), your Homer identity is~screwed.
 The~authority will give you only the~private key that matches your real name and~email and~it will upload matching public key to~the~GitHub itself.
-The~authority is~usually some application with a~database of~allowed user names and~emails.
-Typically a~\hyperref[pgpgpg]{GPG} server is~used.
+The~authority in~this case is an~application with a~database of~allowed user names and~emails.
