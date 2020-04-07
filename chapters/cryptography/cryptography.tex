@@ -12,17 +12,17 @@ That's because the~result was in~some (sometimes maliciously hidden) step transf
 
 \newsection{Key}
 A~key is an~information (a~parameter) given to a~cryptographic function when encrypting and decrypting messages.
-Either the~same key is used for both encryption and~decryption (\hyperref[symmetricencryption]{symmetric encryption}) or~there is a~pair of~keys, one for~encryption and~one for~decryption (\hyperref[asymmetricencryption]{asymmetric encryption}).
+Either the~same key is used for both encryption and~decryption (\hyperref[symmetriccryptography]{symmetric cryptography}) or~there is a~pair of~keys, one for~encryption and~one for~decryption (\hyperref[asymmetriccryptography]{asymmetric cryptography}).
 
 In~computer cryptography the~key is a~set of~bits, usually bytes, similarly to~data itself.
 And~similarly to~encrypted data it's often shown as a~printable string.
 Even in~this case the~binary--to--text encoding is in~action, keys are~not fully printable by~default.
 Typically the~longer your message is, the~longer key you need.
 
-\newsection{Symmetric encryption}
-\index{Symmetric encryption}
-\label{symmetricencryption}
-In~this type of~encryption there is~one common key used for~both encryption and~decryption.
+\newsection{Symmetric Cryptography}
+\index{Symmetric cryptography}
+\label{symmetriccryptography}
+In~this type of~cryptography there is~one common key used for~both encryption and~decryption.
 The~message processing flow~is:
 \begin{itemize}
     \item A~sender owns the key.
@@ -38,19 +38,20 @@ It~requires the~key to~be 128, 192 or~256 bits (16, 24 or~32 bytes) long, that's
 The~encryption can~be extended with so~called \textit{initial vector}.
 It's another set of~bits given to the~algorithm together with the~key when encrypting, but opposite to the~key the~initial vector is usually always different.
 It must~be then sent to~the receiver together with the~message, because it's needed also for the~message decryption.
-However, it~can~be sent through a~different secure canal, and as it's quite short, it~can~be encrypted by the~\hyperref[asymmetricencryption]{asymmetric encryption}.
+However, it~can~be sent through a~different secure canal, and as it's quite short, it~can~be encrypted by an~\hyperref[asymmetriccryptography]{asymmetric encryption}.
 The~length of an~initial vector must be always 128 bits (16 bytes).
 
 The~big disadvantage of~this approach is that the~key needs to be shared, i.e., two copies of~it must~be distributed to both sender and~receiver.
 And~during this distribution (e.g., sending it over a~network) it can~be caught by a~bad guy.
-Reasons why the~symmetric encryption still survives is its high speed and~practically unlimited size of~processed data (opposite to the~\hyperref[asymmetricencryption]{asymmetric encryption}), the~limit is in millions of~\mbox{terabytes}.
+Reasons why the~symmetric cryptography still survives is its high speed and~practically unlimited size of~processed data (opposite to the~\hyperref[asymmetriccryptography]{asymmetric cryptography}), the~limit is in millions of~\mbox{terabytes}.
 
-\newsection{Asymmetric encryption}
-\index{Asymmetric encryption}
-\label{asymmetricencryption}
+\newsection{Asymmetric Cryptography}
+\index{Asymmetric cryptography}
+\index{Public key cryptography}
+\label{asymmetriccryptography}
 In~this type of~encryption there are two keys matching to~each other - public and~private.
 Messages encrypted by a~public key can~be decrypted only~by a~matching private key.
-That's why it's sometimes also called \textit{public key encryption}\index{Public key encryption}.
+That's why it's sometimes also called \textit{public key cryptography}.
 It can work also in the~reversed way (encrypted by private key, decrypted by public key), which is used in \hyperref[electronicsignature]{electronic signatures}.
 The~message processing flow~is:
 \begin{itemize}
@@ -67,6 +68,7 @@ If someone else gets the~public key, there is no problem, he won't be able to~de
 
 \newsubsection{RSA}
 \index{RSA}
+\label{rsa}
 \textit{RSA} is the~most well--known asymmetric encryption algorithm.
 It's used for~both encrypting sent data and~\hyperref[electronicsignature]{electronic signatures}.
 The abbreviation is nothing technical, it~consists of initial letters of~names of~authors of~the algorithm\,--\,\textit{Rivest}, \textit{Shamir}, \textit{Adleman}.
@@ -92,8 +94,8 @@ However, the~\textit{ssh-keygen} program provided with Git installation, which i
 \newsection{Electronic Signature}
 \index{Electronic signature}
 \label{electronicsignature}
-Electronic signature uses the~\hyperref[asymmetricencryption]{asymmetric encryption principle} to~verify the~identity of~a~data sender.
-The~application of~keys is reversed than in~the~standard asymmetric encryption.
+Electronic signature uses the~\hyperref[asymmetriccryptography]{asymmetric cryptography principle} to~verify the~identity of~a~data sender.
+The~application of~keys is reversed than in~the~asymmetric encryption.
 A~sender uses the~private key to~sign sent data and~a~receiver uses the~public key to~verify the~signature.
 
 A~hash is generated from the~sent message.
@@ -107,7 +109,7 @@ If~they match, the~signature is verified.
 \newsection{Certification Authority}
 \index{Certification authority}
 \label{certificationauthority}
-It's~something (typically some trusted and~state certified company) which can verify that public keys used for~\hyperref[asymmetricencryption]{asymmetric encryption} and~\hyperref[electronicsignature]{electronic signatures} really belong to~users they claim (a~public key identifies a~user).
+It's~something (typically some trusted and~state certified company) which can~verify that public keys used for~\hyperref[asymmetriccryptography]{asymmetric cryptography} and~\hyperref[electronicsignature]{electronic signatures} really belong to~users they claim (a~public key identifies a~user).
 In~standard asymmetric encryption it~serves for~senders to~verify that they really encrypt messages with public keys they got from receivers.
 In~electronic signature it~serves for~receivers to~verify that public keys they use for~the~signature verification really belong to~senders they get messages from.
 
@@ -120,7 +122,7 @@ An alternative can~be key sharing servers used~by some dedicated software like \
 \index{Pretty Good Privacy}
 \index{GNU Privacy Guard}
 \label{pgpgpg}
-These are computer programs for~handling \hyperref[asymmetricencryption]{asymmetric encryption} and~\hyperref[electronicsignature]{electronic signatures}.
+These are computer programs for~handling \hyperref[asymmetriccryptography]{asymmetric cryptography} and~\hyperref[electronicsignature]{electronic signatures}.
 Users either send their public keys directly to~each other or~they can~upload them to~dedicated servers, from where other users can~download them.
 These servers can~serve as~alternatives to~\hyperref[certificationauthority]{certification authorities}.
 
@@ -129,7 +131,7 @@ When using private keys (decrypting a message, signing), the~user doesn't have t
 
 PGP~stands for~\itq{Pretty Good Privacy}.
 It's~a~commercial software,~i.e.,~users need to~pay for~it.
-GPG,~standing for~\itq{GNU Privacy Guard}, is~a~free alternative.
+GPG,~standing for~\itq{\hyperref[gnu]{GNU} Privacy Guard}, is~a~free alternative.
 
 \newsection{Why to use GPG signature in Git}
 \label{gitgpg}
@@ -153,3 +155,42 @@ If~you could generate and~add keys yourself, it~would lack any~sense.
 But~when there is an~authority that distributes keys (which is usually the~case), your Homer identity is~screwed.
 The~authority will give you only the~private key that matches your real name and~email and~it will upload matching public key to~the~GitHub itself.
 The~authority in~this case is an~application with a~database of~allowed user names and~emails.
+
+\newsection{Certificate}
+\index{Certificate}
+\index{CSR}
+\label{certificate}
+A~certificate is simply a~public key with additional metadata.
+Sometimes it can~contain even the~private key.
+Metadata in~certificates serve for~identifying owners of~keys.
+
+When someone provides a~public key to~verify signatures coming from~him, it~isn't possible to~verify that the~key really belongs to~that someone.
+Identity information isn't included in~the~key.
+But~when he provides a~certificate, a~receiver can~verify the~identity based on metadata in~the~certificate.
+
+Obtaining a~certificate that is trusted by~others isn't just like that.
+The~sender must request it from~a~\hyperref[certificationauthority]{certification authority}\,--\,he~must send so~called \textit{certificate signing request}~(CSR) to~the~authority (and~of~course he~must~pay).
+The~request is just a~file, typically with the~\itq{.csr} extension, which contains sender's public key and~some information about~him.
+When the~authority verifies all the~information from~the~request (and~gets the~money), it~creates the~certificate, signs it with its private key (standard electronic signature described \hyperref[electronicsignature]{earlier}), appends the~signature to~the~certificate and~returns it to~the~sender.
+Now~the~sender has a~valid certificate and~he~can~provide it to~receivers.
+Receivers can~extract the~public key from the~certificate and~verify sender's signatures with~it.
+If~they want to~verify the~sender's identity, they verify the~signature in~the~certificate using a~public key of~the~certification authority (the~authority signed the~certificate with its private key before).
+
+\newsection{SSL/TLS}
+\index{SSL}
+\index{TLS}
+
+\newsection{PKCS}
+The~abbreviation stands for~\itq{Public Key Cryptography Standards}.
+It's~a~set of~standards for~various scenarios in~\hyperref[asymmetriccryptography]{asymmetric cryptography} created by \href{https://en.wikipedia.org/wiki/RSA_Security}{RSA~Security}.
+You~will often encounter the~abbreviation with a~number, sometimes with hash tag.
+This denotes one concrete standard from~the~set.
+Most important PKCS standards~are:
+\begin{itemize}
+    \itembfd{PKCS~\#1} first standard of~the~PKCS family, provides basic definitions~of and~recommendations for~implementing the~\hyperref[rsa]{RSA~algorithm}.
+             Defines mathematical properties of~public and~private keys, primitive operations for~encryption and~signatures, secure cryptographic schemes and~related syntax representations.
+    \itembfd{PKCS~\#8} defines handling of~private keys in~any~asymmetric \hyperref[asymmetriccryptography]{asymmetric cryptography} algorithm.
+             It~isn't fixed only to~the~\hyperref[rsa]{RSA~algorithm} (opposite to~PKCS~\#1).
+    \itembfd{PKCS~\#12} defines an~archive file format for~storing many cryptography objects into a~single file, for~example, a~private key and~a~corresponding \hyperref[certificate]{certificate}.
+             Files created according to~this standard have extensions \itq{.pfx} or~\itq{.p12}.
+\end{itemize}
