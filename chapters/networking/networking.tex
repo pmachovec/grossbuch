@@ -9,6 +9,7 @@
 \label{tcpip}
 
 \newsection{Network protocols}
+\label{networkprotocols}
 
 \newsubsection{TCP}
 \index{IP}
@@ -24,7 +25,7 @@
 \index{Request line}
 \index{Response line}
 \label{http}
-It's a~protocol for~transferring data over the~\hyperref[internetweb]{web}.
+It's a~\hyperref[protocolstandard]{protocol} for~transferring data over the~\hyperref[internetweb]{web}.
 It's~based on~the~\hyperref[clientserverarchitecture]{client--server architecture}.
 A~client, typically (but~not~necessarily) a~web browser, sends so~called \mbit{request} to~a~server.
 It's~just a~bunch of~text encapsulating client's requirements\,--\,what does it want from the~server.
@@ -47,7 +48,7 @@ This is typical for~\hyperref[applicationserver]{application servers}.
 \end{lstlisting}
 
 \noindent The~first line is so~called \textit{request line}.
-It~contains a~HTTP command, which contains method type, target point at~the~server and~HTTP protocol version.
+It~contains a~HTTP command, which contains method type, target point at~the~server and~HTTP \hyperref[protocolstandard]{protocol} version.
 The~rest of~the~top part (above the~empty line) is~the~request header.
 It~contains request metadata\,--\,additional information about the~request used for~the~request processing by~the~server
 The~bottom part (below the~empty line) is~the~request body.
@@ -57,7 +58,7 @@ In~\mbit{GET} methods parameters are~a~part of~the~endpoint in~the~request line 
 Server reads the~request, processes it, eventually triggers some \hyperref[webserviceapplication]{web service} and~sends back so~called \mbit{response}.
 Responses have very similar structure to~requests.
 They also have some an~initial line\,--\,\textit{response line}, header and~body.
-The~response line contains HTTP protocol version and~a~status code\,--\, a~numeric representation of~the~request processing result.
+The~response line contains HTTP \hyperref[protocolstandard]{protocol} version and~a~status code\,--\, a~numeric representation of~the~request processing result.
 For~example, the~value 200 means success.
 The~header contains response metadata usable at~the~client side.
 The~body contains actual request processing result for~the~client.
@@ -79,7 +80,7 @@ And~if~the~header of~the~request contains the~content type set to~\mbitq{text/ht
     </html>
 \end{lstlisting}
 
-\notenonl The~HTTP protocol isn't used only for~displaying \hyperref[internetweb]{web} pages.
+\notenonl The~HTTP \hyperref[protocolstandard]{protocol} isn't used only for~displaying \hyperref[internetweb]{web} pages.
 For~example the~\hyperref[rest]{REST} communication between two running programs also uses this protocol.
 In~this case the~content type is \mbitq{application/json}.
 
@@ -95,7 +96,7 @@ In~this case the~content type is \mbitq{application/json}.
 \index{Secure shell}
 \index{SSH}
 \label{ssh}
-It's a~protocol for~network communication that includes cryptographic features to~encrypt the~communication.
+It's a~\hyperref[protocolstandard]{protocol} for~network communication that includes cryptographic features to~encrypt the~communication.
 It~enables secure communication over a~network in~a~\hyperref[clientserverarchitecture]{client--server architecture} that generally is~not secured.
 It's typically used for~remote command line login and~remote commands execution, but~any network service can~be secured with SSH (e.g., file transfer or~tunneling).
 It~uses \hyperref[asymmetriccryptography]{asymmetric cryptography} approach to~secure the~network communication.
@@ -104,11 +105,11 @@ It~uses \hyperref[asymmetriccryptography]{asymmetric cryptography} approach to~s
 \index{SSH file transfer protocol}
 \index{SFTP}
 \label{sftp}
-It's a~protocol for~secured network file access, file transfer, and~file management.
+It's a~\hyperref[protocolstandard]{protocol} for~secured network file access, file transfer, and~file management.
 It's an~extension of~the \hyperref[ssh]{SSH protocol}, therefore, when working with SFTP, you often have to~deal with documentation, terms and,~when programming, also object names that contain the~text~\textit{SSH}.
 For~example, one of~the~current Java libraries for~SFTP file management is~called~\textit{SSHJ}.
 
-\warning It has nothing to~do with the~FTP protocol.
+\warning It has nothing to~do with the~FTP \hyperref[protocolstandard]{protocol}.
 That is completely different, very old and~unsecured protocol for network file transferring.
 
 \newsection{Internet VS Web}
@@ -122,8 +123,8 @@ That is completely different, very old and~unsecured protocol for network file t
             The~word \textit{Internet} therefore denotes the~connecting infrastructure, i.e.,~hardware.
     \itembf{Web}, more precisely \textit{World Wide Web}, is~one of~more software systems using the~Internet infrastructure.
             It~mainly serves for~sharing visualised and mutualy linked HTML documents accessed by web browsers, but~can also provide \hyperref[webserviceapplication]{web services}.
-            Information exchange on~the~Web is~performed exclusively with the~\hyperref[http]{HTTP}~protocol.
-            I.e.,~other systems like email (\hyperref[smtp]{SMTP}~protocol), remote \hyperref[shellcligui]{shell} (\hyperref[ssh]{SSH}~protocol) or instant messaging (many different protocols), which also run on the~Internet infrastructure, are~not a~part of~Web.
+            Information exchange on~the~Web is~performed exclusively with the~\hyperref[http]{HTTP~protocol}.
+            I.e.,~other systems like email (\hyperref[smtp]{SMTP~protocol}), remote \hyperref[shellcligui]{shell} (\hyperref[ssh]{SSH~protocol}) or instant messaging (many different \hyperref[protocolstandard]{protocols}), which also run on the~Internet infrastructure, are~not a~part of~Web.
 \end{itemize}
 
 \newsection{Namespaces}
@@ -175,7 +176,7 @@ On~the~other hand, \hyperref[tomcat]{Tomcat} serves mainly for~running Java prog
 \index{REST}
 \index{RESTful}
 \label{rest}
-It's~a~technique for~transferring data between two \hyperref[applicationprocessprogramservicethread]{programs} using the~\hyperref[http]{HTTP} protocol.
+It's~a~technique for~transferring data between two \hyperref[applicationprocessprogramservicethread]{programs} using the~\hyperref[http]{HTTP protocol}.
 Transferred data can~be theoretically in~any string form, but~the~most popular nowadays is~the~\hyperref[json]{JSON} format.
 
 The~first program has~the~role of~a~client and~initiates a~standard \hyperref[http]{HTTP} request.

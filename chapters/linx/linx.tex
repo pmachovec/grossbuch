@@ -12,7 +12,7 @@
             The~most known Unix of~today is~probably macOS (although having \hyperref[hybridkernel]{hybrid kernel}).
             \warningnonl Unix systems are~commercial and~their owners don't release source codes (they also had~to~pay for~the~\hyperref[licencing]{licence}).
     \itembf{Linux} was~originally only an~\hyperref[kernel]{OS~kernel} developed in~1991 by~\href{https://en.wikipedia.org/wiki/Linus_Torvalds}{Linus Torvalds}.
-            It~was~heavily inspired by~Unix (they both follow \hyperref[posix]{POSIX} standards), but~opposite to~Unix the~Linux source code was~publicly released under the~\hyperref[gpl]{GNU GPL} licence.
+            It~was~heavily inspired by~Unix (they both follow \hyperref[posix]{POSIX} \hyperref[protocolstandard]{standards}), but~opposite to~Unix the~Linux source code was~publicly released under the~\hyperref[gpl]{GNU GPL} licence.
             \hyperref[os]{Operating systems} said to~be Linux use variations of~that original Linux kernel.
             Although claimed to~be free, there are~even commercial Linuxes containing some nontrivial enhancements or~specializations, for~example SUSE Linux Enterprise for~\hyperref[server]{server} computers.
 \end{itemize}
@@ -21,7 +21,7 @@
 \index{POSIX}
 \label{posix}
 The~abbreviation stands for~\textit{Portable Operating System Interface} (yes,~\textit{X} is~missing).
-It's~a~set of~standards specifying \hyperref[api]{APIs}, command line \hyperref[shellcligui]{shells} and~utility interfaces.
+It's~a~set of~\hyperref[protocolstandard]{standards} specifying \hyperref[api]{APIs}, command line \hyperref[shellcligui]{shells} and~utility interfaces.
 These standards serve for~maintaining compatibility between \hyperref[os]{operating systems}.
 Any~software working on~one~system following standards will~work even on~a~different system following standards.
 It's~typical for~Unix and~Linux systems.
@@ -33,7 +33,7 @@ It's~typical for~Unix and~Linux systems.
 \index{Bourne}
 \label{shbash}
 \begin{itemize}
-    \itembf{SH}, also \textit{Bourne Shell}, is~a~very old \hyperref[scriptinglanguages]{scripting language} specification (not~one concrete language) following \hyperref[posix]{POSIX} standards.
+    \itembf{SH}, also \textit{Bourne Shell}, is~a~very old \hyperref[scriptinglanguages]{scripting language} specification (not~one concrete language) following \hyperref[posix]{POSIX} \hyperref[protocolstandard]{standards}.
             Each~Unix has~its own implementation following the~specification.
     \itembf{Bash} (\textit{Bourne Again Shell}) is~a~concrete language initially fully following the~SH specification, but~nowadays containing many extensions not~included in \hyperref[posix]{POSIX} standards.
             All~SH scripts work when executed by~Bash, but~not~all Bash scripts necessarily work when~executed by~other SH language.
@@ -42,7 +42,7 @@ It's~typical for~Unix and~Linux systems.
 \noindent The~typical \hyperref[shebang]{shebang} \itq{\#!/bin/sh} is~a~symbolic link to~an~SH language of~a~specific Unix system.
 When a~script with this shebang is~executed in~a~certain Unix, the~system automatically uses its SH language.
 
-\warning Latest versions of~Debian or~Ubuntu Linuxes don't~use Bash as~their SH language, but~Dash, which still follows \hyperref[posix]{POSIX} standards.
+\warning Latest versions of~Debian or~Ubuntu Linuxes don't~use Bash as~their SH language, but~Dash, which still follows \hyperref[posix]{POSIX} \hyperref[protocolstandard]{standards}.
 
 \newsection{APT}
 \index{APT}

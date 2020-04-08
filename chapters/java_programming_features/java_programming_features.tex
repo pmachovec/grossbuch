@@ -308,8 +308,8 @@ With this approach a~developer can override only methods he needs, the~original 
 \newsubsection{\textit{Service} method VS \textit{doGet} and \textit{doPost}}
 \label{servicedopostdoget}
  Today's servlet classes usually extend the~\textit{HttpServlet} class and~the~logic of~servlets is~implemented by~overriding methods \textit{doGet} and~\textit{doPost} from that class, not~the~original \textit{service}.
-That's because today's servlets are~triggered by web requests from web browsers, which use the~\hyperref[http]{HTTP} protocol.
-This~protocol enables (beside others) two~most common methods of~a~HTTP request\,--\,\textit{GET} and~\textit{POST}.
+That's because today's servlets are~triggered by web requests from web browsers, which use the~\hyperref[http]{HTTP protocol}.
+This~\hyperref[protocolstandard]{protocol} enables (beside others) two~most common methods of~a~HTTP request\,--\,\textit{GET} and~\textit{POST}.
 When an~\hyperref[applicationserver]{application server} gets a~\hyperref[http]{HTTP} request, it~actually triggers the~\textit{service} method, but~it~adds a~parameter with the~method type to~the~\textit{request} object.
 Based on~this parameter the~implementation of~the\textit{service} method from the~\textit{HttpServlet} class delegates other parameters to~\textit{doGet} or~\textit{doPost} method, which are~expected to~be overridden by~the~developer (their body is empty in~the~\textit{HttpServlet} class).
 
