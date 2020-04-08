@@ -84,9 +84,16 @@ And~if~the~header of~the~request contains the~content type set to~\mbitq{text/ht
 For~example the~\hyperref[rest]{REST} communication between two running programs also uses this protocol.
 In~this case the~content type is \mbitq{application/json}.
 
-\newsubsection{HTTPS}
+\newsubsection{HTTPS (HTTP over \hyperref[tls]{TLS})}
 \index{HTTPS}
+\index{Handshake}
 \label{https}
+It's~an~extension of~the~HTTP \hyperref[protocolstandard]{protocol} using both \hyperref[symmetriccryptography]{symmetric} and~\hyperref[asymmetriccryptography]{asymmetric} \hyperref[cryptography]{cryptography} techniques for~securing the~\hyperref[clientserverarchitecture]{client--server} communication.
+At~the~first request from the~client the~server provides its \hyperref[tls]{TLS} \hyperref[certificate]{certificate}.
+The~client verifies the~certificate in~a~standard TLS way.
+After the~verification the~client encrypts its \hyperref[symmetriccryptography]{symmetric key} with the~public key from the~server certificate and~sends it to~the~server.
+The~server decrypts the~key with its private key.
+Now~both client and~server have safely exchanged a~symmetric key (so~called \mbit{handshake}) and~encrypt and~decrypt their messages with the~fast \hyperref[symmetriccryptography]{symmetrically encrypted} communication.
 
 \newsubsection{SMTP}
 \index{SMTP}

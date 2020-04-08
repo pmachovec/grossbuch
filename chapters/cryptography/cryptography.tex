@@ -1,6 +1,7 @@
 \newchapter{Cryptography}
 \index{Cryptography}
 \index{Cryptanalysis}
+\label{cryptography}
 Cryptography is the practice and study of techniques for~secure communication.
 It~focuses on~constructing and~analyzing \hyperref[protocolstandard]{protocols} that prevent third parties or~the~public from reading private messages between a~sender and a~receiver, i.e., on~encrypting and~decrypting of~messages.
 The~study of~breaking cryptographic techniques and~reading encrypted messages by~third parties (i.e., what bad~guys are~doing) is called \textit{cryptanalysis}.
@@ -20,9 +21,9 @@ Even in~this case the~binary--to--text encoding is in~action, keys are~not fully
 Typically the~longer your message is, the~longer key you need.
 
 \newsection{Symmetric Cryptography}
-\index{Symmetric cryptography}
 \label{symmetriccryptography}
 In~this type of~cryptography there is~one common key used for~both encryption and~decryption.
+This key should be always kept secret and~shared with caution, that's why also the~term \itq{private key cryptography} is~used.
 The~message processing flow~is:
 \begin{itemize}
     \item A~sender owns the key.
@@ -46,12 +47,10 @@ And~during this distribution (e.g., sending it over a~network) it can~be caught 
 Reasons why the~symmetric cryptography still survives is its high speed and~practically unlimited size of~processed data (opposite to the~\hyperref[asymmetriccryptography]{asymmetric cryptography}), the~limit is in millions of~\mbox{terabytes}.
 
 \newsection{Asymmetric Cryptography}
-\index{Asymmetric cryptography}
-\index{Public key cryptography}
 \label{asymmetriccryptography}
 In~this type of~encryption there are two keys matching to~each other - public and~private.
 Messages encrypted by a~public key can~be decrypted only~by a~matching private key.
-That's why it's sometimes also called \textit{public key cryptography}.
+That's why it's sometimes also called \itq{public key cryptography}.
 It can work also in the~reversed way (encrypted by private key, decrypted by public key), which is used in \hyperref[electronicsignature]{electronic signatures}.
 The~message processing flow~is:
 \begin{itemize}
@@ -168,26 +167,55 @@ When someone provides a~public key to~verify signatures coming from~him, it~isn'
 Identity information isn't included in~the~key.
 But~when he provides a~certificate, a~receiver can~verify the~identity based on metadata in~the~certificate.
 
-Obtaining a~certificate that is trusted by~others isn't just like that.
-The~sender must request it from~a~\hyperref[certificationauthority]{certification authority}\,--\,he~must send so~called \textit{certificate signing request}~(CSR) to~the~authority (and~of~course he~must~pay).
+\newsubsection{TLS}
+\index{TLS}
+\index{SSL}
+\index{Transport layer security}
+\index{Secure sockets layer}
+\index{Root certificate}
+\index{Root store}
+\index{Trusted store}
+\index{PKI}
+\index{Public Key Infrastructure}
+\label{tls}
+TLS,~standing for~\itq{Transport Layer Security}, is a~widely used \hyperref[protocolstandard]{cryptographic protocol} describing the~certification mechanism on~the~\hyperref[internetweb]{web}.
+You~can also meet the~abbreviation SSL, which stands for~\itq{Secure Sockets Layer}.
+It's~a~predecessor of~TLS created in~1990s by~\href{https://en.wikipedia.org/wiki/Netscape}{Netscape}.
+Although all versions of~the original SSL are~already deprecated and~Netscape is almost dead, the~abbreviation is still used.
+
+When a~sender wants a~TLS certificate, he~must request it from~a~\hyperref[certificationauthority]{certification authority}\,--\,he~must send so~called \textit{certificate signing request}~(CSR) to~the~authority (and~of~course he~must~pay).
 The~request is just a~file, typically with the~\itq{.csr} extension, which contains sender's public key and~some information about~him.
 When the~authority verifies all the~information from~the~request (and~gets the~money), it~creates the~certificate, signs it with its private key (standard electronic signature described \hyperref[electronicsignature]{earlier}), appends the~signature to~the~certificate and~returns it to~the~sender.
 Now~the~sender has a~valid certificate and~he~can~provide it to~receivers.
 Receivers can~extract the~public key from the~certificate and~verify sender's signatures with~it.
-If~they want to~verify the~sender's identity, they verify the~signature in~the~certificate using a~public key of~the~certification authority (the~authority signed the~certificate with its private key before).
+They already have certificates from the~certification authority, so~if~they want to~verify the~sender's identity, they verify the~signature appended to~his~certificate using a~public key from the~certificate of~the~certification authority.
 
-\newsection{SSL/TLS}
-\index{SSL}
-\index{TLS}
+Certificates of~\hyperref[certificationauthority]{certification authorities} are~called root certificates and~they're stored in~so~called root stores, or~trusted stores.
+These certificates are~self--signed\,--\,the~certification authority signs its certificate with its own private key.
+Client programs (receivers) know root stores and~download root certificates from them.
+Major root stores are~run by~Microsoft, Google, Mozilla or~Apple, because typical clients are~\hyperref[internetweb]{web} browsers, where the~TLS protocol is~used as~a~part of~the~\hyperref[https]{HTTPS protocol}.
+All~the~certification authorities and~clients form so~called \itq{Public Key Infrastructure}~(PKI).
+
+\newsubsection{Chain of Trust}
+\index{Chain of trust}
+\index{Intermediate certificate}
+For~security reasons clients usually don't receive directly root certificates from .
+What a~client gets is so~called intermediate certificate, which can~identify another 2nd \hyperref[certificationauthority]{certification authority} (but~can~be the~same) and~which can~be~signed by~another 3rd certification authority (still can~be the~same).
+So~before accepting the~server certificate, the~client verifies the~intermediate certificate.
+And~the~3rd certification authority also doesn't have to~be the~last one, its certificate can~be also only intermediate and~signed by~a~4th certification authority.
+And~so~on.
+Therefore, the~client must verify all~certificates in~this chain until it~reaches a~self--signed root certificate.
 
 \newsection{PKCS}
+\index{PKCS}
+\index{Public Key Cryptography Standards}
 The~abbreviation stands for~\itq{Public Key Cryptography Standards}.
 It's~a~set of~\hyperref[protocolstandard]{standards} for~various scenarios in~\hyperref[asymmetriccryptography]{asymmetric cryptography} created by \href{https://en.wikipedia.org/wiki/RSA_Security}{RSA~Security}.
 You~will often encounter the~abbreviation with a~number, sometimes with hash tag.
 This denotes one concrete \hyperref[protocolstandard]{standard} from~the~set.
 Most important PKCS standards~are:
 \begin{itemize}
-    \itembfd{PKCS~\#1} first standard of~the~PKCS family, provides basic definitions~of and~recommendations for~implementing the~\hyperref[rsa]{RSA~algorithm}.
+    \itembfd{PKCS~\#1} first standard of~the~PKCS family, provides basic definitions~of and~recommendations for~implementing the~\hyperref[rsa]{RSA algorithm}.
              Defines mathematical properties of~public and~private keys, primitive operations for~encryption and~signatures, secure cryptographic schemes and~related syntax representations.
     \itembfd{PKCS~\#8} defines handling of~private keys in~any~asymmetric \hyperref[asymmetriccryptography]{asymmetric cryptography} algorithm.
              It~isn't fixed only to~the~\hyperref[rsa]{RSA~algorithm} (opposite to~PKCS~\#1).
