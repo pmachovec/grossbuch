@@ -175,6 +175,7 @@ Each~programming language can~theoretically interpret the~same value differently
 For~example consider the~value 1100001.
 When treated as~the~\textit{integer} type (\textit{int}~in some languages), it~represents the~number~97.
 When treated as~the~\textit{character} type (\textit{char}~in some languages), it~represents the~minuscule letter~\itq{a}.
+\newpage
 
 \newsection{Declaration VS Definition}
 \index{Declaration}
@@ -220,6 +221,7 @@ That isn't a~new definition.
     \itembf{Thread} is a~set of consecutive steps performed one by~one in a~process.
             A~process can~be separated to~more threads which can run in~parallel (if~the~program implementation supports~it).
 \end{itemize}
+\newpage
 
 \newsubsection{Web Service VS Web Application}
 \index{Web service}
@@ -235,7 +237,6 @@ That isn't a~new definition.
     \itembf{Web~application} is basically a~web~service with a~\hyperref[shellcligui]{GUI} in~a~web browser on~the~client side.
             In~a~web application a~user actively interacts with a~web page, based on~this interaction requests are~sent to~a~web service, responses are~sent back and~visualised in~the~browser.
 \end{itemize}
-\newpage
 
 \newsection{Server}
 \index{Server}
@@ -252,6 +253,7 @@ Engine is any~software performing a~specific task.
 Usually software performing nontrivial tasks is~denoted as~engine.
 For~example, \hyperref[jdkjrejvm]{JVM} is~an~engine executing (compiled) Java code.
 But~even a~simple \textit{Hello World} program is an~engine in~fact.
+\newpage
 
 \newsection{Distributed System}
 \index{Distributed system}
@@ -315,6 +317,42 @@ The~name refers to the~size of~the~set of~resulting characters, which is~64.
 It~encodes always three bytes to~four characters.
 If~the~length of~the~input byte array is~not~divisible by~three, one or~two special bytes are~added to~its~end.
 This results in~one or~two equals signs at~the~end of~the~resulting string.
+
+\newsubsection{PEM}
+\index{PEM}
+\index{Privacy--Enhanced Mail}
+\label{pem}
+The~abbreviation stands for~\textit{Privacy--Enhanced Mail}.
+Despite this name, it's~in~fact a~file format used mainly in~\hyperref[asymmetriccryptography]{asymmetric cryptography} and~\hyperref[certificate]{digital certificates} for~storing their objects.
+A~PEM file consists of~a~header and~footer lines and~an~object byte representation in~the~Base64 format.
+The~Base64 string can~be quite long and~is~separated to~lines with 64 characters per~line, except the~last line, which can~be shorter.
+Header and~footer describe the~object type.
+General example:
+\begin{lstlisting}
+    -----BEGIN (*\textit{OBJECT\_TYPE}*)-----
+    MIICLuDAdKgAwIBAgIBADAKBggqhkjOPQQDAjB9MQswCQYDVQQGEwJCRTEf450G
+    QE56EChMGR251VExTMSUwIwtaPIZdaHUAEnVUTFMg2VydGlmavINodGUgYXV0aQ
+    ...
+    MUWQAHEEhE=
+    -----END (*\textit{OBJECT\_TYPE}*)-----
+\end{lstlisting}
+
+\noindent There can~be even multiple objects stored in~one~PEM file.
+Example of~a~\hyperref[certificate]{certificate} with a~corresponding private key:
+\begin{lstlisting}
+    -----BEGIN PRIVATE KEY-----
+    MIICucakCAlOgAwIBAgIUQaEFVlDnLCdbp5WzKFBKfCKMZwwDQYJKoZIhvcmRdEL
+    BaNAdaTELMAkGA1UEBhMCVVMxETHBHulaLaLEE1hcnlsYW5kMRIwEAYDVQQHDAlC
+    ...
+    fPjTMIc6fNWaj00O9e++4jM=
+    -----END PRIVATE KEY-----
+    -----BEGIN CERTIFICATE-----
+    MIICLuDAAASCBKcwggSjAgEAAoIBAQCKfxFtvf2CyswCQYDVQQGEwJCRTEf450G
+    ancmxco9LrP+xJmbnJsdizOsrfMaK9wEmuPvQOOACZEnEHxPUmB0Yvdt8YHmPHl
+    ...
+    MUWQAHEfd6bz54fd6gVb4ahE=
+    -----END CERTIFICATE-----
+\end{lstlisting}
 
 \newsection{Shell VS CLI VS GUI}
 \index{Shell}

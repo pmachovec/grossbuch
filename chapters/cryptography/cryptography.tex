@@ -158,9 +158,10 @@ The~authority in~this case is an~application with a~database of~allowed user nam
 
 \newsection{Certificate}
 \index{Certificate}
+\index{Digital certificate}
 \index{CSR}
 \label{certificate}
-A~certificate is simply a~public key with additional metadata.
+A~certificate, also digital certificate, is simply a~public key with additional metadata.
 Sometimes it can~contain even the~private key.
 Metadata in~certificates serve for~identifying owners of~keys.
 
@@ -214,7 +215,7 @@ Therefore, the~client must verify all~certificates in~this chain until it~reache
 \index{PBKDF}
 \index{Password--Based Key Derivation Function}
 \label{keypassword}
-Fixed key lengths and~unprintability of~some byte values make direct usage of~keys by standard users impossible.
+Fixed key lengths and~unprintability of~some byte values make direct usage of~keys difficult.
 That's why the~concept of~passwords and~key derivation functions exists.
 A~\textit{key derivation function} (KDF) is~an~one--way hashing function, that can~compute a~key of~a~desired byte length from a~string\,--\,password\,--\,of~any~length and~content.
 Typical examples of~key derivation functions are~PBKDF1 and~PBKDF2 (\textit{Password--Based Key Derivation Function}), which are~mentioned in~the~\hyperref[pkcs]{PKCS~\#5} encryption standard.
@@ -235,15 +236,16 @@ It's~used mainly to~protect password--based systems, where hashes are~created fr
 And~that's almost everywhere where passwords are~used.
 
 Some random value, called \textit{salt}, is~incorporated to~the~original pre--hashed value.
-It's~usually appended to~the~beginning or~to~the~end, but~even more complicated techniques are~possible.
+It's~usually appended to~the~beginning or~to~the~end, but~even more complicated techniques of~embedding are~possible.
 Such~value with the~incorporated salt is then given to~the~hashing function.
 And~because the~salt is random, the~resulting hash is also random, i.e.,~always different.
 The~original unhashed salt is then distributed with the~resulting hash.
 When the~same hash should~be generated again, the~salt must~be incorporated to~the~same original input value.
 
-This protects against brute force attacks, when an~attacker has~precomputed hashes of~common passwords and~tries them one~by~one.
-To~get a~salted password's hash the~attacker first needs to~get the~salt for~that one particular case and~then compute hashes of~common passwords for~that particular case.
-And~that's a~costly operation.
+This protects against brute force attacks, when an~attacker is~trying to~guess the~original value, has~precomputed hashes of~values common in~the~attacked area and~tries them one~by~one.
+But~when the~value is salted, the~attacker first needs to~extract the~salt and~then compute hashes of~common values for~that particular case.
+Computing hashes is a~costly operation, and~salting enforces to~do~it for~each single value.
+In~other words, it~eliminates the~possibility of~computing hashes in~advance.
 
 \newsubsection{Usage in \hyperref[keypassword]{Password--Based Cryptography}}
 When a~key should~be generated from a~password by~a~key derivation function, salt is added to~the~password.
