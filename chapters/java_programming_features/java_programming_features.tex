@@ -12,7 +12,7 @@
 \index{Annotations}
 \index{Java annotations}
 \label{javaannotation}
-Annotations are~special labels by~components of~a~Java code denoted by~the~at~sign (\itq{@}).
+Annotations are~special labels by~components of~Java code denoted by~the~at~sign (\itq{@}).
 They carry additional information\,--\,metadata\,--\,about components they denote.
 Although annotations have no direct effect on~the~annotated code operation, they're processed, either during compilation or~during runtime.
 The~most typically used annotation is \hyperref[javaoverride]{\mbit{@Override}}.
@@ -100,7 +100,7 @@ Only then you~can~start writing the~code that uses the~annotation.
 
 In~the~annotation program a~processor class must be created.
 The~class must~be annotated with (repeatable) annotation \mbitq{@SupportedAnnotationTypes}, which specifies processed annotation class (or~classes), and~with annotation \mbitq{@SupportedSourceVersion}, which specifies minimal Java version under which the~processed annotation is~available during compilation.
-Th~class must also extend the~class \mbitq{AbstractProcessor} and~implement the~method \mbitq{process}.
+The~class must also extend the~class \mbitq{AbstractProcessor} and~implement the~method \mbitq{process}.
 The~method can~access annotated elements and~annotation values from its~\hyperref[parameterargument]{parameters}, namely from the~rounding environment, and~perform some action when a~desired annotation is~detected.
 
 It's~desirable to~\hyperref[javaoverride]{override} the~\mbitq{init} method, retrieve the~processing environment messager in~it and~store the~messager to~a~global variable.

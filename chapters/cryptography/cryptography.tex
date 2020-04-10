@@ -227,6 +227,36 @@ When the~message is about to~be~decrypted, the~same password must~be provided by
 In~\hyperref[asymmetriccryptography]{asymmetric cryptography} private keys are~sometimes protected by~passwords.
 I.e.,~a~sender must provide a~password when \hyperref[electronicsignature]{signing} a~message and~a~receiver must provide a~password when \hyperref[asymmetriccryptography]{decrypting an~encrypted message}.
 
+\newsection{Salt}
+\index{Salt in cryptography}
+Salting is a~technique used as~hashing extension.
+It~makes outputs of~a~hashing function different even when given the~same input more times.
+It's~used mainly to~protect password--based systems, where hashes are~created from provided passwords
+And~that's almost everywhere where passwords are~used.
+
+Some random value, called \textit{salt}, is~incorporated to~the~original pre--hashed value.
+It's~usually appended to~the~beginning or~to~the~end, but~even more complicated techniques are~possible.
+Such~value with the~incorporated salt is then given to~the~hashing function.
+And~because the~salt is random, the~resulting hash is also random, i.e.,~always different.
+The~original unhashed salt is then distributed with the~resulting hash.
+When the~same hash should~be generated again, the~salt must~be incorporated to~the~same original input value.
+
+This protects against brute force attacks, when an~attacker has~precomputed hashes of~common passwords and~tries them one~by~one.
+To~get a~salted password's hash the~attacker first needs to~get the~salt for~that one particular case and~then compute hashes of~common passwords for~that particular case.
+And~that's a~costly operation.
+
+\newsubsection{Usage in \hyperref[keypassword]{Password--Based Cryptography}}
+When a~key should~be generated from a~password by~a~key derivation function, salt is added to~the~password.
+The~resulting key still always has the~desired length, but~is~always different.
+The~salt must~be read during the~key generation and~stored somehow.
+When the~key is needed again (message decryption, signature), the~provided password is~combined with the~stored salt and~the~used KDF generates the~correct key.
+
+\newsubsection{Usage in \hyperref[authenticationauthorization]{Authentication and Authorization}}
+Systems with password--protected user accounts need to~store users' passwords.
+Storing them in~plain text, or~even just hashing them, is~an~obvious security risk.
+Passwords are~therefore salted and~hashed and~these hashes are~stored together with salt.
+When a~user wants to~log~in, he~provides his~username and~password, his~salt is~found in~the~system database, combined with the~password and~the~resulting hash is~verified.
+
 \newsection{PKCS}
 \index{PKCS}
 \index{Public Key Cryptography Standards}
@@ -239,7 +269,7 @@ Most important PKCS standards~are:
     \itembfd{PKCS~\#1} first standard of~the~PKCS family, provides basic definitions~of and~recommendations for~implementing the~\hyperref[rsa]{RSA algorithm}.
              Defines mathematical properties of~public and~private keys, primitive operations for~encryption and~signatures, secure cryptographic schemes and~related syntax representations.
     \itembfd{PKCS~\#5} defines usage of~\hyperref[keypassword]{password--based encryption}.
-    \itembfd{PKCS~\#8} defines handling of~private keys in~any~asymmetric \hyperref[asymmetriccryptography]{asymmetric cryptography} algorithm.
+    \itembfd{PKCS~\#8} defines handling of~private keys in~any~\hyperref[asymmetriccryptography]{asymmetric cryptography} algorithm.
              It~isn't fixed only to~the~\hyperref[rsa]{RSA~algorithm} (opposite to~PKCS~\#1).
     \itembfd{PKCS~\#12} defines an~archive file format for~storing many cryptography objects into a~single file, for~example, a~private key and~a~corresponding \hyperref[certificate]{certificate}.
              Files created according to~this standard have extensions \itq{.pfx} or~\itq{.p12}.
