@@ -158,10 +158,11 @@ The~authority in~this case is an~application with a~database of~allowed user nam
 
 \newsection{Certificate}
 \index{Certificate}
+\index{Public key certificate}
 \index{Digital certificate}
 \index{CSR}
 \label{certificate}
-A~certificate, also digital certificate, is simply a~public key with additional metadata.
+A~certificate, also public key certificate or~digital certificate, is simply a~public key with additional metadata.
 Sometimes it can~contain even the~private key.
 Metadata in~certificates serve for~identifying owners of~keys.
 
@@ -207,6 +208,12 @@ So~before accepting the~server certificate, the~client verifies the~intermediate
 And~the~3rd certification authority also doesn't have to~be the~last one, its certificate can~be also only intermediate and~signed by~a~4th certification authority.
 And~so~on.
 Therefore, the~client must verify all~certificates in~this chain until it~reaches a~self--signed root certificate.
+
+\newsubsection{X.509}
+\index{X.509}
+It's~a~\hyperref[protocolstandard]{standard} defining the~format of~\hyperref[certificate]{certificates}.
+It~describes compulsory parts of~a~certificate, like version, expiration date, public key information (including the~public key itself) or~the~certificate signature.
+\hyperref[tls]{TLS},~and~therefore even \hyperref[https]{HTTPS}, follow this standard.
 
 \newsection{Key VS Password}
 \index{Key derivation function}
