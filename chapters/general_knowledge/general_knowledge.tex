@@ -53,7 +53,7 @@ It~can~denote:
     \item A~combination of~\hyperref[os]{OS} and~hardware.
 \end{enumerate}
 
-\newsection{Character Set VS Encoding}
+\newsection{Character Set VS Character Encoding}
 \index{Character set}
 \index{Encoding}
 \index{ASCII}
@@ -64,9 +64,9 @@ It~can~denote:
             Each~computer has a~character set.
             Even software can~have a~character set (such~software then runs only on~computers supporting that character set).
             \mbit{ASCII}~and~\mbit{Unicode} are~typical examples of~character~sets.
-    \itembfd{Encoding} computers work only with numbers.
+    \itembfd{Character encoding} computers work only with numbers.
              Each character of a~character set is~represented as~a~number.
-             And~encoding specifies which number (code) corresponds to~which character.
+             And~character encoding specifies which number (code) corresponds to~which character.
              To~make things confusing, the~ASCII character set encoding is~also called~\mbit{ASCII}.
              Unicode character set has~more encodings like \hyperref[utf]{\mbit{UTF--8} or~\mbit{UTF--16}}.
 \end{itemize}
@@ -327,7 +327,9 @@ Despite this name, it's~in~fact a~file format used mainly in~\hyperref[asymmetri
 A~PEM file consists of~a~header and~footer lines and~an~object byte representation in~the~Base64 format.
 The~Base64 string can~be quite long and~is~separated to~lines with 64 characters per~line, except the~last line, which can~be shorter.
 Header and~footer describe the~object type.
-General example:
+\newline
+
+\noindent \textbf{General example:}
 \begin{lstlisting}
     -----BEGIN (*\textit{OBJECT\_TYPE}*)-----
     MIICLuDAdKgAwIBAgIBADAKBggqhkjOPQQDAjB9MQswCQYDVQQGEwJCRTEf450G
@@ -336,9 +338,11 @@ General example:
     MUWQAHEEhE=
     -----END (*\textit{OBJECT\_TYPE}*)-----
 \end{lstlisting}
+\newline
 
 \noindent There can~be even multiple objects stored in~one~PEM file.
-Example of~a~\hyperref[certificate]{certificate} with a~corresponding private key:
+
+\example[\hyperref[certificate]{certificate} with a~corresponding private key]
 \begin{lstlisting}
     -----BEGIN PRIVATE KEY-----
     MIICucakCAlOgAwIBAgIUQaEFVlDnLCdbp5WzKFBKfCKMZwwDQYJKoZIhvcmRdEL

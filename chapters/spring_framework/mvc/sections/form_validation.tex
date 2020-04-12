@@ -28,32 +28,32 @@ public class (*\tmnbf{smvc6java1pojo}{PojoClass}*) {
 }
 \end{lstlisting}
 \begin{lstlisting}[language=XML, title={HTML form \tmnbf{smvc6xml1form}{\textit{theForm}}\textit{.html} setting the field}]
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-...
-<body>
-<form th:object="(*\Sc*){(*\tmnbf{smvc6xml1mapping}{mappingId}[ForestGreen]*)}" ...>
-<input type="text" th:field="*{(*\tmnbf{smvc6xml1field1}{pojoField}[ForestGreen]*)}">
-</form>
-<div th:if="(*\Sc*){#fields.hasErrors('(*\tmnbf{smvc6xml1field2}{pojoField}[ForestGreen]*)')}" th:errors="*{(*\tmnbf{smvc6xml1field3}{pojoField}[ForestGreen]*)}"/>
-<!-- The div is invisible by default, and would still be even if it had some content -->
-</body>
-</html>
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+      ...
+      <body>
+      <form th:object="(*\Sc*){(*\tmnbf{smvc6xml1mapping}{mappingId}[ForestGreen]*)}" ...>
+        <input type="text" th:field="*{(*\tmnbf{smvc6xml1field1}{pojoField}[ForestGreen]*)}">
+      </form>
+      <div th:if="(*\Sc*){#fields.hasErrors('(*\tmnbf{smvc6xml1field2}{pojoField}[ForestGreen]*)')}" th:errors="*{(*\tmnbf{smvc6xml1field3}{pojoField}[ForestGreen]*)}"/>
+      <!-- The div is invisible by default, and would still be even if it had some content -->
+      </body>
+    </html>
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Controller processing the form}]
-@>@Controller
-@@>@RequestMapping<@@("...")
-public class ControllerClass {
+    @>@Controller
     @@>@RequestMapping<@@("...")
-    public String processForm(@@>@Valid @ModelAttribute<@@("(*\tmnbf{smvc6java2mapping}{mappingId}[ForestGreen]*)") (*\tmnbf{smvc6java2pojo}{PojoClass}*) pojo, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "(*\tmnbf{smvc6java2form}{theForm}[ForestGreen]*)";
-        } else {
-            ...DO SOMETHING ELSE...
+    public class ControllerClass {
+        @@>@RequestMapping<@@("...")
+        public String processForm(@@>@Valid @ModelAttribute<@@("(*\tmnbf{smvc6java2mapping}{mappingId}[ForestGreen]*)") (*\tmnbf{smvc6java2pojo}{PojoClass}*) pojo, BindingResult bindingResult) {
+            if (bindingResult.hasErrors()) {
+                return "(*\tmnbf{smvc6java2form}{theForm}[ForestGreen]*)";
+            } else {
+                ...DO SOMETHING ELSE...
+            }
         }
     }
-}
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{smvc6java1pojo}{smvc6java2pojo}
@@ -98,37 +98,37 @@ The~validator class isn't specified anywhere else.
 
 \example
 \begin{lstlisting}[language=Java, title={Custom validation annotation class}]
-@@>@Constraint<@@(validatedBy = (*\tmnbf{smvc7annotvalid}{CustomValidator}*))
-@@>@Retention<@@(RetentionPolicy.RUNTIME)
-@@>@Target<@@(ElementType.FIELD)
-public @interface (*\tmnbf{smvc7annot}{CustomAnnotation}*) {
-    String[] (*\tmnbf{smvc7annotarray}{stringArray}*)() default {"simpleArrayMember"};
-    String (*\tmnbf{smvc7annotstring}{simpleString}*)() default "simpleStringValue";
-    String message() default "Something is wrong";
-    Class<?> groups() default {};
-    Class<? extends Payload> payload() default {};
-}
+    @@>@Constraint<@@(validatedBy = (*\tmnbf{smvc7annotvalid}{CustomValidator}*))
+    @@>@Retention<@@(RetentionPolicy.RUNTIME)
+    @@>@Target<@@(ElementType.FIELD)
+    public @interface (*\tmnbf{smvc7annot}{CustomAnnotation}*) {
+        String[] (*\tmnbf{smvc7annotarray}{stringArray}*)() default {"simpleArrayMember"};
+        String (*\tmnbf{smvc7annotstring}{simpleString}*)() default "simpleStringValue";
+        String message() default "Something is wrong";
+        Class<?> groups() default {};
+        Class<? extends Payload> payload() default {};
+    }
 \end{lstlisting}
 \begin{lstlisting}[language=Java, title={Custom validator class, validated field must contain either a~value from the~array or~must~be equal to~the~simple string}]
-public class (*\tmnbf{smvc7valid}{CustomValidator}*) implements ConstraintValidator<(*\tmnbf{smvc7validannot1}{CustomAnnotation}*), (*\tmnbf{smvc7validstringtype1}{String}*)> {
-    private String[] stringArray;
-    private String simpleString;
+    public class (*\tmnbf{smvc7valid}{CustomValidator}*) implements ConstraintValidator<(*\tmnbf{smvc7validannot1}{CustomAnnotation}*), (*\tmnbf{smvc7validstringtype1}{String}*)> {
+        private String[] stringArray;
+        private String simpleString;
 
-    @>@Override
-    public void initialize((*\tmnbf{smvc7validannot2}{CustomAnnotation}*) customAnnotation) {
-        stringArray = customAnnotation.(*\tmnbf{smvc7validarray}{stringArray}*)();
-        simpleString = customAnnotation.(*\tmnbf{smvc7validstring}{simpleString}*)();
-    }
-
-    @>@Override
-    public boolean isValid((*\tmnbf{smvc7validstringtype2}{String}*) validatedFieldValue, ConstraintValidatorContext context) {
-        if (!Arrays.asList(stringArray).contains(validatedFieldValue) && (!simpleString.equals(validatedFieldValue)) {
-            return false;
+        @>@Override
+        public void initialize((*\tmnbf{smvc7validannot2}{CustomAnnotation}*) customAnnotation) {
+            stringArray = customAnnotation.(*\tmnbf{smvc7validarray}{stringArray}*)();
+            simpleString = customAnnotation.(*\tmnbf{smvc7validstring}{simpleString}*)();
         }
 
-        return false;
+        @>@Override
+        public boolean isValid((*\tmnbf{smvc7validstringtype2}{String}*) validatedFieldValue, ConstraintValidatorContext context) {
+            if (!Arrays.asList(stringArray).contains(validatedFieldValue) && (!simpleString.equals(validatedFieldValue)) {
+                return false;
+            }
+
+            return false;
+        }
     }
-}
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay]
     \drawarrow{smvc7annotvalid.south}{smvc7valid.north}

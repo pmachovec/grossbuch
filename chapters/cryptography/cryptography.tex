@@ -47,6 +47,13 @@ The~big disadvantage of~this approach is that the~key needs to be shared, i.e., 
 And~during this distribution (e.g., sending it over a~network) it can~be caught by a~bad guy.
 Reasons why the~symmetric cryptography still survives is its high speed and~practically unlimited size of~processed data (opposite to the~\hyperref[asymmetriccryptography]{asymmetric cryptography}), the~limit is in millions of~\mbox{terabytes}.
 
+\newsubsection{AES Key Formats}
+AES~keys are~just byte sequences, usually random, carrying no further information.
+They're usually represented as~hexadecimal strings (one~byte\,=\,two~characters), sometimes with spaces between character couples.
+They can~be also written in~the~\hyperref[base64]{\mbox{Base64}} encoding.
+Storing key bytes to~a~file of~a~desired size is~also possible, in~that case it~creates an~unreadable mess.
+\newpage
+
 \newsection{Asymmetric Cryptography}
 \label{asymmetriccryptography}
 In~this type of~encryption there are two keys matching to~each other - public and~private.
@@ -64,7 +71,6 @@ The~message processing flow~is:
 Nobody else can read those messages.
 Typically the receiver generates a~pair of~keys and sends the~public key to~whoever he~wants to~receive messages from.
 If someone else gets the~public key, there is no problem, he won't be able to~decrypt messages sent to~the~receiver.
-\newpage
 
 \newsubsection{RSA}
 \index{RSA}
@@ -89,7 +95,45 @@ There is more such info in private keys, that's why private keys are significant
 However, the~\textit{ssh-keygen} program provided with Git installation, which is usually used for~key generation, doesn't allow number lower than 1024.
 
 \newsubsection{RSA Key Formats}
-\newline\todo OpenSSH, PKCS1, PKCS8\dots
+\index{OpenSSH}
+RSA~keys are~most often represented as~\hyperref[base64]{\mbox{Base64}} encoded strings, even when stored in~files.
+Files with RSA~keys are usually in~the~\hyperref[pem]{PEM} format.
+Keys can~follow either \hyperref[pkcs]{PKCS~\#1} or~\hyperref[pkcs]{PKCS~\#8} standard.
+In~the~first case they're usable only in~the~RSA~algorithm, in~the~second case they can~be used even in~different asymmetric cryptography algorithms.
+
+Public keys are sometimes represented also in~the~\mbit{OpenSSH} format.
+A~public key in~the~OpenSSH format incorporates also a~user email, which must~be provided during key~generation
+This format is~used for~manual public key exchange combined with~\hyperref[authenticationauthorization]{authentication}, for~example on~GitHubs.
+Private keys are never represented in~this format.
+
+\example[a~public key in~the~OpenSSH format]
+\begin{lstlisting}
+    ssh-rsa AAAAB3NzaC1yc2... jbravo@gmail.com
+\end{lstlisting}
+\newline
+
+\noindent \textbf{The same public key in PEM PKCS~\#1 format}
+\begin{lstlisting}
+    -----BEGIN RSA PUBLIC KEY-----
+    MIIBCgKCAQEAwNUeQzY4mlj1sAH2zLZFUSOf7yMGjpVKp7LgxnKQDUNXbA8WSt/E
+    oM/IkHGq35yFOpXevsIF2Xp7oO4md/muTWcecqCG7k1MAJLz9ZUiMikVfEB9DnhH
+    ...
+    1W/oG/iF1qlnQJq7X/tjKUoX7yUhpZLu9wIDAQAB
+    -----END RSA PUBLIC KEY-----
+\end{lstlisting}
+\newline
+
+\noindent \textbf{The same public key in PEM PKCS~\#8 format}
+\begin{lstlisting}
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwNUeQzY4mlj1sAH2zLZF
+    USOf7yMGjpVKp7LgxnKQDUNXbA8WSt/EoM/IkHGq35yFOpXevsIF2Xp7oO4md/mu
+    ...
+    9wIDAQAB
+    -----END PUBLIC KEY-----
+\end{lstlisting}
+\noindent Note there's no \textit{RSA} word the~header and~the~footer.
+\newpage
 
 \newsection{Electronic Signature}
 \index{Electronic signature}
@@ -132,6 +176,7 @@ When using private keys (decrypting a message, signing), the~user doesn't have t
 PGP~stands for~\itq{Pretty Good Privacy}.
 It's~a~commercial software,~i.e.,~users need to~pay for~it.
 GPG,~standing for~\itq{\hyperref[gnu]{GNU} Privacy Guard}, is~a~free alternative.
+\newpage
 
 \newsection{Why to use GPG signature in Git}
 \label{gitgpg}
@@ -216,6 +261,19 @@ It's~a~\hyperref[protocolstandard]{standard} defining the~format of~\hyperref[ce
 It~describes compulsory parts of~a~certificate, like version, expiration date, public key information (including the~public key itself) or~the~certificate signature.
 \hyperref[tls]{TLS},~and~therefore even \hyperref[https]{HTTPS}, follow this standard.
 
+\newsubsection{TLS Certificate Formats}
+Certificates are files.
+They~can~exist in~a~simple text format similar to~\hyperref[yaml]{YAML}.
+In~such~form all the~information is simply readable from the~certificate.
+
+For~computer processing \hyperref[pem]{PEM formatting} is usually used.
+Files with certificates in~this~format usually have \itq{.cert} or~\itq{.crt} extensions.
+
+Certificates generally shouldn't contain private keys, but~some servers can~have stored their certificates and~private keys together in~one~file.
+It's~possible to~have such combination stored in~the~\hyperref[pem]{PEM format} (the~private key is first, followed by~the~certificate), but~there's also an~unreadable file format following the~\hyperref[pkcs]{PKCS~\#12} standard.
+Files in~this~format have extensions \itq{.pfx} or~\itq{.p12}.
+They can~be even protected by~a~\hyperref[keypassword]{password}.
+
 \newsection{Key VS Password}
 \index{Key derivation function}
 \index{KDF}
@@ -283,5 +341,4 @@ Most important PKCS standards~are:
     \itembfd{PKCS~\#8} defines handling of~private keys in~any~\hyperref[asymmetriccryptography]{asymmetric cryptography} algorithm.
              It~isn't fixed only to~the~\hyperref[rsa]{RSA~algorithm} (opposite to~PKCS~\#1).
     \itembfd{PKCS~\#12} defines an~archive file format for~storing many cryptography objects into a~single file, for~example, a~private key and~a~corresponding \hyperref[certificate]{certificate}.
-             Files created according to~this standard have extensions \itq{.pfx} or~\itq{.p12}.
 \end{itemize}
