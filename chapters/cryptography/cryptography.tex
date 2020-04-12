@@ -211,6 +211,7 @@ Therefore, the~client must verify all~certificates in~this chain until it~reache
 
 \newsubsection{X.509}
 \index{X.509}
+\label{x509}
 It's~a~\hyperref[protocolstandard]{standard} defining the~format of~\hyperref[certificate]{certificates}.
 It~describes compulsory parts of~a~certificate, like version, expiration date, public key information (including the~public key itself) or~the~certificate signature.
 \hyperref[tls]{TLS},~and~therefore even \hyperref[https]{HTTPS}, follow this standard.
@@ -237,6 +238,7 @@ I.e.,~a~sender must provide a~password when \hyperref[electronicsignature]{signi
 
 \newsection{Salt}
 \index{Salt in cryptography}
+\label{salt}
 Salting is a~technique used as~hashing extension.
 It~makes outputs of~a~hashing function different even when given the~same input more times.
 It's~used mainly to~protect password--based systems, where hashes are~created from provided passwords
