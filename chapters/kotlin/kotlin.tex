@@ -1,4 +1,5 @@
 \newchapter{Kotlin}
+\label{kotlin}
 
 \newsection{Constructors}
 \label{kotlinconstructor}
@@ -47,17 +48,20 @@ Also, standard must have different \hyperref[parameterargument]{parameters}, it'
     }
 \end{lstlisting}
 
-\noindent Primary constructor can~be empty.
+\noindent A~primary constructor can~be empty.
 That happens when you specify empty brackets in~a~class header.
-However, such~constructor lacks any~sense.
+It's~equivalent to~specifying a~public parameterless constructor with empty body in~Java.
+Remember that, similarly to~Java, such~constructor exists by~default in~Kotlin classes, and~when you \hyperref[declarationdefinition]{define} another constructor (with the~\textit{constructor} keyword), the~default one disappears.
+When you're in~a~situation where you~need both the~default and~a~non--default constructor (for~example, in~\hyperref[hibernate]{Hibernate} entities), you~must use empty brackets for~the~default constructor.
+
 \example[empty primary constructor]
 \begin{lstlisting}[language=Kotlin]
     class simpleClass() {
         // Conflict with primary constructor
-        constructor() : this(SOME_VALUE) {}
+        // constructor() : this(SOME_VALUE) {}
 
-        Conflict with primary constructor
-        constructor(someVariable: SomeClass) : this(SOME_VALUE) {
+        // Calling primary constructor from the standard one
+        constructor(someVariable: SomeClass) : this() {
             ...
         }
     }
