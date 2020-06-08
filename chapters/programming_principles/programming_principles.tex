@@ -13,7 +13,7 @@ If~the~system is complex and~can't~be simple as~a~whole (which is typical), sepa
 
 For~example, many (wannabe) skilled developers are~crazy about the~\textit{Rule~30}, which says that a~method shouldn't have more than 30 lines.
 Also, some "experts" say to~avoid more than three arguments for~a~method or~constructor.
-If~you need more, wrap them to~a~new class, instantiate it (which is kind of a~paradox as~you need to~pass all those arguments to~that instance somehow) and~use that single instance.
+If~you need more, wrap them to~a~new class, instantiate it (which is a~paradox as~you need to~pass all those arguments to~that instance somehow) and~use that single instance.
 
 \newsection{Inversion of~Control (IoC)}
 \index{Inversion of control}
@@ -42,11 +42,85 @@ I.e.,~when you instantiate a~class and~set an~instance of~another class to~a~\hy
 The~purpose is to~separate construction and~use of~objects, which leads to~better readability and~reusability of~the~code.
 Dependency injection is a~special type of~the~\hyperref[inversionofcontrol]{inversion of~control}\,--\,the~responsibility for~instantiating of~a~dependency is~delegated to~an~injector, which can~be seen as~the~reusable framework from the~original \hyperref[inversionofcontrol]{IoC} definition.
 
-The~\hyperref[springframework]{Java Spring framework} provides an~\hyperref[springdependencyinjection]{automated and~highly configurable dependecy injection} implementation.
+The~\hyperref[springframework]{Java Spring framework} provides an~\hyperref[springdependencyinjection]{automated and~highly configurable dependency injection} implementation.
 
 \newsection{Composition Over Inheritance}
 \index{Composition}
 \index{Composite reuse principle}
 \label{compositionoverinheritance}
-\todo Why is this actually better than inheritance?
-\warning \todononl Not a \hyperref[compositedp]{composite DP}
+\hyperref[inheritance]{Inheritance}, although a~fundamental concept of~\hyperref[objectorientedprogramming]{OOP}, brings more problems than~use.
+Many developers (allegedly even \href{https://en.wikipedia.org/wiki/James_Gosling}{James Gosling}, the~author of~Java) repeat the~mantra saying that \itq{inheritance is evil}.
+To~address these problems the~principle of~composition over inheritance, also called \itq{composite reuse principle}, is~preferred.
+Creating common functionality by this principle consists of~following steps:
+\begin{itemize}
+    \item Enforce the~common functionality by an~\hyperref[javainterface]{interface}.
+    \item Make classes, which should contain the~common functionality, implementing the~interface.
+    \item In~affected classes, delegate the~implementation to~some common descendant.
+          The~descendant itself doesn't implement the~interface.
+          It~should~be \hyperref[singletondp]{singleton}.
+\end{itemize}
+
+\noindent This approach deals with all~problems brought by inheritance:
+\begin{itemize}
+    \item \hyperref[abstraction]{Abstraction} isn't broken, because there's no ancestor implementation necessary to~know.
+          Only an~interface is implemented, and~that generally doesn't contain an~implementation.
+    \item When some common functionality isn't wanted in~a~class any~more, the~class can~simply stop implementing the~interface.
+          The~unwanted common functionality then stops being enforced and~can~be removed.
+          The~rest of~common functionality, which is still wanted, remains in~the~class.
+    \item When there's a~problem with the~common code call, investigating downwards to~a~correct descendant is~much easier as~the~descendant class is clearly identifiable.
+          Furthermore, logs and~stack traces identify the~problematic place more clearly.
+\end{itemize}
+
+\warning The~composite reuse principle doesn't follow the~\hyperref[compositedp]{composite design pattern}.
+The~described structure is different.
+\newpage
+
+\enlargethispage{20mm}
+\thispagestyle{empty}
+\example[composition over inheritance in~Java]
+\begin{lstlisting}[language=Java, title={Common functionality enforcing interface}]
+    public interface EnforcingInterface {
+        void commonFunctionality();
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={First class to~contain common functionality}]
+    public class FirstClass implements EnforcingInterface {
+        private final CommonFunctionalityDescendant theDescendant;
+
+        public FirstClass() {
+            theDescendant = CommonFunctionalityDescendant.getDescendant();
+        }
+
+        @>@Override
+        public void commonFunctionality() {
+            theDescendant.commonFunctionalityImplementation()
+        }
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={Second class to~contain common functionality}]
+    public class SecondClass implements EnforcingInterface {
+        private final CommonFunctionalityDescendant theDescendant;
+
+        public SecondClass() {
+            theDescendant = CommonFunctionalityDescendant.getDescendant();
+        }
+
+        @>@Override
+        public void commonFunctionality() {
+            theDescendant.commonFunctionalityImplementation()
+        }
+    }
+\end{lstlisting}
+\begin{lstlisting}[language=Java, title={\hyperref[singletondp]{Singleton} descendant containing the~common functionality implementation}]
+    public class CommonFunctionalityDescendant {
+        ...SINGLETON STUFF...
+
+        public static CommonFunctionalityDescendant getDescendant() {
+            ...RETURN THE SINGLETON INSTANCE...
+        }
+
+        public void commonFunctionalityImplementation() {
+            ...
+        }
+    }
+\end{lstlisting}

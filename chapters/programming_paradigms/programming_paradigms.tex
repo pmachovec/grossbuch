@@ -47,9 +47,16 @@ Purposes~are:
     \itembfd{Maintainability} same as~changeability.
 \end{itemize}
 
-\warning Inheritance breaks \hyperref[abstraction]{abstraction}.
-To~correctly implement a~descendant object you should know the~implementation of~the~ancestor.
-For~this reason it's~recommended to~avoid inheritance as~much as~possible.
+\warning Inheritance brings some problems:
+\begin{itemize}
+    \item \hyperref[abstraction]{Abstraction} is broken.
+          To~correctly implement a~descendant object you should know the~implementation of~the~ancestor.
+    \item The~code is more tightly coupled and~less agile.
+          When some inherited functionality becomes unwanted in~one descendant class, but~is still required in~others, the~whole structure must~be reworked.
+    \item The~code is difficult to~investigate.
+          When an~inherited method is~called on~or~inside a~descendant and~there~are some problems with~it, it~can~be problematic to~identify where exactly the~method is~\hyperref[declarationdefinition]{defined}.
+\end{itemize}
+For~these reasons it's~recommended to~avoid inheritance as~much as~possible.
 Implementing interfaces and~\hyperref[compositionoverinheritance]{composition} should~be used instead.
 
 \warning When an~object implements an~\hyperref[javainterface]{interface}, it~isn't inheritance.
@@ -66,7 +73,7 @@ Purposes are:
     \itembfd{Simplicity} no~need to~have a~different method name for~each possible \hyperref[parameterargument]{argument} type combinations.
     \itembfd{Maintainability} same as~simplicity.
 \end{itemize}
-\newline
+\newpage
 
 \noindent There are three types of~polymorphism:
 \begin{itemize}
@@ -75,7 +82,6 @@ Purposes are:
              The~correct implementation is~decided by~types of provided arguments, usually during the~code compilation.
     \itembfd{Parametrical} method parameters have so~called \hyperref[javagenerics]{generic types}, which substitute concrete \hyperref[datatypes]{types}.
              Correct concrete types are~decided by~used values in~runtime.
-    \newpage
     \itembfd{Subtype} connected with the~\hyperref[inheritance]{inheritance} and~\hyperref[javavirtualmethods]{virtual methods}.
              There can~be an~ancestor and~a~descendant and you can assign an~instance of~the~descendant to~the~variable of~the~\hyperref[datatype]{type} of~the~ancestor (\textit{Ancestor variable = new Descendant();}).
              When the~descendant \hyperref[javaoverride]{overrides} a~method \hyperref[declarationdefinition]{defined} in~the~ancestor and~the~method is declared as~\textit{virtual}, calling the~method on~the~variable (which has the~ancestor type) actually triggers the~implementation from the~descendant.
@@ -111,9 +117,8 @@ Abstraction (hiding implementation) is~achieved by method headers, \hyperref[jav
 
 Nevertheless, be~aware that deciding how~to~encapsulate \hyperref[javadatatypes]{primitive} variables and~"smaller" objects into "bigger" objects is a~part of~the~\hyperref[architecturedesign]{design}, i.e.,~it~belongs under abstraction.
 With varying depth of~\hyperref[variablefieldproperty]{fields} in~the~encapsulation tree we~talk about different levels of~abstraction.
-\newpage
 
-\example[abstraction without encapsulation]
+\example[abstraction without encapsulation in~Java]
 \begin{lstlisting}[language=Java]
     float PI = 3.1415926535897932384626433832795028841971693993751058;
     ...
@@ -123,7 +128,7 @@ With varying depth of~\hyperref[variablefieldproperty]{fields} in~the~encapsulat
 \noindent The~complicated value is~not encapsulated in~an~object, but~it's~hidden behind a~variable.
 Something like this can~actually happen in~real programming.
 
-\example[encapsulation without abstraction]
+\example[encapsulation without abstraction in~Java]
 \begin{lstlisting}[language=Java]
     public class UselessClass {
         private int uselessVariable = 0;
@@ -141,7 +146,7 @@ A~data structure is similar to~an~object.
 It's~also a~container for~data stored in~variables.
 The~difference is that data structures expose all its data and~contain no meaningful tools for~operating with data.
 
-\example[simple data structure]
+\example[simple data structure in~Java]
 \begin{lstlisting}[language=Java]
     public class DataStructure {
         public int intVariable = 0;
@@ -153,7 +158,7 @@ The~difference is that data structures expose all its data and~contain no meanin
 \noindent An~object with private variables, but~with only getters and~setters for~them, can~also be considered to~be rather a~data structure than an~object.
 \newpage
 
-\example[data structure trying to look like an object]
+\example[Java data structure trying to look like an object]
 \begin{lstlisting}[language=Java]
     public class WannaBeObject {
         private int intVariable = 0;
@@ -229,7 +234,7 @@ An~output can~be changed only by changing the~input.
 True functional languages, like Haskell or~Erlang, are used in the~academy and~science world rather than in~programming industry.
 When considering mainstream languages, JavaScript, Python or~Kotlin allow combining standalone functions (not~bound to~objects) with the~standard \hyperref[imperativeprogramming]{imperative paradigm}.
 
-\example[functional \textit{Hello World} in JavaScript]
+\example[functional \textit{Hello World} in~JavaScript]
 \begin{lstlisting}[language=JavaScript]
     var helloWorld = function() {
         console.log('Hello World!');
