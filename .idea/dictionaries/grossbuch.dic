@@ -22,11 +22,14 @@ fileprocpkg
 floatvalue
 floatvaluefield
 formobj
+gibibyte
 intelli
 intvalue
 intvaluefield
+kibibyte
 lateinit
 lstlisting
+mebityte
 mergetool
 messager
 metaannotations

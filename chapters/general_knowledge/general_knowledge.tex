@@ -53,6 +53,66 @@ It~can~denote:
     \item A~combination of~\hyperref[os]{OS} and~hardware.
 \end{enumerate}
 
+\newsection{Bits and Bytes}
+\index{Bit}
+\index{Byte}
+\label{bitsandbytes}
+A~\textbf{bit}, denoted~by lowercase letter~\itq{b}, is the~smallest unit of~computer \hyperref[systemmemory]{memory} or~\hyperref[harddiskdrive]{hard disk} capable of storing an~information.
+One~bit can~hold only two values\,--\,\textit{0} or~\textit{1}, also denoted as~\textit{false} or~\textit{true}.
+
+A~\textbf{byte}, denoted~by a~capital letter~\itq{B}, is a~group of~eight bits in~computer \hyperref[systemmemory]{memory} or~\hyperref[harddiskdrive]{hard disk} with a~unique address.
+That means the~computer can~work (read/write) with those eight bits only together.
+It~can't use each bit separately.
+One~byte can~hold 256 different values (8~bits $\Rightarrow$ 2~values in~8~positions $\Rightarrow$ 2\textsuperscript{8} = 256~combinations).
+
+No~matter how small information is needed to~be~stored to~memory or~hard disk, it~always consumes at~least one byte.
+Even if it's a~simple \mbox{1--bit} \mbit{true/false} value.
+In~order to~achieve faster memory/hard drive access, some computers can~even group bytes.
+In~such computers, even the~simplest \mbit{true/false} value consumes multiple bytes.
+
+\enlargethispage{20mm}
+\thispagestyle{empty}
+\newsubsection{Hexadecimal Representation of Byte Contents}
+A~byte always holds a~number ranging from~0 to~255.
+Telling that the~number represents something else, for~example, a~character, is~a~work of~\hyperref[datatypes]{data types}.
+
+Writing byte content as~a~number in~decimal system is quite unusual (it~would~be too~easy).
+More often you~can~encounter the~binary representation (see~above), but~that consumes a~lot of~space.
+The~most widely used byte contents representation is as~a~hexadecimal number, and~always with two digits.
+For~example, the~value \itq{11} is~written as~\mbitq{00001011} in~the~binary representation and~as~\mbitq{0B} in~the~hexadecimal representation.
+When writing multiple bytes, spaces should~be used between individual pairs of~digits (e.g.,~\mbitq{0B AD 13}), but~that isn't always the~case.
+
+The~purpose of~the~hexadecimal representation is its maximal usefulness.
+For~one byte only two character spaces are~always used and~it~uses all digits of~the~hexadecimal system.
+The~highest number consisting~of two digits in~the~hexadecimal system is~\itq{FF}, i.e.,~255 in~the~decimal system, i.e.,~the~highest possible value in~one~byte.
+\newpage
+
+\newsubsection{Multiples of~Bytes}
+\index{Kilobyte}
+\index{Megabyte}
+\index{Gigabyte}
+\index{Kibibyte}
+\index{Mebibyte}
+\index{Gibibyte}
+\warningnonl Higher numbers of~bytes are~denoted by standard decimal prefixes \mbitq{kilo}, \mbitq{mega}, \mbitq{giga}~etc.
+However, when talking about bytes, these prefixes usually maliciously don't denote multiplication by a~power of~10 to~3, 6, 9 etc., but~2 to~10, 20, 30~etc.
+
+For~example, kilobyte doesn't mean 1,000 bytes (10\textsuperscript{3}), but~1,024 bytes (2\textsuperscript{10}).
+Similarly, megabyte means 1,048,576 bytes (2\textsuperscript{20}), gigabyte means 1,073,741,824 bytes (2\textsuperscript{30})~etc.
+
+In~pure terminology, this is wrong.
+\textit{Kilo} means one thousand, that's a~fact, similarly for~those other prefixes.
+There's even a~correct terminology for~powers of~2\,--\,kibibyte (2\textsuperscript{10}), mebityte (2\textsuperscript{20}), gibibyte(2\textsuperscript{30}) etc.
+When writing abbreviations, powers of~2 should~be denoted with the~first letter capital (KB,~MB,~GB) to~avoid confusion with powers of~10, which are generally written with first letter lowercase (kB,~mB,~gB).
+But~not~many people know this terminology, not~even in~IT world, and~actually nobody uses~it.
+
+When talking about this topic, always consider who~you're talking~to.
+You~can~encounter an~IT~"expert", who~won't talk to~you again if~you~tell him that kilobyte has 1,000 bytes.
+And~as~these "experts" otherwise tend to~be good programmers, they usually have high posts.
+If~they don't talk to~you, you~can~have a~problem.
+
+There's a~joke that a~normal human thinks that a~kilobyte has~1,000 bytes, and~a~programmer thinks that a~kilometer has~1,024 meters.
+
 \newsection{Character Set VS Character Encoding}
 \index{Character set}
 \index{Encoding}
@@ -168,13 +228,13 @@ That's either a~different name for~a~\hyperref[variablefieldproperty]{field} of~
 \newsection{Data Types}
 \index{Data type}
 \label{datatypes}
-Each~\hyperref[variablefieldproperty]{variable} in~fact denotes a~sequence of~zeros and~ones in~the~\hyperref[systemmemory]{memory}, i.e.,~values of~memory bits.
+Each~\hyperref[variablefieldproperty]{variable} in~fact denotes a~sequence of~zeros and~ones in~the~\hyperref[systemmemory]{memory}, i.e.,~values of~memory \hyperref[bitsandbytes]{bits} (grouped to~\hyperref[bitsandbytes]{bytes}).
 A~data type, usually written exactly before the~variable in~the~code, is~an~information for~\hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} how to~interpret that sequence, i.e.,~what value that sequence denotes.
 
 Each~programming language can~theoretically interpret the~same value differently, but~basics like numbers corresponding to~characters are~usually the~same.
 For~example consider the~value 1100001.
 When treated as~the~\textit{integer} type (\textit{int}~in some languages), it~represents the~number~97.
-When treated as~the~\textit{character} type (\textit{char}~in some languages), it~represents the~minuscule letter~\itq{a}.
+When treated as~the~\textit{character} type (\textit{char}~in some languages), it~represents lowercase letter~\itq{a}.
 \newpage
 
 \newsection{Declaration VS Definition}
@@ -312,7 +372,7 @@ They're always protocols.
 \newsection{Base64}
 \index{Base64}
 \label{base64}
-It's an~encoding used for~representation of~any array of~bytes as an~ASCII string.
+It's an~encoding used for~representation of~any array of~\hyperref[bitsandbytes]{bytes} as an~ASCII string.
 The~name refers to the~size of~the~set of~resulting characters, which is~64.
 It~encodes always three bytes to~four characters.
 If~the~length of~the~input byte array is~not~divisible by~three, one or~two special bytes are~added to~its~end.
@@ -324,7 +384,7 @@ This results in~one or~two equals signs at~the~end of~the~resulting string.
 \label{pem}
 The~abbreviation stands for~\textit{Privacy--Enhanced Mail}.
 Despite this name, it's~in~fact a~file format used mainly in~\hyperref[asymmetriccryptography]{asymmetric cryptography} and~\hyperref[certificate]{digital certificates} for~storing their objects.
-A~PEM file consists of~a~header and~footer lines and~an~object byte representation in~the~Base64 format.
+A~PEM file consists of~a~header and~footer lines and~an~object \hyperref[bitsandbytes]{byte} representation in~the~Base64 format.
 The~Base64 string can~be quite long and~is~separated to~lines with 64 characters per~line, except the~last line, which can~be shorter.
 Header and~footer describe the~object type.
 \newline
