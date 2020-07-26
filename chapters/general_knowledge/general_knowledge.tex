@@ -113,39 +113,92 @@ If~they don't talk to~you, you~can~have a~problem.
 
 There's a~joke that a~normal human thinks that a~kilobyte has~1,000 bytes, and~a~programmer thinks that a~kilometer has~1,024 meters.
 
+\enlargethispage{20mm}
+\thispagestyle{empty}
 \newsection{Character Set VS Character Encoding}
 \index{Character set}
+\index{Character encoding}
 \index{Encoding}
-\index{ASCII}
-\index{Unicode}
+\index{Encoding scheme}
+\index{Code point}
 \label{charactersetencoding}
 \begin{itemize}
     \itembf{Character set} is a~list of~characters, with which a~computer is~capable to~work.
-            Each~computer has a~character set.
-            Even software can~have a~character set (such~software then runs only on~computers supporting that character set).
-            \mbit{ASCII}~and~\mbit{Unicode} are~typical examples of~character~sets.
-    \itembfd{Character encoding} computers work only with numbers.
-             Each character of a~character set is~represented as~a~number.
-             And~character encoding specifies which number (code) corresponds to~which character.
-             To~make things confusing, the~ASCII character set encoding is~also called~\mbit{ASCII}.
-             Unicode character set has~more encodings like \hyperref[utf]{\mbit{UTF--8} or~\mbit{UTF--16}}.
+            Each character in~the~list has~assigned a~number, so~called \textit{code point}.
+            Various computers and~software support various character sets.
+            \mbox{ASCII and Unicode} are~typical examples of~character~sets.
+    \itembf{Character encoding}, also called \itq{encoding scheme} or~simply \itq{encoding}, is~a~way how code points (numbers) from a~character set are~stored in~\hyperref[bitsandbytes]{bytes}.
+            Old~character sets like ASCII have one encoding with the~same name (i.e.,~\mbitq{ASCII} is also name for~encoding).
+            Newer character sets like Unicode have multiple encodings (see~\hyperref[utf]{further}).
 \end{itemize}
 
-\newsubsection{UTF--8 VS UTF--16}
-\index{UTF--8}
+\newsection{ASCII}
+\index{ASCII}
+\label{ascii}
+It's~both \hyperref[charactersetencoding]{character set and~encoding} with 128 basic characters.
+The~abbreviation stands for~\itq{American Standard Code for Information Interchange}.
+
+In~old times, when computers spoke only English, programmers could live with 128, i.e,~2\textsuperscript{7} characters.
+In~the~binary computer world (which lasts till nowadays), this created a~demand for~7--\hyperref[bitsandbytes]{bit} memory units.
+Constructors added one more bit for~some other usage and~this is the~reason why a~\hyperref[bitsandbytes]{byte} consists of eight \hyperref[bitsandbytes]{bits}.
+
+With wider usage of~computers 128 characters stopped to~be enough.
+Some extensions using the~8th bit appeared making the~possible number of~characters to~be~256, but~that still wasn't enough.
+Therefore, multi--\hyperref[bitsandbytes]{byte} character sets and~encodings appeared making ASCII obsolete.
+\newpage
+
+\newsection{Unicode}
+\index{Unicode}
+\label{unicode}
+It's~a~\hyperref[charactersetencoding]{character set} containing all known characters of~all~known languages, including such~specialities like coloured pictographs from chatting applications, Egyptian hieroglyphs, Klingon language or~Tengwar (Elve script).
+Unicode code points are written as~numbers in~the~hexadecimal systems prefixed \mbox{with \itq{U+}} \mbox{or with \itq{\textbackslash u}}, usually with four digits.
+Higher code points for~very special characters can~have five and~theoretically even six digits.
+For~example, code point for~lowercase letter \itq{a} is \mbitq{U+0061} \mbox(\itq{\textbackslash u0061}).
+
+Unicode is based on~the~old ASCII character set.
+Therefore, first 128 Unicode code points are identical to~those in~ASCII.
+
+\newsection{UTF}
+\index{UTF}
 \index{UTF--16}
 \label{utf}
-\begin{itemize}
-    \itembf{UTF--8} is a~superset of~ASCII encoding.
-            I.e.,~codes of~basic characters included in~the~ASCII character set are~the~same in~UTF--8 and~ASCII encodings.
-            This is helpful when converting characters from~one encoding to~the~other.
-            The~number of~consumed bytes per~character encoded in~\mbox{UTF--8} varies from~1 to~4~bytes depending on~the~need.
-    \itembf{UTF--16} uses different codes and,~despite its name, is~incompatible with~\mbox{UTF--8}.
-            It~consumes 2 or~4 bytes per~character.
-            Codes of~Asian languages characters are~lower in~\mbox{UTF--16} than in~\mbox{UTF--8}, and~generally where \mbox{UTF--8} uses 3~bytes, there \mbox{UTF--16} uses only 2~bytes.
-            Therefore, \mbox{UTF--16} is more effective when dealing with Asian languages.
-            Also, \hyperref[java]{Java} and~\hyperref[dotnet]{.NET} work better with~it (only Chuck Norris knows~why).
-\end{itemize}
+UTFs are \hyperref[charactersetencoding]{encodings} for~\hyperref[unicode]{Unicode} character set.
+There are three, each consuming different number of~bytes per character.
+The~abbreviation stands for~\itq{Unicode Transformation Format}.
+
+\newsubsection{UTF--8}
+\index{UTF--8}
+\label{utf8}
+This is the~most widely used Unicode encoding, especially in~\hyperref[unixlinux]{Unix} systems.
+It~consumes from~1 to~4~bytes per character depending on the~need.
+Codes of basic characters included in~\hyperref[ascii]{ASCII} are~the~same \mbox{in UTF--8} and~ASCII encodings, consuming one byte.
+This is helpful when converting characters from~one encoding to~the~other.
+
+Codes of characters consuming one byte match \hyperref[unicode]{Unicode} code points (they~have zeros in~3rd or~4th digit).
+For~example, code of~the~letter~\itq{a}, which has code point \mbit{U+0061}, is~\itq{61} \mbox{in UTF--8}.
+
+However, codes of higher characters (with code points not~having zeros in~3rd or~4th digit) don't match code points.
+For~example, code of~the~Chinese \mbox{character "\chinese{水}"}, which has code point \mbit{U+6C34}, \mbox{is~\itq{E6B0B4}} \mbox{in UTF--8}.
+
+\newsubsection{UTF--16}
+\index{UTF--16}
+\label{utf16}
+This encoding consumes 2 or~4~bytes per character depending on~the~need.
+Codes of most of characters, whose code points have 4~digits in~\hyperref[unicode]{Unicode}, match those code points.
+
+Despite the~similar name, \mbox{UTF--16} is incompatible with \hyperref[utf8]{\mbox{UTF--8}}.
+\mbox{UTF--16} is more efficient than \mbox{UTF--8} when working with Asian languages.
+Generally where \mbox{UTF--8} uses 3~\hyperref[bitsandbytes]{bytes}, \mbox{UTF--16} uses only 2~bytes.
+For~example, code of~the~Chinese \mbox{character "\chinese{水}"}, which has code point \mbit{U+6C34}, \mbox{is~\itq{6C34}} \mbox{in UTF--16}.
+Also, \hyperref[java]{Java} and~\hyperref[dotnet]{.NET} work better with \mbox{UTF--16} (only Chuck Norris knows~why).
+\newpage
+
+\newsubsection{UTF--32}
+\index{UTF--32}
+This encoding consumes 4~bytes per character no~matter what.
+It's~true that having all character blocks of~the~same length is computational advantage, but~that can~be~almost always reached even \mbox{with~\hyperref[utf16]{UTF--16}}.
+Only very special scripts, like ancient Egyptian, can't~be~covered by~two~bytes (Klingoneese or~Tengwar can~be).
+For~this reason, \mbox{UTF--32} is~used only very rarely.
 
 \newsection{Package Manager}
 \index{Package manager}
@@ -232,10 +285,9 @@ Each~\hyperref[variablefieldproperty]{variable} in~fact denotes a~sequence of~ze
 A~data type, usually written exactly before the~variable in~the~code, is~an~information for~\hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} how to~interpret that sequence, i.e.,~what value that sequence denotes.
 
 Each~programming language can~theoretically interpret the~same value differently, but~basics like numbers corresponding to~characters are~usually the~same.
-For~example consider the~value 1100001.
-When treated as~the~\textit{integer} type (\textit{int}~in some languages), it~represents the~number~97.
-When treated as~the~\textit{character} type (\textit{char}~in some languages), it~represents lowercase letter~\itq{a}.
-\newpage
+For~example consider the~value 01100001.
+When treated as~an~integer number, it~represents the~value~97 (in~the~two's complement).
+When treated as~a~character, it~represents lowercase letter~\itq{a} \mbox{((97)\textsubscript{10}\,=\,(61)\textsubscript{16})}.
 
 \newsection{Declaration VS Definition}
 \index{Declaration}

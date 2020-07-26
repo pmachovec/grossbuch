@@ -1,6 +1,6 @@
 \newsection{Non--ASCII characters}
 As~many other applications, Spring~MVC doesn't like non--ASCII characters by~default.
-To~make it properly handling all the~\hyperref[charactersetencoding]{Unicode} characters you~must add the~character \hyperref[utf]{encoding} property element into the~template resolver and~Thymeleaf view resolver bean configurations (shown in~an~example above) and~also configure a~filter in~the~\mbit{web.xml} file.
+To~make it properly handling all the~\hyperref[charactersetencoding]{Unicode} characters you~must add the~character \hyperref[charactersetencoding]{encoding} property element into the~template resolver and~Thymeleaf view resolver bean configurations (shown in~an~example above) and~also configure a~filter in~the~\mbit{web.xml} file.
 If~you~have more \mbit{filter} elements there, the~one for~encoding must always go as~first.
 On~the~other hand, it~doesn't matter if the~filter comes before or~after servlet configurations.
 

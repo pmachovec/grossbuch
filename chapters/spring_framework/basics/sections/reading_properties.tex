@@ -11,12 +11,12 @@ The~name of~the~\mbit{properties} file in~the~attribute \textit{location} must~b
 Values set in~the~\textit{properties} file can~be then referenced as attribute values, typically when \hyperref[injectingliteralvalues]{injecting literal values}, but~can~be used also as bean~IDs when injecting complex beans.
 A~concrete value is~accessed by the~syntax~\textit{\$\{identifier\}}.\\
 
-\warning The~default encoding of~\textit{properties} files is~\mbox{ISO~8859--1}, in~which all non--ASCII characters are~written in~the~escaped hexadecimal format (\textit{\textbackslash uAB12}).
+\warning The~default \hyperref[charactersetencoding]{encoding} of~\textit{properties} files is~\mbox{ISO~8859--1}, in~which all non--ASCII characters are~written in~the~escaped hexadecimal \hyperref[unicode] {Unicode} format \mbox{(\itq{\textbackslash uAB12})}.
 If~you~put real non--ASCII characters into string values, they won't~be processed correctly.
 Some IDEs and~editors even won't let you to~do~that as they automatically insert the~escaped hexadecimal format as~you~type.
-UTF--8 encoding is possible.
+\hyperref[utf]{UTF}~encodings are possible.
 First make sure the~file is~saved in~that format, some IDEs and~editors tend to~preserve the~\mbox{ISO~8859--1} for~\textit{properties} files regardless corresponding project settings.
-And~next add the~attribute \mbit{file--encoding} with the~value \mbit{utf--8} to~the~element \mbit{property--placeholder}.
+And~next add the~attribute \mbitq{file--encoding} with the~desired value \mbitq{utf--X} to~the~element \mbitq{property--placeholder}.
 Ignore any~eventual warning about invalid encoding for~the~file type.\\
 
 \warning Some IDEs (IntelliJ Idea for example) can~try to~"help" developers by~fake replacing the~dollar syntax with values from the~\mbit{properties} file.
