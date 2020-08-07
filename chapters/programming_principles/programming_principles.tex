@@ -78,11 +78,13 @@ The~described structure is different.
 \enlargethispage{20mm}
 \thispagestyle{empty}
 \example[composition over inheritance in~Java]
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Common functionality enforcing interface}]
     public interface EnforcingInterface {
         void commonFunctionality();
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={First class to~contain common functionality}]
     public class FirstClass implements EnforcingInterface {
         private final CommonFunctionalityDescendant theDescendant;
@@ -97,6 +99,7 @@ The~described structure is different.
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Second class to~contain common functionality}]
     public class SecondClass implements EnforcingInterface {
         private final CommonFunctionalityDescendant theDescendant;
@@ -111,6 +114,7 @@ The~described structure is different.
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={\hyperref[singletondp]{Singleton} descendant containing the~common functionality implementation}]
     public class CommonFunctionalityDescendant {
         ...SINGLETON STUFF...

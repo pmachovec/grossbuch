@@ -16,6 +16,7 @@ See~the~example below for~details.
 You~must therefore have all templates in~one folder (it~doesn't affect web browser paths, that's configured in~controllers, see~further).
 Also, all~templates must have the~same extension.
 
+%! language = TEXT
 \begin{lstlisting}[language=XML, title=Example of a~\textit{web.xml} file with a~\textit{DispatchServlet} configuration]
     <?xml version="1.0" encoding="UTF-8"?>
     <web-app ...>
@@ -62,6 +63,7 @@ Any~object can~be written to~the~model.
 Thymeleaf expression language provides rich syntax for~various object types processing.
 \newpage
 
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Example of a~Spring XML with Thymeleaf configuration}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
@@ -95,6 +97,7 @@ URLs defined by~the~annotation for~methods are~then relative to~the~URL of~the~c
 \newpage
 
 \example[a~controller class and~a~template file]
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Controller class}]
     package somepackage.subpackage;
 
@@ -114,6 +117,7 @@ URLs defined by~the~annotation for~methods are~then relative to~the~URL of~the~c
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Thymeleaf template file called \tmnbf{smvc1xml1templ}{\textit{templateFile}}\textit{.html}}]
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE html>
@@ -137,6 +141,7 @@ When a~form is~submitted, it~replaces the~last part of~the~URL in~the~browser ad
 This can~result in~unwanted behavior when the~form is~accessed over a~method with the~\mbit{RequestMapping} annotation without parameters.
 
 \example[problems with a~form without request mapping path]
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Simple HTML form \tmnbf{smvc2xml1form}{\textit{theForm}}\textit{.html}}]
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE html>
@@ -149,6 +154,7 @@ This can~result in~unwanted behavior when the~form is~accessed over a~method wit
       </body>
     </html>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Controller class}]
     package somepackage.subpackage;
 

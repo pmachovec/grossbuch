@@ -24,12 +24,14 @@ Alternatively, you~can~run your jars with Gradle or~Maven, which enable adding s
 \newpage
 
 \examplenonl[basic inversion of control]
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
       <bean id="(*\tmnbf{ioc1xml1beanid}{wantedBeanId}[ForestGreen]*)" class="(*\tmnbf{ioc1xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tmnbf{ioc1xml1class}{WantedClass}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class}]
     package (*\tmnbf{ioc1java1package}{somepackage.subpackage}*);
 
@@ -37,6 +39,7 @@ Alternatively, you~can~run your jars with Gradle or~Maven, which enable adding s
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
     (*\tmnbf{ioc1java2interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{ioc1java2beanid}{wantedBeanId}[ForestGreen]*)", (*\tmnbf{ioc1java2interface2}{WantedClassInterface}*).class);
@@ -62,12 +65,14 @@ In~that case the~bean Java class name of~course appears even in the~Java code.
 \newpage
 
 \examplenonl[inversion of control with classes]
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
       <bean id="(*\tmnbf{ioc2xml1beanid}{wantedBeanId}[ForestGreen]*)" class="(*\tmnbf{ioc2xml1package}{somepackage.subpackage}[ForestGreen]*).(*\tmnbf{ioc2xml1class}{WantedClass}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class}]
     package (*\tmnbf{ioc2java1package}{somepackage.subpackage}*);
 
@@ -75,6 +80,7 @@ In~that case the~bean Java class name of~course appears even in the~Java code.
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
     (*\tmnbf{ioc2java2class}{WantedClass}*) wantedClassInstance = context.getBean("(*\tmnbf{ioc2java2beanid}{wantedBeanId}[ForestGreen]*)", (*\tmnbf{ioc2java2class2}{WantedClass}*).class);
@@ -103,6 +109,7 @@ Component scanning works even for~all~subpackages of~the~package specified in~th
 \newpage
 
 \examplenonl[inversion of control with annotations]
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...
@@ -111,6 +118,7 @@ Component scanning works even for~all~subpackages of~the~package specified in~th
       <context:component-scan base-package="(*\tmnbf{ioc3xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class}]
     package (*\tmnbf{ioc3java1package}{somepackage.subpackage}*).subsubpackage;
 
@@ -119,6 +127,7 @@ Component scanning works even for~all~subpackages of~the~package specified in~th
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
     (*\tmnbf{ioc3java2interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{ioc3java2beanid}{wantedBeanId}[ForestGreen]*)", (*\tmnbf{ioc3java2interface2}{WantedClassInterface}*).class);
@@ -141,6 +150,7 @@ However, if~the~second letter of~the~bean class name is~in~uppercase (e.g.,~some
 \newpage
 
 \examplenonl[bean ID referrenced from the bean class name]
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...
@@ -149,6 +159,7 @@ However, if~the~second letter of~the~bean class name is~in~uppercase (e.g.,~some
       <context:component-scan base-package="(*\tmnbf{ioc4xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class}]
     package (*\tmnbf{ioc4java1package}{somepackage.subpackage}*);
 
@@ -157,6 +168,7 @@ However, if~the~second letter of~the~bean class name is~in~uppercase (e.g.,~some
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
     (*\tmnbf{ioc4java2interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{ioc4java2beanid}{wantedClass}[ForestGreen]*)", (*\tmnbf{ioc4java2interface2}{WantedClassInterface}*).class);
@@ -191,6 +203,7 @@ When the~\hyperref[springcontainrer]{Spring container} is~asked for~a~bean insta
 It's~an~equivalent of~specifying the~\hyperref[iocannotations]{\textit{component-scan}} element in the~configuration XML file.\\
 
 \example[Java code configuration\,--\,component scan]
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class}]
     package confpackage.confsubpackage;
 
@@ -198,6 +211,7 @@ It's~an~equivalent of~specifying the~\hyperref[iocannotations]{\textit{component
     @@>@ComponentScan<@@("(*\tmnbf{ioc5java1package}{somepackage.subpackage}[ForestGreen]*)")
     public class (*\tmnbf{ioc5java1configclass}{ConfigurationClass}*) {}
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class}]
     package (*\tmnbf{ioc5java2package}{somepackage.subpackage}*);
 
@@ -205,6 +219,7 @@ It's~an~equivalent of~specifying the~\hyperref[iocannotations]{\textit{component
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tmnbf{ioc5java3configclass}{ConfigurationClass}*).class);
     (*\tmnbf{ioc5java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{ioc5java3beanid}{wantedClass}[ForestGreen]*)", (*\tmnbf{ioc5java3interface2}{WantedClassInterface}*).class);
@@ -226,6 +241,7 @@ In that case the bean ID is the same as the~bean--creating method.
 \newpage
 
 \example[Java code configuration\,--\,explicit bean--creating method]
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class}]
     package confpackage.confsubpackage;
 
@@ -237,6 +253,7 @@ In that case the bean ID is the same as the~bean--creating method.
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class}]
     package somepackage.subpackage;
 
@@ -244,6 +261,7 @@ In that case the bean ID is the same as the~bean--creating method.
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tmnbf{ioc6java3configclass}{ConfigurationClass}*).class);
     (*\tmnbf{ioc6java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{ioc6java3beanid}{wantedBeanId}[ForestGreen]*)", (*\tmnbf{ioc6java3interface2}{WantedClassInterface}*).class);
@@ -259,6 +277,7 @@ In that case the bean ID is the same as the~bean--creating method.
 \newpage
 
 \example[Java code configuration\,--\,bean ID referenced from the bean--creating method]
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class}]
     package confpackage.confsubpackage;
 
@@ -270,6 +289,7 @@ In that case the bean ID is the same as the~bean--creating method.
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class}]
     package somepackage.subpackage;
 
@@ -277,6 +297,7 @@ In that case the bean ID is the same as the~bean--creating method.
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tmnbf{ioc6java3configclass}{ConfigurationClass}*).class);
     (*\tmnbf{ioc6java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{ioc6java3beanid}{wantedBeanMethod}[ForestGreen]*)", (*\tmnbf{ioc6java3interface2}{WantedClassInterface}*).class);

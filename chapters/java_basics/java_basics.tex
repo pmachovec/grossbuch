@@ -97,6 +97,7 @@ Only \hyperref[variablefieldproperty]{fields} and~methods can~be static.
 Such~members, if~not~blocked by~other modifiers, can~be accessed over the~dot notation without a~need of~instantiating the~class containing them.
 
 \example[class with a~static method]
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     public class ClassWithStaticMethod {
         public static String giveSomeString() {
@@ -113,6 +114,7 @@ And~this can~be dangerous as~even non--static methods can~access static members.
 A~static \hyperref[variablefieldproperty]{field} can~be overridden by~accident and~introduce hardly discoverable bugs.
 
 \example[singleton behavior of~static members]
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     public class ClassWithStaticMembers {
         private String simpleString;
@@ -155,6 +157,7 @@ That's the~static (respective non--static) context on~which code compilation lik
 So~when you need to~call a~private method from a~static method, this~private method must~be also static.
 
 \example[private static method]
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     public class SomeClass {
         public static String giveSomeString() {
@@ -182,6 +185,7 @@ When the~compiler encounters a~method with this annotation, it~checks that the~\
 I.e.,~it~will~get the~red zigzag underscore.
 
 \example[this won't be compiled because o~the~bad parameter of~the~child class]
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     public class Parent {
         public void doSomething() {
@@ -202,6 +206,7 @@ If~not~used, an~implementation of~a~method in~a~child class will still work.
 The~difference is that when used, the~method declaration in~the~child class must~be the~same as~in~the~parent class.
 
 \example[this will be compiled because the~\textit{@Override} annotation is not~used]
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     public class Parent {
         public void doSomething() {
@@ -223,6 +228,7 @@ Everyting else\,--\,\hyperref[javaaccessmodifiers]{access modifiers}, names, par
 Even descendant classes are~forbidden.
 
 \example[this will be compiled, parameter names can~be different]
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     public class Parent {
         public void doSomething(Object nameInParent) {
@@ -239,6 +245,7 @@ Even descendant classes are~forbidden.
 \end{lstlisting}
 
 \example[this won't be compiled, parameter types must match exactly]
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     public class Parent {
         public void doSomething(Object sameName) {
@@ -257,6 +264,7 @@ Even descendant classes are~forbidden.
 \warning Static methods can't~be overridden.
 
 \example[this won't be compiled, static methods can't~be overridden]
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     public class Parent {
         public static void doSomething() {
@@ -281,6 +289,7 @@ It~doesn't matter if~the~\textit{@Override} annotation is~used or~not.
 Remember, that's only for~overridden method declaration verification.
 
 \example[note that the \textit{@Override} notation isn't used]
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     public class Parent {
         public void doSomething() {
@@ -301,6 +310,7 @@ Remember, that's only for~overridden method declaration verification.
 \warning As~static methods can't~be overridden, virtualization doesn't work for~them, not~even when a~static method is~called on~a~concrete instance.
 
 \example
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     public class Parent {
         public static void doSomething() {

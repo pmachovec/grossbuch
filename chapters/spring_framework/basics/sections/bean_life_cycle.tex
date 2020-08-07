@@ -24,6 +24,7 @@ To~set a~destroy method put the~method's name to~the~attribute \textit{destroy-m
 \newpage
 
 \example
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
@@ -35,6 +36,7 @@ To~set a~destroy method put the~method's name to~the~attribute \textit{destroy-m
       </bean>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Snippet of a common bean class}]
     private void (*\tmnbf{lc1java1init}{initMethod}*)() {
         ...DO SOMETHING...
@@ -44,6 +46,7 @@ To~set a~destroy method put the~method's name to~the~attribute \textit{destroy-m
         ...DO SOMETHING...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
 
@@ -81,6 +84,7 @@ You~must download it or~load it as~a~dependency.
 
 \example
 \enlargethispage{10mm}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Singleton bean class}]
     import javax.annotations.*;
 
@@ -98,6 +102,7 @@ You~must download it or~load it as~a~dependency.
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Prototype bean class}]
     import javax.annotations.*;
 
@@ -123,6 +128,7 @@ You~must download it or~load it as~a~dependency.
     \drawarrow[stealth-]{[xshift=9mm] lc2java2protbeanid.south}{[xshift=9mm] lc2java2protbeaniddummy}[red]
 \end{tikzpicture}
 \newpage
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
 
@@ -168,6 +174,7 @@ With this approach you can configure only one initialization method and~one dest
 \newpage
 
 \example[multiple life cycle methods]
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Singleton bean class with multiple life cycle methods}]
     import javax.annotations.*;
 
@@ -195,6 +202,7 @@ With this approach you can configure only one initialization method and~one dest
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
 
@@ -212,6 +220,7 @@ If~the~bean scope was~set to~prototype, \textit{destroy} methods wouldn't be tri
 \newpage
 
 \example[life cycle methods configuration in a configuration class]
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class}]@>@Configuration
     @>@Configuration
     public class (*\tmnbf{lc5java1configclass}{ConfigurationClass}*) {
@@ -227,6 +236,7 @@ If~the~bean scope was~set to~prototype, \textit{destroy} methods wouldn't be tri
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Snippet of a common bean class}]
     private void (*\tmnbf{lc5java2init}{initMethod}*)() {
         ...DO SOMETHING...
@@ -236,6 +246,7 @@ If~the~bean scope was~set to~prototype, \textit{destroy} methods wouldn't be tri
         ...DO SOMETHING...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new AnnotationConfigApplicationContext((*\tmnbf{lc5java3configclass}{ConfigurationClass}*).class);
 

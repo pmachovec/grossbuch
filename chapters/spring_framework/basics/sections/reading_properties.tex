@@ -29,11 +29,13 @@ The~name can~be anything, the~important thing is the~format \mbitq{key\,=\,value
 \newpage
 
 \example[passing values to a constructor]
+%! language = TEXT
 \begin{lstlisting}[title={A \textit{properties} file called \tmnbf{readprop1prop1filename}{\textit{constructor.properties}}}]
     (*\tmnbf{readprop1prop1intvalue}{intvalue}*)=1
     (*\tmnbf{readprop1prop1floatvalue}{floatvalue}*)=3.14
     (*\tmnbf{readprop1prop1stringvalue}{stringvalue}*)=String value
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...
@@ -47,6 +49,7 @@ The~name can~be anything, the~important thing is the~format \mbitq{key\,=\,value
       </bean>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
     package (*\tmnbf{readprop1java1package}{somepackage.subpackage}*);
 
@@ -80,11 +83,13 @@ The~name can~be anything, the~important thing is the~format \mbitq{key\,=\,value
 \enlargethispage{20mm}
 \thispagestyle{empty}
 \example[passing values to setters]
+%! language = TEXT
 \begin{lstlisting}[title={A \textit{properties} file called \tmnbf{readprop2prop1filename}{\textit{setters.properties}}}]
     (*\tmnbf{readprop2prop1intvalue}{intvalue}*)=1
     (*\tmnbf{readprop2prop1floatvalue}{floatvalue}*)=3.14
     (*\tmnbf{readprop2prop1stringvalue}{stringvalue}*)=String with spaces
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...
@@ -98,6 +103,7 @@ The~name can~be anything, the~important thing is the~format \mbitq{key\,=\,value
       </bean>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and setter methods}]
     package (*\tmnbf{readprop2java1package}{somepackage.subpackage}*);
 
@@ -151,11 +157,13 @@ Related fields aren't mentioned in~constructors nor~in~setter methods, they're s
 \enlargethispage{20mm}
 \thispagestyle{empty}
 \example
+%! language = TEXT
 \begin{lstlisting}[title={A \textit{properties} file called \tmnbf{readprop3prop1filename}{\textit{annotations.properties}}}]
     (*\tmnbf{readprop3prop1intvalue}{intvalue}*)=1
     (*\tmnbf{readprop3prop1floatvalue}{floatvalue}*)=3.14
     (*\tmnbf{readprop3prop1stringvalue}{stringvalue}*)=String with spaces
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...
@@ -165,6 +173,7 @@ Related fields aren't mentioned in~constructors nor~in~setter methods, they're s
       <context:property-placeholder location="classpath:(*\tmnbf{readprop3xml1filename}{annotations.properties}[ForestGreen]*)" file-encoding="utf-8"/>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with any constructor}]
     package (*\tmnbf{readprop3java1package}{somepackage.subpackage}*);
 
@@ -206,11 +215,13 @@ Related fields aren't mentioned in~constructors nor~in~setter methods, they're s
 \enlargethispage{20mm}
 \thispagestyle{empty}
 \example[component scan]
+%! language = TEXT
 \begin{lstlisting}[title={A \textit{properties} file called \tmnbf{readprop4prop1filename}{\textit{annotations.properties}}}]
     (*\tmnbf{readprop4prop1intvalue}{intvalue}*)=1
     (*\tmnbf{readprop4prop1floatvalue}{floatvalue}*)=3.14
     (*\tmnbf{readprop4prop1stringvalue}{stringvalue}*)=String with spaces
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class}]
     package confpackage.confsubpackage;
 
@@ -219,6 +230,7 @@ Related fields aren't mentioned in~constructors nor~in~setter methods, they're s
     @@>@PropertySource<@@(value = "classpath:(*\tmnbf{readprop4java1filename}{annotations.properties}[ForestGreen]*)", encoding = "utf-8")
     public class ConfigurationClass {}
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with any constructor}]
     package (*\tmnbf{readprop4java2package}{somepackage.subpackage}*)
 
@@ -249,11 +261,13 @@ Related fields aren't mentioned in~constructors nor~in~setter methods, they're s
 \newpage
 
 \example[explicit bean configuration]
+%! language = TEXT
 \begin{lstlisting}[title={A \textit{properties} file called \tmnbf{readprop5prop1filename}{\textit{annotations.properties}}}]
     (*\tmnbf{readprop5prop1intvalue}{intvalue}*)=1
     (*\tmnbf{readprop5prop1floatvalue}{floatvalue}*)=3.14
     (*\tmnbf{readprop5prop1stringvalue}{stringvalue}*)=String with spaces
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class}]
     package confpackage.confsubpackage;
 
@@ -266,6 +280,7 @@ Related fields aren't mentioned in~constructors nor~in~setter methods, they're s
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with any constructor}]
     package somepackage.subpackage;
 

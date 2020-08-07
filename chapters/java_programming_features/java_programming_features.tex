@@ -38,6 +38,7 @@ Not~using them inside is a~responsibility of~developers.
 \newpage
 
 \example[abstract class and its usage]
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Abstract class}]
     public abstract class (*\tmnbf{abstract1class1}{AbstractClass}*) {
         (*\tmnbf{abstract1acmod1}{public}[blue]*) abstract (*\tmnbf{abstract1type1}{void}[blue]*) (*\tmnbf{abstract1method1}{abstractMethod}*)((*\tmnbf{abstract1paramtype1}{Object}*) (*\tmnbf{abstract1param1}{abstractMethodParam}*));
@@ -47,6 +48,7 @@ Not~using them inside is a~responsibility of~developers.
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Concrete class}]
     public class (*\tmnbf{abstract1concreteclass1}{ConcreteClass}*) extends (*\tmnbf{abstract1class2}{AbstractClass}*) {
         @>@Override
@@ -55,6 +57,7 @@ Not~using them inside is a~responsibility of~developers.
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage\,--\,concrete class instance in~the~variable of~the~abstract class type}]
     (*\tmnbf{abstract1class3}{AbstractClass}*) abstractClassVariable = new (*\tmnbf{abstract1concreteclass2}{ConcreteClass}*)();
     abstractClassVariable.(*\tmnbf{abstract1method3}{abstractMethod}*)((*\tmnbf{abstract1paramtype3}{Object}*) someObject);
@@ -94,18 +97,21 @@ If~such methods have different return types in~interfaces, there will~be a~confl
 \newpage
 
 \example[implementing multiple interfaces with a~common method]
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={First interface}]
     public interface (*\tmnbf{interface1interface1}{FirstInterface}*) {
         (*\tmnbf{interface1type1}{void}[blue]*) (*\tmnbf{interface1method1}{firstInterfaceMethod}*)();
         (*\tmnbf{interface1type2}{String}*) (*\tmnbf{interface1method2}{commonMethod}*)((*\tmnbf{interface1paramtype1}{Object}*) (*\tmnbf{interface1param1}{commonMethodParam}*));
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Second interface}]
     public interface (*\tmnbf{interface1interface2}{SecondInterface}*) {
         (*\tmnbf{interface1type3}{int}[blue]*) (*\tmnbf{interface1method3}{secondInterfaceMethod}*)();
         (*\tmnbf{interface1type4}{String}*) (*\tmnbf{interface1method4}{commonMethod}*)((*\tmnbf{interface1paramtype2}{Object}*) (*\tmnbf{interface1param2}{commonMethodParam}*));
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Implementing class}]
     public class ImplementingClass implements (*\tmnbf{interface1interface3}{FirstInterface}*), (*\tmnbf{interface1interface4}{SecondInterface}*) {
         public (*\tmnbf{interface1type5}{void}[blue]*) (*\tmnbf{interface1method5}{firstInterfaceMethod}*)() {
@@ -145,6 +151,7 @@ A~class implementing the~last interface in~the~inheritance line behaves like imp
 \warning Even interface \hyperref[inheritance]{inheritance} breaks \hyperref[abstraction]{abstraction} and~should~be rather avoided.
 
 \example[an~interface extending two other interfaces]
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     public interface SomeInterface extends OtherInterface, OneMoreInterface {
         ...
@@ -156,6 +163,7 @@ A~class implementing the~last interface in~the~inheritance line behaves like imp
 The~extension must~go first.
 
 \example[a~class extending another class and~implementing an~interface]
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     public class SomeClass extends OtherClass implements SomeInterface {
         ...
@@ -168,16 +176,19 @@ A~variable can~be of~an~interface type.
 Any~instance of~a~class implementing that interface can~be assigned to~that variable.
 
 \example[\hyperref[polymorphism]{subtype polymorphism} with an~interface]
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Some interface}]
     public interface (*\tmnbf{interface2interface1}{SomeInterface}*) {
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Implementing class}]
     public class (*\tmnbf{interface2class1}{ImplementingClass}*) implements (*\tmnbf{interface2interface2}{SomeInterface}*) {
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     (*\tmnbf{interface2interface3}{SomeInterface}*) implementingClassVariable = new (*\tmnbf{interface2class2}{ImplementingClass}*)();
     ...
@@ -197,16 +208,19 @@ Therefore, having fields in~interfaces isn't convenient.
 \enlargethispage{20mm}
 \thispagestyle{empty}
 \example[a~field in~an~interface]
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Interface with field}]
     public interface (*\tmnbf{interface3interface1}{InterfaceWithField}*) {
         int (*\tmnbf{interface3field1}{interfaceField}*) = 0;
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Implementing class}]
     public class (*\tmnbf{interface3class1}{ImplementingClass}*) implements (*\tmnbf{interface3interface2}{InterfaceWithField}*) {
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     (*\tmnbf{interface3interface3}{InterfaceWithField}*) implementingClassVariable = new (*\tmnbf{interface3class2}{ImplementingClass}*)();
     System.out.println(implementingClassVariable.(*\tmnbf{interface3field2}{interfaceField}*));
@@ -239,6 +253,7 @@ You~can~even have \hyperref[javaprivatestaticmethods]{private static methods} to
 Default methods serve purely for~the~described scenario when~extending an~existing interface implemented by many classes.
 
 \example[various methods with bodies in~an~interface]
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     public interface SomeInterface {
         ...
@@ -312,6 +327,7 @@ This is relatively easy.
 The~basic idea is to~get a~reference to~a~class with \hyperref[reflection]{reflection}, explore annotations of~its members or~the~class itself, and~when a~desired annotation is~detected, trigger some action.
 
 \example
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Annotation processed during runtime, applicable to fields and methods}]
     @@>@Retention<@@(RetentionPolicy.RUNTIME)
     @@>@Target<@@({ElementType.FIELD, ElementType.METHOD})
@@ -319,6 +335,7 @@ The~basic idea is to~get a~reference to~a~class with \hyperref[reflection]{refle
         String (*\tmnbf{annot1param}{exampleParameter}*)() default "example default value";
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Annotation usage}]
     public class (*\tmnbf{annot1usageclass}{SimpleClass}*) {
         @>@(*\tmnbf{annot1usageannot1}{ExampleAnnotation}[LimeGreen]*)
@@ -330,6 +347,7 @@ The~basic idea is to~get a~reference to~a~class with \hyperref[reflection]{refle
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Runtime annotation processing}]
     Class<?> simpleClass = (*\tmnbf{annot1procclass}{SimpleClass}*).class;
     Field simpleField = simpleClass.getDeclaredField("(*\tmnbf{annot1procfield}{simpleField}[ForestGreen]*)");
@@ -383,6 +401,7 @@ Inside this file there must~be package path to~the~processor class.
 \newpage
 
 \example
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Annotation processed during compilation, included in~compiled code, applicable to~fields and~methods}]
     package (*\tmnbf{annot2annotpkg}{annotationpackage}*);
 
@@ -392,6 +411,7 @@ Inside this file there must~be package path to~the~processor class.
         String (*\tmnbf{annot2param}{exampleParameter}*)() default "example default value";
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Annotation processor, working from Java~8, failing when annotated element is encountered}]
     package (*\tmnbf{annot2procpkg}{processorpackage}*);
 
@@ -413,6 +433,7 @@ Inside this file there must~be package path to~the~processor class.
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[title={The file \textit{javax.annotation.processing.Processor}}]
     (*\tmnbf{annot2fileprocpkg}{processorpackage}*).(*\tmnbf{annot2fileproc}{ExampleProcessor}*)
 \end{lstlisting}
@@ -464,6 +485,7 @@ Then there are only arguments against wildcard imports.
 And~one of~them~is, funny enough, the~readability.
 With wildcard imports it's~harder to~tell where an~imported feature comes from.
 Consider the~following code:
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     import firstPackage.*;
     import secondPackage.*;
@@ -477,6 +499,7 @@ Consider the~following code:
 \noindent It~isn't clear what package the~\textit{MysteryClass} class comes from.
 Consider it's~somehow broken and~compilation fails, and~\textit{Ctrl}\,+\,click also~doesn't work (let's~say the~package library is~completely missing).
 And~now consider this code:
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     import firstPackage.SomethingUseless;
     import secondPackage.SomethingEvenMoreUseless;
@@ -499,10 +522,15 @@ But~with explicit imports the~code still works without a~need of~change.
 
 \newsection{Compound Assignment}
 \index{Compound assignment}
-Compound assignment operators are those shortened assignments with arithmetic operators like \mbox{\textquotesingle\textit{+=}\textquotesingle} or~\mbox{\textquotesingle\textit{-=}\textquotesingle}.
-You~must~be extra careful when dealing with the~subtraction compound operator (\mbox{\textquotesingle\textit{-=}\textquotesingle}).
-It~first computes the~right side and~then subtracts it from~the~left side, and~that can~cause unintuitive results.
+\index{Augmented assignment}
+Compound assignment operators, also called \textit{augmented assignment operators}, are shortened assignments with arithmetic operators.
+All~arithmetic operators are~possible to~use in~this~way, \mbox{i.e., \itqs{+=}}, \mbitqs{-=}, \mbitqs{$\star$=}, \mbitqs{/=} \mbox{and \itqs{\%=}}.
+You~must~be extra careful when dealing with these operators because of the~computation order.
+First, the~right side is~computed.
+Then it's applied to~the~left side with the~used arithmetic operator.
+And~that can~cause unintuitive results.
 For~example consider the~following code:
+%! language = TEXT
 \begin{lstlisting}[language=Java, frame=no]
     int x = 5;
     x = x - 1 + 2 - 3; @>// 3
@@ -510,6 +538,7 @@ For~example consider the~following code:
 
 \noindent The~variable~$x$ is~evaluated to~$3$, because $5-1+2-3=3$.
 And~now consider an~"equivalent" code with the~compound assignment subtraction:
+%! language = TEXT
 \begin{lstlisting}[language=Java, frame=no]
     int x = 5;
     x -= 1 + 2 - 3; @>// 5
@@ -538,6 +567,7 @@ The~response is~written to~a~writer instance of~the~\textit{response} object.
 
 \enlargethispage{10mm}
 \example
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     import java.io.PrintWriter;
     import javax.servlet.Servlet;
@@ -586,6 +616,7 @@ The~\textit{POST} method in~the~request, and~therefore even the~\textit{doPost} 
 When a~\hyperref[http]{HTTP} request to~a~servlet is~sent from a~web browser, the~response is~displayed in~that~browser.
 When some meaningful \hyperref[internetweb]{web} page should be displayed, its~whole source code must be written to~the~response, i.e.,~something like this:
 
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     import java.io.IOException;
     import java.io.PrintWriter;

@@ -22,6 +22,7 @@ By~calling module member handlers (defined previously in~the~\mbit{module.export
 \example{CommonJS module \hyperref[declarationdefinition]{definition} and~usage}
 \enlargethispage{20mm}
 \thispagestyle{empty}
+%! language = TEXT
 \begin{lstlisting}[language=JavaScript,title={Module file \mbit{\tmnbf{node1modfile}{moduleFile}.js}}]
     let (*\tmnbf{node1modvar1}{moduleVariable}*) = ...;
 
@@ -34,6 +35,7 @@ By~calling module member handlers (defined previously in~the~\mbit{module.export
       (*\tmnbf{node1modhand2}{moduleFunction}*): (*\tmnbf{node1modfunc2}{moduleFunction}*)
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=JavaScript,title={JavaScript executable file using the~module}]
     let moduleHandler = require('MODULE_FOLDER_PATH/(*\tmnbf{node1filefile}{moduleFile}[ForestGreen]*)');
     let simpleVar1 = moduleHandler.(*\tmnbf{node1filehand1}{moduleVariable}*); // Using module variable

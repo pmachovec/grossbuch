@@ -10,6 +10,7 @@ For~this situation it's better to~always create a~new instance of~the~bean class
 This~can~be achieved by~specifying the~attribute \textit{scope} with the~value \hyperref[prototypedp]{\textit{prototype}} in~the~\textit{bean} element.
 
 \example
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
@@ -21,6 +22,7 @@ This~can~be achieved by~specifying the~attribute \textit{scope} with the~value \
       </bean>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
 
@@ -54,6 +56,7 @@ Specifying a~bean scope with \hyperref[javaannotation]{Java annotations} is real
 The~bean class is~annotated with the~\textit{Scope} annotation with the~desired scope as~argument.
 
 \example
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Bean class with the prototype scope set by the annotation}]@@>@Component<@@("prototypeBeanId")
     @@>@Scope<@@("prototype")
     public class PrototypeClass implements PrototypeClassInterface {
@@ -76,6 +79,7 @@ And~when nothing is~configured for~the~method, the~bean will~be always singleton
 \example
 \enlargethispage{10mm}
 \thispagestyle{empty}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class with a prototype bean--creating metod}]@>@Configuration
     @>@Configuration
     public class ConfigurationClass {

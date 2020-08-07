@@ -107,12 +107,14 @@ This format is~used for~manual public key exchange combined with~\hyperref[authe
 Private keys are never represented in~this format.
 
 \example[a~public key in~the~OpenSSH format]
+%! language = TEXT
 \begin{lstlisting}
     ssh-rsa AAAAB3NzaC1yc2... jbravo@gmail.com
 \end{lstlisting}
 \newline
 
 \noindent \textbf{The same public key in PEM PKCS~\#1 format}
+%! language = TEXT
 \begin{lstlisting}
     -----BEGIN RSA PUBLIC KEY-----
     MIIBCgKCAQEAwNUeQzY4mlj1sAH2zLZFUSOf7yMGjpVKp7LgxnKQDUNXbA8WSt/E
@@ -124,6 +126,7 @@ Private keys are never represented in~this format.
 \newline
 
 \noindent \textbf{The same public key in PEM PKCS~\#8 format}
+%! language = TEXT
 \begin{lstlisting}
     -----BEGIN PUBLIC KEY-----
     MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwNUeQzY4mlj1sAH2zLZF
@@ -187,6 +190,7 @@ User names and~emails depend only on the~local Git configuration.
 For~example, consider that you have an~access to a~GitHub.
 You~generate an~SSH key on~your computer and~upload it to the~GitHub.
 And~next you configure your local Git like this:
+%! language = TEXT
 \begin{lstlisting}
     git config --global user.name "Homer Simpson"
     git config --global user.email homersimpson@burnspowerplant.com

@@ -48,6 +48,7 @@ It~will~fail only at~runtime.
 \newpage
 
 \examplenonl[constructor injection]
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
@@ -57,6 +58,7 @@ It~will~fail only at~runtime.
       </bean>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package (*\tmnbf{di1java1deppackage}{deppackage.depsubpackage}*);
 
@@ -64,6 +66,7 @@ It~will~fail only at~runtime.
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
     package (*\tmnbf{di1java2package}{somepackage.subpackage}*);
 
@@ -79,6 +82,7 @@ It~will~fail only at~runtime.
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
     (*\tmnbf{di1java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di1java3beanid}{wantedBeanId}[ForestGreen]*)", (*\tmnbf{di1java3interface2}{WantedClassInterface}*).class);
@@ -103,6 +107,7 @@ It~will~fail only at~runtime.
 \newpage
 
 \examplenonl[setter injection]
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
@@ -112,6 +117,7 @@ It~will~fail only at~runtime.
       </bean>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package (*\tmnbf{di2java1deppackage}{deppackage.depsubpackage}*);
 
@@ -119,6 +125,7 @@ It~will~fail only at~runtime.
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and the setter method}]
     package (*\tmnbf{di2java2package}{somepackage.subpackage}*);
 
@@ -136,6 +143,7 @@ It~will~fail only at~runtime.
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
     (*\tmnbf{di2java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di2java3beanid}{wantedBeanId}[ForestGreen]*)", (*\tmnbf{di2java3interface2}{WantedClassInterface}*).class);
@@ -159,6 +167,7 @@ It~will~fail only at~runtime.
 \newpage
 
 \example[injecting literal values with a constructor]
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
@@ -167,6 +176,7 @@ It~will~fail only at~runtime.
       </bean>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
     package (*\tmnbf{di3java1package}{somepackage.subpackage}*);
 
@@ -182,6 +192,7 @@ It~will~fail only at~runtime.
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
     (*\tmnbf{di3java2interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di3java2beanid}{wantedBeanId}[ForestGreen]*)", (*\tmnbf{di3java2interface2}{WantedClassInterface}*).class);
@@ -199,6 +210,7 @@ It~will~fail only at~runtime.
 \newpage
 
 \examplenonl[injecting literal values with a setter method]
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>
@@ -207,6 +219,7 @@ It~will~fail only at~runtime.
       </bean>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and the setter method}]
     package (*\tmnbf{di4java1package}{somepackage.subpackage}*);
 
@@ -224,6 +237,7 @@ It~will~fail only at~runtime.
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
     (*\tmnbf{di4java2interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di4java2beanid}{wantedBeanId}[ForestGreen]*)", (*\tmnbf{di4java2interface2}{WantedClassInterface}*).class);
@@ -276,6 +290,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
 
 \examplenonl[autowired constructor injection]
 \label{constructorinjectionautowire}
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...
@@ -284,6 +299,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
       <context:component-scan base-package="(*\tmnbf{di5xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package deppackage.depsubpackage;
 
@@ -292,6 +308,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
     package (*\tmnbf{di5java2package}{somepackage.subpackage}*);
 
@@ -309,6 +326,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
     (*\tmnbf{di5java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di5java3beanid}{wantedClass}[ForestGreen]*)", (*\tmnbf{di5java3interface2}{WantedClassInterface}*).class);
@@ -328,6 +346,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
 
 \examplenonl[autowired setter injection]
 \label{setterinjectionautowire}
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...
@@ -336,6 +355,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
       <context:component-scan base-package="(*\tmnbf{di6xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package deppackage.depsubpackage;
 
@@ -344,6 +364,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and the setter method}]
     package (*\tmnbf{di6java2package}{somepackage.subpackage}*);
 
@@ -363,6 +384,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
     (*\tmnbf{di6java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di6java3beanid}{wantedClass}[ForestGreen]*)", (*\tmnbf{di6java3interface2}{WantedClassInterface}*).class);
@@ -381,6 +403,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
 \newpage
 
 \examplenonl[autowired field injection]
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...
@@ -389,6 +412,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
       <context:component-scan base-package="(*\tmnbf{di7xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package deppackage.depsubpackage;
 
@@ -397,6 +421,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor}]
     package (*\tmnbf{di7java2package}{somepackage.subpackage}*);
 
@@ -412,6 +437,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
     (*\tmnbf{di7java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di7java3beanid}{wantedClass}[ForestGreen]*)", (*\tmnbf{di7java3interface2}{WantedClassInterface}*).class);
@@ -431,6 +457,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
 \examplenonl[autowired constructor injection with a qualifier]
 \enlargethispage{20mm}
 \thispagestyle{empty}
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...
@@ -439,6 +466,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
       <context:component-scan base-package="(*\tmnbf{di8xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package deppackage.depsubpackage;
 
@@ -447,6 +475,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
     package (*\tmnbf{di8java2package}{somepackage.subpackage}*);
 
@@ -464,6 +493,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
     (*\tmnbf{di8java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di8java3beanid}{wantedClass}[ForestGreen]*)", (*\tmnbf{di8java3interface2}{WantedClassInterface}*).class);
@@ -483,6 +513,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
 \newpage
 
 \examplenonl[autowired setter injection with a qualifier]
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...
@@ -491,6 +522,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
       <context:component-scan base-package="(*\tmnbf{di9xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package deppackage.depsubpackage;
 
@@ -499,6 +531,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and the setter method}]
     package (*\tmnbf{di9java2package}{somepackage.subpackage}*);
 
@@ -518,6 +551,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
     (*\tmnbf{di9java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di9java3beanid}{wantedClass}[ForestGreen]*)", (*\tmnbf{di9java3interface2}{WantedClassInterface}*).class);
@@ -537,6 +571,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
 \newpage
 
 \examplenonl[autowired field injection with a qualifier]
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...
@@ -545,6 +580,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
       <context:component-scan base-package="(*\tmnbf{di10xml1package}{somepackage.subpackage}[ForestGreen]*)"/>
     </beans>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package deppackage.depsubpackage;
 
@@ -553,6 +589,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor}]
     package (*\tmnbf{di10java2package}{somepackage.subpackage}*);
 
@@ -569,6 +606,7 @@ When using field injection, the~annotation is~applied directly to~the~field vari
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("configurationFile.xml");
     (*\tmnbf{di10java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di10java3beanid}{wantedClass}[ForestGreen]*)", (*\tmnbf{di10java3interface2}{WantedClassInterface}*).class);
@@ -610,6 +648,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
 \enlargethispage{10mm}
 \thispagestyle{empty}
 \example[Java code configuration\,--\,constructor dependency injection]
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class}]
     package confpackage.confsubpackage;
 
@@ -626,6 +665,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package deppackage.depsubpackage;
 
@@ -633,6 +673,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
     package somepackage.subpackage;
 
@@ -648,6 +689,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tmnbf{di11java4configclass}{ConfigurationClass}*).class);
     (*\tmnbf{di11java4interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di11java4beanid}{wantedBeanMethod}[ForestGreen]*)", (*\tmnbf{di11java4interface2}{WantedClassInterface}*).class);
@@ -674,6 +716,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
 \enlargethispage{20mm}
 \thispagestyle{empty}
 \example[Java code configuration\,--\,setter dependency injection]
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class}]
     package confpackage.confsubpackage;
 
@@ -692,6 +735,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Dependency class}]
     package deppackage.depsubpackage;
 
@@ -699,6 +743,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
         ...
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and the setter method}]
     package somepackage.subpackage;
 
@@ -716,6 +761,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tmnbf{di12java4configclass}{ConfigurationClass}*).class);
     (*\tmnbf{di12java4interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di12java4beanid}{wantedBeanMethod}[ForestGreen]*)", (*\tmnbf{di12java4interface2}{WantedClassInterface}*).class);
@@ -742,6 +788,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
 \newpage
 
 \example[Java code configuration\,--\,constructor field injection]
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class}]
     package confpackage.confsubpackage;
 
@@ -753,6 +800,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with the constructor}]
     package somepackage.subpackage;
 
@@ -768,6 +816,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tmnbf{di13java3configclass}{ConfigurationClass}*).class);
     (*\tmnbf{di13java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di13java3beanid}{wantedBeanMethod}[ForestGreen]*)", (*\tmnbf{di13java3interface2}{WantedClassInterface}*).class);
@@ -786,6 +835,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
 \newpage
 
 \example[Java code configuration\,--\,setter field injection]
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class}]
     package confpackage.confsubpackage;
 
@@ -799,6 +849,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Wanted class with the zero--parameter constructor and the setter method}]
     package somepackage.subpackage;
 
@@ -816,6 +867,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Usage}]
     AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext((*\tmnbf{di14java3configclass}{ConfigurationClass}*).class);
     (*\tmnbf{di14java3interface}{WantedClassInterface}*) wantedClassInstance = context.getBean("(*\tmnbf{di14java3beanid}{wantedBeanMethod}[ForestGreen]*)", (*\tmnbf{di14java3interface2}{WantedClassInterface}*).class);

@@ -51,6 +51,7 @@ A~\hyperref[internetweb]{web} page uses some functionality \hyperref[declaration
 But~this functionality uses some other functionality from~the~module~\textit{B} and~that one uses some functionality from the~module~\textit{C}.
 Then you~must put exactly this into the~page:
 
+%! language = TEXT
 \begin{lstlisting}[language=XML,frame=no]
     <script src="C.js"></script>
     <script src="B.js"></script>
@@ -94,6 +95,7 @@ Other members are~equivalent to~\hyperref[javaprivate]{private} members.
 \newpage
 
 \example[AMD module]
+%! language = TEXT
 \begin{lstlisting}[language=JavaScript]
     define(['PATH_TO_OTHER_MODULE'], function((*\tmnbf{js1othmod1}{otherModuleHandler}*)) {
       let privateVariable = ...;
@@ -125,6 +127,7 @@ Other members are~equivalent to~\hyperref[javaprivate]{private} members.
 
 \example[AMD module without dependencies]
 \enlargethispage{10mm}
+%! language = TEXT
 \begin{lstlisting}[language=JavaScript]
     define(function() {
       let privateVariable = ...;
@@ -190,6 +193,7 @@ It~isn't supported in~JavaScript by~default.
 \newpage
 
 \example[assigning action to~a~button with RequireJS and jQuery]
+%! language = TEXT
 \begin{lstlisting}[language=JavaScript,title={Main JavaScript file \textit{\tmnbf{js3mainscript}{main}.js}}]
     requirejs.config({
       paths: {
@@ -208,6 +212,7 @@ It~isn't supported in~JavaScript by~default.
       });
     });
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=XML,title={Web page file loading the JavaScript file}]
     <!DOCTYPE html>
     <html lang="en">

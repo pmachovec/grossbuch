@@ -36,6 +36,8 @@
 
 \NewDocumentCommand{\itq}{m}{"\textit{#1}"}
 
+\NewDocumentCommand{\itqs}{m}{\textquotesingle\textit{#1}\textquotesingle}
+
 \NewDocumentCommand{\mbit}{m}{\mbox{\textit{#1}}}
 
 \NewDocumentCommand{\mboxbreak}{m}{\mbox{#1}\allowbreak}
@@ -58,13 +60,19 @@
 
 \NewDocumentCommand{\mbitq}{m}{\mbox{\itq{#1}}}
 
+\NewDocumentCommand{\mbitqs}{m}{\mbox{\itqs{#1}}}
+
 \NewDocumentCommand{\mbitl}{m}{\textit{\mbl{#1}}} % Separated by ;;, no spaces between words
 
 \NewDocumentCommand{\mbitls}{m}{\textit{\mbls{#1}}} % Separated by ;; or ;;;, spaces between words on ;;;
 
 \NewDocumentCommand{\mbitql}{m}{\itq{\mbl{#1}}}
 
+\NewDocumentCommand{\mbitqsl}{m}{\itqs{\mbl{#1}}}
+
 \NewDocumentCommand{\mbitqls}{m}{\mbitq{\mbls{#1}}}
+
+\NewDocumentCommand{\mbitqsls}{m}{\mbitqs{\mbls{#1}}}
 
 \NewDocumentCommand{\drawarrow}{O{stealth-stealth} m m O{black} O{.3} O{}}{\draw[#1,line width=.6mm,shorten <=2pt,shorten >=2pt,#4,opacity=#5] (#2) to[#6] (#3);}
 

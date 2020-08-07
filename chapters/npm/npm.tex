@@ -42,12 +42,14 @@ Specifying a~whole path to~a~package is~not~needed.
 They can~be loaded even \hyperref[amd]{asynchronously}.
 
 \example[standard package loading]
+%! language = TEXT
 \begin{lstlisting}[language=JavaScript]
     let packageHandler = require('PACKAGE_NAME');
     packageHandler.doSomething(...);
 \end{lstlisting}
 
 \example[loading package with \hyperref[requirejs]{\textit{RequireJS}}]
+%! language = TEXT
 \begin{lstlisting}[language=JavaScript]
     let requirejs = require('requirejs');
     ...
@@ -108,6 +110,7 @@ The~\mbit{package.json} file must contain package name, three--number version an
 And~of~course dependencies must~be mentioned to~be~automatically downloaded.
 
 \example[\mbit{package.json} file of~a~distributable project]
+%! language = TEXT
 \begin{lstlisting}
     {
       "name": "simplepackage",
@@ -145,6 +148,7 @@ If~the~repository has~the~same name as~the~project without the~user name prefix,
 See~the~following example for~the~exact syntax.
 
 \example[\mbit{package.json} file of~a~project distributable to~GitHub]
+%! language = TEXT
 \begin{lstlisting}
     {
       "name": "@USER_NAME/simplepackage",
@@ -195,6 +199,7 @@ The~only option here is switching \hyperref[npmprofile]{profiles}.
 What is possible is to~refer to~multiple GitHub user registries.
 Configure a~first user registry as~described above, but~for~others use user names as~scopes, not~as~final parts of~URLs.
 You~should~have something like this in \mbit{.npmrc} file:
+%! language = TEXT
 \begin{lstlisting}[frame=no]
     registry=https://npm.pkg.github.com/USER1
     @USER2:registry=//npm.pkg.github.com

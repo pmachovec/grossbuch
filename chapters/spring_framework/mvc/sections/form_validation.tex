@@ -13,6 +13,7 @@ Everything in~the~form template code.
 \examplenonl[string field validation allowing ASCII letters only]
 \enlargethispage{10mm}
 \thispagestyle{empty}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={POJO class with restricted String field}]
 public class (*\tmnbf{smvc6java1pojo}{PojoClass}*) {
     @@>@Pattern<@@(regexp = "[a-zA-Z]+", message = "ASCII letters only")
@@ -27,6 +28,7 @@ public class (*\tmnbf{smvc6java1pojo}{PojoClass}*) {
     }
 }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={HTML form \tmnbf{smvc6xml1form}{\textit{theForm}}\textit{.html} setting the field}]
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE html>
@@ -41,6 +43,7 @@ public class (*\tmnbf{smvc6java1pojo}{PojoClass}*) {
       </body>
     </html>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Controller processing the form}]
     @>@Controller
     @@>@RequestMapping<@@("...")
@@ -97,6 +100,7 @@ The~validator class isn't specified anywhere else.
 \newpage
 
 \example
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Custom validation annotation class}]
     @@>@Constraint<@@(validatedBy = (*\tmnbf{smvc7annotvalid}{CustomValidator}*))
     @@>@Retention<@@(RetentionPolicy.RUNTIME)
@@ -109,6 +113,7 @@ The~validator class isn't specified anywhere else.
         Class<? extends Payload> payload() default {};
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Custom validator class, validated field must contain either a~value from the~array or~must~be equal to~the~simple string}]
     public class (*\tmnbf{smvc7valid}{CustomValidator}*) implements ConstraintValidator<(*\tmnbf{smvc7validannot1}{CustomAnnotation}*), (*\tmnbf{smvc7validstringtype1}{String}*)> {
         private String[] stringArray;

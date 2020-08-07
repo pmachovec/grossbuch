@@ -119,6 +119,7 @@ Nevertheless, be~aware that deciding how~to~encapsulate \hyperref[javadatatypes]
 With varying depth of~\hyperref[variablefieldproperty]{fields} in~the~encapsulation tree we~talk about different levels of~abstraction.
 
 \example[abstraction without encapsulation in~Java]
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     float PI = 3.1415926535897932384626433832795028841971693993751058;
     ...
@@ -129,6 +130,7 @@ With varying depth of~\hyperref[variablefieldproperty]{fields} in~the~encapsulat
 Something like this can~actually happen in~real programming.
 
 \example[encapsulation without abstraction in~Java]
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     public class UselessClass {
         private int uselessVariable = 0;
@@ -147,6 +149,7 @@ It's~also a~container for~data stored in~variables.
 The~difference is that data structures expose all its data and~contain no meaningful tools for~operating with data.
 
 \example[simple data structure in~Java]
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     public class DataStructure {
         public int intVariable = 0;
@@ -159,6 +162,7 @@ The~difference is that data structures expose all its data and~contain no meanin
 \newpage
 
 \example[Java data structure trying to look like an object]
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     public class WannaBeObject {
         private int intVariable = 0;
@@ -235,6 +239,7 @@ True functional languages, like Haskell or~Erlang, are used in the~academy and~s
 When considering mainstream languages, JavaScript, Python or~Kotlin allow combining standalone functions (not~bound to~objects) with the~standard \hyperref[imperativeprogramming]{imperative paradigm}.
 
 \example[functional \textit{Hello World} in~JavaScript]
+%! language = TEXT
 \begin{lstlisting}[language=JavaScript]
     var helloWorld = function() {
         console.log('Hello World!');

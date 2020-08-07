@@ -34,6 +34,7 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
 \examplenonl[binding text input to \hyperref[pojo]{POJO} String field]
 \enlargethispage{20mm}
 \thispagestyle{empty}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={POJO class with one String field}]
     public class (*\tmnbf{smvc3java1pojo}{PojoClass}*) {
         private String pojoField;
@@ -47,6 +48,7 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={HTML form setting the field}]
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE html>
@@ -59,6 +61,7 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
       </body>
     </html>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Controller displaying and processing the form}]
     @>@Controller
     @@>@RequestMapping<@@("(*\tmnbf{smvc3java2class}{/classUrl}[ForestGreen]*)")
@@ -91,6 +94,7 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
 \newpage
 
 \examplenonl[binding dropdown created from map]
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={POJO class with one String field}]
     public class PojoClass {
         private String dropdownField;
@@ -113,6 +117,7 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={HTML form setting the field}]
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE html>
@@ -138,6 +143,7 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
 
 \example[binding checkbox created from a \textit{properties} file]
 \enlargethispage{10mm}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={POJO class with one array field}]
     public class PojoClass {
         private String[] checkboxField;
@@ -151,6 +157,7 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
         }
     }
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={HTML form setting the field}]
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE html>
@@ -165,6 +172,7 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
       </body>
     </html>
 \end{lstlisting}
+%! language = TEXT
 \begin{lstlisting}[language=Java, title={Controller converting \textit{properties} file to a map}]
     @>@Controller
     @@>@RequestMapping<@@("...")
@@ -189,6 +197,7 @@ For~such inputs POJO fields must~be arrays, not~simple strings.
 \end{tikzpicture}
 \newpage
 
+%! language = TEXT
 \begin{lstlisting}[language=XML, title={Spring XML configuration}]
     <?xml version="1.0" encoding="UTF-8"?>
     <beans ...>

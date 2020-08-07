@@ -34,6 +34,7 @@ Requests can~contain so~called \mbit{parameters}.
 These are simple key--value pairs, based on~which servers can~react differently to~otherwise same requests.
 This is typical for~\hyperref[applicationserver]{application servers}.
 
+%! language = TEXT
 \begin{lstlisting}[title={Example of a~HTTP \textit{POST} request, parameters are~visible at~the~bottom}]
     POST /someFolder HTTP/1.1
     HOST: www.somepage.com
@@ -66,6 +67,7 @@ The~body contains actual request processing result for~the~client.
 When a~response gets to~a~web browser, the~browser displays the~body contents.
 And~if~the~header of~the~request contains the~content type set to~\mbitq{text/html}, which is usually the~case, the~body is~rendered as~a~web page in~the~browser.
 
+%! language = TEXT
 \begin{lstlisting}[title={Example of a~HTTP response}]
     HTTP/1.1 200 OK
     Content-Type: text/html
