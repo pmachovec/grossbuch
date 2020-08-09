@@ -1,0 +1,164 @@
+\newsection{Annotations}
+\index{Annotations}
+\index{Java annotations}
+\label{javaannotation}
+Annotations are~special labels by~components of~Java code denoted by~the~at~sign (\itq{@}).
+They carry additional information\,--\,metadata\,--\,about components that they denote.
+Although annotations have no direct effect on~the~annotated code operation, they're processed, either during compilation or~during runtime.
+The~most typically used annotation is \hyperref[javaoverride]{\mbit{@Override}}.
+
+\newsubsection{Custom Annotations}
+\label{javacustomannotations}
+Annotations aren't just fixed, developers can~create their own.
+Annotation \hyperref[declarationdefinition]{definition} looks like a~simple class \hyperref[declarationdefinition]{definition}.
+The~key word stating that an~annotation is~defined is \mbitq{@interface} (with the~at~sign at~the~beginning).
+Annotation classes can~contain method \hyperref[declarationdefinition]{declarations} (without a~body), which in~fact define annotation \hyperref[parameterargument]{parameters}.
+These method headers are~always public and~cant't~get an~\hyperref[javaaccessmodifiers]{access modifier}.
+They can~be~followed by~the~keyword \mbitq{default} followed by~a~default value of~the~corresponding \hyperref[parameterargument]{parameter}.
+The~default value type must match the~return type from the~method header.
+If~a~parameter method doesn't have assigned default value, then the~parameter is~compulsory when using the~annotation.
+
+Annotation usage and~behavior is~defined by~other, Java built--in annotations, sometimes called \textit{metaannotations}.
+There are many of~them, but~only \mbitq{@Retention} and~\mbitq{@Target} are~necessary.
+
+The~\mbit{@Retention} annotation defines if~the~custom annotation is~processed during compilation or~runtime.
+It~gets one~of~values of~the~\mbitq{RetentionPolicy} enum.
+There are only three possibilities:
+\begin{itemize}
+    \itembfd{RUNTIME} annotation is~processed during runtime.
+    \itembfd{CLASS} annotation is~processed during compilation and~incorporated to~the~created \hyperref[bytecode]{bytecode}.
+    \itembfd{SOURCE} annotation is~processed during compilation and~is~not~incorporated to~the~created \hyperref[bytecode]{bytecode}.
+             I.e.,~the~annotation is~missing after eventual decompilation.
+\end{itemize}
+
+The~\mbit{@Target} annotation defines entities to~which the~custom annotation can~be applied.
+It~gets one~or~more (enclosed in curly braces in~that~case) values of~the~\mbitq{ElementType} enum.
+There are eleven possible values in~total.
+They're quite self--explanatory, like \mbitq{METHOD}, \mbitq{FIELD} or~\mbitq{TYPE}.
+\newpage
+
+\newsubsection{Processing Annotations During Runtime}
+This is relatively easy.
+The~basic idea is to~get a~reference to~a~class with \hyperref[reflection]{reflection}, explore annotations of~its members or~the~class itself, and~when a~desired annotation is~detected, trigger some action.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Annotation processed during runtime, applicable to fields and methods}]
+    @@>@Retention<@@(RetentionPolicy.RUNTIME)
+    @@>@Target<@@({ElementType.FIELD, ElementType.METHOD})
+    public @interface (*\tmnbf{annot1annot}{ExampleAnnotation}*) {
+        String (*\tmnbf{annot1param}{exampleParameter}*)() default "example default value";
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Annotation usage}]
+    public class (*\tmnbf{annot1usageclass}{SimpleClass}*) {
+        @>@(*\tmnbf{annot1usageannot1}{ExampleAnnotation}[LimeGreen]*)
+        private String (*\tmnbf{annot1usagefield}{simpleField}*);
+
+        @@>@(*\tmnbf{annot1usageannot2}{ExampleAnnotation}[LimeGreen]*)<@@((*\tmnbf{annot1usageparam}{exampleParameter}*) = "new value")
+        public void simpleMethod() {
+            ...
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Runtime annotation processing}]
+    Class<?> simpleClass = (*\tmnbf{annot1procclass}{SimpleClass}*).class;
+    Field simpleField = simpleClass.getDeclaredField("(*\tmnbf{annot1procfield}{simpleField}[ForestGreen]*)");
+
+    if (simpleField.isAnnotationPresent((*\tmnbf{annot1procannot1}{ExampleAnnotation}*).class)) {
+        (*\tmnbf{annot1procannot2}{ExampleAnnotation}*) exampleAnnotation = simpleField.getAnnotation((*\tmnbf{annot1procannot3}{ExampleAnnotation}*).class);
+        String exampleParameterValue = exampleAnnotation.(*\tmnbf{annot1procparam}{exampleParameter}*)();
+        ...DO SOMETHING WITH THE PARAMETER VALUE...
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{[xshift=3mm] annot1annot.south west}{annot1usageannot1.north}
+    \drawarrow{[xshift=3mm] annot1annot.south west}{annot1usageannot2.north}
+    \drawarrow{[xshift=3mm] annot1annot.south west}{[xshift=3mm] annot1procannot1.north west}
+    \drawarrow{[xshift=3mm] annot1annot.south west}{annot1procannot2.north}
+    \drawarrow{[xshift=3mm] annot1annot.south west}{[xshift=3mm] annot1procannot3.north west}
+    \drawarrow{[xshift=-3mm] annot1param.south east}{[xshift=6mm] annot1usageparam.north}[red]
+    \drawarrow{[xshift=-3mm] annot1param.south east}{[xshift=6mm] annot1procparam.north}[red]
+    \drawarrow{[xshift=3mm] annot1usageclass.south}{[xshift=-3mm] annot1procclass.north}[green]
+    \drawarrow{[xshift=6mm] annot1usagefield.south}{[xshift=3mm] annot1procfield.north west}[blue]
+\end{tikzpicture}
+\newpage
+
+\newsubsection{Processing Annotations During Compilation}
+That's much worse.
+First, annotation must be already prepared in~the~compile time.
+I.e.,~the~source code of~the~annotation class must be already compiled and~packed to~a~jar, which must be added to~classpath.
+In~other words, you~must create the~annotation as~a~separate program (subproject is enough), pack it to~a~jar and~put it to~classpath.
+Only then you~can~start writing the~code that uses the~annotation.
+
+In~the~annotation program a~processor class must be created.
+The~class must~be annotated with (repeatable) annotation \mbitq{@SupportedAnnotationTypes}, which specifies processed annotation class (or~classes), and~with annotation \mbitq{@SupportedSourceVersion}, which specifies minimal Java version under which the~processed annotation is~available during compilation.
+The~class must also extend the~class \mbitq{AbstractProcessor} and~implement the~method \mbitq{process}.
+The~method can~access annotated elements and~annotation values from its~\hyperref[parameterargument]{parameters}, namely from the~rounding environment, and~perform some action when a~desired annotation is~detected.
+
+It's~desirable to~\hyperref[javaoverride]{override} the~\mbitq{init} method, retrieve the~processing environment messager in~it and~store the~messager to~a~global variable.
+Interactions with the~compilation process (breaking compilation, printing warnings, \dots) in~the~\mbit{process} method are~then done through this messager, namely through its method \mbitq{printMessage}.
+The~method can~take up~to~four \hyperref[parameterargument]{parameters}, but~only first two are~important:
+\begin{itemize}
+    \itembfd{Kind} a~member of~the~enum \mbitq{Diagnostic.Kind}.
+             Specifies the~action to~perform.
+             For~example, the~value \mbitq{ERROR} will~cause the~compilation to~fail.
+    \itembfd{Message} character sequence (can~be string) with the~message to~display.
+\end{itemize}
+\noindent Nevertheless, it's~convenient to~use the~three--parameter version.
+The~third parameter is~the~annotated element retrieved from the~\mbit{process} method parameters.
+This~way the~element is~included to~printed information.
+
+Additionally, the~jar must~be constructed so~that it~has a~file called exactly \mbitql{javax.;;annotation.;;processing.;;Processor} (without any further extension) inside the~\mbitql{META--INF/;;services} folder.
+Inside this file there must~be package path to~the~processor class.
+\newpage
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Annotation processed during compilation, included in~compiled code, applicable to~fields and~methods}]
+    package (*\tmnbf{annot2annotpkg}{annotationpackage}*);
+
+    @@>@Retention<@@(RetentionPolicy.SOURCE)
+    @@>@Target<@@({ElementType.FIELD, ElementType.METHOD})
+    public @interface (*\tmnbf{annot2annot}{ExampleAnnotation}*) {
+        String (*\tmnbf{annot2param}{exampleParameter}*)() default "example default value";
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Annotation processor, working from Java~8, failing when annotated element is encountered}]
+    package (*\tmnbf{annot2procpkg}{processorpackage}*);
+
+    @@>@SupportedAnnotationTypes<@@("(*\tmnbf{annot2procannotpkg}{annotationpackage}[ForestGreen]*).(*\tmnbf{annot2procannot1}{ExampleAnnotation}[ForestGreen]*)")
+    @@>@SupportedSourceVersion<@@(SourceVersion.RELEASE_8)
+    public class (*\tmnbf{annot2proc}{ExampleProcessor}*) extends AbstractProcessor {
+        private Messager messager;
+
+        @>@Override
+        public synchronized void init(ProcessingEnvironment processingEnv) {
+            messager = processingEnv.getMessager();
+        }
+
+        @>@Override
+        public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+            for (Element element: roundEnv.getElementsAnnotatedWith((*\tmnbf{annot2procannot2}{ExampleAnnotation}*).class)) {
+                messager.printMessage(Diagnostic.Kind.ERROR, element.getAnnotation((*\tmnbf{annot2procannot3}{ExampleAnnotation}*).class). (*\tmnbf{annot2procparam}{exampleParameter}*)(), element);
+            }
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[title={The file \textit{javax.annotation.processing.Processor}}]
+    (*\tmnbf{annot2fileprocpkg}{processorpackage}*).(*\tmnbf{annot2fileproc}{ExampleProcessor}*)
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{annot2annotpkg.south}{[xshift=6mm] annot2procannotpkg.north west}
+    \drawarrow{[xshift=-3mm] annot2annot.south east}{annot2procannot1.north}[red]
+    \drawarrow{[xshift=-3mm] annot2annot.south east}{annot2procannot2.north}[red]
+    \drawarrow{[xshift=-3mm] annot2annot.south east}{annot2procannot3.north}[red]
+    \drawarrow{annot2param.south}{[xshift=-3mm] annot2procparam.north}[green]
+    \drawarrow{annot2procpkg.south}{annot2fileprocpkg.north}[blue]
+    \drawarrow{[xshift=3mm] annot2proc.south}{[xshift=3mm] annot2fileproc.north}[Magenta]
+\end{tikzpicture}
+\newpage

@@ -1,0 +1,74 @@
+\newsection{Abstract Classes}
+\index{Abstract class}
+\index{Abstract method}
+\label{javaabstractclasses}
+Abstract classes are the~first Java tool to~achieve the~\hyperref[abstraction]{abstraction concept} of~\hyperref[objectorientedprogramming]{OOP}.
+They're like standard classes, but~they can~contain also special methods without a~body, so~called \textit{abstract methods}.
+A~variable can~have an~abstract class type, but~an~abstract class cannot be instantiated.
+It~must~be inherited by~another class (the~keyword \mbitq{extends}), which must provide implementations for~all~abstract classes (or~be~also abstract and~further inherited).
+An~instance of~such class can~be assigned to~a~variable of~the~abstract class type (\hyperref[polymorphism]{subtype polymorphism}).
+
+As~abstract classes and~their usage are~based on~the~\hyperref[inheritance]{inheritance concept} (they use \hyperref[inheritance]{inheritance} to~achieve \hyperref[abstraction]{abstraction}), \mbox{non--abstract} members of~abstract classes are~normally available in~their descendants (if~not~\hyperref[javafinal]{final}).
+
+Abstract classes and~abstract methods are~\hyperref[declarationdefinition]{declared} with the~keyword \mbitq{abstract}.
+It's~advised (but~not~necessary) to~use the~\hyperref[javaoverride]{overriding} annotation for~methods providing implementations of~abstract methods from~predecessor abstract classes.
+
+Because of~the~class inheritance mechanism in~Java, it's~possible to~inherit always only from~one abstract class.
+If~you~manage to~end~up with an~abstract class, that contains only abstract members, it's~better to~change it to~an~\hyperref[javainterfaces]{interface}.
+
+\newsubsection{How (not) to use}
+A~common mistake, that developers do with abstract classes, is to~\hyperref[declarationdefinition]{define} a~common \mbox{non--abstract} method in~an~abstract class and~use this method inside descendants of~the~abstract class.
+This is wrong, because when the~common method is~changed for~whatever reason, all~descendants of~the~abstract class are~potentially affected.
+When you need some common behavior for~descendants, it's~better to~implement some common \hyperref[dependencyinjection]{dependency} or~\hyperref[javastatic]{static} method (\hyperref[compositionoverinheritance]{composition over inheritance}).
+The~danger of~a~change affecting multiple classes also exists in~this case, but~is smaller.
+
+On~the~other hand, a~common method to~be~used on~descendants, not~in~them, is~correct and~encouraged with abstract classes.
+I.e.,~when you call something like \mbitqls{descendant.;;commonMethod(\dots)} from outside the~descendant, then it's~correct.
+Such~common method can~call abstract methods, whose implementations are~provided in~descendants.
+This approach is actually the~\hyperref[templatedp]{template design pattern}.
+
+A~general rule is that members of~an~abstract class must~be either abstract (must~be \hyperref[javaoverride]{overridden} in~descendants), private (aren't visible in~descendants) or~final (can't~be \hyperref[javaoverride]{overridden} in~descendants).
+Final members furthermore can't~be called inside descendants.
+Unfortunately, there's no~way how to~hide final members (which are always public) from descendants.
+Not~using them inside is a~responsibility of~developers.
+\newpage
+
+\example[abstract class and its usage]
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Abstract class}]
+    public abstract class (*\tmnbf{abstract1class1}{AbstractClass}*) {
+        (*\tmnbf{abstract1acmod1}{public}[blue]*) abstract (*\tmnbf{abstract1type1}{void}[blue]*) (*\tmnbf{abstract1method1}{abstractMethod}*)((*\tmnbf{abstract1paramtype1}{Object}*) (*\tmnbf{abstract1param1}{abstractMethodParam}*));
+
+        public final void (*\tmnbf{abstract1concretemethod1}{concreteMethod}*)() {
+            ...
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Concrete class}]
+    public class (*\tmnbf{abstract1concreteclass1}{ConcreteClass}*) extends (*\tmnbf{abstract1class2}{AbstractClass}*) {
+        @>@Override
+        (*\tmnbf{abstract1acmod2}{public}[blue]*) (*\tmnbf{abstract1type2}{void}[blue]*) (*\tmnbf{abstract1method2}{abstractMethod}*)((*\tmnbf{abstract1paramtype2}{Object}*) (*\tmnbf{abstract1param2}{abstractMethodParam}*)) {
+            ...
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Usage\,--\,concrete class instance in~the~variable of~the~abstract class type}]
+    (*\tmnbf{abstract1class3}{AbstractClass}*) abstractClassVariable = new (*\tmnbf{abstract1concreteclass2}{ConcreteClass}*)();
+    abstractClassVariable.(*\tmnbf{abstract1method3}{abstractMethod}*)((*\tmnbf{abstract1paramtype3}{Object}*) someObject);
+    abstractClassVariable.(*\tmnbf{abstract1concretemethod2}{concreteMethod}*)();
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{abstract1class1.south}{[xshift=-3mm] abstract1class2.north}
+    \drawarrow{abstract1class1.south}{[xshift=6mm] abstract1class3.north}
+    \drawarrow{abstract1acmod1.south}{abstract1acmod2.north}[red]
+    \drawarrow{abstract1type1.south}{abstract1type2.north}[green]
+    \drawarrow{[xshift=3mm] abstract1method1.south}{[xshift=-3mm] abstract1method2.north}[blue]
+    \drawarrow{[xshift=-3mm] abstract1method2.south}{[xshift=-3mm] abstract1method3.north}[blue]
+    \drawarrow{abstract1paramtype1.south}{abstract1paramtype2.north}[Magenta]
+    \drawarrow{abstract1paramtype2.south}{abstract1paramtype3.north}[Magenta]
+    \drawarrow{abstract1param1.south}{abstract1param2.north}[yellow][.5]
+    \drawarrow{[xshift=-3mm] abstract1concretemethod1.south}{[xshift=3mm] abstract1concretemethod2.north}[YellowOrange]
+    \drawarrow{abstract1concreteclass1.south east}{abstract1concreteclass2.north}
+\end{tikzpicture}

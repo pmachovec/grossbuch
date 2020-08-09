@@ -1,0 +1,156 @@
+\newsection{Overriding}
+\index{Override}
+\label{javaoverride}
+It's~a~verification mechanism, which tells the~compiler that the~annotated method should override a~method from an~interface or~a~superclass of~the~actual class (\hyperref[inheritance]{inheritance}).
+It's~achieved by~\hyperref[javaannotation]{annotating} the~method by~the~\hyperref[javaannotation]{annotation} \textit{@Override}.
+When the~compiler encounters a~method with this annotation, it~checks that the~\hyperref[declarationdefinition]{declaration} of~the~method in~the~class matches the~definition in~an~interface or~a~superclass and~if~not, it~stops the~compilation with complaining that \itq{method does not override or implement a method from a supertype}.
+
+\note Today's~IDEs can~detect potential compilation errors on~the~fly including wrong declaration of~a~method with the~\textit{@Override} annotation.
+I.e.,~it~will~get the~red zigzag underscore.
+
+\example[this won't be compiled because o~the~bad parameter of~the~child class]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class Parent {
+        public void doSomething() {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+
+    public class Child extends Parent {
+        @>@Override
+        public void doSomething(Object badParameter) {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+\end{lstlisting}
+
+\warning It~serves purely for~overridden method declaration verification.
+If~not~used, an~implementation of~a~method in~a~child class will still work.
+The~difference is that when used, the~method declaration in~the~child class must~be the~same as~in~the~parent class.
+
+\example[this will be compiled because the~\textit{@Override} annotation is not~used]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class Parent {
+        public void doSomething() {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+
+    public class Child extends Parent {
+        public void doSomething(Object notBadParameter) {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+\end{lstlisting}
+
+\warning The~enforcement of~method declarations is~not~absolutely strict.
+Parameter names can~be different.
+Just remember that it's the~only thing that can~be different.
+Everything else\,--\,\hyperref[javaaccessmodifiers]{access modifiers}, names, parameter types and~their order\,--\,must match exactly.
+Even descendant classes are~forbidden.
+
+\example[this will be compiled, parameter names can~be different]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class Parent {
+        public void doSomething(Object nameInParent) {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+
+    public class Child extends Parent {
+        @>@Override
+        public void doSomething(Object nameInChild) {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+\end{lstlisting}
+
+\example[this won't be compiled, parameter types must match exactly]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class Parent {
+        public void doSomething(Object sameName) {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+
+    public class Child extends Parent {
+        @>@Override
+        public void doSomething(String sameName) {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+\end{lstlisting}
+
+\warning Static methods can't~be overridden.
+
+\example[this won't be compiled, static methods can't~be overridden]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class Parent {
+        public static void doSomething() {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+
+    public class Child extends Parent {
+        @>@Override
+        public static void doSomething() {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+\end{lstlisting}
+
+\newsubsection{Virtual Methods}
+\index{Virtual method}
+\label{javavirtualmethods}
+In~Java all non--static methods are virtual and~it~can't~be changed.
+It~means that when you~have a~variable of~a~class, assign an~instance of~a~subclass to~it and~call a~method that the~subclass overrides, the~implementation from~the~subclass will~be~used.
+It~doesn't matter if~the~\textit{@Override} annotation is~used or~not.
+Remember, that's only for~overridden method declaration verification.
+
+\example[note that the \textit{@Override} notation isn't used]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class Parent {
+        public void doSomething() {
+            System.out.println("Parent implementation");
+        }
+    }
+
+    public class Child extends Parent {
+        public void doSomething() {
+            System.out.println("Child implementation");
+        }
+    }
+
+    Parent virtualParent = new Child();
+    virtualParent.doSomething(); @>// Will print "Child implementation"
+\end{lstlisting}
+
+\warning As~static methods can't~be overridden, virtualization doesn't work for~them, not~even when a~static method is~called on~a~concrete instance.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class Parent {
+        public static void doSomething() {
+            System.out.println("Parent implementation");
+        }
+    }
+
+    public class Child extends Parent {
+        public static void doSomething() {
+            System.out.println("Child implementation");
+        }
+    }
+
+    Parent virtualParent = new Child();
+    virtualParent.doSomething(); @>// Will print "Parent implementation"
+\end{lstlisting}
+
+\note If~only one~method implementation (either in~a~parent or~in~a~child) is~static, the~compilation fails.
+When two methods in~two classes in~a~parent--child relation have the~same name, only parameter names can~be different, everything else, including the~keyword \textit{static}, must match.

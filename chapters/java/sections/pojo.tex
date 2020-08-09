@@ -1,0 +1,20 @@
+\newsection{POJO}
+\index{POJO}
+\label{pojo}
+The~abbreviation stands for~\itq{Plain Old Java Object}.
+It~denotes \textbf{an~instance} of~a~Java Class not~bound by any~restriction other than those given~by basic Java specification.
+There~are three basic rules for~a~POJO class:
+\begin{itemize}
+    \item It~can't extend any~prespecified class.
+    \item It~can't implement any~prespecified interface.
+    \item It~can't contain any~prespecified \hyperref[javaannotation]{annotation}.
+\end{itemize}
+\noindent The~word \textit{prespecified} denotes any~component (interface, class,~\dots) that is directly defined in~the~code or loaded from a~third--party framework.
+For~example, instances of~\hyperref[javabeans]{Java Beans} are~POJOs, although \hyperref[javabeans]{Java Beans} implement the~interface \hyperref[serialization]{\textit{Serializable}}, because the~interface comes from the~default~\hyperref[jdkjrejvm]{JRE}.
+
+\warning Only first two rules are strict.
+The~rule forbidding prespecified annotations is~softened when working with some frameworks, typically some persistence.
+The~softened version says that if~a~class is a~POJO class before adding framework annotations and~become POJO class after removing framework annotations is still a~POJO class.
+
+\warning You~can also meet claims that all variables must be accessible by getters or there should be no behavior, i.e., that POJOs contain only private variables, getters and setters (not~necessarily for~all variables).
+All~claims at~least agree on~that POJOs can have parametrical constructors (opposite to~\hyperref[javabeans]{Java Beans}).

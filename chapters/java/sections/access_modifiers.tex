@@ -1,0 +1,73 @@
+\newsection{Access Modifiers}
+\index{Access modifier}
+\label{javaaccessmodifiers}
+
+\newsubsection{Public}
+\index{Public}
+\label{javapublic}
+
+\newsubsection{Protected}
+\index{Protected}
+\label{javaprotected}
+
+\newsubsection{Private}
+\index{Private}
+\label{javaprivate}
+
+\newsubsection{Static}
+\index{Static}
+\label{javastatic}
+Only \hyperref[variablefieldproperty]{fields} and~methods can~be static.
+Such~members, if~not~blocked by~other modifiers, can~be accessed over the~dot notation without a~need of~instantiating the~class containing them.
+
+\example[class with a~static method]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class ClassWithStaticMethod {
+        public static String giveSomeString() {
+            ...
+        }
+    }
+
+    String someString = ClassWithStaticMethod.giveSomeString();
+\end{lstlisting}
+
+\warning A~special hidden instance of~the~class is~created for~static members.
+This instance is~a~\hyperref[singletondp]{singleton}.
+And~this can~be dangerous as~even non--static methods can~access static members.
+A~static \hyperref[variablefieldproperty]{field} can~be overridden by~accident and~introduce hardly discoverable bugs.
+
+\example[singleton behavior of~static members]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class ClassWithStaticMembers {
+        private String simpleString;
+
+        public static String getSimpleString() {
+            return simpleString;
+        }
+
+        public static void setSimpleString(String simpleString) {
+            this.simpleString = simpleString;
+        }
+    }
+
+    ClassWithStaticMembers firstInstance = new ClassWithStaticMembers();
+    firsInstance.setSimpleString("FIRST VALUE");
+    ...MANY LINES OF CODE...
+    ClassWithStaticMembers secondInstance = new ClassWithStaticMembers();
+    secondInstance.setSimpleString("SECOND VALUE"); // Writes to the same instance
+    ...MANY LINES OF CODE..
+    System.out.println(firstInstance.getSimpleString()); // Will print "SECOND VALUE"
+\end{lstlisting}
+
+\newsubsection{Final}
+\index{Final}
+\label{javafinal}
+
+\newsubsection{Synchronized}
+\index{Synchronized}
+\label{javasynchronized}
+
+\newsubsection{None}
+\label{noaccessmodifier}

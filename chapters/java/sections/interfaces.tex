@@ -1,0 +1,204 @@
+\newsection{Interfaces}
+\index{Interface}
+\label{javainterfaces}
+Interfaces are newer Java tool to~achieve the~\hyperref[abstraction]{abstraction concept} of~\hyperref[objectorientedprogramming]{OOP}.
+They're very similar to~\hyperref[javaabstractclasses]{abstract classes}.
+An~interface is like an~abstract class with all methods abstract.
+I.e.,~interfaces contain only method \hyperref[declarationdefinition]{declarations}.
+These declarations don't have \hyperref[javaaccessmodifiers]{access modifiers}, all~methods are~treated as~\hyperref[javapublic]{public}.
+When methods are~\hyperref[declarationdefinition]{defined} in~classes, they must~be \hyperref[javapublic]{public}.
+In~terminology classes don't extend interfaces, but~implement.
+The~keyword is~\mbitq{implements}.
+Even methods from classes implementing interfaces should (but~don't have~to) use the~\hyperref[javaoverride]{overriding} annotation.
+
+Opposite to~extending \hyperref[javaabstractclasses]{abstract classes}, a~class can~implement more interfaces.
+Such class must then contain \hyperref[declarationdefinition]{definitions} of~all methods in~all interfaces it~implements.
+If~more interfaces enforce the~same method with the~same \hyperref[declarationdefinition]{declaration}, only one method \hyperref[declarationdefinition]{definition} is~needed in~the~implementing class.
+If~such methods have different return types in~interfaces, there will~be a~conflict and~the~implementing class won't~be compilable.
+\newpage
+
+\example[implementing multiple interfaces with a~common method]
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={First interface}]
+    public interface (*\tmnbf{interface1interface1}{FirstInterface}*) {
+        (*\tmnbf{interface1type1}{void}[blue]*) (*\tmnbf{interface1method1}{firstInterfaceMethod}*)();
+        (*\tmnbf{interface1type2}{String}*) (*\tmnbf{interface1method2}{commonMethod}*)((*\tmnbf{interface1paramtype1}{Object}*) (*\tmnbf{interface1param1}{commonMethodParam}*));
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Second interface}]
+    public interface (*\tmnbf{interface1interface2}{SecondInterface}*) {
+        (*\tmnbf{interface1type3}{int}[blue]*) (*\tmnbf{interface1method3}{secondInterfaceMethod}*)();
+        (*\tmnbf{interface1type4}{String}*) (*\tmnbf{interface1method4}{commonMethod}*)((*\tmnbf{interface1paramtype2}{Object}*) (*\tmnbf{interface1param2}{commonMethodParam}*));
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Implementing class}]
+    public class ImplementingClass implements (*\tmnbf{interface1interface3}{FirstInterface}*), (*\tmnbf{interface1interface4}{SecondInterface}*) {
+        public (*\tmnbf{interface1type5}{void}[blue]*) (*\tmnbf{interface1method5}{firstInterfaceMethod}*)() {
+            ...
+        }
+
+        public (*\tmnbf{interface1type6}{int}[blue]*) (*\tmnbf{interface1method6}{secondInterfaceMethod}*)() {
+            ...
+        }
+
+        public (*\tmnbf{interface1type7}{String}*) (*\tmnbf{interface1method7}{commonMethod}*)((*\tmnbf{interface1paramtype3}{Object}*) (*\tmnbf{interface1param3}{commonMethodParam}*)) {
+            ...
+        }
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{[xshift=3mm] interface1interface1.south}{interface1interface3.north}
+    \drawarrow{[xshift=3mm] interface1type1.south}{interface1type5.north}[red]
+    \drawarrow{interface1method1.south}{interface1method5.north}[green]
+    \drawarrow{[xshift=-3mm] interface1type2.south}{[xshift=-3mm] interface1type7.north}[blue]
+    \drawarrow{[xshift=-3mm] interface1type4.south}{[xshift=-4mm] interface1type7.north}[blue]
+    \drawarrow{interface1method2.south}{interface1method7.north}[Magenta]
+    \drawarrow{[xshift=-3mm] interface1method4.south}{interface1method7.north}[Magenta]
+    \drawarrow{interface1paramtype1.south}{interface1paramtype3.north}[yellow][.5]
+    \drawarrow{interface1paramtype2.south}{interface1paramtype3.north}[yellow][.5]
+    \drawarrow{interface1param1.south}{interface1param3.north}[YellowOrange]
+    \drawarrow{interface1param2.south}{interface1param3.north}[YellowOrange]
+    \drawarrow{interface1interface2.south}{[xshift=-3mm] interface1interface4.north east}
+    \drawarrow{[xshift=1mm] interface1type3.south}{interface1type6.north}[red]
+    \drawarrow{[xshift=-3mm] interface1method3.south}{interface1method6.north}[green]
+\end{tikzpicture}
+
+\noindent The~\hyperref[inheritance]{inheritance} with the~\mbitq{extends} keyword works even for~interfaces.
+Opposite to~classes an~interface can~extend multiple other interfaces.
+A~class implementing the~last interface in~the~inheritance line behaves like implementing all~interfaces in~the~line.
+
+\warning Even interface \hyperref[inheritance]{inheritance} breaks \hyperref[abstraction]{abstraction} and~should~be rather avoided.
+
+\example[an~interface extending two other interfaces]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public interface SomeInterface extends OtherInterface, OneMoreInterface {
+        ...
+    }
+\end{lstlisting}
+\newpage
+
+\noindent Combining class extension (standard \hyperref[inheritance]{inheritance}) and~interface implementation is possible.
+The~extension must~go first.
+
+\example[a~class extending another class and~implementing an~interface]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class SomeClass extends OtherClass implements SomeInterface {
+        ...
+    }
+\end{lstlisting}
+\newline
+
+\noindent Interfaces support \hyperref[polymorphism]{subtype polymorphism}.
+A~variable can~be of~an~interface type.
+Any~instance of~a~class implementing that interface can~be assigned to~that variable.
+
+\example[\hyperref[polymorphism]{subtype polymorphism} with an~interface]
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Some interface}]
+    public interface (*\tmnbf{interface2interface1}{SomeInterface}*) {
+        ...
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Implementing class}]
+    public class (*\tmnbf{interface2class1}{ImplementingClass}*) implements (*\tmnbf{interface2interface2}{SomeInterface}*) {
+        ...
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Usage}]
+    (*\tmnbf{interface2interface3}{SomeInterface}*) implementingClassVariable = new (*\tmnbf{interface2class2}{ImplementingClass}*)();
+    ...
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{interface2interface1.south}{interface2interface2.north}
+    \drawarrow{interface2interface1.south}{interface2interface3.north}
+    \drawarrow{interface2class1.south}{interface2class2.north}[red]
+\end{tikzpicture}
+
+\noindent Interfaces can~contain \hyperref[variablefieldproperty]{fields}.
+However, such~fields must have assigned a~value and~they're always public, even on~implementing classes.
+Same as~methods, fields can't~have \hyperref[javaaccessmodofiers]{access modifiers}.
+Although public fields aren't a~real problem, the~Java convention is having fields \hyperref[javaprivate]{private}.
+Therefore, having fields in~interfaces isn't convenient.
+
+\enlargethispage{20mm}
+\thispagestyle{empty}
+\example[a~field in~an~interface]
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Interface with field}]
+    public interface (*\tmnbf{interface3interface1}{InterfaceWithField}*) {
+        int (*\tmnbf{interface3field1}{interfaceField}*) = 0;
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Implementing class}]
+    public class (*\tmnbf{interface3class1}{ImplementingClass}*) implements (*\tmnbf{interface3interface2}{InterfaceWithField}*) {
+        ...
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Usage}]
+    (*\tmnbf{interface3interface3}{InterfaceWithField}*) implementingClassVariable = new (*\tmnbf{interface3class2}{ImplementingClass}*)();
+    System.out.println(implementingClassVariable.(*\tmnbf{interface3field2}{interfaceField}*));
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{interface3interface1.south}{interface3interface2.north}
+    \drawarrow{interface3interface1.south}{interface3interface3.north}
+    \drawarrow{interface3field1.south}{interface3field2.north}[red]
+    \drawarrow{interface3class1.south}{interface3class2.north}[green]
+\end{tikzpicture}
+\newpage
+
+\newsubsection{Default Methods}
+\index{Default method}
+Imagine a~situation when you~have an~interface implemented by many classes and~you~want to~add a~new~method \hyperref[declarationdefinition]{declaration} to~that interface.
+In~older versions of~Java, until you~had provided \hyperref[declarationdefinition]{definition} of~that method to~every class implementing the~interface, the~code was~uncompilable.
+To~address this problem so~called default methods were~introduced in~Java~8.
+
+Default methods are~marked by~the~keyword \mbitq{default}.
+They contain full method \hyperref[declarationdefinition]{definition}, i.e.,~with the~method body, although they reside in~interfaces.
+Classes implementing interfaces don't need to~implement these methods nor~have to~be abstract.
+It's~very similar to~having a~non--abstract method in~an~\hyperref[javaabstractclasses]{abstract class}.
+The~only difference is that default methods are~always public, they can't~have an~\hyperref[javaaccessmodifiers]{access modifier}.
+
+\hyperref[javaprivate]{Private} and~\hyperref[javastatic]{static} methods are~also newly available in~interfaces.
+Private to~be~called from~default methods, static to~be~called on~instances of~implementing classes stored in~variables of~the~interface type.
+You~can~even have \hyperref[javaprivatestaticmethods]{private static methods} to~be~called from~other static methods.
+
+\warning Don't use default methods in~new~interfaces.
+Default methods serve purely for~the~described scenario when~extending an~existing interface implemented by many classes.
+
+\example[various methods with bodies in~an~interface]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public interface SomeInterface {
+        ...
+
+        default void defaultMethod(Object defaultMethodParam) {
+            ...
+            privateMethod();
+            ...
+        }
+
+        private void privateMethod() {
+            ...
+        }
+
+        static int staticMethod() {
+            ...
+            return privateStaticMethod();
+        }
+
+        private static int privateStaticMethod() {
+            ...
+        }
+    }
+\end{lstlisting}
+
+\note Private fields in~interfaces are~still forbidden.
+Only methods can~be private.

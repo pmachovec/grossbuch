@@ -1,0 +1,14 @@
+\newsection{Java Beans}
+\index{Beans}
+\index{Java beans}
+\label{javabeans}
+Java Bean is every~class that follows these three~restrictions:
+\begin{itemize}
+    \item It~implements the~interface \textit{Serializable}, i.e.,~its instances are~\hyperref[serialization]{serializable}.
+    \item All its \hyperref[variablefieldproperty]{properties} are~private variables accessible by~getters and~setters in~the~form \textit{get\dots} and~\textit{set\dots}
+    \item It has a~public zero--parameter constructor.
+\end{itemize}
+\noindent Following these restrictions enables libraries to~process instances of~beans in~a~predefined way.
+For~example, if~a~library wants to~stream an~instance passed into the~library, the~library knows it~can do~it because the~instance is~serializable.
+
+\warning Similarly to~\hyperref[pojo]{POJO} classes there can~be claims that Java Beans don't contain any~behavior, i.e., they contain only properties, zero--parameter constructor, getters and~setters (for~all variables).

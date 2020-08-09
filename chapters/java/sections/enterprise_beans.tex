@@ -1,0 +1,23 @@
+\newsection{Enterprise Java Beans (EJB)}
+\index{Enterprise Java Beans}
+\index{EJB}
+\label{ejb}
+An~Enterprise Java Bean is a~server--side run component performing a~specific task.
+EJBs~form huge \hyperref[distributedsystem]{distributed} server--side systems handling security, transaction processing, persistence etc.
+One~EJB can~consist of~more classes and~interfaces (one~EJB\,=\,more files).
+The~code uses special \hyperref[annotations]{annotations} provided by~Java~EE libraries.
+EJBs must be deployed on a~specialized \hyperref[applicationserver]{application servers} like JBoss or~Glassfish.
+EJB~specification was extensively enhanced in~last years, but~it still is quite a~challenging topic.
+
+In~the~past there were no~annotations.
+The~specification was~given by~interfaces.
+This lead to~a~\hyperref[loosetightcoupling]{tight coupling} between Java~EE libraries and~the~written code, lots of~useless methods enforced by~interfaces, hard implementation, hard maintenance and~overall mess in~the~code.
+Furthermore, EJB systems were extremely slow.
+That's why the~\hyperref[springframework]{Spring framework} was~introduced by~the~developers community.
+Although there was the~mentioned extensive enhancement of~EJB specification, it~still caries the~stigma of~unusable crap and~the~\hyperref[springframework]{Spring framework} remains much more popular.
+
+\warning EJB classes are \textbf{not} \hyperref[javabeans]{Java beans}.
+However, with respect to~Java~EE, they're \hyperref[pojo]{POJOs}\,--\,they use only Java~EE default annotations.
+In~the~dark past they weren't even that.
+
+\warning The~most popular \hyperref[applicationserver]{application server}\,--\,\hyperref[tomcat]{Tomcat}\,--\,doesn't support EJBs.

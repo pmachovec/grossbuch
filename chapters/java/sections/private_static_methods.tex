@@ -1,0 +1,22 @@
+\newsection{Private Static Methods}
+\label{javaprivatestaticmethods}
+At~the~first glance this can~look as~a~complete nonsense.
+However, a~situation can~occur when you~need to~call a~private method from a~static method (they're in~the~same class).
+And~static methods can~call only static methods.
+That's the~static (respective non--static) context on~which code compilation likes to~fail.
+So~when you need to~call a~private method from a~static method, this~private method must~be also static.
+
+\example[private static method]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class SomeClass {
+        public static String giveSomeString() {
+            ...
+            return privateStaticMethod();
+        }
+
+        private static String privateStaticMethod() {
+            ...
+        }
+    }
+\end{lstlisting}

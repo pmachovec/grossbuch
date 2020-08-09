@@ -1,0 +1,27 @@
+\newsection{Compound Assignment}
+\index{Compound assignment}
+\index{Augmented assignment}
+Compound assignment operators, also called \textit{augmented assignment operators}, are shortened assignments with arithmetic operators.
+All~arithmetic operators are~possible to~use in~this~way, \mbox{i.e., \itqs{+=}}, \mbitqs{-=}, \mbitqs{$\star$=}, \mbitqs{/=} \mbox{and \itqs{\%=}}.
+You~must~be extra careful when dealing with these operators because of the~computation order.
+First, the~right side is~computed.
+Then it's applied to~the~left side with the~used arithmetic operator.
+And~that can~cause unintuitive results.
+For~example consider the~following code:
+%! language = TEXT
+\begin{lstlisting}[language=Java, frame=no]
+    int x = 5;
+    x = x - 1 + 2 - 3; @>// 3
+\end{lstlisting}
+
+\noindent The~variable~$x$ is~evaluated to~$3$, because $5-1+2-3=3$.
+And~now consider an~"equivalent" code with the~compound assignment subtraction:
+%! language = TEXT
+\begin{lstlisting}[language=Java, frame=no]
+    int x = 5;
+    x -= 1 + 2 - 3; @>// 5
+\end{lstlisting}
+
+\noindent The~variable~$x$ is~evaluated to~$5$, because $1+2-3=0$ (right side) and~$5-0=5$ (left side).
+To~avoid falling to~this trap always treat the~right side to~be calculated first.
+

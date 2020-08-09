@@ -1,0 +1,27 @@
+\newsection{Bytecode}
+\index{Bytecode}
+\label{bytecode}
+Bytecode is the result of compilation of Java code.
+It's stored in \textit{.class} files.
+For~people it's an unreadable mess (it's a type of \hyperref[bytecodebinarycode]{binary code}), however it isn't the machine code which a processor can read.
+It must be read and further transformed to~the~machine code by JVM, i.e.,~it's a~middle step between written Java code and its execution.
+The reason of this approach is that bytecode is transferable between platforms (that's why sometimes it's~called \textit{portable code})\,--\,no~matter on what \hyperref[platform]{platform} (platform\,=\,OS\,+\,hardware in~this~case, hardware\,=\,\hyperref[32bvs64b]{32b~VS~64b}) the original Java code was~written and~compiled, the~resulting bytecode will be executable on~any~other platform.
+The~thing which is different for~each platform is~\hyperref[jdkjrejvm]{JRE}.
+
+For~comparison consider C++.
+In~this programming language the~result of~compilation is directly the~machine code, which must be different for~each platform, i.e.,~the~thing in C++ which is different for~each platform is the~compiler.
+
+By~the~way the approach with middle--step code is used also by~C\#, which is compiled to~so~called CIL (\textit{Common Intermediate Language}).
+The~main difference of~CIL from bytecode is that CIL is human--readable, although reading it is quite complicated (and~useless).
+
+\newsubsection{Bytecode VS Binary Code}
+\index{Binary code}
+\label{bytecodebinarycode}
+Binary code is generally any code in a~form readable for a~computer.
+It can~be machine code read by processors, bytecode read by JVMs, stored database data read by database software etc.
+The typical sign of binary code is that it can't~be read by humans.
+By this definition the~C\#'s~CIL mentioned earlier is not a~binary code.
+
+When working with Java, you can meet the~term \textit{Java~binaries}.
+This refers to \textit{.class} files with bytecode, because the bytecode is~a~form of~binary code.
+\newpage
