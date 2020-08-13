@@ -3,7 +3,7 @@
 \index{Java annotations}
 \label{javaannotation}
 Annotations are~special labels by~components of~Java code denoted by~the~at~sign (\itq{@}).
-They carry additional information\,--\,metadata\,--\,about components that they denote.
+They carry additional information -- metadata -- about components that they denote.
 Although annotations have no direct effect on~the~annotated code operation, they're processed, either during compilation or~during runtime.
 The~most typically used annotation is \hyperref[javaoverride]{\mbit{@Override}}.
 
@@ -13,7 +13,7 @@ Annotations aren't just fixed, developers can~create their own.
 Annotation \hyperref[declarationdefinition]{definition} looks like a~simple class \hyperref[declarationdefinition]{definition}.
 The~key word stating that an~annotation is~defined is \mbitq{@interface} (with the~at~sign at~the~beginning).
 Annotation classes can~contain method \hyperref[declarationdefinition]{declarations} (without a~body), which in~fact define annotation \hyperref[parameterargument]{parameters}.
-These method headers are~always public and~cant't~get an~\hyperref[javaaccessmodifiers]{access modifier}.
+These method headers are~always public and~can't~get an~\hyperref[javaaccessmodifiers]{access modifier}.
 They can~be~followed by~the~keyword \mbitq{default} followed by~a~default value of~the~corresponding \hyperref[parameterargument]{parameter}.
 The~default value type must match the~return type from the~method header.
 If~a~parameter method doesn't have assigned default value, then the~parameter is~compulsory when using the~annotation.
@@ -26,8 +26,8 @@ It~gets one~of~values of~the~\mbitq{RetentionPolicy} enum.
 There are only three possibilities:
 \begin{itemize}
     \itembfd{RUNTIME} annotation is~processed during runtime.
-    \itembfd{CLASS} annotation is~processed during compilation and~incorporated to~the~created \hyperref[bytecode]{bytecode}.
-    \itembfd{SOURCE} annotation is~processed during compilation and~is~not~incorporated to~the~created \hyperref[bytecode]{bytecode}.
+    \itembfd{CLASS} annotation is~processed during compilation and~incorporated to~the~created \hyperref[javabytecode]{bytecode}.
+    \itembfd{SOURCE} annotation is~processed during compilation and~is~not~incorporated to~the~created \hyperref[javabytecode]{bytecode}.
              I.e.,~the~annotation is~missing after eventual decompilation.
 \end{itemize}
 

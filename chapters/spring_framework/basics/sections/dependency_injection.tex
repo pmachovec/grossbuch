@@ -15,7 +15,7 @@ With the~\hyperref[autowiring]{autowiring feature} (see~further) it's~even possi
 \label{constructorinjection}
 One~of~basic approaches to~the~dependency injection is to~set the~dependency via the~wanted class constructor.
 The~constructor must accept a~parameter of a~type of~an~interface, which is~implemented by the~dependency class.
-The~dependency class instance\,--\,another bean\,--\, is~specified and~injected to~the~wanted bean in~the~XML configuration file by~the~element \textit{constructor-arg}.
+The~dependency class instance -- another bean --  is~specified and~injected to~the~wanted bean in~the~XML configuration file by~the~element \textit{constructor-arg}.
 
 \newsubsection{Setter Injection}
 \index{Setter injection}
@@ -25,7 +25,7 @@ The~wanted class must have a~zero--parameter constructor.
 It's~safer to~always define~it, even~if there is no other constructor (and~therefore the~zero--parameter one is~implicit).
 There~is nothing wrong with keeping the~constructor body empty.
 The~injection is~similar to~the~\hyperref[constructorinjection]{constructor} approach.
-The~dependency class instance\,--\,another bean\,--\, is~specified and~injected to~the~wanted bean in~the~XML configuration file by~the~element \textit{property}.
+The~dependency class instance -- another bean --  is~specified and~injected to~the~wanted bean in~the~XML configuration file by~the~element \textit{property}.
 
 \warning There is one crucial restriction to~follow.
 The~\textit{property} element must contain the~attribute \textit{name} with some value, let's say \textit{someName}.
@@ -103,7 +103,7 @@ It~will~fail only at~runtime.
     \drawarrow{[xshift=-6mm] di1java2usedep.south}{di1java3usedep}[green]
 \end{tikzpicture}
 
-\noindent Note that the~dependency class is~not~explicitly created anywhere\,--\,no~constructor nor~\textit{context.getBean} is~called for~it.
+\noindent Note that the~dependency class is~not~explicitly created anywhere -- no~constructor nor~\textit{context.getBean} is~called for~it.
 \newpage
 
 \examplenonl[setter injection]
@@ -647,7 +647,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
 
 \enlargethispage{10mm}
 \thispagestyle{empty}
-\example[Java code configuration\,--\,constructor dependency injection]
+\example[Java code configuration -- constructor dependency injection]
 %! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class}]
     package confpackage.confsubpackage;
@@ -715,7 +715,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
 \newgeometry{top=15mm, left=25mm, right=25mm}
 \enlargethispage{20mm}
 \thispagestyle{empty}
-\example[Java code configuration\,--\,setter dependency injection]
+\example[Java code configuration -- setter dependency injection]
 %! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class}]
     package confpackage.confsubpackage;
@@ -787,7 +787,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
 \restoregeometry
 \newpage
 
-\example[Java code configuration\,--\,constructor field injection]
+\example[Java code configuration -- constructor field injection]
 %! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class}]
     package confpackage.confsubpackage;
@@ -834,7 +834,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
 \end{tikzpicture}
 \newpage
 
-\example[Java code configuration\,--\,setter field injection]
+\example[Java code configuration -- setter field injection]
 %! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class}]
     package confpackage.confsubpackage;

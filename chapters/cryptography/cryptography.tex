@@ -8,7 +8,7 @@ The~study of~breaking cryptographic techniques and~reading encrypted messages by
 
 In~computer cryptography the~encrypted message can~be any~data, i.e., any~set of~bits, most techniques operate with bytes.
 No~matter what is~encrypted (string, file,~\dots), it's~transferred to~bits and~these are~then given~to an~encryption algorithm, which produces another set of~bits (encrypted data).
-You~can often encounter a~situation when the~result of an~encryption algorithm is shown as an~ASCII string\,--\,although just a~mess of~characters, there~is no issue with displaying any character (this is not normal for an~arbitrary set of bits/bytes).
+You~can often encounter a~situation when the~result of an~encryption algorithm is shown as an~ASCII string -- although just a~mess of~characters, there~is no issue with displaying any character (this is not normal for an~arbitrary set of bits/bytes).
 That's because the~result was in~some (sometimes maliciously hidden) step transferred to~string by~some binary--to--text encoding, most usually \hyperref[base64]{Base64}.
 
 \newsection{Key}
@@ -36,7 +36,7 @@ The~message processing flow~is:
 \index{AES}
 \index{Initial vector}
 A~typical example of a~symmetric cryptography algorithm is \textit{AES} (\textit{Advanced Encryption Standard}).
-It~requires the~key to~be 128, 192 or~256 bits (16, 24 or~32 bytes) long, that's why some implementations require the~key to be specified as a~string of~16, 24 or~32 ASCII characters (one~character\,--\,one~byte).
+It~requires the~key to~be 128, 192 or~256 bits (16, 24 or~32 bytes) long, that's why some implementations require the~key to be specified as a~string of~16, 24 or~32 ASCII characters (one~character -- one~byte).
 The~encryption can~be extended with so~called \textit{initial vector}.
 It's another set of~bits given to the~algorithm together with the~key when encrypting, but opposite to the~key the~initial vector is usually always different.
 It must~be then sent to~the receiver together with the~message, because it's needed also for the~message decryption.
@@ -77,7 +77,7 @@ If someone else gets the~public key, there is no problem, he won't be able to~de
 \label{rsa}
 \textit{RSA} is the~most well--known asymmetric encryption algorithm.
 It's used for~both encrypting sent data and~\hyperref[electronicsignature]{electronic signatures}.
-The abbreviation is nothing technical, it~consists of initial letters of~names of~authors of~the algorithm\,--\,\textit{Rivest}, \textit{Shamir}, \textit{Adleman}.
+The abbreviation is nothing technical, it~consists of initial letters of~names of~authors of~the algorithm -- \textit{Rivest}, \textit{Shamir}, \textit{Adleman}.
 
 Disadvantages of~this approach are message length limits and~performance demands.
 In~RSA with a~2048 bits (256~bytes) key the~maximum message length is 245 bytes.
@@ -136,7 +136,6 @@ Private keys are never represented in~this format.
     -----END PUBLIC KEY-----
 \end{lstlisting}
 \noindent Note there's no \textit{RSA} word the~header and~the~footer.
-\newpage
 
 \newsection{Electronic Signature}
 \index{Electronic signature}
@@ -163,22 +162,31 @@ In~electronic signature it~serves for~receivers to~verify that public keys they 
 Certification authorities are usually paid, that sucks.
 An alternative can~be key sharing servers used~by some dedicated software like \hyperref[pgpgpg]{PGP} (this is commercial software though) or~\hyperref[pgpgpg]{GPG} (that's true free).
 
-\newsubsection{PGP and GPG}
+\newsection{PGP and GPG}
 \index{PGP}
 \index{GPG}
+\index{GnuPG}
 \index{Pretty Good Privacy}
 \index{GNU Privacy Guard}
 \label{pgpgpg}
-These are computer programs for~handling \hyperref[asymmetriccryptography]{asymmetric cryptography} and~\hyperref[electronicsignature]{electronic signatures}.
+These are computer programs for~handling both \hyperref[symmetriccryptography]{symmetric} and~\hyperref[asymmetriccryptography]{asymmetric cryptography}.
+They can~be integrated to~various communication software, for~example, Outlook, to~secure the~communication.
+When messages are short or~electronic signatures are needed, the~asymmetric encryption can be used standalone.
+For~longer messages a~combination of~both encryption types is used.
+Messages are encrypted with symmetric encryption, and~the~symmetric key is encrypted by asymmetric encryption.
 Users either send their public keys directly to~each other or~they can~upload them to~dedicated servers, from where other users can~download them.
 These servers can~serve as~alternatives to~\hyperref[certificationauthority]{certification authorities}.
 
 User's keys are~stored in~the~local program installation and~accessed by~passwords.
 When using private keys (decrypting a message, signing), the~user doesn't have to~copy the~whole long key anywhere, he~only provides the~password.
 
-PGP~stands for~\itq{Pretty Good Privacy}.
+\textit{PGP}~stands for~\itq{Pretty Good Privacy}.
 It's~a~commercial software,~i.e.,~users need to~pay for~it.
-GPG,~standing for~\itq{\hyperref[gnu]{GNU} Privacy Guard}, is~a~free alternative.
+\mbox{\textit{GPG}, or \textit{GnuPG}}, standing for~\itq{\hyperref[gnu]{GNU} Privacy Guard}, is~a~free alternative.
+
+\newsubsection{OpenPGP}
+This is a~\hyperref[protocolstandard]{standard} that~PGP, GPG and~their mutations follow.
+Thanks to~this, they're mutually compatible -- a~message encrypted in~one program should~be decryptable in~another.
 \newpage
 
 \newsection{Why to use GPG signature in Git}
@@ -235,7 +243,7 @@ You~can also meet the~abbreviation SSL, which stands for~\itq{Secure Sockets Lay
 It's~a~predecessor of~TLS created in~1990s by~\href{https://en.wikipedia.org/wiki/Netscape}{Netscape}.
 Although all versions of~the original SSL are~already deprecated and~Netscape is almost dead, the~abbreviation is still used.
 
-When a~sender wants a~TLS certificate, he~must request it from~a~\hyperref[certificationauthority]{certification authority}\,--\,he~must send so~called \textit{certificate signing request}~(CSR) to~the~authority (and~of~course he~must~pay).
+When a~sender wants a~TLS certificate, he~must request it from~a~\hyperref[certificationauthority]{certification authority} -- he~must send so~called \textit{certificate signing request}~(CSR) to~the~authority (and~of~course he~must~pay).
 The~request is just a~file, typically with the~\itq{.csr} extension, which contains sender's public key and~some information about~him.
 When the~authority verifies all the~information from~the~request (and~gets the~money), it~creates the~certificate, signs it with its private key (standard electronic signature described \hyperref[electronicsignature]{earlier}), appends the~signature to~the~certificate and~returns it to~the~sender.
 Now~the~sender has a~valid certificate and~he~can~provide it to~receivers.
@@ -243,7 +251,7 @@ Receivers can~extract the~public key from the~certificate and~verify sender's si
 They already have certificates from the~certification authority, so~if~they want to~verify the~sender's identity, they verify the~signature appended to~his~certificate using a~public key from the~certificate of~the~certification authority.
 
 Certificates of~\hyperref[certificationauthority]{certification authorities} are~called root certificates and~they're stored in~so~called root stores, or~trusted stores.
-These certificates are~self--signed\,--\,the~certification authority signs its certificate with its own private key.
+These certificates are~self--signed -- the~certification authority signs its certificate with its own private key.
 Client programs (receivers) know root stores and~download root certificates from them.
 Major root stores are~run by~Microsoft, Google, Mozilla or~Apple, because typical clients are~\hyperref[internetweb]{web} browsers, where the~TLS protocol is~used as~a~part of~the~\hyperref[https]{HTTPS protocol}.
 All~the~certification authorities and~clients form so~called \itq{Public Key Infrastructure}~(PKI).
@@ -287,7 +295,7 @@ They can~be even protected by~a~\hyperref[keypassword]{password}.
 \label{keypassword}
 Fixed key lengths and~unprintability of~some byte values make direct usage of~keys difficult.
 That's why the~concept of~passwords and~key derivation functions exists.
-A~\textit{key derivation function} (KDF) is~an~one--way hashing function, that can~compute a~key of~a~desired byte length from a~string\,--\,password\,--\,of~any~length and~content.
+A~\textit{key derivation function} (KDF) is~an~one--way hashing function, that can~compute a~key of~a~desired byte length from a~string -- password -- of~any~length and~content.
 Typical examples of~key derivation functions are~PBKDF1 and~PBKDF2 (\textit{Password--Based Key Derivation Function}), which are~mentioned in~the~\hyperref[pkcs]{PKCS~\#5} encryption standard.
 
 \newsubsection{Usage in \hyperref[symmetriccryptography]{Symmetric Cryptography}}

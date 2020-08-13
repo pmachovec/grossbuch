@@ -10,13 +10,13 @@
     \itembf{JDK} stands for~\textit{Java Development Kit}.
             It's a set of tools for development and running Java applications.
     \itembf{JRE} stands for~\textit{Java Runtime Environment}.
-            It's~the~most important part of~JDK, which serves for running already compiled code, i.e.,~it's the software transforming \hyperref[bytecode]{bytecode} to machine code.
+            It's~the~most important part of~JDK, which serves for running already compiled code, i.e.,~it's the software transforming \hyperref[javabytecode]{bytecode} to machine code.
     \itembf{JVM} stands for~\textit{Java Virtual Machine}.
-            It's~the~most important part of JRE, which actually runs the code (transfers \hyperref[bytecode]{bytecode} to machine code), however it can't work alone\,--\,it requires additional tools provided~by~JRE\@.
+            It's~the~most important part of JRE, which actually runs the code (transfers \hyperref[javabytecode]{bytecode} to machine code), however it can't work alone -- it requires additional tools provided~by~JRE\@.
 \end{itemize}
 
 \noindent JDK,~JRE and~JVM are platform--dependent, i.e.,~you~need these things different for~Windows, different for~Linux etc.
-The~thing which is~portable is~only the~\hyperref[bytecode]{bytecode}.
+The~thing which is~portable is~only the~\hyperref[javabytecode]{bytecode}.
 When you only want to run Java programs, it's~OK to~install only~JRE, which is~smaller.
 However, when you intend to develop Java applications, you of~course need to install~JDK\@.
 be aware that when installing JDK (from Oracle), it~also installs a~separate JRE and computers tend to use this JRE by~default.
@@ -36,3 +36,4 @@ To~do~it you~must set the~environment variable \textit{JAVA\_HOME} to~the~folder
     \item Java execution command (the \textit{java} command)
     \item \hyperref[classloaders]{Classloader}
 \end{itemize}
+\newpage

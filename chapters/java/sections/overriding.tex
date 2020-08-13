@@ -25,9 +25,9 @@ I.e.,~it~will~get the~red zigzag underscore.
     }
 \end{lstlisting}
 
-\warning It~serves purely for~overridden method declaration verification.
-If~not~used, an~implementation of~a~method in~a~child class will still work.
-The~difference is that when used, the~method declaration in~the~child class must~be the~same as~in~the~parent class.
+\warning The~annotation serves purely for~overridden method declaration verification.
+If~method declarations in~both classes are the~same, then~the~overriding happens no~matter if~the~annotation is~used or~not.
+If~not~used and~method declarations differ, then there's no overriding.
 
 \example[this will be compiled because the~\textit{@Override} annotation is not~used]
 %! language = TEXT
@@ -39,17 +39,33 @@ The~difference is that when used, the~method declaration in~the~child class must
     }
 
     public class Child extends Parent {
+        // Not overriding the parent method
         public void doSomething(Object notBadParameter) {
             ...SOME IMPLEMENTATION...
         }
     }
 \end{lstlisting}
 
-\warning The~enforcement of~method declarations is~not~absolutely strict.
-Parameter names can~be different.
-Just remember that it's the~only thing that can~be different.
-Everything else\,--\,\hyperref[javaaccessmodifiers]{access modifiers}, names, parameter types and~their order\,--\,must match exactly.
-Even descendant classes are~forbidden.
+\example[overriding without the~annotation]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class Parent {
+        public void doSomething() {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+
+    public class Child extends Parent {
+        // Overriding the parent method
+        public void doSomething() {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+\end{lstlisting}
+
+\noindent When the~annotation is~used, the~enforcement of~method declarations is~not~absolutely strict.
+Parameter names can~be completely different, return value type can~be a~subclass -- return types are \hyperref[covariance]{covariant}.
+Everything else -- \hyperref[javaaccessmodifiers]{access modifiers}, names, parameter types and~their order -- must match exactly.
 
 \example[this will be compiled, parameter names can~be different]
 %! language = TEXT
@@ -85,6 +101,23 @@ Even descendant classes are~forbidden.
     }
 \end{lstlisting}
 
+\example[this will be compiled, subtypes of~return values are allowed]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class Parent {
+        public Object doSomething(Object nameInParent) {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+
+    public class Child extends Parent {
+        @>@Override
+        public String doSomething(Object nameInChild) {
+            ...SOME IMPLEMENTATION...
+        }
+    }
+\end{lstlisting}
+
 \warning Static methods can't~be overridden.
 
 \example[this won't be compiled, static methods can't~be overridden]
@@ -108,7 +141,7 @@ Even descendant classes are~forbidden.
 \index{Virtual method}
 \label{javavirtualmethods}
 In~Java all non--static methods are virtual and~it~can't~be changed.
-It~means that when you~have a~variable of~a~class, assign an~instance of~a~subclass to~it and~call a~method that the~subclass overrides, the~implementation from~the~subclass will~be~used.
+It~means that when you~have a~variable of~a~class, assign an~instance of~a~subclass to~it and~call a~method that the~subclass overrides (there's a~matching method in~the~subclass), the~implementation from~the~subclass will~be~used.
 It~doesn't matter if~the~\textit{@Override} annotation is~used or~not.
 Remember, that's only for~overridden method declaration verification.
 
@@ -128,7 +161,26 @@ Remember, that's only for~overridden method declaration verification.
     }
 
     Parent virtualParent = new Child();
-    virtualParent.doSomething(); @>// Will print "Child implementation"
+    virtualParent.doSomething(); // Will print "Child implementation"
+\end{lstlisting}
+
+\example[works even with return value subtypes]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class Parent {
+        public Object doSomething() {
+            return new Object();
+        }
+    }
+
+    public class Child extends Parent {
+        public String doSomething() {
+            return "";
+        }
+    }
+
+    Parent virtualParent = new Child();
+    System.out.println(virtualParent.doSomething().getClass()); // Will print "java.lang.String"
 \end{lstlisting}
 
 \warning As~static methods can't~be overridden, virtualization doesn't work for~them, not~even when a~static method is~called on~a~concrete instance.

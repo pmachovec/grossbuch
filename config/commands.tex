@@ -1,3 +1,4 @@
+%! suppress = FileNotFound
 \NewDocumentCommand{\newchapter}{m}{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
 
 \NewDocumentCommand{\newsection}{m}{\section*{#1}\addcontentsline{toc}{section}{#1}}
@@ -16,11 +17,21 @@
 
 \NewDocumentCommand{\highlight}{m O{black}}{\noindent\textcolor{#2}{\textbf{\mbox{#1}}}}
 
+\NewDocumentCommand{\nosp}{}{\kern-0.5ex }
+
+\NewDocumentCommand{\noindentnosp}{}{\nosp\noindent}
+
 \NewDocumentCommand{\warningnonl}{}{\highlight{WARNING! }[red]}
 
 \NewDocumentCommand{\notenonl}{}{\highlight{NOTE: }[ForestGreen]}
 
 \NewDocumentCommand{\todononl}{}{\highlight{TODO }[blue]}
+
+\NewDocumentCommand{\warningnonlnosp}{}{\nosp\warningnonl}
+
+\NewDocumentCommand{\notenonlnosp}{}{\nosp\notenonl}
+
+\NewDocumentCommand{\todononlnosp}{}{\nosp\todononl}
 
 \NewDocumentCommand{\warning}{}{\newline\warningnonl}
 
@@ -28,7 +39,7 @@
 
 \NewDocumentCommand{\todo}{}{\newline\todononl}
 
-\NewDocumentCommand{\examplenonl}{O{}}{\ifthenelse{\isempty{#1}}{\highlight{Example: }}{\highlight{Example\,--\,#1: }}}
+\NewDocumentCommand{\examplenonl}{O{}}{\ifthenelse{\isempty{#1}}{\highlight{Example: }}{\highlight{Example -- #1: }}}
 
 \NewDocumentCommand{\example}{O{}}{\newline\examplenonl[#1]}
 
@@ -38,16 +49,14 @@
 
 \NewDocumentCommand{\itqs}{m}{\textquotesingle\textit{#1}\textquotesingle}
 
-\NewDocumentCommand{\mbit}{m}{\mbox{\textit{#1}}}
+\NewDocumentCommand{\mbit}{m}{\mbox{\textit{#1}}} % mbox textit
 
-\NewDocumentCommand{\mboxbreak}{m}{\mbox{#1}\allowbreak}
-
-\NewDocumentCommand{\mbl}{>{\SplitList{;;}}m}{\ProcessList{#1}{\mboxbreak}}
+\NewDocumentCommand{\mbl}{>{\SplitList{;;}}m}{\ProcessList{#1}{\mbox}} % mbox list, separated by ;;
 
 \newif\iffirstitem
 \firstitemtrue
 
-\NewDocumentCommand{\spacembox}{m}{%
+\NewDocumentCommand{\spacembox}{m}{% mbox with preceding space
   \iffirstitem
     \mbl{#1}%
     \firstitemfalse
@@ -56,23 +65,23 @@
   \fi
 }
 
-\NewDocumentCommand{\mbls}{>{\SplitList{;;;}}m}{\ProcessList{#1}{\spacembox}\firstitemtrue}
+\NewDocumentCommand{\mbls}{>{\SplitList{;;;}}m}{\ProcessList{#1}{\spacembox}\firstitemtrue} % mbox list spaces (space on ;;;)
 
-\NewDocumentCommand{\mbitq}{m}{\mbox{\itq{#1}}}
+\NewDocumentCommand{\mbitq}{m}{\mbox{\itq{#1}}} % mbox textit quotes
 
-\NewDocumentCommand{\mbitqs}{m}{\mbox{\itqs{#1}}}
+\NewDocumentCommand{\mbitqs}{m}{\mbox{\itqs{#1}}} % mbox textit quotes single
 
-\NewDocumentCommand{\mbitl}{m}{\textit{\mbl{#1}}} % Separated by ;;, no spaces between words
+\NewDocumentCommand{\mbitl}{m}{\textit{\mbl{#1}}} % mbox textit list, separated by ;;
 
-\NewDocumentCommand{\mbitls}{m}{\textit{\mbls{#1}}} % Separated by ;; or ;;;, spaces between words on ;;;
+\NewDocumentCommand{\mbitls}{m}{\textit{\mbls{#1}}} % mbox textit list spaces (space on ;;;)
 
-\NewDocumentCommand{\mbitql}{m}{\itq{\mbl{#1}}}
+\NewDocumentCommand{\mbitql}{m}{\itq{\mbl{#1}}} % mbox textit quotes list, separated by ;;
 
-\NewDocumentCommand{\mbitqsl}{m}{\itqs{\mbl{#1}}}
+\NewDocumentCommand{\mbitqsl}{m}{\itqs{\mbl{#1}}} % mbox textit quotes single list, separated by ;;
 
-\NewDocumentCommand{\mbitqls}{m}{\mbitq{\mbls{#1}}}
+\NewDocumentCommand{\mbitqls}{m}{"\textit{\mbls{#1}}"} % mbox textit quotes list spaces (space on ;;;)
 
-\NewDocumentCommand{\mbitqsls}{m}{\mbitqs{\mbls{#1}}}
+\NewDocumentCommand{\mbitqsls}{m}{\textquotesingle\textit{\mbls{#1}}\textquotesingle} % mbox textit quotes single list spaces (space on ;;;)
 
 \NewDocumentCommand{\drawarrow}{O{stealth-stealth} m m O{black} O{.3} O{}}{\draw[#1,line width=.6mm,shorten <=2pt,shorten >=2pt,#4,opacity=#5] (#2) to[#6] (#3);}
 

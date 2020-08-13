@@ -30,7 +30,7 @@ Everything between the~first and~the~last dot is~considered as~one~subsection na
 \newline
 
 \enlargethispage{-8mm}
-\noindent  You~can set either a~local or~a~global configuration value.
+\noindent You~can set either a~local or~a~global configuration value.
 The~only difference in~the~syntax is the~\mbitq{-{}-global} option just after the~command when setting a~global configuration (\textit{git config \mbox{-{}-global} section.key value}").
 Local configuration values are~valid only in a~single repository folder.
 The~command without the~\mbitq{-{}-global} option can~be run only from a~repository folder (not~necessarily the~root, it~works even from~its subfolders).
@@ -82,6 +82,8 @@ When you install Git, you should set at~least following configurations:
             git config --global commit.gpgsign true
         \end{lstlisting}
 \end{itemize}
+
+\newsection{SSH vs HTTPS}
 
 \newsection{Useful Commands}
 \newsubsection{Show}
@@ -395,11 +397,11 @@ Just trigger the~\textit{mergetool} command with a~path to~a~specific file every
 \warning For~the~\textit{difftool} command variables \textit{\$LOCAL} and~\textit{\$REMOTE} have a~different meaning from what can~seem obvious.
 \textit{\$LOCAL} means "before the~change" and~\textit{\$REMOTE} means "after the~change".
 Therefore, when you run the~command for~a~file that differs from a~repository version (the~first usage example), i.e.,~is~changed locally, you~will~see that local version in~the~right window, which is the~position of~\textit{\$REMOTE} according to~the~configuration.
-The~same holds when you display differences of~a~file from some old specific commit(the~second usage example)\,--\,the~actual version of~the~file will~be displayed in~the~right window.
+The~same holds when you display differences of~a~file from some old specific commit(the~second usage example) -- the~actual version of~the~file will~be displayed in~the~right window.
 Get~used to~it, don't switch those variables in~the~configuration, otherwise you can face unexpected behavior.
 For~example, comparing a~file between two commits (the~third usage example) shows versions of~the~file in~the~order opposite of~the~order of~used commit hashes.
 
-\note For~the~\textit{mergetool} command variables \textit{\$LOCAL} and~\textit{\$REMOTE} behave as~expected\,--\,\textit{\$LOCAL} means your local branch version, \textit{\$REMOTE} means the~other merged branch.
+\note For~the~\textit{mergetool} command variables \textit{\$LOCAL} and~\textit{\$REMOTE} behave as~expected -- \textit{\$LOCAL} means your local branch version, \textit{\$REMOTE} means the~other merged branch.
 Just remember for~the~malicious branching when \hyperref[gitrebase]{rebasing}.
 \newpage
 
@@ -444,7 +446,7 @@ GitHub can~be used as~a~package repository, also called \mbit{registry}, for~var
 Package managers usually provide tools how~to~publish a~package to~GitHub.
 But~they generally don't allow to~remove a~package once published.
 Deleting a~published package is~considered to~be a~bad practice, therefore, GitHub makes it as~complicated as~possible.
-You~must send special queries to~the~the~GitHub \hyperref[graphql]{GraphQL}~\hyperref[api]{API}\,--\,\hyperref[https]{HTTPS} POST requests to~the~URL \mbitql{https://;;api.;;github.;;com/;graphql}.
+You~must send special queries to~the~the~GitHub \hyperref[graphql]{GraphQL}~\hyperref[api]{API} -- \hyperref[https]{HTTPS} POST requests to~the~URL \mbitql{https://;;api.;;github.;;com/;graphql}.
 The~best approach is to~use \href{https://www.getpostman.com/}{Postman}, you~can~also use~\hyperref[curl]{cURL}.
 
 Each~package can~be published many times in~many versions.

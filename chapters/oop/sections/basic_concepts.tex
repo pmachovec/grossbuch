@@ -1,0 +1,129 @@
+\newsection{Basic Concepts}
+
+\newsubsection{Encapsulation}
+\index{Encapsulation}
+\index{Class}
+\label{encapsulation}
+Encapsulation is the~essence of~OOP\@.
+It~means having data (\hyperref[variablefieldproperty]{fields}) and~tools for~manipulating these data (methods, functions) in~the~same object.
+Object inner structures are~described \mbox{by \textit{classes}}.
+An~object is an~instance of~a~class, there can~exist many instances of~one~class.
+The~access to~data and~tools in~an~object is~restricted, typically by \hyperref[javaaccessmodifiers]{access modifiers} specified in~the~object class.
+\hyperref[variablefieldproperty]{Variables} in~an~object can~hold a~reference to~other objects.
+This way objects can~be included in~other objects.
+\hyperref[datatypes]{Data type} of~a~variable holding an~object reference is~the~class of~the~object.
+Purposes of~OOP~are:
+\begin{itemize}
+    \itembfd{Maintainability} data and~tools for~manipulating them are~at~one place.
+    \itembfd{Security} when the~access is~restricted, users can't read or~change data they aren't supposed to read or~change.
+    \itembfd{Changeability} when needed, functionality of~encapsulated tools can~be changed without affecting users of~the~object.
+\end{itemize}
+\newpage
+
+\warning Having all \hyperref[variablefieldproperty]{fields} in~an~object \hyperref[javaprivate]{private} and~providing getters and~setters for~them is not an~encapsulation.
+This~is the~most orthodox \hyperref[abstraction]{abstraction} that most of~OOP languages follow as~a~convention.
+But~for~example Python, although an~OOP language, accesses fields directly by the~dot notation.
+
+\newsubsection{Inheritance}
+\index{Inheritance}
+\index{Subclass}
+\label{inheritance}
+It's~a~mechanism for~avoiding writing a~code for~a~functionality common for~more classes, i.e.,~for~avoiding code duplicity.
+The~common code is~written only once in~one ancestor class (parent) and~descendant classes (children), also called \mbit{subclasses}, which should contain the~code functionality, just inherit the~ancestor.
+Purposes~are:
+\begin{itemize}
+    \itembf{Simplicity} -- no~need to~write common code more times.
+            Users can~have multiple implementations in~variables of~the~same \hyperref[datatypes]{data type}, they don't have to~handle exact concrete type for~each place in~their code.
+    \itembfd{Changeability} when common code needs a~change, there's only one place to~change.
+    \itembfd{Maintainability} same as~changeability.
+\end{itemize}
+
+\warning Inheritance brings some problems:
+\begin{itemize}
+    \item \hyperref[abstraction]{Abstraction} is broken.
+          To~correctly implement a~descendant object you should know the~implementation of~the~ancestor.
+    \item The~code is more tightly coupled and~less agile.
+          When some inherited functionality becomes unwanted in~one descendant class, but~is still required in~others, the~whole structure must~be reworked.
+    \item The~code is difficult to~investigate.
+          When an~inherited method is~called on~or~inside a~descendant and~there~are some problems with~it, it~can~be problematic to~identify where exactly the~method is~\hyperref[declarationdefinition]{defined}.
+\end{itemize}
+For~these reasons it's~recommended to~avoid inheritance as~much as~possible.
+Implementing interfaces and~\hyperref[compositionoverinheritance]{composition} should~be used instead.
+
+\warning When an~object implements an~\hyperref[javainterface]{interface}, it~isn't inheritance.
+That's \hyperref[abstraction]{abstraction}.
+
+\newsubsection{Polymorphism}
+\index{Polymorphism}
+\label{polymorphism}
+It~means that one~method or~function of~an~object can~get \hyperref[parameterargument]{arguments} of~various different \hyperref[datatypes]{data types} in~same \hyperref[parameterargument]{parameter} positions.
+For~example, basic numeric operations (addition, subtraction,~\dots) work with all available number types.
+Purposes are:
+\begin{itemize}
+    \itembfd{Simplicity} no~need to~have a~different method name for~each possible \hyperref[parameterargument]{argument} type combinations.
+    \itembfd{Maintainability} same as~simplicity.
+\end{itemize}
+\newpage
+
+\noindent There are three types of~polymorphism:
+\begin{itemize}
+    \itembfd{Ad hoc} simple overloading based on~argument types.
+             In~one~class there are more method implementations with the~same number of~parameters, but~in~each these parameters have different types.
+             The~correct implementation is~decided by~types of provided arguments, usually during the~code compilation.
+    \itembfd{Parametrical} method parameters have variable types (see~\hyperref[javagenerics]{generic types in~Java}), which substitute concrete \hyperref[datatypes]{types}.
+             Correct concrete types are~decided by~used values in~runtime.
+    \itembfd{Subtype} connected with \hyperref[inheritance]{inheritance}.
+             Instead of a~value of~the~exact type from~a~method \hyperref[declarationdefinition]{declaration}, it's~possible to~use a~value of~a~subtype as~the~method \hyperref[parameterargument]{argument}.
+\end{itemize}
+
+\newsubsection{Abstraction}
+\index{Abstraction}
+\index{Level of abstraction}
+\label{abstraction}
+It~means hiding implementation details of~objects and~providing only tools to~use objects (methods, functions).
+When you use some already existing library or~\hyperref[api]{API}, you~don't know and~don't care how it works inside.
+You~only have some object, call a~method and~get a~result.
+That's the~abstraction.
+Purposes~are:
+\begin{itemize}
+    \itembf{Simplicity} -- users of~objects are~not~overwhelmed by internal implementation of~those objects, which can~be very complex.
+            They can~simply incorporate objects to~their own implementations regardless objects complexity.
+    \itembfd{Changeability} when needed, functionality of~provided tools can~be changed without affecting users of~the~object.
+\end{itemize}
+
+\warning \hyperref[javaabstractclasses]{Abstract classes}, \hyperref[javainterfaces]{interfaces} and~similar stuff are~based on~\hyperref[inheritance]{inheritance} and~\hyperref[polymorphism]{subtype polymorphism}, but~they're sometimes considered to~belong under abstraction.
+Therefore, the~advantage of~having one \hyperref[datatypes]{data type} for~multiple implementations can~be also mentioned for~the~abstraction concept.
+
+\warning Don't confuse abstraction with \hyperref[encapsulation]{encapsulation}.
+They're tightly coupled and~encapsulation doesn't make any use without abstraction.
+You~can quite often encounter a~definition of~one labeled as~a~definition of~the~other.
+But~they're different.
+Abstraction handles object manipulation tools, encapsulation handles (beside others) restriction of~access to~these tools.
+A~developer cares about abstraction during software \hyperref[architecturedesign]{design}, and~about the~encapsulation during implementation.
+Abstraction (hiding implementation) is~achieved by method headers, \hyperref[javaabstractclasses]{abstract classes} and~\hyperref[javainterfaces]{interfaces} and~encapsulation (restricting access) is~achieved by \hyperref[javaaccessmodifiers]{access modifiers}.
+
+Nevertheless, be~aware that deciding how~to~encapsulate \hyperref[javaprimitivetypes]{primitive} variables and~"smaller" objects into "bigger" objects is a~part of~the~\hyperref[architecturedesign]{design}, i.e.,~it~belongs under abstraction.
+With varying depth of~\hyperref[variablefieldproperty]{fields} in~the~encapsulation tree we~talk about different levels of~abstraction.
+\newpage
+
+\example[abstraction without encapsulation in~Java]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    float PI = 3.1415926535897932384626433832795028841971693993751058;
+    ...
+    doSomethingWithFloat(PI);
+\end{lstlisting}
+
+\noindent The~complicated value is~not encapsulated in~an~object, but~it's~hidden behind a~variable.
+Something like this can~actually happen in~real programming.
+
+\example[encapsulation without abstraction in~Java]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class UselessClass {
+        private int uselessVariable = 0;
+    }
+\end{lstlisting}
+
+\noindent The~value is~encapsulated in~the~class, but~is~not~used inside any~method of~the~class.
+Something like this doesn't happen in~real programming.

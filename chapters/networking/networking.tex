@@ -28,7 +28,7 @@
 It's a~\hyperref[protocolstandard]{protocol} for~transferring data over the~\hyperref[internetweb]{web}.
 It's~based on~the~\hyperref[clientserverarchitecture]{client--server architecture}.
 A~client, typically (but~not~necessarily) a~web browser, sends so~called \mbit{request} to~a~server.
-It's~just a~bunch of~text encapsulating client's requirements\,--\,what does it want from the~server.
+It's~just a~bunch of~text encapsulating client's requirements -- what does it want from the~server.
 There are many types of~requests, but~the~most important are~\mbit{GET} and~\mbit{POST}.
 Requests can~contain so~called \mbit{parameters}.
 These are simple key--value pairs, based on~which servers can~react differently to~otherwise same requests.
@@ -51,15 +51,15 @@ This is typical for~\hyperref[applicationserver]{application servers}.
 \noindent The~first line is so~called \textit{request line}.
 It~contains a~HTTP command, which contains method type, target point at~the~server and~HTTP \hyperref[protocolstandard]{protocol} version.
 The~rest of~the~top part (above the~empty line) is~the~request header.
-It~contains request metadata\,--\,additional information about the~request used for~the~request processing by~the~server
+It~contains request metadata -- additional information about the~request used for~the~request processing by~the~server
 The~bottom part (below the~empty line) is~the~request body.
 It~contains request parameters.
 In~\mbit{GET} methods parameters are~a~part of~the~endpoint in~the~request line and~there's no~body.
 
 Server reads the~request, processes it, eventually triggers some \hyperref[webserviceapplication]{web service} and~sends back so~called \mbit{response}.
 Responses have very similar structure to~requests.
-They also have some an~initial line\,--\,\textit{response line}, header and~body.
-The~response line contains HTTP \hyperref[protocolstandard]{protocol} version and~a~status code\,--\, a~numeric representation of~the~request processing result.
+They also have some an~initial line -- \textit{response line}, header and~body.
+The~response line contains HTTP \hyperref[protocolstandard]{protocol} version and~a~status code --  a~numeric representation of~the~request processing result.
 For~example, the~value 200 means success.
 The~header contains response metadata usable at~the~client side.
 The~body contains actual request processing result for~the~client.
@@ -81,12 +81,11 @@ And~if~the~header of~the~request contains the~content type set to~\mbitq{text/ht
     ...
     </html>
 \end{lstlisting}
-
 \notenonl The~HTTP \hyperref[protocolstandard]{protocol} isn't used only for~displaying \hyperref[internetweb]{web} pages.
 For~example the~\hyperref[rest]{REST} communication between two running programs also uses this protocol.
 In~this case the~content type is \mbitq{application/json}.
 
-\newsubsection{HTTPS (HTTP over \hyperref[tls]{TLS})}
+\newsubsection{HTTPS (HTTP over TLS)}
 \index{HTTPS}
 \index{Handshake}
 \label{https}
@@ -101,7 +100,7 @@ Now~both client and~server have safely exchanged a~symmetric key (so~called \mbi
 \index{SMTP}
 \label{smtp}
 
-\newsubsection{SSH (Secure \hyperref[shellcligui]{Shell})}
+\newsubsection{SSH (Secure Shell)}
 \index{Secure shell}
 \index{SSH}
 \label{ssh}
@@ -119,7 +118,7 @@ SSH~doesn't use \hyperref[tls]{TLS certification mechanism}.
 It~can, however, use its own \hyperref[certificate]{certificates}.
 These certificates don't follow the~\hyperref[x509]{\mbox{X.509}} standard.
 
-\newsubsection{SFTP (\hyperref[ssh]{SSH} File Transfer Protocol)}
+\newsubsection{SFTP (SSH File Transfer Protocol)}
 \index{SSH file transfer protocol}
 \index{SFTP}
 \label{sftp}
@@ -153,7 +152,7 @@ That is completely different, very old and~unsecured protocol for network file t
 \index{Web server}
 \label{webserver}
 It's typically a~software, but~can~be even a~physical computer, that stores, processes and sends HTML documents to clients over a~network, usually \hyperref[internetweb]{the~Internet}.
-Using dedicated software\,--\,a~web browser\,--\,clients see these documents as web pages.
+Using dedicated software -- a~web browser -- clients see these documents as web pages.
 The~communication with clients is mainly performed over the~\hyperref[http]{HTTP protocol}.
 Based on~incoming request from a~client (initiated by a~web browser) the~server picks a~stored HTML document and sends it back to the~client in a~response.
 

@@ -77,7 +77,7 @@ This~is the~only way how~to at~least somehow have multiple main registries.
 The~principle~is changing the~global \mbit{.npmrc} file and~switching between various global configurations.
 The~standard text version of~the~file is~replaced by~a~symbolic link with the~same name.
 The~link points to~one of~files in~the~folder \mbitq{HOME/.npmrcs}.
-These files have the~\mbit{key=value} structure and~each represents one~configuration\,--\,one~profile.
+These files have the~\mbit{key=value} structure and~each represents one~configuration -- one~profile.
 Their names define profile names, they don't have extensions.
 
 There's a~Node.js implementation of~this behavior called \mbitq{npmrc} (yes,~like the~configuration file) available in~the~default NPM~registry.
@@ -93,8 +93,8 @@ To~delete a~profile delete the~corresponding file under the~\mbitq{HOME/.npmrcs}
 After each profile switch the~old \mbit{.npmrc} link is~deleted and~new is~created.
 
 \warning There's no~way to~have some configuration common to~all profiles.
-If~you~want to~have some common configuration, you~must set the~corresponding \mbit{key=value} pair for~each profile\,--\,to~each profile file.
-And~you sure want to~have at~least the~global packages installation folder common as~you~use a~globally installed package\,--\,the~\mbit{npmrc}.
+If~you~want to~have some common configuration, you~must set the~corresponding \mbit{key=value} pair for~each profile -- to~each profile file.
+And~you sure want to~have at~least the~global packages installation folder common as~you~use a~globally installed package -- the~\mbit{npmrc}.
 
 \newsection{Creating Custom Registry}
 Similarly to~\hyperref[gradle]{Gradle} repositories, creating a~real NPM registry is~complicated and~must~be done with \href{https://jfrog.com/artifactory/}{Artifactory}.

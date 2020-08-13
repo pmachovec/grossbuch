@@ -46,7 +46,7 @@ With this approach a~developer can override only methods he needs, the~original 
 \label{servicedopostdoget}
  Today's servlet classes usually extend the~\textit{HttpServlet} class and~the~logic of~servlets is~implemented by~overriding methods \textit{doGet} and~\textit{doPost} from that class, not~the~original \textit{service}.
 That's because today's servlets are~triggered by web requests from web browsers, which use the~\hyperref[http]{HTTP protocol}.
-This~\hyperref[protocolstandard]{protocol} enables (beside others) two~most common methods of~a~HTTP request\,--\,\textit{GET} and~\textit{POST}.
+This~\hyperref[protocolstandard]{protocol} enables (beside others) two~most common methods of~a~HTTP request -- \textit{GET} and~\textit{POST}.
 When an~\hyperref[applicationserver]{application server} gets a~\hyperref[http]{HTTP} request, it~actually triggers the~\textit{service} method, but~it~adds a~parameter with the~method type to~the~\textit{request} object.
 Based on~this parameter the~implementation of~the\textit{service} method from the~\textit{HttpServlet} class delegates other parameters to~\textit{doGet} or~\textit{doPost} method, which are~expected to~be overridden by~the~developer (their body is empty in~the~\textit{HttpServlet} class).
 
@@ -90,7 +90,7 @@ A~JSP page is~basically a~HTML page with some advanced features for~interactions
 When a~\hyperref[http]{HTTP} request is~sent to~a~JSP page, its~content (dynamically adjusted based on~the~request) is~sent as~the~response (and~displayed in~the~initiating browser).
 
 \warning JSP pages are~very dangerous for~code readability.
-They enable mixing five syntaxes\,--\,HTML, CSS, Java, JavaScript and~\hyperref[el]{EL}\,--\,into one~file.
+They enable mixing five syntaxes -- HTML, CSS, Java, JavaScript and~\hyperref[el]{EL} -- into one~file.
 And~although this is considered and~known to~be a~VERY bad practice, you can~be sure that a~stressed and~tired developer, who~is pressed by incompetent managers to~finish work for~three people till yesterday (i.e.,~a~standard developer), will create a~real anarchy with this tool in~his~hands.
 
 \newsubsection{Java Standard Tag Library (JSTL)}

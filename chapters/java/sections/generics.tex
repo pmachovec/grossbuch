@@ -1,3 +1,395 @@
-\newsection{Generic Types}
+\newsection{Generic Data Types}
+\index{Generic data type}
 \index{Generic type}
+\index{Generics}
 \label{javagenerics}
+\hyperref[javareferencetypes]{Reference type} of~a~\hyperref[variablefieldproperty]{variable} or~a~method return value doesn't have to~be always a~concrete class or~\hyperref[javainterfaces]{interface} (or~\hyperref[javaarray]{array} or~\hyperref[javaenum]{enumeration}).
+A~variable can~exist for~the~type itself.
+With a~variable instead~of a~concrete type you can~have one implementation, that can~work with various concrete types.
+I.e.,~you~can~achieve \hyperref[polymorphism]{parametrical polymorphism}.
+Generics are most known from~collections.
+Lists, maps and~sets can~contain instances of~basically any~class.
+
+\newsubsection{Class or~Interface Declaration}
+Type variables don't have types.
+They're just names.
+Type variable name can~contain any alphanumeric character and~underscore.
+It~must start with a~letter or~the~underscore.
+Starting with a~digit or~standalone underscore isn't allowed.
+An~unofficial convention is to~use single capital letter, starting \mbox{from \itq{T}} \mbox{(as in \itq{Type})}, \mbox{like \itq{T}}, \mbox{\itq{U}, \itq{V} etc.}
+Indexed capital letters, \mbox{mostly \itq{T\dots}}, are~also used often, \mbox{like \itq{T1}}, \mbox{\itq{T2}, \itq{T3} etc.}
+
+To~say that some alphanumeric combination denotes a~type variable this~combination must~be enclosed between \mbitq{lower than} \mbox{and \itq{greater than}} operators \mbox{("<" and ">")} in~a~class/interface \hyperref[declarationdefinition]{declaration}, following the~class/interface name.
+Declared type variable can~be then used in~the~class/interface body.
+
+Assigning concrete types to~type variables declared in~a~class/interface can~be~done only \mbox{"from outside"}.
+That is when declaring a~variable of~the~class/interface type, including method \hyperref[parameterargument]{parameters}, or~a~method returning a~value of~such~type.
+The~\hyperref[datatypes]{data type} of~the~variable or~the~method return value is~said to~be \mbit{generic}.
+\newpage
+
+\enlargethispage{20mm}
+\example[Definition and~usage of~a~generic class]
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Generic class with type variables}]
+    public class GenericClass<T1, T2> {
+        private T1 fieldOfVariableType; // Field of variable type
+
+        // Constructor working with type variables.
+        // The constructor itself does NOT declare any type variable.
+        public GenericClass(T1 fieldOfVariableType) {
+            this.fieldOfVariableType = fieldOfVariableType;
+        }
+
+        // Method returning value of variable type.
+        public T2 returnVariableType() {
+            ...
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Concrete types assignment}]
+    // Declaring variable of the generic type and calling the constructor.
+    // T1 is set to String, T2 is set to Integer.
+    // Constructor parameter type is T1, the value must be String.
+    // Notice the diamond operator '<>' by the constructor.
+    private GenericClass<String, Integer> (*\tmnbf{gen1var1}{genericClassVariable}*) = new GenericClass<>("some string");
+
+    // Calling method returning value of variable type T2.
+    // T2 was set to Integer, the method returns Integer.
+    private Integer integerVariable = (*\tmnbf{gen1var2}{genericClassVariable}*).returnVariableType();
+
+    // Method returning a value of the generic type.
+    // Variable types are set to other than above, that's OK.
+    public GenericClass<Float, Boolean> genericClassReturningMethod() {
+        GenericClass<Float, Boolean> anotherGenericClassVariable = new GenericClass<>(3.14);
+        return anotherGenericClassVariable;
+    }
+
+    // Overloaded method with the generic type.
+    // The generic class with generics is type of its argument.
+    public GenericClass<Integer, Double> genericClassReturningMethod(GenericClass<Integer, Double> genericParameter) {
+        return genericParameter;
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{gen1var1.south}{gen1var2.north}
+\end{tikzpicture}
+\newpage
+
+\index{Diamond operator}
+\noindentnosp Notice empty \mbitq{lower than} \mbox{and \itq{greater than}} operators when calling the~class constructor.
+That's called \textit{diamond operator}.
+This must be used when creating an~instance of~a~generic class or~an~interface.
+Up~to~Java~6 it~was~necessary to~repeat concrete types inside.
+Today Java runner can~infer types from the~left side of~the~command, even when the~variable was~created many lines before.
+
+\note When assigning subtypes (see~\hyperref[javagenericswildcards]{wildcards}), you~must write concrete types by~the~constructor even today.
+
+\newsubsection{Method or~Constructor Declaration}
+\label{javagenericmethod}
+An~alphanumeric combination can~be marked as~a~type variable also in~a~method/constructor \hyperref[declarationdefinition]{declaration}.
+It~must~be also enclosed between \mbitq{lower than} \mbox{and \itq{greater than}} operators.
+It~goes after the~last \hyperref[javaaccessmodifiers]{access modifier} and~before return type in~method, or~name in~constructor.
+A~method declaring a~variable type can~return this type.
+
+Assigning concrete types to~type variables declared in~a~method/constructor is~also done "from outside".
+That~is when calling the~method/constructor.
+But~opposite to~generic classes/interfaces this one doesn't need \mbitq{lower than} \mbox{and \itq{greater than}} operators.
+The~trick is that method/constructor variable types must appear among the~method/constructor \hyperref[parameterargument]{parameter} types.
+Values can't~be assigned to~variables of~variable types directly, you~can't call anything like \mbitqls{T;;;genericInstance;;;=;;;new;;;T();}, nor~anything similar with a~method returning a~value.
+The~only way how~to get a~value of~a~declared variable type to~its method/constructor, is~by~the~method/constructor \hyperref[parameterargument]{parameters}.
+When calling the~method/constructor, \hyperref[parameterargument]{arguments} of~concrete types are~provided.
+From~them concrete types for~type variables are~inferred.
+
+\example[declaring and assigning variable types in~methods and~constructors]
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Class with constructor and method delcaring variable types}]
+    public class StandardClass {
+        // Constructor declaring variable type.
+        // It must have a parameter of the variable type T.
+        public <T> StandardClass(T constructorParameter) {
+            ...
+        }
+
+        // Method declaring variable type and returning value of it.
+        // It must have a parameter of the variable type U.
+        public <U> U declareAndReturnGenericType(U parameterOfGenericType) {
+            ...
+        }
+    }
+\end{lstlisting}
+\newpage
+
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Concrete types assignment}]
+    // Calling the constructor.
+    // T is set to String.
+    private StandardClass classVariable = new StandardClass("some string");
+
+    // Calling the method.
+    // U is set to Double.
+    Double doubleVariable = classVariable.declareAndReturnGenericType(3.14);
+\end{lstlisting}
+\notenonl Default type of~a~decimal number \mbox{is \textit{Double}}.
+In~the~class example \mbit{Float} was~stated explicitly.
+
+\note Similarly as~it~was necessary to~write concrete types by generic classes constructors up~to~Java~6, it~was also necessary to~write concrete types by generic methods/constructors.
+The~concrete type specification appeared just before the~method name (see~the~following example).
+This can~cause confusion when observed in~some older documentation, because generic methods/constructors didn't have retained the~diamond operator.
+
+\example[assigning variable types in~methods and~constructors in~the~old stype]
+\begin{lstlisting}[language=Java]
+    // Calling the constructor.
+    // T is set to String.
+    private StandardClass classVariable = new <String>StandardClass("some string");
+
+    // Calling the method.
+    // U is set to Double.
+    Double doubleVariable = classVariable.<Doulbe>declareAndReturnGenericType(3.14);
+\end{lstlisting}
+
+\newsubsection{Bounded Type Parameters}
+\index{Bounded type parameters}
+\index{Type erasure}
+\index{Erasure}
+\label{javagenericsbound}
+As~concrete types are~assigned to~type variables from~outside, the~replacement of variables inside holding structures (classes, \mbox{methods, \dots)} is~done in~runtime.
+During compilation replacing concrete types are unknown.
+Therefore, by~default a~type variable is~treated as~\hyperref[javaobject]{\textit{Object}}.
+Actually, the~compiler replaces all type variables with \mbox{the \textit{Object}} class.
+This mechanism is~called \itq{type erasure}.
+Calling any other method than available in~\hyperref[javaobject]{\textit{Object}} on~a~generic type instance causes a~compilation error.
+
+Usually a~sort of~classes/interfaces, for~which the~variable type will~serve, is~known.
+And~usually they all have a~common superclass or~interface.
+For~example, when implementing a~simple arithmetic operation (plus, minus etc.), you~will certainly give two number types to~it.
+And~all number types are descendants of~the~class \mbit{Number}.
+
+Based on this fact it's possible to~bound concrete types that can~be~used for~the~variable type.
+The~bounding is~done by~the~keyword \mbitq{extends} following the~variable in~the~structure declaration.
+Then the~common superclass or~interface is specified.
+Variable type instances then act as being of~the~bounding type.
+When assigning a~concrete type from outside, only descendants of~the~bounding type or~the~type itself are~allowed.
+Type erasure is~also performed in~this case, but~type variables are~replaced by bounding types, \mbox{not by \textit{Object}}.
+
+\example[bounded type parameters in addition implementation]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    // Return type is the type of the first argument.
+    public <T1 extends Number, T2 extends Number> T1 plus(T1 firstNumber, T2 secondNumber) {
+        return firstNumber + secondNumber;
+    }
+
+    // Usage
+    plus(3.14, 1);
+    // plus("string", 1); // Compilation error
+\end{lstlisting}
+\warningnonl This is not a~proper addition implementation.
+\newline
+
+\noindent Bounding a~variable type with multiple interfaces is possible.
+Interface names are~separated by ampersand with spaces around.
+Bounding with multiple classes isn't possible.
+However, it's possible to~bound with one class and~one or~multiple interfaces.
+The~class must go first.
+Type erasure replaces type variables with the~first bounding type.
+
+\newline
+\highlight{Examples:}
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    // Bounding with one class
+    public class BoundedWithClass<T extends SimpleClass> { ... }
+
+    // Bounding with multiple interfaces
+    public class BoundedWithInterfaces<T extends InterfaceOne (*\textcolor{blue}{\&}*) InterfaceTwo (*\textcolor{blue}{\&}*) InterfaceThree> { ... }
+
+    // Bounding with one class and interface
+    public class MultiBound<T extends SimpleClass (*\textcolor{blue}{\&}*) InterfaceOne> { ... }
+\end{lstlisting}
+
+\note Not~even bounded variable type can~be instantiated directly.
+In~previous examples you can't call anything like \mbitqls{T;;;genericInstance;;;=;;;new;;;SimpleClass();}.
+\newpage
+
+\newsubsection{Wildcards}
+\index{Covariance}
+\index{Contravariance}
+\label{javagenericswildcards}
+Generic types are \hyperref[invariance]{invariant} by~default.
+Consider following generic class with a~variable type:
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class GenericClass<T extends Number> {
+        private T fieldOfVariableType;
+
+        public GenericClass(T fieldOfVariableType) {
+            this.fieldOfVariableType = fieldOfVariableType;
+        }
+
+        public T getFieldOfVariableType() {
+            return fieldOfGenericType;
+        }
+
+        public void setFieldOfVariableType(T fieldOfVariableType) {
+            this.fieldOfVariableType = fieldOfVariableType;
+        }
+    }
+\end{lstlisting}
+\noindent \textit{Integer} is a~subtype \mbox{of \textit{Number}}, \mbox{but \textit{GenericClass<Integer>}} is~not a~subtype \mbox{of \textit{GenericClass<Number>}} (and~absolutely~not a~supertype).
+Compilation of~something like \mbitqls{GenericClass<Number>;;;parent;;;=;;;new;;;GenericClass<Integer>(1);} will~fail.
+
+To~enable such~\hyperref[covariance]{covariant} assignment the~concrete type on~the~left side of~the~command must~be prepended with question mark and~the~keyword \mbitq{extends}, i.e.,~something like \mbitqls{GenericClass<?;;;extends;;;Number>;;;parent;;;=;;;new;;;GenericClass<Integer>(1);}.
+The~question mark is called \mbitq{wildcard} and~the~\hyperref[declarationdefinition]{declared} generic type is called \mbitq{wildcard type}.
+When retrieving a~value of~the~variable type from~the~generic class instance, the~type extending the~wildcard is guaranteed.
+Because of type safety, it~isn't possible to~change a~value of~the~variable type inside the~instance.
+It's~only possible to~set~it in~a~constructor.
+This~is an~issue especially in~collections, as~it~isn't possible to~add items to~a~collection holding a~wildcard type.
+
+\example[\itq{extends} keyword]
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={With the example class}]
+    GenericClass<? extends Number> genericClass = new GenericClass<Integer>(1);
+    // genericClass.setFieldOfVariableType(2); // Not allowed
+    // Integer integer = genericClass.getFieldOfVariableType(); // Type is Number
+    Number number = genericClass.getFieldOfVariableType();
+\end{lstlisting}
+\newpage
+
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={With a list}]
+    List<? extends Number> extendedList = new ArrayList<>();
+    // extendedList.add(1); // Not allowed
+    Number number = extendedList.get(0); // Compilation OK, but causes NullPointerException in runtime
+\end{lstlisting}
+
+\noindent When the~type variable should be able to~hold absolutely any type, it~should extend \hyperref[javaobject]{Object} class, i.e.,~something like \mbitqls{GenericClass<?;;;extends;;;Object>;;;universal;;;=;;;new;;;GenericClass<String>("string");}.
+This can~be shortened -- the~\mbitqls{extends;;;Object} part can~be dropped.
+I.e.,~the~equivalent command is \mbitqls{GenericClass<?>;;;universal;;;=;;;new;;;GenericClass<String>("string");}.
+The~wildcard is said to~be \mbit{unbounded} in~this case.
+
+\example[shortened \textit{Object} extending]
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={With the example class}]
+    GenericClass<?> genericClass = new GenericClass<String>("string");
+    // genericClass.setFieldOfVariableType("new string"); // Not allowed
+    // String string = genericClass.getFieldOfVariableType(); // Type is Object
+    Object object = genericClass.getFieldOfVariableType();
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={With a list}]
+    List<?> extendedList = new ArrayList<>();
+    // extendedList.add(1); // Not allowed
+    Object object = extendedList.get(0); // Compilation OK, but causes NullPointerException in runtime
+\end{lstlisting}
+\newline
+
+\noindent Generics support even \hyperref[contravariance]{contravariance}.
+When \mbox{the \itq{super}} keyword is used instead of \mbitq{extends}, then~such a~generic type is a~supertype for~all generic types having any superclass of~the~supered concrete type.
+I.e.,~\mbitqls{GenericClass<?;;;super;;;Integer>} is~a~supertype for~\mbitq{GenericClass<Integer>}, \mbitq{GenericClass<Number>}, but~also \mbox{for \itq{GenericClass<Object>}}.
+It's~possible to~set a~value of~the~variable type in~such generic class instance and~it's~possible to~add members to~collections.
+The~value type must~be the~supered type or~its subtype.
+It's~also possible to~retrieve a~value of~the~variable type from~the~generic class instance, but~its type isn't guaranteed, such~retrieved value has~type \mbit{Object}.
+\newpage
+
+\example[\itq{super} keyword]
+%! language = TEXT
+\begin{lstlisting}[language=Java, , title={With the example class}]
+    GenericClass<? super Integer> genericClass = new GenericClass<Number>(1);
+    GenericClass<? super Integer> ultraGenericClass = new GenericClass<Object>(new Object());
+    genericClass.setFieldOfVariableType(2);
+    // ultraGenericClass.setFieldOfVariableType(new Object()); // Only Integer or its subclass is allowed
+    // Integer integer genericClass.getFieldOfVariableType(); // Type is Object
+    Object object = genericClass.getFieldOfVariableType();
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, , title={With a list}]
+    List<? super Integer> superedList = new ArrayList<>();
+    // superedList.add(new Object()); // Only Integer or its subclass is allowed
+    superedList.add(1);
+    // Integer integer = superedList.get(0); // Type is Object
+    Object object = superedList.get(0);
+\end{lstlisting}
+\newline
+
+\index{PECS}
+\noindent When summarized, \mbox{with the \itq{extends}} keyword it's possible to~retrieve a~variable type value with~the~extended type guaranteed, \mbox{with the \itq{super}} keyword it's possible to~set a~value of~the~supered type.
+This is called \mbit{PECS} rule -- \itq{Producer Extend, Consumer Super}.
+If~both retrieval and~setting of~the~value is needed, then~no~wildcard should be used.
+
+With all this said, an~obvious thought can~appear:
+"Why~would anyone use wildcards?!
+They bring no benefit, only obstacles\dots"
+And~this thought is absolutely valid.
+Previous examples with generic instances assignments only illustrate the~type hierarchy.
+Using wildcards like this is pure stupidity.
+
+Usage of~wildcards makes sense only in~method/constructor \hyperref[parameterargument]{parameters}.
+For~example, consider a~method that~reads numbers from a~list.
+When~the~method is~\hyperref[declarationdefinition]{declared} like \mbitqls{public;;;SOMETHING;;;theMethod(List<Number>;;;theList);;{\dots}}, it~accepts only lists \mbox{of \textit{Numbers}}.
+If~it~gets a~list \mbox{of \textit{Integers}}, \mbit{Floats} or~some other more specific number type, the~compilation fails.
+But~when the~method is~\hyperref[declarationdefinition]{declared} like \mbitqls{public;;;SOMETHING;;;theMethod(List<?;;;extends;;;Number>;;;theList);;{\dots}}, it~can~accept even lists with more specific number types.
+\newpage
+
+\example[real usage of \itq{extends} keyword]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class SimpleClass {
+        public static void theMethod(List<? extends Number> theList) {
+            Number number = theList.get(0);
+            ...DO SOMETHING WITH THE NUMBER...
+        }
+    }
+    ...
+    List<Integer> listOfIntegers = new ArrayList<>();
+    listOfIntegers.add(1);
+    SimpleClass.theMethod(listOfIntegers);
+\end{lstlisting}
+\example[real usage of \textit{Object} extending]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class SimpleClass {
+        public static void theMethod(List<?> theList) {
+            Object object = theList.get(0);
+            ...DO SOMETHING WITH THE OBJECT...
+        }
+    }
+    ...
+    List<String> listOfStrings = new ArrayList<>();
+    listOfStrings.add("string");
+    SimpleClass.theMethod(listOfStrings);
+\end{lstlisting}
+\newline
+
+\noindent As~a~real example \mbox{of the \itq{super}} keyword usage you can~consider a~method that writes \mbit{Integers} to~a~given list, but~it~should accept even a~list \mbox{of \textit{Numbers}}.
+When the~method is~\hyperref[declarationdefinition]{declared} like \mbitqls{public;;;SOMETHING;;;theMethod(List<?;;;super;;;Integer>;;;theList);;{\dots}}, it~will~accept a~list \mbox{of \textit{Numbers}}, but~also a~list \mbox{of \textit{Objects}}.
+When~only changing and~no~reading of~a~value of~a~variable type (e.g.,~adding to~a~collection) is expected in~a~method/constructor, it's~recommended to~use the~supered wildcard instead of simple concrete type to~provide more flexibility.
+That's why the~\mbitq{super} keyword often appears in~official Java documentation.
+\newpage
+
+\example[real usage of \itq{super} keyword]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class SimpleClass {
+        public static void theMethod(List<? super Number> theList) {
+            Integer integerInstance = 1;
+            Float floatInstance = 2.0;
+            Number numberInstance = 3;
+            theList.add(integerInstance);
+            theList.add(floatInstance);
+            theList.add(numberInstance);
+        }
+    }
+    ...
+    List<Object> listOfObjects = new ArrayList<>();
+    SimpleClass.theMethod(listOfObjects);
+    ...DO SOMETHING WITH THE LIST...
+\end{lstlisting}
+
+\note Wildcards work only with generic classes.
+\hyperref[javagenericmethod]{Generic methods} don't support wildcards, not~even with~the~old style syntax.
+Something like \mbitqls{SomeClass.<?;;;extends;;;SOMETYPE>;;genericMethod();} wouldn't~compile.
+
+\warning Don't confuse the~wildcard syntax with the~\hyperref[javagenericsbound]{bounded type parameters} syntax.
+It~looks similar, but~contains concrete type variables.
+Also, bounded type parameters don't exist with \mbox{the \itq{super}} keyword, only with \mbitq{extends}.

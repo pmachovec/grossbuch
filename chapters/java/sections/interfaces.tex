@@ -202,3 +202,19 @@ Default methods serve purely for~the~described scenario when~extending an~existi
 
 \note Private fields in~interfaces are~still forbidden.
 Only methods can~be private.
+
+\newsubsection{Interfaces as Variable Types}
+Very often, \hyperref[datatypes]{data type} in~a~variable \hyperref[declarationdefinition]{declaration} is an~interface even when it~doesn't seem to~bring any advantage.
+When debugging the~code, it~can~even make it harder.
+This is the~case especially with collections, a~collection is almost always declared and~instantiated somehow like \mbitqls{List<String>;;;someList;;;=;;;new;;;ArrayList<>();} (the~list on~the~left side is an~interface), \mbls{not;;;"\textit{ArrayList<String>};;;\textit{someList =...}"}.
+The~purpose is one of~\hyperref[abstraction]{the~abstraction OOP concept} purposes -- better changeability without affecting users of~the~changed object.
+
+For~example, consider a~simple implementation where you need a~list in~a~variable.
+You~use the~first coming to~your mind -- ArrayList.
+Later, as~the~implementation grows, you~need to~add items to~various places of~the~list very often.
+For~this LinkedList is more convenient.
+If~you declared the~variable as~List (interface), the~change won't~affect any place where the~variable is~used.
+But~if~you declared the~variable as~ArrayList, you~will~have to rework all places where it's~used.
+
+And~that's valid every time, not~only by~collections.
+Therefore, (wannabe) experts \hyperref[declarationdefinition]{declare} variables with interfaces whenever it's~possible.

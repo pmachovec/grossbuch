@@ -44,7 +44,7 @@ It~wasn't designed for~writing large code structures separated into multiple fil
 However, with the~\hyperref[internetweb]{web} evolution a~need for~complex JavaScript implementations actually came onto scene.
 And~the~JavaScript code modularity problem was~born\dots
 
-The~only multiple file solution supported by~the~original JavaScript is to~load each file\,--\,module\,--\, in~a~separate \mbit{script} element.
+The~only multiple file solution supported by~the~original JavaScript is to~load each file -- module --  in~a~separate \mbit{script} element.
 Elements must~be specified in~the~correct order.
 For~example, consider three modules \textit{A}, \textit{B} and~\textit{C}.
 A~\hyperref[internetweb]{web} page uses some functionality \hyperref[declarationdefinition]{defined} in~the~module~\textit{A}.
@@ -84,7 +84,7 @@ I.e.,~it~should address all~problems of~the~\hyperref[javascriptmodularity]{defa
 \thispagestyle{empty}
 \newsubsection{Syntax}
 \label{amdsyntax}
-The~main function containing a~module\,--\,equivalent of~a~class\,--\,is~called \mbitq{define}.
+The~main function containing a~module -- equivalent of~a~class -- is~called \mbitq{define}.
 It~gets an~array of~paths to~other modules (dependencies), and~a~function callback, usually anonymous, which contains the~actual module functional body.
 \hyperref[parameterargument]{Parameters} of~the~callback are~handlers to~modules specified in~the~path array, the~order and~count must match.
 If~a~module doesn't use any functionality from other modules (it~has no~dependencies), it~isn't necessary to~specify an~empty array.
@@ -169,13 +169,13 @@ Using modules from a~\hyperref[internetweb]{web} page, however, is~specific.
 
 You~should have one main file, which is referred from a~\mbit{script} element inside~a~page \mbit{header} element.
 From this file you~should assign functionality to~elements in~the~corresponding \hyperref[internetweb]{web} page.
-And~from this file you can~call \hyperref[amd]{AMD} modules.
+And~from this file you can~also call \hyperref[amd]{AMD} modules.
 If~the~page design forces you to~have the~\mbit{script} element somewhere else than in~the~\mbit{header} element or~to~have multiple \mbit{script} elements, then the~design is~bad and~should~be changed.
 
 The~main file looks almost the~same as~a~standard \hyperref[amd]{AMD} module, only the~big enclosing function is~called \mbitq{requirejs}.
-It~also doesn't have the~\mbit{return} statement;
+It~also doesn't have the~\mbit{return} statement.
 It~can~contain RequireJS configuration (before the~main \mbit{requirejs} function), which usually specifies aliases for~paths to~third party libraries like \hyperref[jquery]{jQuery}.
-The~code inside this function is~executed like in~a~standard JavaScript file from the~top to~the~bottom.
+The~code inside \mbox{the \textit{requirejs}} function is~executed like in~a~standard JavaScript file from the~top to~the~bottom.
 
 Referring the~main file from a~page is~slightly different from \hyperref[javascriptmodularity]{standard JavaScript module referral}.
 The~\mbit{src} attribute of~the~\mbit{script} element must contain path to~the~RequireJS library file (called \mbitq{require.js} by~default).
@@ -183,11 +183,10 @@ The~main script path is~specified in~the~\mbitq{data-main} element, and~it~can't
 The~extension is~expected, if~the~file doesn't have it, it~won't~work.
 
 \note RequireJS is~usable even in~\hyperref[nodejs]{Node.js}.
-Node.js already contains the~\hyperref[commonjs]{CommonJS} technique for~modularization, but~the~performance is generally worse than with RequireJS\@.
+Node.js already contains \mbox{the \hyperref[commonjs]{CommonJS}} technique for~modularization, but~the~performance is generally worse than with RequireJS\@.
 Furthermore, when using RequireJS, you~can~develop a~functionality on~the~Node.js platform (server side), but~later use~it on~the~client side and~preserve the~effectiveness.
 
 \warning You~can~encounter a~JavaScript file loading modules with a~keyword \mbitq{require}.
-
 This is a \hyperref[nodejs]{NodeJS} feature called \hyperref[commonjs]{\mbit{CommonJS}}.
 It~isn't supported in~JavaScript by~default.
 \newpage

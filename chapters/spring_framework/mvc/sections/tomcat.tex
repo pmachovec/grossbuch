@@ -6,7 +6,7 @@ HTML templates can~be located anywhere in~the~application folder.
 Additionally there's the~Spring configuration XML file.
 This~can~be also located anywhere as~it's~referenced in~\mbit{web.xml}, but~it's~common practice to~put~it directly to~the~\mbit{WEB-INF} folder, i.e.,~to~the~same level as~\mbit{web.xml}.
 This file contains, beside others, the~configuration of~\hyperref[springinversionofcontrol]{Spring beans} of~the~chosen template engine.
-When using Thymeleaf, you~must configure three beans\,--\,template resolver, template engine and~view resolver.
+When using Thymeleaf, you~must configure three beans -- template resolver, template engine and~view resolver.
 It~isn't important to~know what bean does what, just remember they must~be configured, the~template engine bean uses the~template resolver bean, and~the~view resolver bean uses the~template engine bean.
 For~the~template resolver bean you~must also configure prefix and~suffix.
 Prefix is a~location (relative to~the~application folder) where HTML templates are~located and~suffix is~the~extension of~your HTML templates (e.g.,~\mbitq{.html}).
@@ -181,6 +181,6 @@ This can~result in~unwanted behavior when the~form is~accessed over a~method wit
 \end{tikzpicture}
 
 \noindent When \mbitq{HOST:PORT/appFolder/classUrl} is~accessed in~a~browser, it~displays the~form.
-When the~form is~submitted, it~replaces the~last part of~the~address\,--\,\mbit{classUrl}\,--\,with the~value from~the~\mbit{action} attribute\,--\,\mbit{methodUrl}.
+When the~form is~submitted, it~replaces the~last part of~the~address -- \mbit{classUrl} -- with the~value from~the~\mbit{action} attribute -- \mbit{methodUrl}.
 Therefore, the~request is~forwarded to~\mbitq{HOST:PORT/appFolder/methodUrl}, but~the~correct method address is \mbitq{HOST:PORT/appFolder/\textbf{classUrl/}methodUrl}.
 The~solution is either to~add \mbitq{classUrl/} to~the~\mbit{action} attribute or~to~better organize request mapping paths.

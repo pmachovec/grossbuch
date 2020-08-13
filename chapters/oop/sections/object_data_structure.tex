@@ -1,0 +1,43 @@
+\newsection{Object VS Data Structure}
+\index{Data structure}
+\label{objectdatastructure}
+A~data structure is similar to~an~object.
+It's~also a~container for~data stored in~variables.
+The~difference is that data structures expose all its data and~contain no meaningful tools for~operating with data.
+
+\example[simple data structure in~Java]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class DataStructure {
+        public int intVariable = 0;
+        public String stringVariable = "abc";
+    }
+\end{lstlisting}
+\newline
+
+\noindent An~object with private variables, but~with only getters and~setters for~them, can~also be considered to~be rather a~data structure than an~object.
+
+\example[Java data structure trying to look like an object]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class WannaBeObject {
+        private int intVariable = 0;
+        private String stringVariable = "abc";
+
+        public int getIntVariable() {
+            return intVariable;
+        }
+
+        public void setIntVariable(int intVariable) {
+            this.intVariable = intVariable;
+        }
+
+        public String getStringVariable() {
+            return stringVariable;
+        }
+
+        public void setStringVariable(String stringVariable) {
+            this.stringVariable = stringVariable;
+        }
+    }
+\end{lstlisting}

@@ -16,7 +16,7 @@ A~language processed by~a~compiler is~called \textit{compiled language}.
 The~result of~the~compilation can~be either directly the~machine code, or~some other, further processed form.
 For~example, \mbox{C~or~C++} are~compiled directly to~the~machine code.
 Because of~that a~special compiler is~needed for~each~\hyperref[platform]{platform} for~these languages.
-On~the~other hand, Java or~C\# are~compiled to~an~intermediate form, which must~be further transferred to~the~machine code, but~the~intermediate form can~be the~same for~all~\hyperref[platform]{platforms} (see~\hyperref[bytecode]{Java bytecode} for~example).
+On~the~other hand, Java or~C\# are~compiled to~an~intermediate form, which must~be further transferred to~the~machine code, but~the~intermediate form can~be the~same for~all~\hyperref[platform]{platforms} (see~\hyperref[javabytecode]{Java bytecode} for~example).
 
 A~source code of~some languages can~be seemingly executed directly on~the~fly, without any compilation.
 Such languages are~called \textit{interpreted languages}.
@@ -34,7 +34,7 @@ There can~theoretically exist both a~compiler and~an~interpreter for~any languag
 \newsection{Scripting Languages}
 \index{Scripting language}
 \label{scriptinglanguages}
-There isn't an~exact definition what a~scripting language is, but~usually the~term denotes a~language, whose source code files\,--\,scripts\,--\,are~immediately available for~execution.
+There isn't an~exact definition what a~scripting language is, but~usually the~term denotes a~language, whose source code files -- scripts -- are~immediately available for~execution.
 I.e.,~it's~a~synonym for~an~\hyperref[compiledinterpretedlanguages]{interpreted language}.
 
 A~scripting language always has a~special run--time environment (an~\hyperref[compiledinterpretedlanguages]{interpreter}) capable of~real time execution of~scripts.
@@ -81,7 +81,7 @@ A~language exists for~each of~these categories.
             Source code is~easier to~write in~dynamically typed languages, but~programs are~generally slower, more unstable and~harder to~debug.
 \end{itemize}
 
-\warning Usual definition of~statically typed languages says that the~type check is~performed during compilation.
+\warningnonl Usual definition of~statically typed languages says that the~type check is~performed during compilation.
 This implies that languages, for~which an~\hyperref[compiledinterpretedlanguages]{interpreter} exist, can't~be statically typed, because there's no~compilation for~them.
 However, this is not~necessarily true.
 Although it's extremely rare, there can~be a~type check before interpreting, i.e.,~directly executing, a~source code.
@@ -97,7 +97,7 @@ Some variations of~Haskell do~this.
             Strongly typed languages are~more time--consuming during development, but~programs are~generally more stable and~easier to~debug.
     \itembf{Weakly typed language} allows variable type changes.
             Various values of~various types can~be assigned to~one~variable through a~program.
-            Consider the~same example\,--\,a~dynamically typed language and~a~variable.
+            Consider the~same example -- a~dynamically typed language and~a~variable.
             At~first a~string is~assigned to~the~variable.
             This time, when you try to~assign a~number to~it, the~original string will~be overridden by~the~number and~program will~continue running.
             Source code is~easier to~write in~weakly typed languages, but~programs can~behave unexpectedly and~are~harder to~debug.
