@@ -1,6 +1,6 @@
 \newsection{Annotations}
-\index{Annotations}
-\index{Java annotations}
+\index{Annotation}
+\index{Java annotation}
 \label{javaannotation}
 Annotations are~special labels by~components of~Java code denoted by~the~at~sign (\itq{@}).
 They carry additional information -- metadata -- about components that they denote.
@@ -10,7 +10,7 @@ The~most typically used annotation is \hyperref[javaoverride]{\mbit{@Override}}.
 \newsubsection{Custom Annotations}
 \label{javacustomannotations}
 Annotations aren't just fixed, developers can~create their own.
-Annotation \hyperref[declarationdefinition]{definition} looks like a~simple class \hyperref[declarationdefinition]{definition}.
+Annotation \hyperref[declarationdefinition]{definition} looks similar to~an~\hyperref[javainterface]{interface} \hyperref[declarationdefinition]{definition}.
 The~key word stating that an~annotation is~defined is \mbitq{@interface} (with the~at~sign at~the~beginning).
 Annotation classes can~contain method \hyperref[declarationdefinition]{declarations} (without a~body), which in~fact define annotation \hyperref[parameterargument]{parameters}.
 These method headers are~always public and~can't~get an~\hyperref[javaaccessmodifiers]{access modifier}.
@@ -27,15 +27,22 @@ There are only three possibilities:
 \begin{itemize}
     \itembfd{RUNTIME} annotation is~processed during runtime.
     \itembfd{CLASS} annotation is~processed during compilation and~incorporated to~the~created \hyperref[javabytecode]{bytecode}.
-    \itembfd{SOURCE} annotation is~processed during compilation and~is~not~incorporated to~the~created \hyperref[javabytecode]{bytecode}.
+    \itembfd{SOURCE} annotation is~processed during compilation and~is~\textbf{not}~incorporated to~the~created \hyperref[javabytecode]{bytecode}.
              I.e.,~the~annotation is~missing after eventual decompilation.
 \end{itemize}
 
-The~\mbit{@Target} annotation defines entities to~which the~custom annotation can~be applied.
+\noindent The~\mbit{@Target} annotation defines entities to~which the~custom annotation can~be applied.
 It~gets one~or~more (enclosed in curly braces in~that~case) values of~the~\mbitq{ElementType} enum.
 There are eleven possible values in~total.
-They're quite self--explanatory, like \mbitq{METHOD}, \mbitq{FIELD} or~\mbitq{TYPE}.
+They're quite self--explanatory, like \mbitq{METHOD} or \mbitq{FIELD}.
+A~slight trap exists for~class annotations, where the~value is \mbitq{TYPE} \mbox{(not \mbitq{CLASS})}.
+
+\warning Annotation classes don't support \hyperref[inheritance]{inheritance}.
+Each~annotation class automatically extends (yes,~\textbf{extends}, not~\textit{implements}) the~Java built--in interface \mbitq{Annotation}, but~that's~all.
+It~can't extend or~implement anything else, not~even another annotation class.
 \newpage
+
+\warning Although annotation \hyperref[declarationdefinition]{definitions} are much~closer to~interfaces (\mbitq{interface} in~the~keyword, methods without bodies, \textbf{extending} \mbox{the \itq{Annotation}} interface), those structures are still denoted as~annotation \textbf{classes}.
 
 \newsubsection{Processing Annotations During Runtime}
 This is relatively easy.
@@ -162,3 +169,51 @@ Inside this file there must~be package path to~the~processor class.
     \drawarrow{[xshift=3mm] annot2proc.south}{[xshift=3mm] annot2fileproc.north}[Magenta]
 \end{tikzpicture}
 \newpage
+
+\newsubsection{Parameter called \itq{value}}
+If~an~annotation contains only one \hyperref[parameterargument]{parameter} (method) called \mbitq{value}, it~isn't necessary to~specify the~parameter name when setting~it.
+In~other words, it's~possible to~write directly the~value, without \mbox{the \itq{value = }} part.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Annotation with single parameter called \itq{value}}]
+    @@>@Retention<@@(RetentionPolicy.RUNTIME)
+    @@>@Target<@@(ElementType.METHOD)
+    public @interface (*\tmnbf{annot3annot}{ExampleAnnotation}*) {
+        String (*\tmnbf{annot3param}{value}*)() default "example default value";
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Setting the~parameter value~--~no~need to~write \mbitq{value = }}]
+    public class (*\tmnbf{annot3usageclass}{SimpleClass}*) {
+        @@>@(*\tmnbf{annot3usageannot}{ExampleAnnotation}[LimeGreen]*)<@@("new value")
+        public void (*\tmnbf{annot3usagemethod}{simpleMethod}*)() {
+            ...
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Runtime annotation processing}]
+    Class<?> simpleClass = (*\tmnbf{annot3procclass}{SimpleClass}*).class;
+    Method simpleMethod = simpleClass.getDeclaredMethod("(*\tmnbf{annot3procmethod}{simpleMethod}[ForestGreen]*)");
+
+    if (simpleMethod.isAnnotationPresent((*\tmnbf{annot3procannot1}{ExampleAnnotation}*).class)) {
+        (*\tmnbf{annot3procannot2}{ExampleAnnotation}*) exampleAnnotation = simpleMethod.getAnnotation((*\tmnbf{annot3procannot3}{ExampleAnnotation}*).class);
+        String exampleParameterValue = exampleAnnotation.(*\tmnbf{annot3procparam}{value}*)();
+        ...DO SOMETHING WITH THE PARAMETER VALUE...
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{annot3annot.south}{annot3usageannot.north}
+    \drawarrow{annot3annot.south}{[xshift=-6mm] annot3procannot1.north}
+    \drawarrow{annot3annot.south}{annot3procannot2.north}
+    \drawarrow{annot3annot.south}{annot3procannot3.north}
+    \drawarrow{annot3param.south east}{[xshift=3mm] annot3procparam.north west}[red][.3][bend left=5mm]
+    \drawarrow{annot3usageclass.south}{annot3procclass.north}[green]
+    \drawarrow{[xshift=6mm] annot3usagemethod.south}{annot3procmethod.north}[blue]
+\end{tikzpicture}
+
+\newsubsection{Annotation as a Parameter of Other Annotation}
+
+\newsubsection{Nested Annotations}
+\index{Nested Annotation}
