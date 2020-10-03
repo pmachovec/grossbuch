@@ -58,7 +58,7 @@ The~basic idea is to~get a~reference to~a~class with \hyperref[reflection]{refle
     }
 \end{lstlisting}
 %! language = TEXT
-\begin{lstlisting}[language=Java, title={Annotation usage}]
+\begin{lstlisting}[language=Java, title={Usage}]
     public class (*\tmnbf{annot1usageclass}{SimpleClass}*) {
         @>@(*\tmnbf{annot1usageannot1}{ExampleAnnotation}[LimeGreen]*)
         private String (*\tmnbf{annot1usagefield}{simpleField}*);
@@ -171,6 +171,7 @@ Inside this file there must~be package path to~the~processor class.
 \newpage
 
 \newsubsection{Parameter called \itq{value}}
+\label{javaannotationparamvalue}
 If~an~annotation contains only one \hyperref[parameterargument]{parameter} (method) called \mbitq{value}, it~isn't necessary to~specify the~parameter name when setting~it.
 In~other words, it's~possible to~write directly the~value, without \mbox{the \itq{value = }} part.
 
@@ -212,8 +213,114 @@ In~other words, it's~possible to~write directly the~value, without \mbox{the \it
     \drawarrow{annot3usageclass.south}{annot3procclass.north}[green]
     \drawarrow{[xshift=6mm] annot3usagemethod.south}{annot3procmethod.north}[blue]
 \end{tikzpicture}
+\newpage
 
 \newsubsection{Annotation as a Parameter of Other Annotation}
+It~isn't possible to~create a~variable of~an~annotation class type and~assign something to~it.
+You~can't write anything like \mbitqls{AnnotationClass;;;variableName;;;=;;;\dots}, because annotation classes can't be instantiated and~can't even have descendants.
+However, it~\textbf{is} possible to~have annotation parameter (method) of~an~annotation class type and~assign a~corresponding annotation to~it.
+It~makes sense only when the~inner assigned annotation has some parameters (without parameters it's~useless, but~possible).
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Inner annotation}]
+    @@>@Retention<@@(RetentionPolicy.RUNTIME)
+    @@>@Target<@@(ElementType.FIELD)
+    public @interface (*\tmnbf{annot4annot1}{InnerAnnotation}*) {
+        String (*\tmnbf{annot4annot1param}{exampleParameter}*)() default "example default value";
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Outer annotation}]
+    @@>@Retention<@@(RetentionPolicy.RUNTIME)
+    @@>@Target<@@(ElementType.FIELD)
+    public @interface (*\tmnbf{annot4annot2}{OuterAnnotation}*) {
+        (*\tmnbf{annot4annot2annot1}{InnerAnnotation}*) (*\tmnbf{annot4annot2param1}{innerAnnotation}*)() default @@>@(*\tmnbf{annot4annot2annot2}{InnerAnnotation}[LimeGreen]*)<@@((*\tmnbf{annot4annot2param2}{exampleParameter}*) = "overridden default value");
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Usage}]
+    public class SimpleClass {
+        @@>@(*\tmnbf{annot4usageannot1}{OuterAnnotation}[LimeGreen]*)<@@((*\tmnbf{annot4usageparam1}{innerAnnotation}*) = @@>@(*\tmnbf{annot4usageannot2}{InnerAnnotation}[LimeGreen]*)<@@((*\tmnbf{annot4usageparam2}{exampleParameter}*) = "new value"))
+        private String simpleField;
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{[xshift=3mm] annot4annot1.south west}{annot4annot2annot1.north}
+    \drawarrow{[xshift=3mm] annot4annot1.south west}{[xshift=-3mm] annot4annot2annot2.north}
+    \drawarrow{[xshift=3mm] annot4annot1.south west}{[xshift=-3mm] annot4usageannot2.north}
+    \drawarrow{[xshift=-3mm] annot4annot1param.south east}{annot4annot2param2.north}[red]
+    \drawarrow{[xshift=-3mm] annot4annot1param.south east}{annot4usageparam2.north}[red]
+    \drawarrow{annot4annot2param2.south}{annot4usageparam2.north}[red]
+    \drawarrow{[xshift=3mm] annot4annot2.south west}{[xshift=-3mm] annot4usageannot1.north east}[green]
+    \drawarrow{[xshift=-6mm] annot4annot2param1.south}{[xshift=-3mm] annot4usageparam1.north}[blue]
+\end{tikzpicture}
+\newpage
+
+\noindent Using the~\hyperref[javaannotationparamvalue]{parameter called \mbitq{value}} is also possible:
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Inner annotation}]
+    @@>@Retention<@@(RetentionPolicy.RUNTIME)
+    @@>@Target<@@(ElementType.FIELD)
+    public @interface (*\tmnbf{annot5annot1}{InnerAnnotation}*) {
+        String value() default "example default value";
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Outer annotation}]
+    @@>@Retention<@@(RetentionPolicy.RUNTIME)
+    @@>@Target<@@(ElementType.FIELD)
+    public @interface (*\tmnbf{annot5annot2}{OuterAnnotation}*) {
+        (*\tmnbf{annot5annot2annot1}{InnerAnnotation}*) value() default @@>@(*\tmnbf{annot5annot2annot2}{InnerAnnotation}[LimeGreen]*)<@@("overridden default value");
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Usage}]
+    public class SimpleClass {
+        @@>@(*\tmnbf{annot5usageannot1}{OuterAnnotation}[LimeGreen]*)<@@(@@>@(*\tmnbf{annot5usageannot2}{InnerAnnotation}[LimeGreen]*)<@@("new value"))
+        private String simpleField;
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{annot5annot1.south}{annot5annot2annot1.north}
+    \drawarrow{annot5annot1.south}{annot5annot2annot2.north}
+    \drawarrow{annot5annot1.south}{annot5usageannot2.north}
+    \drawarrow{[xshift=-3mm] annot5annot2.south}{annot5usageannot1.north}[red]
+\end{tikzpicture}
+
+\enlargethispage{20mm}
+\noindent Having \hyperref[javaarray]{array} of inner annotations is also possible:
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Inner annotation}]
+    @@>@Retention<@@(RetentionPolicy.RUNTIME)
+    @@>@Target<@@(ElementType.FIELD)
+    public @interface (*\tmnbf{annot6annot1}{InnerAnnotation}*) {
+        String value() default "example default value";
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Outer annotation}]
+    @@>@Retention<@@(RetentionPolicy.RUNTIME)
+    @@>@Target<@@(ElementType.FIELD)
+    public @interface (*\tmnbf{annot6annot2}{OuterAnnotation}*) {
+        (*\tmnbf{annot6annot2annot1}{InnerAnnotation}*)[] value() default {@@>@(*\tmnbf{annot6annot2annot2}{InnerAnnotation}[LimeGreen]*)<@@("overridden default value")};
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Usage}]
+    public class SimpleClass {
+        @@>@(*\tmnbf{annot6usageannot1}{OuterAnnotation}[LimeGreen]*)<@@({@@>@(*\tmnbf{annot6usageannot2}{InnerAnnotation}[LimeGreen]*)<@@("new value"), @@>@(*\tmnbf{annot6usageannot3}{InnerAnnotation}[LimeGreen]*)<@@("another value")})
+        private String simpleField;
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{annot6annot1.south}{annot6annot2annot1.north}
+    \drawarrow{annot6annot1.south}{annot6annot2annot2.north}
+    \drawarrow{annot6annot1.south}{annot6usageannot2.north}
+    \drawarrow{annot6annot1.south}{[xshift=-3mm] annot6usageannot3.north}
+    \drawarrow{[xshift=-3mm] annot6annot2.south}{[xshift=-3mm] annot6usageannot1.north east}[red]
+\end{tikzpicture}
+\newpage
 
 \newsubsection{Nested Annotations}
 \index{Nested Annotation}

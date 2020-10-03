@@ -52,6 +52,7 @@ procannotpkg
 procclass
 processorpackage
 procfield
+procmethod
 procparam
 procpkg
 propsdummy
@@ -77,11 +78,13 @@ tasklist
 taskkill
 tengwar
 tikzpicture
+tmnbf
 unhashed
 unprintability
 usageannot
 usageclass
 usagefield
+usagemethod
 usageparam
 usedep
 usevalue
