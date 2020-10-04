@@ -1,0 +1,31 @@
+\newsection{Salt}
+\index{Salt in cryptography}
+\label{salt}
+Salting is a~technique used as~hashing extension.
+It~makes outputs of~a~hashing function different even when given the~same input more times.
+It's~used mainly to~protect password--based systems, where hashes are~created from provided passwords
+And~that's almost everywhere where passwords are~used.
+
+Some random value, called \textit{salt}, is~incorporated to~the~original pre--hashed value.
+It's~usually appended to~the~beginning or~to~the~end, but~even more complicated techniques of~embedding are~possible.
+Such~value with the~incorporated salt is then given to~the~hashing function.
+And~because the~salt is random, the~resulting hash is also random, i.e.,~always different.
+The~original unhashed salt is then distributed with the~resulting hash.
+When the~same hash should~be generated again, the~salt must~be incorporated to~the~same original input value.
+
+This protects against brute force attacks, when an~attacker is~trying to~guess the~original value, has~precomputed hashes of~values common in~the~attacked area and~tries them one~by~one.
+But~when the~value is salted, the~attacker first needs to~extract the~salt and~then compute hashes of~common values for~that particular case.
+Computing hashes is a~costly operation, and~salting enforces to~do~it for~each single value.
+In~other words, it~eliminates the~possibility of~computing hashes in~advance.
+
+\newsubsection{Usage in \hyperref[keypassword]{Password--Based Cryptography}}
+When a~key should~be generated from a~password by~a~\hyperref[keypassword]{key derivation function}, salt is added to~the~password.
+The~resulting key still always has the~desired length, but~is~always different.
+The~salt must~be read during the~key generation and~stored somehow.
+When the~key is needed again (message decryption, signature), the~provided password is~combined with the~stored salt and~the~used \hyperref[keypassword]{KDF} generates the~correct key.
+
+\newsubsection{Usage in \hyperref[authenticationauthorization]{Authentication and Authorization}}
+Systems with password--protected user accounts need to~store users' passwords.
+Storing them in~plain text, or~even just hashing them, is~an~obvious security risk.
+Passwords are~therefore salted and~hashed and~these hashes are~stored together with salt.
+When a~user wants to~log~in, he~provides his~username and~password, his~salt is~found in~the~system database, combined with the~password and~the~resulting hash is~verified.

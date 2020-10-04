@@ -1,0 +1,31 @@
+\newsection{REST}
+\index{Representational State Transfer}
+\index{REST}
+\index{RESTful}
+\label{rest}
+The~abbreviation stands for \itq{Representational State Transfer}.
+It's~a~technique for~transferring data between two \hyperref[applicationprocessprogramservicethread]{programs} using the~\hyperref[http]{HTTP protocol}.
+Transferred data can~be theoretically in~any string form, but~the~most popular nowadays is~the~\hyperref[json]{JSON} format.
+
+The~first program has~the~role of~a~client and~initiates a~standard \hyperref[http]{HTTP} request.
+The~request can, but~doesn't have~to, already contain some JSON data in~the~body.
+It's~responsibility of~the~first program to~create the~JSON string and~include it to~the~request.
+
+The~second program is~a~standard \hyperref[webserviceapplication]{web service}.
+It~gets the~request, parses the~incoming JSON (if~there is~any), creates (another) JSON (also doesn't have~to), includes it to~a~response body and~sends the~response to~the~client program.
+
+\hyperref[webserviceapplication]{Web services} supporting this type of~data transfer are~said to~have \mbox{REST \hyperref[api]{API}}.
+To~make~it more complicated the~\mbitq{RESTful} term is~sometimes used.
+You~can~encounter many different combinations of~terms all~denoting a~\hyperref[webserviceapplication]{web service} supporting the~REST data transfer.
+The~overview list follows:
+\begin{itemize}
+    \item Service with REST API
+    \item Service with RESTful API
+    \item REST web service
+    \item RESTful web service
+    \item REST service
+    \item RESTful service
+\end{itemize}
+
+\noindent And~to~make it even more complicated you~can~also encounter a~term \itq{\mbox{RESTful} application} or~\itq{\mbox{RESTful} program}.
+This can~denote both a~client side program or~a~server side web service supporting the~REST communication.

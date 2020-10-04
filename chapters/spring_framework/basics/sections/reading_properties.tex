@@ -5,7 +5,7 @@ Files with the~\mbitq{.properties} extension are~popular approach for~dynamic ap
 They're simple text files in~which each line has the~form \textit{identifier=value}.
 When a~\mbit{properties} file is~added to a~Spring application \hyperref[classpath]{classpath}, it~can~be referenced in~the~Spring configuration file, as~well as values specified in~the~file.
 
-The~\mbit{properties} file is~referenced in~the~element \mbit{property--placeholder}, attribute \textit{location}, from the~\hyperref[namespaces]{namespace} \textit{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}.
+The~\mbit{properties} file is~referenced in~the~element \mbit{property--placeholder}, attribute \textit{location}, from the~\hyperref[namespace]{namespace} \textit{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}.
 The~name of~the~\mbit{properties} file in~the~attribute \textit{location} must~be preceded by the~part referring to~the~\hyperref[classpath]{classpath}, which~is literally \itq{classpath:} (with the~colon).
 
 Values set in~the~\textit{properties} file can~be then referenced as attribute values, typically when \hyperref[injectingliteralvalues]{injecting literal values}, but~can~be used also as bean~IDs when injecting complex beans.

@@ -100,7 +100,7 @@ With growing number of~beans the~XML configuration file becomes too verbose.
 Therefore, newer versions of~Spring support configuring bean~IDs using \hyperref[javaannotation]{Java annotations} inside bean~classes.
 
 Spring must be told by~the~XML configuration file to~scan classes in~a~particular package for~components.
-This is done by~the~element \mbit{component-scan}, attribute \mbit{base-package}, from the~\hyperref[namespaces]{namespace} \mbitq{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}.
+This is done by~the~element \mbit{component-scan}, attribute \mbit{base-package}, from the~\hyperref[namespace]{namespace} \mbitq{\href{http://www.springframework.org/schema/context}{http://www.springframework.org/schema/context}}.
 The~convention is to~call the namespace as \mbit{context} in the~XML file.
 Bean classes contain bean~IDs as~a~parameter of~the~class annotation \mbit{@Component}.
 The~annotation is processed in~runtime, therefore, if~you~make a~mistake in~it, you~won't find~out during application build.

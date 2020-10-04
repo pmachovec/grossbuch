@@ -1,0 +1,17 @@
+\newsection{Web Server}
+\index{Web server}
+\label{webserver}
+It's typically a~software, but~can~be even a~physical computer, that stores, processes and sends HTML documents to clients over a~network, usually \hyperref[internetweb]{the~Internet}.
+Using dedicated software -- a~web browser -- clients see these documents as web pages.
+The~communication with clients is mainly performed over the~\hyperref[http]{HTTP protocol}.
+Based on~incoming request from a~client (initiated by a~web browser) the~server picks a~stored HTML document and sends it back to the~client in a~response.
+
+A~web address entered to a~browser's address bar is separated to the~part identifying the~server's physical computer (\textit{www.something.com}) and the~part identifying the~wanted HTML document location (everything that follows).
+The~location is referred from the~server's configured home folder.
+For~example, consider that \textit{www.something.com} refers to~some computer with running Apache HTTP Server (a~concrete example of a~web server).
+The~default home folder of~Apache HTTP servers is \textit{/home/www} and hasn't been configured otherwise in~this example.
+You~enter \textit{www.something.com/one/two/three.html} to your web browser's address bar.
+This sends a~\hyperref[http]{HTTP} request.
+The~computer is reached over~\hyperref[dns]{DNS}, the~server gets the~request and it looks for the~file \mbit{/home/www/one/two/three.html}.
+If~the~file is found, its contents are~appended to~a~\hyperref[http]{HTTP} response, returned to your web browser and displayed.
+If~not, you get the~dinosaur.

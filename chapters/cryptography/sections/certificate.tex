@@ -1,0 +1,72 @@
+\newsection{Certificate}
+\index{Certificate}
+\index{Public key certificate}
+\index{Digital certificate}
+\index{CSR}
+\label{certificate}
+A~certificate, also public key certificate or~digital certificate, is simply a~public key with additional metadata.
+Sometimes it can~contain even the~private key.
+Metadata in~certificates serve for~identifying owners of~keys.
+
+When someone provides a~public key to~verify signatures coming from~him, it~isn't possible to~verify that the~key really belongs to~that someone.
+Identity information isn't included in~the~key.
+But~when he provides a~certificate, a~receiver can~verify the~identity based on metadata in~the~certificate.
+
+\newsubsection{TLS}
+\index{TLS}
+\index{SSL}
+\index{Transport layer security}
+\index{Secure sockets layer}
+\index{Root certificate}
+\index{Root store}
+\index{Trusted store}
+\index{PKI}
+\index{Public Key Infrastructure}
+\label{tls}
+TLS,~standing for~\itq{Transport Layer Security}, is a~widely used \hyperref[protocolstandard]{cryptographic protocol} describing the~certification mechanism on~the~\hyperref[internetweb]{web}.
+You~can also meet the~abbreviation SSL, which stands for~\itq{Secure Sockets Layer}.
+It's~a~predecessor of~TLS created in~1990s by~\href{https://en.wikipedia.org/wiki/Netscape}{Netscape}.
+Although all versions of~the original SSL are~already deprecated and~Netscape is almost dead, the~abbreviation is still used.
+
+When a~sender wants a~TLS certificate, he~must request it from~a~\hyperref[certificationauthority]{certification authority} -- he~must send so~called \textit{certificate signing request}~(CSR) to~the~authority (and~of~course he~must~pay).
+The~request is just a~file, typically with the~\itq{.csr} extension, which contains sender's public key and~some information about~him.
+When the~authority verifies all the~information from~the~request (and~gets the~money), it~creates the~certificate, signs it with its private key (standard electronic signature described \hyperref[electronicsignature]{earlier}), appends the~signature to~the~certificate and~returns it to~the~sender.
+Now~the~sender has a~valid certificate and~he~can~provide it to~receivers.
+Receivers can~extract the~public key from the~certificate and~verify sender's signatures with~it.
+They already have certificates from the~certification authority, so~if~they want to~verify the~sender's identity, they verify the~signature appended to~his~certificate using a~public key from the~certificate of~the~certification authority.
+
+Certificates of~\hyperref[certificationauthority]{certification authorities} are~called root certificates and~they're stored in~so~called root stores, or~trusted stores.
+These certificates are~self--signed -- the~certification authority signs its certificate with its own private key.
+Client programs (receivers) know root stores and~download root certificates from them.
+Major root stores are~run by~Microsoft, Google, Mozilla or~Apple, because typical clients are~\hyperref[internetweb]{web} browsers, where the~TLS protocol is~used as~a~part of~the~\hyperref[https]{HTTPS protocol}.
+All~the~certification authorities and~clients form so~called \itq{Public Key Infrastructure}~(PKI).
+
+\newsubsection{Chain of Trust}
+\index{Chain of trust}
+\index{Intermediate certificate}
+For~security reasons senders' certificates usually aren't signed directly by~private keys matching root certificates.
+A~private key used for~signing a~sender's certificate usually matches only to~so~called intermediate certificate, which can~identify another 2nd \hyperref[certificationauthority]{certification authority} (but~can~be the~same) and~which can~be~signed by~another 3rd certification authority (still can~be the~same).
+So~before accepting the~server certificate, the~client verifies the~intermediate certificate.
+And~the~3rd certification authority also doesn't have to~be the~last one, its certificate can~be also only intermediate and~signed by~a~4th certification authority.
+And~so~on.
+Therefore, the~client must verify all~certificates in~this chain until it~reaches a~self--signed root certificate.
+
+\newsubsection{X.509}
+\index{X.509}
+\label{x509}
+It's~a~\hyperref[protocolstandard]{standard} defining the~format of~\hyperref[certificate]{certificates}.
+It~describes compulsory parts of~a~certificate, like version, expiration date, public key information (including the~public key itself) or~the~certificate signature.
+\hyperref[tls]{TLS},~and~therefore even \hyperref[https]{HTTPS}, follow this standard.
+
+\newsubsection{TLS Certificate Formats}
+Certificates are files.
+They~can~exist in~a~simple text format similar to~\hyperref[yaml]{YAML}.
+In~such~form all the~information is simply readable from the~certificate.
+
+For~computer processing \hyperref[pem]{PEM formatting} is usually used.
+Files with certificates in~this~format usually have \itq{.cert} or~\itq{.crt} extensions.
+
+Certificates generally shouldn't contain private keys, but~some servers can~have stored their certificates and~private keys together in~one~file.
+It's~possible to~have such combination stored in~the~\hyperref[pem]{PEM format} (the~private key is first, followed by~the~certificate), but~there's also an~unreadable file format following the~\hyperref[pkcs]{PKCS~\#12} standard.
+Files in~this~format have extensions \itq{.pfx} or~\itq{.p12}.
+They can~be even protected by~a~\hyperref[keypassword]{password}.

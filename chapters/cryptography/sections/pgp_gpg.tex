@@ -1,0 +1,26 @@
+\newsection{PGP and GPG}
+\index{PGP}
+\index{GPG}
+\index{GnuPG}
+\index{Pretty Good Privacy}
+\index{GNU Privacy Guard}
+\label{pgpgpg}
+These are computer programs for~handling both \hyperref[symmetriccryptography]{symmetric} and~\hyperref[asymmetriccryptography]{asymmetric cryptography}.
+They can~be integrated to~various communication software, for~example, Outlook, to~secure the~communication.
+When messages are short or~electronic signatures are needed, the~asymmetric encryption can be used standalone.
+For~longer messages a~combination of~both encryption types is used.
+Messages are encrypted with symmetric encryption, and~the~symmetric key is encrypted by asymmetric encryption.
+Users either send their public keys directly to~each other or~they can~upload them to~dedicated servers, from where other users can~download them.
+These servers can~serve as~alternatives to~\hyperref[certificationauthority]{certification authorities}.
+
+User's keys are~stored in~the~local program installation and~accessed by~passwords.
+When using private keys (decrypting a message, signing), the~user doesn't have to~copy the~whole long key anywhere, he~only provides the~password.
+
+\textit{PGP}~stands for~\itq{Pretty Good Privacy}.
+It's~a~commercial software,~i.e.,~users need to~pay for~it.
+\mbox{\textit{GPG}, or \textit{GnuPG}}, standing for~\itq{\hyperref[gnu]{GNU} Privacy Guard}, is~a~free alternative.
+
+\newsubsection{OpenPGP}
+This is a~\hyperref[protocolstandard]{standard} that~PGP, GPG and~their mutations follow.
+Thanks to~this, they're mutually compatible -- a~message encrypted in~one program should~be decryptable in~another.
+\newpage

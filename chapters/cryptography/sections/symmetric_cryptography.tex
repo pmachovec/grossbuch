@@ -1,0 +1,32 @@
+\newsection{Symmetric Cryptography}
+\label{symmetriccryptography}
+In~this type of~cryptography there is~one common key used for~both encryption and~decryption.
+This key should be always kept secret and~shared with caution, that's why also the~term \itq{private key cryptography} is~used.
+The~message processing flow~is:
+\begin{itemize}
+    \item A~sender owns the key.
+          He encrypts the~message with the~key and~sends it to a~receiver.
+    \item The~receiver has the~same key, which he uses to decrypt the message.
+\end{itemize}
+
+\newsubsection{AES}
+\index{AES}
+\index{Initial vector}
+A~typical example of a~symmetric cryptography algorithm is \textit{AES} (\textit{Advanced Encryption Standard}).
+It~requires the~key to~be 128, 192 or~256 bits (16, 24 or~32 bytes) long, that's why some implementations require the~key to be specified as a~string of~16, 24 or~32 ASCII characters (one~character -- one~byte).
+The~encryption can~be extended with so~called \textit{initial vector}.
+It's another set of~bits given to the~algorithm together with the~key when encrypting, but opposite to the~key the~initial vector is usually always different.
+It must~be then sent to~the receiver together with the~message, because it's needed also for the~message decryption.
+However, it~can~be sent through a~different secure canal, and as it's quite short, it~can~be encrypted by an~\hyperref[asymmetriccryptography]{asymmetric encryption}.
+The~length of an~initial vector must be always 128 bits (16 bytes).
+
+The~big disadvantage of~this approach is that the~key needs to be shared, i.e., two copies of~it must~be distributed to both sender and~receiver.
+And~during this distribution (e.g., sending it over a~network) it can~be caught by a~bad guy.
+Reasons why the~symmetric cryptography still survives is its high speed and~practically unlimited size of~processed data (opposite to the~\hyperref[asymmetriccryptography]{asymmetric cryptography}), the~limit is in millions of~\mbox{terabytes}.
+
+\newsubsection{AES Key Formats}
+AES~keys are~just byte sequences, usually random, carrying no further information.
+They're usually represented as~hexadecimal strings (one~byte\,=\,two~characters), sometimes with spaces between character couples.
+They can~be also written in~the~\hyperref[base64]{\mbox{Base64}} encoding.
+Storing key bytes to~a~file of~a~desired size is~also possible, in~that case it~creates an~unreadable mess.
+\newpage

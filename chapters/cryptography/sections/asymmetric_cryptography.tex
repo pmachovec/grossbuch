@@ -1,0 +1,82 @@
+\newsection{Asymmetric Cryptography}
+\label{asymmetriccryptography}
+In~this type of~encryption there are two keys matching to~each other - public and~private.
+Messages encrypted by a~public key can~be decrypted only~by a~matching private key.
+That's why it's sometimes also called \itq{public key cryptography}.
+It can work also in the~reversed way (encrypted by private key, decrypted by public key), which is used in \hyperref[electronicsignature]{electronic signatures}.
+The~message processing flow~is:
+\begin{itemize}
+    \item A~sender owns the~public key.
+          He~encrypts the~message with the~public key and~sends it to a~receiver.
+    \item The~receiver has the~matching private key, which he~uses to~decrypt the~message.
+\end{itemize}
+
+\noindent The~main security benefit in this approach is that the~private key used for~discovering messages contents is never shared, only the receiver owns~it.
+Nobody else can read those messages.
+Typically the receiver generates a~pair of~keys and sends the~public key to~whoever he~wants to~receive messages from.
+If someone else gets the~public key, there is no problem, he won't be able to~decrypt messages sent to~the~receiver.
+
+\newsubsection{RSA}
+\index{RSA}
+\label{rsa}
+\textit{RSA} is the~most well--known asymmetric encryption algorithm.
+It's used for~both encrypting sent data and~\hyperref[electronicsignature]{electronic signatures}.
+The abbreviation is nothing technical, it~consists of initial letters of~names of~authors of~the algorithm -- \textit{Rivest}, \textit{Shamir}, \textit{Adleman}.
+
+Disadvantages of~this approach are message length limits and~performance demands.
+In~RSA with a~2048 bits (256~bytes) key the~maximum message length is 245 bytes.
+And~with too big keys the~computational time grows, the~maximum reasonable key length today is 4096 bits (512~bytes).
+On~the~other hand with too short key the~security drops, so~the~minimum secure key length today is 2048 bits (256~bytes).
+
+\newsubsection{RSA Key Length}
+\index{Modulus}
+The~length of a~key is in~fact only the~length of~so called \textit{modulus}, which is some hidden number that both public and~matching private key have in common.
+There is also additional info encoded in keys, this info is needed for~the~RSA algorithm.
+That's why both keys in the~pair contain more bits than the number specified during their generation.
+There is more such info in private keys, that's why private keys are significantly longer than matching public keys.
+
+\warning Although only some fixed lengths of the~key are~mentioned almost everywhere (512, 1024, 2048, 4096), there is no restriction, the~length can~be any number.
+However, the~\textit{ssh-keygen} program provided with Git installation, which is usually used for~key generation, doesn't allow number lower than 1024.
+
+\newsubsection{RSA Key Formats}
+\index{OpenSSH}
+RSA~keys are~most often represented as~\hyperref[base64]{\mbox{Base64}} encoded strings, even when stored in~files.
+Files with RSA~keys are usually in~the~\hyperref[pem]{PEM} format.
+Keys can~follow either \hyperref[pkcs]{PKCS~\#1} or~\hyperref[pkcs]{PKCS~\#8} standard.
+In~the~first case they're usable only in~the~RSA~algorithm, in~the~second case they can~be used even in~different asymmetric cryptography algorithms.
+
+Public keys are sometimes represented also in~the~\mbit{OpenSSH} format.
+A~public key in~the~OpenSSH format incorporates also a~user email, which must~be provided during key~generation
+This format is~used for~manual public key exchange combined with~\hyperref[authenticationauthorization]{authentication}, for~example on~GitHubs.
+Private keys are never represented in~this format.
+
+\example[a~public key in~the~OpenSSH format]
+%! language = TEXT
+\begin{lstlisting}
+    ssh-rsa AAAAB3NzaC1yc2... jbravo@gmail.com
+\end{lstlisting}
+\newline
+
+\noindent \textbf{The same public key in PEM PKCS~\#1 format}
+%! language = TEXT
+\begin{lstlisting}
+    -----BEGIN RSA PUBLIC KEY-----
+    MIIBCgKCAQEAwNUeQzY4mlj1sAH2zLZFUSOf7yMGjpVKp7LgxnKQDUNXbA8WSt/E
+    oM/IkHGq35yFOpXevsIF2Xp7oO4md/muTWcecqCG7k1MAJLz9ZUiMikVfEB9DnhH
+    ...
+    1W/oG/iF1qlnQJq7X/tjKUoX7yUhpZLu9wIDAQAB
+    -----END RSA PUBLIC KEY-----
+\end{lstlisting}
+\newline
+
+\noindent \textbf{The same public key in PEM PKCS~\#8 format}
+%! language = TEXT
+\begin{lstlisting}
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwNUeQzY4mlj1sAH2zLZF
+    USOf7yMGjpVKp7LgxnKQDUNXbA8WSt/EoM/IkHGq35yFOpXevsIF2Xp7oO4md/mu
+    ...
+    9wIDAQAB
+    -----END PUBLIC KEY-----
+\end{lstlisting}
+\noindent Note there's no \textit{RSA} word the~header and~the~footer.

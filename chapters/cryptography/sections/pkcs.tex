@@ -1,0 +1,17 @@
+\newsection{PKCS}
+\index{PKCS}
+\index{Public key cryptography standards}
+\label{pkcs}
+The~abbreviation stands for~\itq{Public Key Cryptography Standards}.
+It's~a~set of~\hyperref[protocolstandard]{standards} for~various scenarios in~\hyperref[asymmetriccryptography]{asymmetric cryptography} created by \href{https://en.wikipedia.org/wiki/RSA_Security}{RSA~Security}.
+You~will often encounter the~abbreviation with a~number, sometimes with hash tag.
+This denotes one concrete \hyperref[protocolstandard]{standard} from~the~set.
+Most important PKCS standards~are:
+\begin{itemize}
+    \itembfd{PKCS~\#1} first standard of~the~PKCS family, provides basic definitions~of and~recommendations for~implementing the~\hyperref[rsa]{RSA algorithm}.
+             Defines mathematical properties of~public and~private keys, primitive operations for~encryption and~signatures, secure cryptographic schemes and~related syntax representations.
+    \itembfd{PKCS~\#5} defines usage of~\hyperref[keypassword]{password--based encryption}.
+    \itembfd{PKCS~\#8} defines handling of~private keys in~any~\hyperref[asymmetriccryptography]{asymmetric cryptography} algorithm.
+             It~isn't fixed only to~the~\hyperref[rsa]{RSA~algorithm} (opposite to~PKCS~\#1).
+    \itembfd{PKCS~\#12} defines an~archive file format for~storing many cryptography objects into a~single file, for~example, a~private key and~a~corresponding \hyperref[certificate]{certificate}.
+\end{itemize}
