@@ -1,0 +1,19 @@
+\newsection{Message Authentication Code}
+\index{Message authentication code}
+\index{MAC}
+\index{Secret}
+\label{mac}
+Message authentication code, abbreviated \mbox{as \textit{MAC}}, is~a~technique to~verify the~identity of~a~data sender -- to~\hyperref[authenticationauthorization]{authenticate} the~sender -- using \hyperref[symmetriccryptography]{symmetric cryptography} principle.
+Sender and~receiver share a~symmetric key, also called \mbitq{secret}.
+This secret is given to~a~MAC algorithm together with the~sent data.
+The~result of~the~algorithm is~a~hash.
+And~this~hash is the~authentication code of~the~message -- the~MAC\@.
+The~sender sends the~MAC together with original data.
+The~receiver, who~has the~same secret, also computes MAC of~the~message and~compares it with~the~one coming from~the~sender.
+If~they~match, the~MAC is verified.
+
+The~MAC algorithm must work so that even a~slight change of~the~message causes a~significant change of~the~resulting~MAC\@.
+An~example of~a~MAC algorithm is \mbit{HMAC}, which~is abbreviation of \itq{Hash--based Message Authentication Code}.
+This algorithm extends standard \hyperref[sha]{\mbox{SHA-2}} hashing algorithms to~use the~secret to~compute the~hash.
+As~there are multiple subversions of \mbox{the SHA-2} algorithm, there are also multiple subversions of~the~HMAC algorithm differing in~the~length of~the~resulting~MAC\@.
+For~example, \mbox{HMAC-SHA-256,} \mbox{HMAC-SHA-512 etc.}

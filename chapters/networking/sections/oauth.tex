@@ -1,0 +1,67 @@
+\newsection{OAuth}
+\index{OAuth}
+\index{Open Authentication}
+\index{Consumer}
+\index{Token}
+\index{Service provider}
+The~acronym stands for~\itq{Open Authentication}.
+It's~a~\hyperref[protocolstandard]{standard} for~\hyperref[authenticationauthorization]{\textbf{authorizing}} third party \hyperref[applicationprocessprogramservicethread]{applications} -- \textit{consumers} -- to~access certain resources at~a~\textit{service provider} on~behalf of~a~\textit{user}.
+Resources are normally accessible only after \hyperref[authenticationauthorization]{\textbf{authentication}} to~the~provider with~the~user's credentials.
+OAuth eliminates the~need of providing the~user's credentials to~the~consumer application, which is a~security risk.
+Instead, the~user authenticates directly to~the service provider.
+A~series of token exchanges between him, the~service provider and~the~consumer follows.
+It~results in~assigning an~access token to~the~consumer.
+Then, when the~consumer wants to~access resources, it~incorporates the~access token to~each request.
+The~access token grants the~consumer to~use a~certain part of~all~resources available at~the~service provider for~the~corresponding user -- it~performs the~\hyperref[authenticationauthorization]{\textbf{authorization}}.
+
+For~an~example consider your Facebook account.
+That's the~\textit{service provider}.
+A~dating application -- the~\textit{consumer} -- offers photo upload from~your Facebook account.
+Instead~of giving your Facebook credentials to~the~dating application (and~allowing it to~do~anything to~your account), you~hit a~special button in~the~dating application that says \itq{Upload photos from Facebook}.
+This redirects you to~Facebook login page where you provide your Facebook credentials.
+Then it asks you if~you agree that the~dating application can~access your photos.
+When you confirm, the~dating application can~access photos in~your Facebook account.
+
+\textit{Token} is similar to~a~\hyperref[key]{cryptographic key}.
+It's~just a~sequence of~\hyperref[bitsandbytes]{bytes}.
+Most~often it's~represented as~a~hexadecimal string, with lowercase letter characters and~without spaces between bytes.
+However, other representations like \hyperref[base64]{base64} are also possible.
+
+\newsubsection{Workflow}
+\index{Consumer token}
+\index{ID token}
+\index{Request token}
+\begin{itemize}
+    \item User orders a~consumer to~access user's resources at~a~service provider.
+    \item Consumer sends a~request to~the~service provider asking for~a~\textit{consumer token}, also called \itq{ID~token} or \itq{request token} (yes,~in~that case the~request asks for~a~request token).
+    \item Service provider generates the~consumer token and~sends it in~a~response.
+          This token identifies the~consumer.
+    \item Consumer redirects the~user to~the~service provider's login page.
+          The~consumer token and~wanted resources are~included in~the~background context of~this redirection.
+    \item User \hyperref[authenticationauthorization]{authenticates} to~the~service provider and~is~forwarded to~an~approval page.
+          A~good service provider should list an~overview of~all~resources demanded by the~consumer on~this~page.
+    \item User approves -- \hyperref[authenticationauthorization]{authorizes} -- access to~demanded resources for~the~consumer.
+          He's~redirected back to~the~consumer.
+    \item Consumer automatically sends another request to~the~service provider asking for~an~\textit{access token}.
+          He~includes the~consumer token in~the~request.
+          And~because the~user previously \hyperref[authenticationauthorization]{authorized} the~consumer (identified by the~consumer token), the~consumer gets the~access token.
+    \item Consumer can~request resources now.
+          He~includes the~access token to~requests.
+    \item When a~request for~resources with~an~access token comes to~the~service provider, the~provider decides if~the~owner of~the~access token (the~consumer) is \hyperref[authenticationauthorization]{authorized} to~use requested resources.
+          If~yes, he~sends them in~a~response.
+\end{itemize}
+
+\newsubsection{Authentication with OAuth}
+Although the~main purpose of~OAuth is consumer applications' \hyperref[authenticationauthorization]{authorization} to~service providers, consumers can~use it for~\hyperref[authenticationauthorization]{authentication} of~users to~themselves.
+The~principle is still the~same -- consumer asks a~service provider for~user's resources.
+The~service provider in~this case must~be some known system with big user numbers and~elaborated \hyperref[authenticationauthorization]{authentication} mechanism, like Facebook, Google~etc.
+The~logic is that for~consumer's~\hyperref[authenticationauthorization]{authorization} the~user must \hyperref[authenticationauthorization]{authenticate} to~the~service provider.
+If~the~consumer gets the~access token, it~means that the~user successfully \hyperref[authenticationauthorization]{authenticated} to~the~service provider.
+And~as~the~service provider's authentication mechanism is known to~be~reliable, the~consumer accepts this as~an~authentication to~itself.
+This way the~user can~use one authentication to~access multiple \hyperref[applicationprocessprogramservicethread]{applications}, without a~need to~create a~registration to~each separately.
+Also consumers don't have to~implement own secure authentication mechanisms.
+They exploit those of~service providers.
+
+The~set of~requested resources can~be theoretically empty in~this~case, but~usually an~access to~at~least email or~user name is~requested.
+Some applications even combine both usages of~OAuth -- they authenticate the~user by requesting "standard" resources.
+For~example, dating applications like Tinder allow users to~authenticate with Facebook, Google or~Instagram, and~they automatically request access to~users' photos.

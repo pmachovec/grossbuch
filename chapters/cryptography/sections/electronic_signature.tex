@@ -1,14 +1,20 @@
 \newsection{Electronic Signature}
 \index{Electronic signature}
 \label{electronicsignature}
-Electronic signature uses the~\hyperref[asymmetriccryptography]{asymmetric cryptography principle} to~verify the~identity of~a~data sender.
+Electronic signature uses the~\hyperref[asymmetriccryptography]{asymmetric cryptography} principle to~verify the~identity of~a~data sender -- to~\hyperref[authenticationauthorization]{authenticate} the~sender.
 The~application of~keys is reversed than in~the~asymmetric encryption.
 A~sender uses the~private key to~sign sent data and~a~receiver uses the~public key to~verify the~signature.
 
 A~hash is generated from the~sent message.
-The~hashing function must work so that even a~slight change of~the~message causes a~significant change of~the~hash.
 The~hash is then encrypted with th~sender's private key.
 This encrypted hash is the~electronic signature of~the~message and~it's sent together with the~original message to~the~receiver.
 The receiver creates the~hash from the~original message and~decrypts the~signature, which gives him another hash.
 He~compares the~hash of~the~message and~the~hash of~the~signature.
 If~they match, the~signature is verified.
+
+The~hashing function must work so that even a~slight change of~the~message causes a~significant change of~the~hash.
+Most~often \hyperref[sha]{SHA-2} hashing functions are~used.
+Electronic signature methods are therefore denoted \mbox{as RSA-SHA-256,} \mbox{RSA-SHA-512 etc.}
+
+As~hashes are generally short, performing \hyperref[asymmetriccryptography]{asymmetric cryptography} operations with~them is possible and~relatively fast.
+And~because the~\hyperref[asymmetriccryptography]{asymmetric cryptography} is more secure than~\hyperref[symmetriccryptography]{symmetric cryptography}, sender's \hyperref[authenticationauthorization]{authentication} by~electronic signature is much~more widespread than~by~\hyperref[mac]{MAC}.

@@ -60,7 +60,7 @@ It~can~denote:
 A~\textbf{bit}, denoted~by lowercase letter~\itq{b}, is the~smallest unit of~computer \hyperref[systemmemory]{memory} or~\hyperref[harddiskdrive]{hard disk} capable of storing an~information.
 One~bit can~hold only two values -- \textit{0} or~\textit{1}, also denoted as~\textit{false} or~\textit{true}.
 
-A~\textbf{byte}, denoted~by a~capital letter~\itq{B}, is a~group of~eight bits in~computer \hyperref[systemmemory]{memory} or~\hyperref[harddiskdrive]{hard disk} with a~unique address.
+A~\textbf{byte}, denoted~by capital letter~\itq{B}, is a~group of~eight bits in~computer \hyperref[systemmemory]{memory} or~\hyperref[harddiskdrive]{hard disk} with a~unique address.
 That means the~computer can~work (read/write) with those eight bits only together.
 It~can't use each bit separately.
 One~byte can~hold 256 different values (8~bits $\Rightarrow$ 2~values in~8~positions $\Rightarrow$ 2\textsuperscript{8} = 256~combinations).
@@ -100,7 +100,7 @@ However, when talking about bytes, these prefixes usually maliciously don't deno
 For~example, kilobyte doesn't mean 1,000 bytes (10\textsuperscript{3}), but~1,024 bytes (2\textsuperscript{10}).
 Similarly, megabyte means 1,048,576 bytes (2\textsuperscript{20}), gigabyte means 1,073,741,824 bytes (2\textsuperscript{30})~etc.
 
-In~pure terminology, this is wrong.
+This is wrong in~pure terminology.
 \textit{Kilo} means one thousand, that's a~fact, similarly for~those other prefixes.
 There's even a~correct terminology for~powers of~2 -- kibibyte (2\textsuperscript{10}), mebityte (2\textsuperscript{20}), gibibyte(2\textsuperscript{30}) etc.
 When writing abbreviations, powers of~2 should~be denoted with the~first letter capital (KB,~MB,~GB) to~avoid confusion with powers of~10, which are generally written with first letter lowercase (kB,~mB,~gB).
@@ -113,8 +113,25 @@ If~they don't talk to~you, you~can~have a~problem.
 
 There's a~joke that a~normal human thinks that a~kilobyte has~1,000 bytes, and~a~programmer thinks that a~kilometer has~1,024 meters.
 
-\enlargethispage{20mm}
-\thispagestyle{empty}
+\newsection{Encoding}
+\index{Encoding}
+\label{encoding}
+Encoding, in~general, means converting data from one form to~another.
+For~example, translating a~text from~one language to~another is~a~form of~encoding.
+
+In~computer world encoding always somehow involves \hyperref[bitsandbytes]{bytes}.
+It~either describes how~to~encode data to~bytes (for~example, \hyperref[charactersetencoding]{character encoding}), or~how~to~encode bytes (octets of~zeros and~ones) to~some other form (hexadecimal numbers, \hyperref[base64]{base64}~etc.).
+
+\newsection{Base64}
+\index{Base64}
+\label{base64}
+It's an~\hyperref[encoding]{encoding} used for~representation of~any array of~\hyperref[bitsandbytes]{bytes} as an~\hyperref[ascii]{ASCII} string.
+The~name refers to the~size of~the~set of~resulting characters, which is~64.
+It~encodes always three bytes to~four characters.
+If~the~length of~the~input byte array is~not~divisible by~three, one or~two special bytes are~added to~its~end.
+This results in~one or~two equals signs at~the~end of~the~resulting string.
+\newpage
+
 \newsection{Character Set VS Character Encoding}
 \index{Character set}
 \index{Character encoding}
@@ -127,7 +144,7 @@ There's a~joke that a~normal human thinks that a~kilobyte has~1,000 bytes, and~a
             Each character in~the~list has~assigned a~number, so~called \textit{code point}.
             Various computers and~software support various character sets.
             \mbox{ASCII and Unicode} are~typical examples of~character~sets.
-    \itembf{Character encoding}, also called \itq{encoding scheme} or~simply \itq{encoding}, is~a~way how code points (numbers) from a~character set are~stored in~\hyperref[bitsandbytes]{bytes}.
+    \itembf{Character encoding}, also called \itq{encoding scheme} or~simply \itq{encoding}, is~a~way how code points (numbers) from a~character set are~stored in~\hyperref[bitsandbytes]{bytes} -- it~describes how~characters are~\hyperref[encoding]{encoded} to~bytes.
             Old~character sets like ASCII have one encoding with the~same name (i.e.,~\mbitq{ASCII} is also name for~encoding).
             Newer character sets like Unicode have multiple encodings (see~\hyperref[utf]{further}).
 \end{itemize}
@@ -145,7 +162,6 @@ Constructors added one more bit for~some other usage and~this is the~reason why 
 With wider usage of~computers 128 characters stopped to~be enough.
 Some extensions using the~8th bit appeared making the~possible number of~characters to~be~256, but~that still wasn't enough.
 Therefore, multi--\hyperref[bitsandbytes]{byte} character sets and~encodings appeared making ASCII obsolete.
-\newpage
 
 \newsection{Unicode}
 \index{Unicode}
@@ -162,7 +178,7 @@ Therefore, first 128 Unicode code points are identical to~those in~ASCII.
 \index{UTF}
 \index{UTF--16}
 \label{utf}
-UTFs are \hyperref[charactersetencoding]{encodings} for~\hyperref[unicode]{Unicode} character set.
+UTFs are \hyperref[charactersetencoding]{character encodings} for~\hyperref[unicode]{Unicode} character set.
 There are three, each consuming different number of~bytes per character.
 The~abbreviation stands for~\itq{Unicode Transformation Format}.
 
@@ -191,7 +207,6 @@ Despite the~similar name, \mbox{UTF--16} is incompatible with \hyperref[utf8]{\m
 Generally where \mbox{UTF--8} uses 3~\hyperref[bitsandbytes]{bytes}, \mbox{UTF--16} uses only 2~bytes.
 For~example, code of~the~Chinese \mbox{character "\chinese{水}"}, which has code point \mbit{U+6C34}, \mbox{is~\itq{6C34}} \mbox{in UTF--16}.
 Also, \hyperref[java]{Java} and~\hyperref[dotnet]{.NET} work better with \mbox{UTF--16} (only Chuck Norris knows~why).
-\newpage
 
 \newsubsection{UTF--32}
 \index{UTF--32}
@@ -305,6 +320,7 @@ When treated as~a~character, it~represents lowercase letter~\itq{a} \mbox{((97)\
     \itembf{Definition of~a~method (or~a~function)} is the~method header with the~method body.
             Example: \mbitq{public void doSomething(int a) \{ \dots \}}".
 \end{itemize}
+\newpage
 
 \noindent Generally a~declaration informs \hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} about some structure.
 Definition allocates a~memory for~the~structure.
@@ -333,7 +349,6 @@ That isn't a~new definition.
     \itembf{Thread} is a~set of consecutive steps performed one by~one in a~process.
             A~process can~be separated to~more threads which can run in~parallel (if~the~program implementation supports~it).
 \end{itemize}
-\newpage
 
 \newsubsection{Web Service VS Web Application}
 \index{Web service}
@@ -349,6 +364,7 @@ That isn't a~new definition.
     \itembf{Web~application} is basically a~web~service with a~\hyperref[shellcligui]{GUI} in~a~web browser on~the~client side.
             In~a~web application a~user actively interacts with a~web page, based on~this interaction requests are~sent to~a~web service, responses are~sent back and~visualised in~the~browser.
 \end{itemize}
+\newpage
 
 \newsection{Server}
 \index{Server}
@@ -356,7 +372,7 @@ That isn't a~new definition.
 Exactly speaking a~server is a~continuously running software getting requests from another software and~sending responses back, i.e.,~providing a~\hyperref[applicationprocessprogramservicethread]{service} for~that other software.
 Servers are~often running on~specialized computers, which themselves are~called servers and~what many people think that servers~are.
 But~server software can~be generally running on~any~computer.
-Examples of~servers are~\hyperref[webserver]{web servers}, \hyperref[applicationserver]{application servers}, \hyperref[proxy]{proxy servers} etc.
+Examples of~servers are~\hyperref[webserver]{web servers}, \hyperref[applicationserver]{application servers}, \hyperref[proxy]{proxy servers}~etc.
 
 \newsection{Engine}
 \index{Engine}
@@ -365,7 +381,6 @@ Engine is any~software performing a~specific task.
 Usually software performing nontrivial tasks is~denoted as~engine.
 For~example, \hyperref[jdkjrejvm]{JVM} is~an~engine executing (compiled) Java code.
 But~even a~simple \textit{Hello World} program is an~engine in~fact.
-\newpage
 
 \newsection{Distributed System}
 \index{Distributed system}
@@ -407,70 +422,6 @@ They mostly are, like~\hyperref[http]{HTTP} or~\hyperref[ssh]{SSH}, but~anyone c
 Bigger companies do that for~their internal communication.
 Also, even when \hyperref[networkprotocols]{general protocols} are~actually standards, nobody denotes them as~standards.
 They're always protocols.
-
-\newsection{Multitasking}
-\index{Multitasking}
-\label{multitasking}
-
-\newsection{Concurrency}
-\index{Concurrency}
-\label{concurrency}
-
-\newsection{Loose Coupling VS Tight Coupling}
-\index{Loose coupling}
-\index{Tight coupling}
-\label{loosetightcoupling}
-
-\newsection{Base64}
-\index{Base64}
-\label{base64}
-It's an~encoding used for~representation of~any array of~\hyperref[bitsandbytes]{bytes} as an~ASCII string.
-The~name refers to the~size of~the~set of~resulting characters, which is~64.
-It~encodes always three bytes to~four characters.
-If~the~length of~the~input byte array is~not~divisible by~three, one or~two special bytes are~added to~its~end.
-This results in~one or~two equals signs at~the~end of~the~resulting string.
-
-\newsubsection{PEM}
-\index{PEM}
-\index{Privacy--Enhanced Mail}
-\label{pem}
-The~abbreviation stands for~\textit{Privacy--Enhanced Mail}.
-Despite this name, it's~in~fact a~file format used mainly in~\hyperref[asymmetriccryptography]{asymmetric cryptography} and~\hyperref[certificate]{digital certificates} for~storing their objects.
-A~PEM file consists of~a~header and~footer lines and~an~object \hyperref[bitsandbytes]{byte} representation in~the~Base64 format.
-The~Base64 string can~be quite long and~is~separated to~lines with 64 characters per~line, except the~last line, which can~be shorter.
-Header and~footer describe the~object type.
-\newline
-
-\noindent \textbf{General example:}
-%! language = TEXT
-\begin{lstlisting}
-    -----BEGIN (*\textit{OBJECT\_TYPE}*)-----
-    MIICLuDAdKgAwIBAgIBADAKBggqhkjOPQQDAjB9MQswCQYDVQQGEwJCRTEf450G
-    QE56EChMGR251VExTMSUwIwtaPIZdaHUAEnVUTFMg2VydGlmavINodGUgYXV0aQ
-    ...
-    MUWQAHEEhE=
-    -----END (*\textit{OBJECT\_TYPE}*)-----
-\end{lstlisting}
-\newline
-
-\noindent There can~be even multiple objects stored in~one~PEM file.
-
-\example[\hyperref[certificate]{certificate} with a~corresponding private key]
-%! language = TEXT
-\begin{lstlisting}
-    -----BEGIN PRIVATE KEY-----
-    MIICucakCAlOgAwIBAgIUQaEFVlDnLCdbp5WzKFBKfCKMZwwDQYJKoZIhvcmRdEL
-    BaNAdaTELMAkGA1UEBhMCVVMxETHBHulaLaLEE1hcnlsYW5kMRIwEAYDVQQHDAlC
-    ...
-    fPjTMIc6fNWaj00O9e++4jM=
-    -----END PRIVATE KEY-----
-    -----BEGIN CERTIFICATE-----
-    MIICLuDAAASCBKcwggSjAgEAAoIBAQCKfxFtvf2CyswCQYDVQQGEwJCRTEf450G
-    ancmxco9LrP+xJmbnJsdizOsrfMaK9wEmuPvQOOACZEnEHxPUmB0Yvdt8YHmPHl
-    ...
-    MUWQAHEfd6bz54fd6gVb4ahE=
-    -----END CERTIFICATE-----
-\end{lstlisting}
 
 \newsection{Shell VS CLI VS GUI}
 \index{Shell}
@@ -515,3 +466,53 @@ And~so~forth.
             User's identity must~be~known for~authorization, therefore, it~must follow an~authentication (which provides the~identity).
             For~example, a~company's internal information system contains an~authorization mechanism, which authorizes every employee to~access the~system, but~only very few employees are~authorized to~access information about wages in~that system.
 \end{itemize}
+
+\newsection{SHA}
+\index{SHA}
+\index{Secure Hash Algorithm}
+\index{Hashing algorithm}
+\index{Hashing function}
+The~abbreviation stands for~\itq{Secure Hash Algorithm}.
+It~denotes a~family of~most widespread hashing algorithms.
+There are many algorithms in~this family and~their notation can~be a~little bit confusing.
+
+There are three basic versions -- \mbox{SHA-1}, \mbox{SHA-2} \mbox{and SHA-3}.
+The~first confusion is~made that sometimes dashes are~not~used in~names, i.e.,~you~see \mbox{SHA1}, \mbox{SHA2} \mbox{or SHA3} instead.
+There's no~difference, they~mean the~same -- basic algorithm version.
+
+\mbox{The SHA-1} algorithm is~only one, it~has~no~subversions.
+It~always produces a~hash of~160 \hyperref[bitsandbytes]{bits}.
+As~the~very first version it~has been already broken and~shouldn't be used any~more.
+
+\mbox{The SHA-2} algorithm has~many subversions, each producing a~hash of~different \hyperref[bitsandbytes]{bit} length.
+This forms another confusion -- the~length is specified \textbf{instead} of the~main version.
+I.e.,~when you see for~example \mbitq{SHA-256}, it~means \mbox{the SHA-2} version producing a~hash of~256 \hyperref[bitsandbytes]{bits}.
+None \mbox{of SHA-2} variants has~been broken to~this day, it's~still safe to~use.
+
+Initial procedure of~breaking \mbox{SHA-1} was rather complicated and~time consuming.
+However, in~2004, only two years after introduction \mbox{of SHA-2}, some smart guy introduced a~very cheap and~efficient alternative.
+This lead to~concerns that some similar break will~soon be introduced even \mbox{for SHA-2.}
+And~that's \mbox{why the SHA-3} algorithm was created as~an~alternative with completely different design.
+It~also has subversions creating hashes of~different \hyperref[bitsandbytes]{bit} lengths.
+In~order not~to~confuse it \mbox{with SHA-2} the~main version must~be always mentioned \mbox{for SHA-3.}
+When written, the~dash is usually omitted, forming another confusion.
+For~example, \mbox{a SHA-3} algorithm producing \mbox{a 256-\hyperref[bitsandbytes]{bit}} hash is~denoted \mbox{as \itq{SHA3-256}.}
+
+\note Input length of~SHA algorithms (and~generally of~any~other good hashing algorithm) isn't limited.
+With~\textbf{very long} inputs there's a~rather theoretical possibility of~producing a~same~hash for~two~different inputs.
+However, the~probability is so small that~hashing is still considered safe.
+For~example, the~version \mbox{of SHA-2} with~the~shortest used output is \mbox{SHA-256}, and~that can~generate a~different hash for~2\textsuperscript{256} different inputs.
+And~that's really a~lot.
+
+\newsection{Multitasking}
+\index{Multitasking}
+\label{multitasking}
+
+\newsection{Concurrency}
+\index{Concurrency}
+\label{concurrency}
+
+\newsection{Loose Coupling VS Tight Coupling}
+\index{Loose coupling}
+\index{Tight coupling}
+\label{loosetightcoupling}

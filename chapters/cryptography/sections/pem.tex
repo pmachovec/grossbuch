@@ -1,0 +1,41 @@
+\newsection{PEM}
+\index{PEM}
+\index{Privacy--Enhanced Mail}
+\label{pem}
+The~abbreviation stands for~\textit{Privacy--Enhanced Mail}.
+Despite this name, it's~in~fact a~file format used mainly in~\hyperref[asymmetriccryptography]{asymmetric cryptography} and~\hyperref[certificate]{digital certificates} for~storing their objects.
+A~PEM file consists of~a~header and~footer lines and~an~object \hyperref[bitsandbytes]{byte} representation in~the~\hyperref[base64]{Base64} format.
+The~Base64 string can~be quite long and~is~separated to~lines with 64 characters per~line, except the~last line, which can~be shorter.
+Header and~footer describe the~object type.
+\newline
+
+\noindent \textbf{General example:}
+%! language = TEXT
+\begin{lstlisting}
+    -----BEGIN (*\textit{OBJECT\_TYPE}*)-----
+    MIICLuDAdKgAwIBAgIBADAKBggqhkjOPQQDAjB9MQswCQYDVQQGEwJCRTEf450G
+    QE56EChMGR251VExTMSUwIwtaPIZdaHUAEnVUTFMg2VydGlmavINodGUgYXV0aQ
+    ...
+    MUWQAHEEhE=
+    -----END (*\textit{OBJECT\_TYPE}*)-----
+\end{lstlisting}
+\newline
+
+\noindent There can~be even multiple objects stored in~one~PEM file.
+
+\example[\hyperref[certificate]{certificate} with a~corresponding private key]
+%! language = TEXT
+\begin{lstlisting}
+    -----BEGIN PRIVATE KEY-----
+    MIICucakCAlOgAwIBAgIUQaEFVlDnLCdbp5WzKFBKfCKMZwwDQYJKoZIhvcmRdEL
+    BaNAdaTELMAkGA1UEBhMCVVMxETHBHulaLaLEE1hcnlsYW5kMRIwEAYDVQQHDAlC
+    ...
+    fPjTMIc6fNWaj00O9e++4jM=
+    -----END PRIVATE KEY-----
+    -----BEGIN CERTIFICATE-----
+    MIICLuDAAASCBKcwggSjAgEAAoIBAQCKfxFtvf2CyswCQYDVQQGEwJCRTEf450G
+    ancmxco9LrP+xJmbnJsdizOsrfMaK9wEmuPvQOOACZEnEHxPUmB0Yvdt8YHmPHl
+    ...
+    MUWQAHEfd6bz54fd6gVb4ahE=
+    -----END CERTIFICATE-----
+\end{lstlisting}

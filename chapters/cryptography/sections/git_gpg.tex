@@ -1,7 +1,7 @@
 \newsection{Why to use GPG signature in Git}
 \label{gitgpg}
 SSH~keys only serve for~access right to a~\hyperref[git]{Git} repository.
-They can't~be used for~user identity verification.
+They can't~be used for~user \hyperref[authenticationauthorization]{authentication}.
 Anyone who has access to a~GitHub can pretend to be someone else.
 User names and~emails depend only on the~local Git configuration.
 For~example, consider that you have an~access to a~GitHub.
@@ -13,7 +13,7 @@ And~next you configure your local Git like this:
     git config --global user.email homersimpson@burnspowerplant.com
 \end{lstlisting}
 \noindent Whoever you are, your commits will look like Homer made them.
-But~GPG keys are~connected with user names and~addresses, furthermore they're protected by a~\hyperref[keypassword]{password}.
+But~GPG keys are~connected with user names and~addresses, furthermore they're protected by \hyperref[keypassword]{passwords}.
 With a~Git hub requiring GPG signing of~commits you~can't push unsigned commits and~you~can't sign without knowing the~password.
 When you configure your Git to~sign commits you~can't even commit without signing.
 

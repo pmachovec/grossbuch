@@ -1,5 +1,6 @@
 \newsection{Symmetric Cryptography}
 \label{symmetriccryptography}
+\enlargethispage{10mm}
 In~this type of~cryptography there is~one common key used for~both encryption and~decryption.
 This key should be always kept secret and~shared with caution, that's why also the~term \itq{private key cryptography} is~used.
 The~message processing flow~is:
@@ -8,6 +9,7 @@ The~message processing flow~is:
           He encrypts the~message with the~key and~sends it to a~receiver.
     \item The~receiver has the~same key, which he uses to decrypt the message.
 \end{itemize}
+\newpage
 
 \newsubsection{AES}
 \index{AES}
@@ -29,4 +31,3 @@ AES~keys are~just byte sequences, usually random, carrying no further informatio
 They're usually represented as~hexadecimal strings (one~byte\,=\,two~characters), sometimes with spaces between character couples.
 They can~be also written in~the~\hyperref[base64]{\mbox{Base64}} encoding.
 Storing key bytes to~a~file of~a~desired size is~also possible, in~that case it~creates an~unreadable mess.
-\newpage

@@ -1,0 +1,38 @@
+\newsection{OAuth2}
+\index{Oauth2}
+\index{Token secret}
+\mbitq{OAuth2} denotes the~version 2.0 of~the~OAuth \hyperref[protocolstandard]{standard}.
+The~inner structure is completely different, versions 1.0 \mbox{and 2.0} are mutually incompatible.
+Key aspects of~Oauth2 follow.
+
+\newsubsection{Security}
+OAuth2 communication works only with~the~\hyperref[https]{HTTPS protocol}, making it secure by default.
+In~the~original OAuth, when~the~communication should~be secured (which~is~always the~case as~tokens are confidential), \hyperref[cryptography]{cryptography} techniques must~be implemented at~the~consumer and~the~service provider endpoints.
+
+\newsubsection{Access Token Validity}
+\index{Bearer token}
+\label{oauth2accesstokenvalidity}
+In~OAuth2, the~access token is valid for~only a~short time, no~more than~few hours.
+When~a~consumer is \hyperref[authenticationauthorization]{authorized}, he~gets so~called \textit{bearer token} instead~of the~access token.
+And~the~logic of~OAuth2 says that whoever can~provide the~bearer token, he~can~get the~actual access token.
+So~when~the~access token of~the~consumer is~no~longer valid, the~consumer presents the~bearer token and~gets a~new valid access token
+
+\newsubsection{Consumer Authentication}
+\label{oauth2consumerauthentication}
+By~default, OAuth2 doesn't need any equivalent of~the~consumer token.
+I.e.,~it~doesn't identify the~consumer by~default.
+It~relies solely on~the~\hyperref[oauth2accesstokenvalidity]{bearer token} -- whoever has~it is eligible for~access no~matter who~he~is.
+However, when~needed, a~special parameter \mbitq{client\_id} can~be included in~the~corresponding \hyperref[http]{HTTP} request header.
+Value of~this parameter is an~equivalent of~the~consumer token \mbox{from OAuth 1.0.}
+
+\newsubsection{Token Authentication}
+\mbox{In OAuth 1.0} sender's tokens \hyperref[authenticationauthorization]{authentication} is compulsory, either by \hyperref[mac]{MAC} or~by \hyperref[electronicsignature]{electronic signature}.
+That's why token secrets (when~using MAC, each~token has its own secret) or~a~private key (when~using electronic signature, both consumer and~access token are signed by~the~same private key) must~be specified on~the~sender's side.
+\mbox{But in OAuth 2.0} this isn't necessary.
+Actually, token \hyperref[authenticationauthorization]{authentication} isn't supported at~all.
+Only the~\hyperref[oauth2consumerauthentication]{\mbit{client\_id}} parameter can~be authenticated using \hyperref[mac]{MAC} techniques.
+For~the~client ID MAC, there's another \hyperref[http]{HTTP} request header parameter -- \mbox{\itq{client\_secret}.}
+
+\warning If~you~see or~hear \mbitq{OAuth} without \mbox{the \itq{two}}, it~can~still mean the~version~\mbox{2.0.}
+That's because the~version~\mbox{1.0} is becoming obsolete.
+Many "professionals" automatically mean the~version~\mbox{2.0} when~saying \mbit{OAuth}.

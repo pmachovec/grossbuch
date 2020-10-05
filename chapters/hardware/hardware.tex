@@ -11,7 +11,7 @@
             Nowadays CPU is treated as a~synonym of the~processor, but that's wrong.
             Beside the~CPU there are~other processors in a~computer.
             For~example, a~hard drive contains its own processor controlling data reading and~writing, graphic cards contain a~GPU (Graphics Processing Unit) performing calculations needed to render and~display images etc.
-    \itembf{Core} is the main computation component of the CPU performing instructions (with the~help of~other parts of the~core like \hyperref[alu]{ALUs}).
+    \itembf{Core} is the main computation component of the CPU performing instructions (with the~help of~other parts of~CPU like \hyperref[alu]{ALUs}).
             Typically, one core can process one instruction at~a~time, although nowadays there are even cores enabling parallel instructions processing.
             However, usually the~parallelism is still achieved by putting more cores to one CPU and~more CPUs to~one computer.
             For~example, when you read the~typical "state--of--the--art" claim that a~computer has~quad--core processor, it means that there is a~single CPU with four cores in the~computer.
@@ -46,7 +46,7 @@ A~core is connected with an~ALU via an~execution port, sends inputs to it and pr
 \index{Operational memory}
 \index{Memory}
 \label{systemmemory}
-System memory, also computer memory, operational memory or~maliciously simply memory, is a~memory from which a~\hyperref[processorcpucore]{processor} reads a~\hyperref[applicationprocessprogramservicethread]{process} instructions and~other data that the~process requires.
+System memory, also \textit{computer memory}, \textit{operational memory} or~maliciously simply \textit{memory}, is a~memory from which a~\hyperref[processorcpucore]{processor} reads a~\hyperref[applicationprocessprogramservicethread]{process} instructions and~other data that the~process requires.
 I.e.,~to~run a~process the~computer \hyperref[os]{OS} must load its instructions and~required data to~the~system memory, from which the~computer processor can~read~them and~subsequently process~them.
 
 System memories are~almost every time \hyperref[ram]{RAMs} because of~the~fast access to~any of~stored data.
