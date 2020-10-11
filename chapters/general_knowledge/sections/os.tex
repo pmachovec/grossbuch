@@ -1,0 +1,42 @@
+\newsection{Operating System (OS)}
+\index{Operating system}
+\index{OS}
+\label{os}
+It's~a~basic software of~a~computer that manages the~computer's hardware, other software, their mutual communication, \hyperref[systemmemory]{memory} allocation and~interaction with a~user.
+Many operating systems also handle parallel \hyperref[applicationprocessprogramservicethread]{process} execution -- \hyperref[multitasking]{multitasking}.
+Some sort of~OS should be installed to~a~computer as~a~part of~the~computer construction in~order to~make the~computer usable for~an~ordinary user.
+Controlling computer without an~OS (including the~initial OS installation) requires passing precise machine instructions directly to~the~computer \hyperref[processorcpucore]{processor}, which only computer manufacturers and~true specialists are~capable~of.
+
+\newsubsection{Kernel}
+\index{Kernel}
+\index{Kernel space}
+\index{User space}
+\label{kernel}
+It's~the~core part of~an~OS, which manages the~connection of~\hyperref[applicationprocessprogramservicethread]{processes} with the~computer hardware.
+I.e.,~it~controls \hyperref[processorcpucore]{processor} management (assigning processor time to~processes), \hyperref[systemmemory]{memory} management (assigning memory space to~processes), computer devices and~communication with peripherals (keyboard, mouse, monitor, speakers,~\dots).
+Kernels have allocated a~special part of~the~\hyperref[systemmemory]{system memory} called \textit{kernel space}.
+The~remaining part of~the~\hyperref[systemmemory]{memory} is~called \textit{user space}.
+
+\newsubsection{Monolithic Kernel}
+\index{Monolithic kernel}
+\label{monolithickernel}
+It's~an~old--fashioned type of~kernel where all kernel parts, as~described above, use the~kernel space.
+\hyperref[unixlinux]{Unix and~Linux} systems typically have monolithic kernels.
+
+\newsubsection{Microkernel}
+\index{Microkernel}
+\label{microkernel}
+It's~an~opposite to~the~monolithic kernel.
+It~runs only the~absolute minimum for~the~computer control using the~kernel space.
+The~minimum consists basically of~\hyperref[processorcpucore]{processor} management and~\hyperref[systemmemory]{memory} management.
+All~other kernel functions are~handled as~standard processes (called \hyperref[server]{servers} when dealing with microkernels) using the~user space.
+Microkernels are~more stable than monolithic kernels and~their functionality can~be extended by~adding new~servers without a~need of~recompilation, but~on~the~other hand they're slower.
+
+\newsubsection{Hybrid kernel}
+\index{Hybrid kernel}
+\label{hybridkernel}
+It's~a~combination of~\hyperref[monolithickernel]{monolithic kernel} and~\hyperref[microkernel]{microkernel} combining (dis)advantages of~both.
+The~kernel functionalities are~separated to~servers like in~a~\hyperref[microkernel]{microkernel}, but~they~run in~the~kernel space.
+This preserves the~stability of~the~kernel with significantly less impact on~performance.
+The~disadvantage of~this~approach is that adding new servers is more complicated (and~impossible during runtime) than with \hyperref[microkernel]{microkernels}.
+Today's top commercial \hyperref[os]{operating systems} like Windows or~macOS have hybrid kernels (or~at~least Microsoft and~Apple say~so).

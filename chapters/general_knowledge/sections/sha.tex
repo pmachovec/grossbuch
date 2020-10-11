@@ -1,0 +1,37 @@
+
+\newsection{SHA}
+\index{SHA}
+\index{Secure Hash Algorithm}
+\index{Hashing algorithm}
+\index{Hashing function}
+The~abbreviation stands for~\itq{Secure Hash Algorithm}.
+It~denotes a~family of~most widespread hashing algorithms.
+There are many algorithms in~this family and~their notation can~be a~little bit confusing.
+
+There are three basic versions -- \mbox{SHA-1}, \mbox{SHA-2} \mbox{and SHA-3}.
+The~first confusion is~made that sometimes dashes are~not~used in~names, i.e.,~you~see \mbox{SHA1}, \mbox{SHA2} \mbox{or SHA3} instead.
+There's no~difference, they~mean the~same -- basic algorithm version.
+
+\mbox{The SHA-1} algorithm is~only one, it~has~no~subversions.
+It~always produces a~hash of~160 \hyperref[bitsbytes]{bits}.
+As~the~very first version it~has been already broken and~shouldn't be used any~more.
+
+\mbox{The SHA-2} algorithm has~many subversions, each producing a~hash of~different \hyperref[bitsbytes]{bit} length.
+This forms another confusion -- the~length is specified \textbf{instead} of the~main version.
+I.e.,~when you see for~example \mbitq{SHA-256}, it~means \mbox{the SHA-2} version producing a~hash of~256 \hyperref[bitsbytes]{bits}.
+None \mbox{of SHA-2} variants has~been broken to~this day, it's~still safe to~use.
+
+Initial procedure of~breaking \mbox{SHA-1} was rather complicated and~time consuming.
+However, in~2004, only two years after introduction \mbox{of SHA-2}, some smart guy introduced a~very cheap and~efficient alternative.
+This lead to~concerns that some similar break will~soon be introduced even \mbox{for SHA-2.}
+And~that's \mbox{why the SHA-3} algorithm was created as~an~alternative with completely different design.
+It~also has subversions creating hashes of~different \hyperref[bitsbytes]{bit} lengths.
+In~order not~to~confuse it \mbox{with SHA-2} the~main version must~be always mentioned \mbox{for SHA-3.}
+When written, the~dash is usually omitted, forming another confusion.
+For~example, \mbox{a SHA-3} algorithm producing \mbox{a 256-\hyperref[bitsbytes]{bit}} hash is~denoted \mbox{as \itq{SHA3-256}.}
+
+\note Input length of~SHA algorithms (and~generally of~any~other good hashing algorithm) isn't limited.
+With~\textbf{very long} inputs there's a~rather theoretical possibility of~producing a~same~hash for~two~different inputs.
+However, the~probability is so small that~hashing is still considered safe.
+For~example, the~version \mbox{of SHA-2} with~the~shortest used output is \mbox{SHA-256}, and~that can~generate a~different hash for~2\textsuperscript{256} different inputs.
+And~that's really a~lot.

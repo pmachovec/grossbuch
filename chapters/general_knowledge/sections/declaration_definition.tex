@@ -1,0 +1,24 @@
+\newsection{Declaration VS Definition}
+\index{Declaration}
+\index{Definition}
+\label{declarationdefinition}
+\begin{itemize}
+    \itembf{Declaration of~a~variable} means specifying the~variable name, \hyperref[datatypes]{type} and~eventually \hyperref[javaaccessmodifiers]{access level}.
+            It~doesn't include assigning a~value to~the~variable.
+            Example: \mbitq{private int a;}.
+    \itembf{Declaration of~a~method (or~a~function)} is the~method header.
+            It~consists of~the~method name, return value \hyperref[datatypes]{type}, number, names and~\hyperref[datatypes]{types} of~arguments of~the~method and~eventually its \hyperref[javaaccessmodifiers]{access level}.
+            Example: \mbitq{public void doSomething(int a);}.
+    \itembf{Definition of~a~variable} means assigning a~value to~the~variable.
+            It~can~immediately follow the~variable definition (\itq{private int a = 1;}) or~appear later as~a~separate command (\itq{private int a; \dots a = 1;}).
+    \itembf{Definition of~a~method (or~a~function)} is the~method header with the~method body.
+            Example: \mbitq{public void doSomething(int a) \{ \dots \}}".
+\end{itemize}
+\newpage
+
+\noindent Generally a~declaration informs \hyperref[compiledinterpretedlanguages]{a~compiler or~an~interpreter} about some structure.
+Definition allocates a~memory for~the~structure.
+There can~be a~declaration without a~definition, but~not~reversed.
+One~variable or~method (or~function) can~be declared multiple times, but~defined maximally once.
+When you assign a~new value to~already defined variable, you~rewrite the~already allocated memory.
+That isn't a~new definition.

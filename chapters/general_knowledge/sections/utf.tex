@@ -1,0 +1,40 @@
+\newsection{UTF}
+\index{UTF}
+\index{UTF--16}
+\label{utf}
+UTFs are \hyperref[charactersetencoding]{character encodings} for~\hyperref[unicode]{Unicode} character set.
+There are three, each consuming different number of~bytes per character.
+The~abbreviation stands for~\itq{Unicode Transformation Format}.
+
+\newsubsection{UTF--8}
+\index{UTF--8}
+\label{utf8}
+This is the~most widely used Unicode encoding, especially in~\hyperref[unixlinux]{Unix} systems.
+It~consumes from~1 to~4~bytes per character depending on the~need.
+Codes of basic characters included in~\hyperref[ascii]{ASCII} are~the~same \mbox{in UTF--8} and~ASCII encodings, consuming one byte.
+This is helpful when converting characters from~one encoding to~the~other.
+
+Codes of characters consuming one byte match \hyperref[unicode]{Unicode} code points (they~have zeros in~3rd or~4th digit).
+For~example, code of~the~letter~\itq{a}, which has code point \mbit{U+0061}, is~\itq{61} \mbox{in UTF--8}.
+
+However, codes of higher characters (with code points not~having zeros in~3rd or~4th digit) don't match code points.
+For~example, code of~the~Chinese \mbox{character "\chinese{水}"}, which has code point \mbit{U+6C34}, \mbox{is~\itq{E6B0B4}} \mbox{in UTF--8}.
+
+\newsubsection{UTF--16}
+\index{UTF--16}
+\label{utf16}
+This encoding consumes 2 or~4~bytes per character depending on~the~need.
+Codes of most of characters, whose code points have 4~digits in~\hyperref[unicode]{Unicode}, match those code points.
+
+Despite the~similar name, \mbox{UTF--16} is incompatible with \hyperref[utf8]{\mbox{UTF--8}}.
+\mbox{UTF--16} is more efficient than \mbox{UTF--8} when working with Asian languages.
+Generally where \mbox{UTF--8} uses 3~\hyperref[bitsbytes]{bytes}, \mbox{UTF--16} uses only 2~bytes.
+For~example, code of~the~Chinese \mbox{character "\chinese{水}"}, which has code point \mbit{U+6C34}, \mbox{is~\itq{6C34}} \mbox{in UTF--16}.
+Also, \hyperref[java]{Java} and~\hyperref[dotnet]{.NET} work better with \mbox{UTF--16} (only Chuck Norris knows~why).
+
+\newsubsection{UTF--32}
+\index{UTF--32}
+This encoding consumes 4~bytes per character no~matter what.
+It's~true that having all character blocks of~the~same length is computational advantage, but~that can~be~almost always reached even \mbox{with~\hyperref[utf16]{UTF--16}}.
+Only very special scripts, like ancient Egyptian, can't~be~covered by~two~bytes (Klingoneese or~Tengwar can~be).
+For~this reason, \mbox{UTF--32} is~used only very rarely.

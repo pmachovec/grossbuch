@@ -1,0 +1,36 @@
+\section*{\fontsize{17}{17} \selectfont Program VS Application VS Process VS Service VS Thread}
+\addcontentsline{toc}{section}{Application VS Process VS Program VS Service VS Thread}
+\index{Program}
+\index{Application}
+\index{Process}
+\index{Service}
+\index{Thread}
+\index{Computer program}
+\label{applicationprocessprogramservicethread}
+\begin{itemize}
+    \itembf{Program} is the~most general term of these.
+            It's included in all others.
+            A~computer program is a~set of~instructions that can~be executed on a~computer.
+    \itembf{Application} is a~computer program with which, when it's executed, users actively interact.
+    \itembf{Process} is a~particular executed and~running instance of a~program.
+    \itembf{Service} is a~process that runs continuously in the~background without active interaction with a~user.
+            I.e., it's the opposite of application.
+    \itembf{Thread} is a~set of consecutive steps performed one by~one in a~process.
+            A~process can~be separated to~more threads which can run in~parallel (if~the~program implementation supports~it).
+\end{itemize}
+
+\newsubsection{Web Service VS Web Application}
+\index{Web service}
+\index{Web application}
+\label{webserviceapplication}
+\begin{itemize}
+    \itembf{Web~service} is any~program executed or~continuously running on a~remote computer, with which programs on~other computers communicate over the~\hyperref[internetweb]{Web}, i.e.,~using the~\hyperref[http]{HTTP protocol}.
+            A~program called \hyperref[clientserverarchitecture]{\mbit{client}}, running on a~user's computer, sends a~request to~another~program called \hyperref[clientserverarchitecture]{\mbit{server}} running on~the~remote computer (the~same computer as the~target remote program), the~server delegates the~request to~the~remote program, the~remote program processes the~request and~sends a~response to~the~server, which then delegates it back to~the~client.
+            \warningnonl The~term \textit{web service} is~ambiguous.
+            Sometimes it denotes solely the~remote program, sometimes it includes even the~server.
+            Also, opposite to~a~standard \hyperref[applicationprocessprogramservicethread]{service} the~remote program doesn't have to run continuously.
+            Only the~server does.
+    \itembf{Web~application} is basically a~web~service with a~\hyperref[shellcligui]{GUI} in~a~web browser on~the~client side.
+            In~a~web application a~user actively interacts with a~web page, based on~this interaction requests are~sent to~a~web service, responses are~sent back and~visualised in~the~browser.
+\end{itemize}
+\newpage
