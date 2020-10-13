@@ -15,7 +15,7 @@
 \index{Request line}
 \index{Response line}
 \label{http}
-It's a~\hyperref[protocolstandard]{protocol} for~transferring data over the~\hyperref[internetweb]{web}.
+It's~a~\hyperref[protocolstandard]{protocol} for~transferring data over the~\hyperref[internetweb]{web}.
 It's~based on~the~\hyperref[clientserverarchitecture]{client--server architecture}.
 A~client, typically (but~not~necessarily) a~web browser, sends so~called \mbit{request} to~a~server.
 It's~just a~bunch of~text encapsulating client's requirements -- what does it want from the~server.
@@ -74,8 +74,8 @@ And~if~the~header of~the~request contains the~content type set to~\mbitq{text/ht
     </html>
 \end{lstlisting}
 \notenonl The~HTTP \hyperref[protocolstandard]{protocol} isn't used only for~displaying \hyperref[internetweb]{web} pages.
-For~example the~\hyperref[rest]{REST} communication between two running programs also uses this protocol.
-In~this case the~content type is \mbitq{application/json}.
+For~example the~\hyperref[soap]{SOAP} or~\hyperref[rest]{REST} communication between two running programs also uses this protocol.
+In~this case the~content type is different.
 
 \newsubsection{HTTPS (HTTP over TLS)}
 \index{HTTPS}
@@ -93,8 +93,8 @@ Now~both client and~server have safely exchanged a~symmetric key (so~called \mbi
 \label{smtp}
 
 \newsubsection{SSH (Secure Shell)}
-\index{Secure shell}
 \index{SSH}
+\index{Secure shell}
 \label{ssh}
 It's a~\hyperref[protocolstandard]{protocol} for~network communication that includes cryptographic features to~encrypt the~communication.
 It~enables secure communication over a~network in~a~\hyperref[clientserverarchitecture]{client--server architecture} that generally is~not secured.
@@ -111,12 +111,22 @@ It~can, however, use its own \hyperref[certificate]{certificates}.
 These certificates don't follow the~\hyperref[x509]{\mbox{X.509}} standard.
 
 \newsubsection{SFTP (SSH File Transfer Protocol)}
-\index{SSH file transfer protocol}
 \index{SFTP}
+\index{SSH file transfer protocol}
 \label{sftp}
-It's a~\hyperref[protocolstandard]{protocol} for~secured network file access, file transfer, and~file management.
-It's an~extension of~the \hyperref[ssh]{SSH protocol}, therefore, when working with SFTP, you often have to~deal with documentation, terms and,~when programming, also object names that contain the~text~\textit{SSH}.
+It's~a~\hyperref[protocolstandard]{protocol} for~secured network file access, file transfer, and~file management.
+It's~an~extension of~the \hyperref[ssh]{SSH protocol}, therefore, when working with SFTP, you often have to~deal with documentation, terms and,~when programming, also object names that contain the~text~\textit{SSH}.
 For~example, one of~the~current Java libraries for~SFTP file management is~called~\textit{SSHJ}.
 
 \warning It has nothing to~do with the~FTP \hyperref[protocolstandard]{protocol}.
 That is completely different, very old and~unsecured protocol for network file transferring.
+
+\newsubsection{SOAP (Simple Object Access Protocol)}
+\index{SOAP}
+\index{Simple object access protocol}
+\label{soap}
+It's~a~\hyperref[protocolstandard]{protocol} for~exchanging structured information (messages) in~the~implementation of~\hyperref[webserviceapplication]{web services} in~computer networks.
+It's~an~extension of~the~\hyperref[http]{HTTP protocol}.
+Messages exchanged in~HTTP request/response bodies are~XMLs and~these~XMLs must always contain few standardised elements.
+The~whole XML has a~root element \mbitq{soapenv:Envelope}, and~this~has two direct subelements \mbitq{soapenv:Header} \mbox{and \itq{soapenv:Body}}.
+Possible contents of~the~header and~the~body are~described by \mbox{a server's \hyperref[wsdl]{WSDL}}.

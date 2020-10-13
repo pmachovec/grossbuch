@@ -4,8 +4,8 @@
 \index{RESTful}
 \label{rest}
 The~abbreviation stands for \itq{Representational State Transfer}.
-It's~a~technique for~transferring data between two \hyperref[applicationprocessprogramservicethread]{programs} using the~\hyperref[http]{HTTP protocol}.
-Transferred data can~be theoretically in~any string form, but~the~most popular nowadays is~the~\hyperref[json]{JSON} format.
+It's~a~technique for~transferring data -- for~exchanging messages -- between two \hyperref[applicationprocessprogramservicethread]{programs} using the~\hyperref[http]{HTTP protocol}.
+Transferred data can~be theoretically in~any string form, but~the~only format used nowadays is~the~\hyperref[json]{JSON} format.
 
 The~first program has~the~role of~a~client and~initiates a~standard \hyperref[http]{HTTP} request.
 The~request can, but~doesn't have~to, already contain some JSON data in~the~body.
@@ -29,3 +29,6 @@ The~overview list follows:
 
 \noindent And~to~make it even more complicated you~can~also encounter a~term \itq{\mbox{RESTful} application} or~\itq{\mbox{RESTful} program}.
 This can~denote both a~client side program or~a~server side web service supporting the~REST communication.
+
+\warning Opposite to~\hyperref[soap]{SOAP}, REST isn't a~concrete \hyperref[protocolstandard]{protocol}, not~even a~\hyperref[protocolstandard]{standard}.
+It's~just a~programming style -- sending structures (objects) encoded in~the~\hyperref[json]{JSON} format over~\hyperref[http]{HTTP}.

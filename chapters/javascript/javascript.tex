@@ -189,6 +189,11 @@ Furthermore, when using RequireJS, you~can~develop a~functionality on~the~Node.j
 \warning You~can~encounter a~JavaScript file loading modules with a~keyword \mbitq{require}.
 This is a \hyperref[nodejs]{NodeJS} feature called \hyperref[commonjs]{\mbit{CommonJS}}.
 It~isn't supported in~JavaScript by~default.
+
+However, to~make things even more confusing, RequireJS supports using \mbox{the \itq{require}} keyword as~a~replacement of~the~standard \mbitq{requirejs} keyword, if~the~executing \hyperref[engine]{engine} doesn't use it on~its~own.
+So~for~example, when~running RequireJS code in~a~\hyperref[internetweb]{web} browser, you~can~use \mbitq{require} instead of \mbitq{requirejs}.
+But~when~running the~same code in~\hyperref[nodejs]{NodeJS}, it~will fail.
+Therefore, it's~advisable to~use the~default \itq{requirejs} keyword every time when working with~RequireJS.
 \newpage
 
 \example[assigning action to~a~button with RequireJS and jQuery]
