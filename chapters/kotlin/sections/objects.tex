@@ -1,0 +1,73 @@
+\newsection{Objects}
+\index{Object}
+\label{kotlinobject}
+Kotlin has the~ability to~provide the~\hyperref[singletondp]{singleton design pattern} without any~special implementation or~framework.
+Instead of~a~standard class it's possible to~\hyperref[declarationdefinition]{define} an~\textit{object}.
+Objects are almost (but~not~completely) same as~classes.
+They can~be instantiated and~assigned to~variables, they can~implement interfaces and~extend classes.
+When an~object is~called for~the~first time, it's~instantiated.
+Each~further call refers to~the~same instance.
+It~isn't necessary to~assign an~object instance to~a~variable, it~can~be referred by~the~object name.
+
+\example[object definition and~usage, the~object implements an~interface]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    object SimpleObject: SimpleInterface {
+        lateinit var simpleValue: String
+    }
+
+    // Object instantiated, notice there are no brackets
+    val simpleVariable = SimpleObject
+    simpleVariable.value = "one"
+    SimpleObject.value = "two"
+    println(simpleVariable.value) // Will print "two"
+    println(SimpleObject.value)   // Will print "two
+\end{lstlisting}
+
+\noindent Objects can't~be inherited and~don't allow to~be~declared with the~keyword \itq{open}.
+They also can't~have \hyperref[kotlinconstructor]{constructors}, not~even \hyperref[kotlinprimaryconstructor]{primary}.
+However, this can~be hacked by~\hyperref[kotlinoperatoroverload]{overloading the~operator} \itq{invoke}.
+
+\example[object looking like having a~constructor]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    object ObjectWithConstructor {
+        lateinit var value: String
+
+        operator fun invoke(value: String): ObjectWithConstructor {
+            this.value = value
+            return this
+        }
+    }
+
+    val objectWithConstructor = ObjectWithConstructor("SOMETHING")
+    println(objectWithConstructor.value) // Will print "SOMETHING"
+\end{lstlisting}
+\newline
+
+\noindent Java equivalent of~a~Kotlin object is~a~final class implementing the~\hyperref[singletondp]{singleton design pattern}.
+The~instance variable in~such class is~\hyperref[javapublic]{public}, \hyperref[javastatic]{static} and~\hyperref[javafinal]{final}.
+This enables the~described behavior.
+\newpage
+
+\example[Java equivalent of~a~Kotlin object]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public final class SimpleObject {
+        @>@NotNull
+        public static String simpleValue;
+        public static final SimpleObject INSTANCE;
+
+        private SimpleObject(){}
+
+        static {
+            SimpleObject var0 = new SimpleObject();
+            INSTANCE = var0;
+        }
+
+        ...COMPLEX GETTER AND SETTER FOR simpleValue...
+    }
+\end{lstlisting}
+
+\warning Getting a~\hyperref[kotlincallablereference]{callable reference} (double colon) from an~object doesn't create the~singleton instance.
+This can~be important when dealing with \hyperref[objectinitblock]{initializer blocks of~objects}.

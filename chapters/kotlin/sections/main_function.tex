@@ -1,0 +1,91 @@
+\newsection{Main Function}
+Like you~need the~\textit{main} method in~Java as~a~starting point of~a~program, you~need the~\textit{main} function in~Kotlin.
+It~seems simple at~the~first glance -- just \hyperref[declarationdefinition]{define} a~function:
+%! language = TEXT
+\begin{lstlisting}[frame=no, language=Kotlin]
+    fun main(args: Array<String>) {
+        ...
+    }
+\end{lstlisting}
+
+\noindent But~it~doesn't work like this.
+\hyperref[jdkjrejvm]{JRE}~won't trigger a~class with such function, it~will~complain that it~\itq{could not find or~load main class}.
+Compare the~definition with the~Java definition of~the~\textit{main} method:
+%! language = TEXT
+\begin{lstlisting}[frame=no, language=Java]
+    public static void main(String[] args) {
+        ...
+    }
+\end{lstlisting}
+
+\noindent The~problem is the~\hyperref[javastatic]{\textit{static} access modifier}.
+There's no \textit{static} in~Kotlin.
+Therefore, it~isn't possible to~\hyperref[declarationdefinition]{define} the~\textit{main} function as~a~standard class function.
+There~are two possibilities how to~create a~\textit{main} function in~Kotlin -- in~a~\hyperref[companionobject]{companion object} or~as~a~standalone function (without a~class).
+
+\newsubsection{In~a~companion object}
+\index{JvmStatic}
+This is more old school Java approach.
+You~define a~\textit{main} function in~a~\hyperref[companionobject]{companion object} of~a~class.
+You~must additionally annotate the~function with the~annotation \textit{@JvmStatic}.
+That's because object functions transformed to~Java methods aren't created as~static by~default, and~the~main method must~be static.
+With the~annotation the~keyword \textit{static} is~added to~the~generated method.
+The~class can~be then used as~the~main class.
+
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin,title={Main function in~a~companion object}]
+    class simpleClass {
+        companion object {
+            @>@JvmStatic
+            fun main(args: Array<String>) {
+                ...
+            }
+        }
+    }
+\end{lstlisting}
+
+\newsubsection{As~a~standalone function}
+This is the~real Kotlin approach.
+Kotlin enables to~have functions outside classes.
+For~a~file containing these standalone functions a~class with \itq{-kt} at~the~end of~the~name is~generated and~each function has~a~corresponding static method.
+
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin,title={A~tandalone main function in a~file \textit{Example.kt}}]
+    fun main(args: Array<String>) {
+        ...SOME CODE...
+    }
+\end{lstlisting}
+
+%! language = TEXT
+\begin{lstlisting}[language=Java,title={Corresponding Java code}]
+    public final class ExampleKt {
+        public static final void main(@NotNull String[] args) {
+            Intrinsics.checkParameterIsNotNull(args, "args");
+            ...SOME CODE...
+        }
+    }
+\end{lstlisting}
+
+\noindent Since Kotlin~1.3 \mbit{args} can~be omitted when not needed.
+The~generated \hyperref[javabytecode]{bytecode}, however, still contains~it.
+
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin,title={A~tandalone main function without \mbit{args}}]
+    fun main() {
+        ...SOME CODE...
+    }
+\end{lstlisting}
+
+%! language = TEXT
+\begin{lstlisting}[language=Java,title={Corresponding Java code}]
+    public final class ExampleKt {
+        public static final void main() {
+            ...SOME CODE...
+        }
+
+        // (*\Sc[LimeGreen]*)FF: synthetic method
+        public static void main(String[] var0) {
+            main();
+        }
+    }
+\end{lstlisting}

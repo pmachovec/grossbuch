@@ -1,0 +1,75 @@
+\newsection{Initializer Blocks}
+\index{Initializer block}
+\index{Init block}
+\label{kotlininitblock}
+These are code blocks labeled by~the~keyword \itq{init}.
+They can~appear in~classes even in~\hyperref[kotlinobject]{objects} including \hyperref[companionobject]{companion objects}.
+They're executed at~the~initialization of~their holding objects.
+They can~access \hyperref[variablefieldproperty]{fields} of~their holding structures (classes or~objects), but~if~these aren't initialized with the~holding structure (which can~happen for~\textit{lateinit} \hyperref[variablefieldproperty]{fields}), it~thows the~exception \itq{UninitializedPropertyAccessException}.
+
+There can~be more initializer blocks in~one class or~object.
+In~that case they're executed in~the~top--down order of~their \hyperref[declarationdefinition]{definition}.
+
+\newsubsection{In~a~class}
+For~classes initializer blocks are~executed on~each \textbf{outside} constructor call.
+If~a~constructor calls another constructor (inside constructor call chain), for~example, an~explicit constructor calls the~\hyperref[kotlinprimaryconstructor]{primary~one}, blocks are~executed only once.
+
+Initializer blocks are~executed before constructors, even when there's a~constructor call chain.
+When a~constructor~\textit{B} calls a~constructor~\textit{A}, and~it's~called from outside, first all~initializer blocks are~executed, then~the~constructor~\textit{A} and~then the~constructor~\textit{B}.
+
+Initializer blocks can~access \hyperref[parameterargument]{arguments} of~\hyperref[kotlinprimaryconstructor]{primary constructors}.
+To~read an~\hyperref[parameterargument]{argument} of~a~standard constructor, the~only way is to~pass it somehow to~the~\hyperref[kotlinprimaryconstructor]{primary~one}.
+
+\example[class with an~initializer block]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    class ClassWithInitBlock(simpleValue: String) {
+        init {
+            // Accessing argument of the primary constructor
+            println(simpleValue)
+        }
+
+        // Passing argument to the primary constructor
+        constructor(firstValue: String, secondValue: String) : this(firstValue) {
+            println(secondValue)
+        }
+    }
+
+    // Will print "SOMETHING" (the block) followed by "SOMETHING ELSE" (the constructor)
+    val classInstance = ClassWithInitBlock("SOMETHING", "SOMETHING ELSE")
+\end{lstlisting}
+
+\newsubsection{In~an~object}
+\label{objectinitblock}
+As~objects are~initialized only on~the~first call, initializer blocks of~objects are~called only in~that moment.
+There are no~constructor traps, because objects can't~have constructors.
+If~you~simulate a~constructor by~\hyperref[kotlinoperatoroverload]{overloading the~invocation operator}, the~behavior is the~same as~with an~ordinary function.
+I.e.,~if it's a~first call of~the~object, initializer blocks are~called, otherwise~not.
+
+\example[object with an~initializer block]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    object ObjectWithInitBlock {
+        init {
+            println("one")
+        }
+
+        fun doSomething() {
+            println("SOMETHING")
+        }
+
+        init {
+            println("two")
+        }
+    }
+
+    // Will print "one" (first block) followed by "two" (second block) followed by "SOMETHING" twice (two calls of the function)
+    ObjectWithInitBlock.doSomething()
+    ObjectWithInitBlock.doSomething()
+\end{lstlisting}
+
+\warning Remember that getting a~\hyperref[kotlincallablereference]{callable reference} from an~object doesn't instantiate the~object, therefore, initializer blocks aren't triggered in~such situations.
+
+\newsubsection{In~a~companion object}
+Initializer blocks of~a~\hyperref[companionobject]{companion object} are similar to~those in~standard \hyperref[kotlinobject]{objects}.
+They're~called on~the~first call of~the~class holding~it, no~matter what call it~is.
