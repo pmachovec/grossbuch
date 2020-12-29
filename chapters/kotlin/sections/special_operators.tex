@@ -21,6 +21,7 @@ I.e.,~it's coalesce operator for~two values.
     val second: String? = "second"
     val result: String? = first ?: second // result is "second"
 \end{lstlisting}
+\newpage
 
 \example[second argument is null]
 %! language = TEXT
@@ -38,8 +39,6 @@ I.e.,~it's coalesce operator for~two values.
     val result: String? = first ?: second // result is null
 \end{lstlisting}
 
-\enlargethispage{20mm}
-\thispagestyle{empty}
 \newsubsection{Safe Call (?.)}
 \index{Safe call}
 \label{kotlinsafecall}
@@ -62,7 +61,6 @@ It~doesn't throw an~exception.
     val first: String? = null
     val result: String? = first?.reversed() // result is null
 \end{lstlisting}
-\newpage
 
 \newsubsection{Non--null assertion (!!)}
 Kotlin code aims to~avoid a~null pointer exception as~much as~possible.
@@ -81,6 +79,7 @@ When the~asserted variable is null, using the~operator results \mbox{in \textit{
     // val nonNullable String = nullable // Not compilable
     val nonNullable: String = nullable!!
 \end{lstlisting}
+\newpage
 
 \example[usage in dot notation]
 %! language = TEXT

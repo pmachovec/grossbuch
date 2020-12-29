@@ -1,0 +1,6 @@
+\newsection{\textit{Var} and \textit{val} keywords by parameters}
+Only parameters of~\hyperref[kotlinprimaryconstructor]{primary constructors} can~have them.
+Parameters of \hyperref[kotlinsecondaryconstructor]{secondary constructors} and~functions are~treated as~immutable
+by~default and~they can't~have those keywords.
+The~idea is that assigning new values to~method parameters, which is possible in~Java, indicates wrong design, and~is therefore blocked in~Kotlin.
+If~you~need such behavior, then your design is wrong and~must~be changed, for~example, by~using a~new~property of~the~class, to~which the~original parameter can~be~assigned at~the~beginning.
