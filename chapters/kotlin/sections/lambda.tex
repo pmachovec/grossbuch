@@ -1,0 +1,272 @@
+\newsection{Lambda Functions}
+\index{Lambda function}
+Lambda functions are an~alternative for~standard \hyperref[kotlinanonymousfunction]{anonymous functions} with simpler syntax.
+The~syntax is \mbitqls{\{PARAMETERS;;;->;;;COMMANDS\}}.
+Last line holds the~return value, \mbox{the \textit{return}} keyword isn't used.
+Also, the~return value type isn't specified.
+For~example, a~lambda equivalent of~the~function multiplying its parameter by two from the~\hyperref[kotlinanonymousfunction]{anonymous functions} example looks like this:
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val multiplyByTwo = { a: Int ->
+        a * 2
+    }
+\end{lstlisting}
+\newline
+
+\noindent When the~last line doesn't hold a~value, then~the~function returns the~\hyperref[kotlinunit]{Unit} instance.
+That happens, for~example, when~the~last line is an~assignment.
+
+\example[Lambda functions returning \hyperref[kotlinunit]{Unit} and fixed version]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val wrongMultiplyByTwo = { a: Int ->
+        val b = a*2
+    }
+
+    val correctMultiplyByTwo = { a: Int ->
+        val b = a * 2
+        b
+    }
+\end{lstlisting}
+\newline
+
+\noindent So~far, it's quite understandable.
+However, there are some features aiming to~reduce the~boilerplate code or~to~address some drawbacks.
+And~these features can~cause confusions.
+
+\newsubsection{No Parameters}
+When a~lambda function has no~parameters, then only the~commands section is needed.
+Even the~arrow is missing.
+Such~function then looks like just a~sequence of~commands enclosed in~curly brackets.
+
+\example[Lambda function without parameters]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val noParamsFunction = {
+        ...DO SOMETHING...
+        RETURN_VALUE
+    }
+\end{lstlisting}
+
+\newsubsection{Last Parameter of Another Function}
+Very often, a~standard function takes another function as~the~last parameter.
+When calling such~standard function, it's~convenient to~write the~parameter function body as~a~part of~the~call in~the~lambda format.
+And~the~lambda format can~stay outside parameter brackets of~the~holding function, it's~written after~them.
+
+Furthermore, as~the~parameter function type has~to~be specified in~the~holding function header, parameter types of~the~parameter function can~be omitted.
+This is true even when using normal \hyperref[kotlinanonymousfunction]{anonymous function}.
+However, when the~parameter function isn't written directly as~a~part of~the~holding function call, but~is~specified earlier and~stored in~a~variable, then parameter types must~be used.
+It~doesn't matter if~it's the~normal or~the~lambda format.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Function taking other function as the~last parameter}]
+    fun doSomething(
+        value: Int,
+        anotherValue: Int,
+        twoArgsFunction: (Int, Int) -> Int,
+    ) : Int {
+        return twoArgsFunction(value, anotherValue)
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Usage}]
+    // Result is 3
+    val result = doSomething(1, 2) { a, b ->
+        a + b
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Equivalent with directly written anonymous function -- parameter types not needed}]
+    val result = doSomething(1, 2, fun(a, b) {
+        return a + b
+    })
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Equivalent with anonymous function in a variable -- parameter types must be used}]
+    val plus = fun(a: Int, b: Int) : Int {
+        return a + b
+    }
+
+    val result = doSomething(1, 2, plus)
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Equivalent with lambda function in a variable -- parameter types must be used}]
+    val plus = { a: Int, b: Int ->
+        a + b
+    }
+
+    val result = doSomething(1, 2, plus)
+\end{lstlisting}
+\newline
+
+\noindent If~the~holding function doesn't take any other parameter than the~parameter function, then empty brackets before the~lambda expression can~be omitted (but~don't necessarily have \mbox{to be).}
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Function taking other function as the~only parameter}]
+    fun doSomething(
+        twoArgsFunction: (Int, Int) -> Int,
+    ) : Int {
+        return twoArgsFunction(1, 2)
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Usage}]
+    val result = doSomething { a, b ->
+        a + b
+    }
+\end{lstlisting}
+\newline
+
+\noindent If~the~parameter function isn't \hyperref[declarationdefinition]{declared} as~the~last one in~the~holding function header, then the~parameter function must~be included in~the~holding function parameter brackets at~the~corresponding position.
+If~there are multiple functions as~last parameters of~the~holding function, then only the~very last one can~be specified outside parameter brackets.
+
+\newsubsection{Implicit Parameter (\textit{it})}
+\index{It}
+This one is a~very tricky feature.
+If~the~parameter function is specified as~the~last one in~the~holding function header and~if~it takes only one parameter, then, when~written in~the~lambda format, the~parameters section can~be omitted, including the~arrow.
+I.e.,~the~lambda function looks like taking no~parameters at~the~first glance, but~it~takes one in~fact.
+The~parameter is accessible in~the~commands section under \mbox{the keyword \itq{it}}.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Function taking other function as the~last parameter, that one takes one parameter}]
+    fun doSomething(
+        value: Int,
+        oneArgFunction: (Int) -> Int,
+    ) : Int {
+        return oneArgFunction(value)
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Usage}]
+    // Result is 4
+    val result = doSomething(2) {
+        it * 2
+    }
+\end{lstlisting}
+\newline
+
+\noindent It's~used especially when iterating over collections.
+Functions like \mbit{forEach} or~\mbit{filter} available on~collections take a~function as~the~last (and~often the~only) parameter and~that~function takes one~parameter.
+
+\example[printing list members by \textit{forEach} function]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val theList = listOf(...SOMETHING...)
+
+    theList.forEach {
+        println(it)
+    }
+\end{lstlisting}
+
+\newsubsection {\itq{Run} Function}
+\index{Run}
+\label{kotlinrun}
+This is a~function to~use when~you~need to~immediately run a~(parameterless) lambda function and~eventually get a~result from~it.
+It~takes a~parameterless function as~the~only parameter and~returns its return value.
+It's~usable also with standard anonymous functions.
+
+\example[\textit{run} function]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={\textit{Run} with lambda function}]
+    // Result holds the return value
+    val result = run {
+        ...DO SOMETHING...
+        RETURN_VALUE
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Equivalent with standard anonymous function}]
+    val result = run(fun() : RETURN_TYPE {
+        ...DO SOMETHING...
+        return RETURN_VALUE
+    })
+\end{lstlisting}
+
+\newsubsection{Return at Labels}
+\index{Label}
+You~may~have \mbit{if--then--else} branching in~a~lambda function and~you~may want to~exit the~function at~a~certain point before reaching the~end.
+And~because lambda functions don't~support the~standard \mbit{return} statement, it~isn't so~straightforward.
+You~must use return at~a~label.
+In~the~basic version the~lambda function must~be preceded with a~label in~the~syntax \mbitq{LABEL\_NAME@} (mind the~at~sign at~the~end).
+Then, inside the~lambda function body, the~call \mbitqls{return@LABEL\_NAME;;;RETURN\_VALUE}, \mbox{or \itq{return@LABEL\_NAME}} without any~return value (returning \hyperref[kotlinunit]{Unit}), must~be made.
+
+\example[return at label]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Function taking other function as the~only parameter}]
+    fun doSomething(
+        twoArgsFunction: (Int, Int) -> Int,
+    ) : Int {
+        return twoArgsFunction(1, 2)
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Usage}]
+    val result = doSomething labelName@{ a, b ->
+        if (...SOME CONDITION...) {
+            return@labelName ANOTHER_RETURN_VALUE
+        }
+
+        a + b
+    }
+\end{lstlisting}
+\newline
+
+\noindent In~newer versions of~Kotlin the~name of~the~function that~gets the~lambda function as~a~parameter is~the~default label.
+
+\example[default label]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Function taking other function as the~only parameter}]
+    fun doSomething(
+        twoArgsFunction: (Int, Int) -> Int,
+    ) : Int {
+        return twoArgsFunction(1, 2)
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Usage}]
+    val result = doSomething { a, b ->
+        if (...SOME CONDITION...) {
+            return@doSomething ANOTHER_RETURN_VALUE
+        }
+
+        a + b
+    }
+\end{lstlisting}
+\newline
+
+\noindent Returns at~labels can~be used to~simulate \textit{continue} when iterating over collections, i.e.,~to~stop processing current element and~start next iteration with the~next~one.
+\example[return at label in \textit{forEach}]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val theList = listOf(...SOMETHING...)
+
+    theList.forEach {
+        if (...SOME CONDITION...) {
+            return@forEach
+        }
+
+        ...DO SOMETHING...
+    }
+\end{lstlisting}
+
+\note Simulating \textit{break}, i.e.,~to~stop processing and~jump behind the~loop, is~also possible, but~more tricky.
+As~returning at~labels always jumps at~the~start of~the~lambda function, you~must wrap the~holding function call to~another lambda function, run that with~the~\hyperref[kotlinrun]{\textit{run}} function and~return at~that \textit{run}'s label.
+
+\example[break of \textit{forEach} simulation]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val theList = listOf(...SOMETHING...)
+
+    run {
+        theList.forEach {
+            if (...SOME CONDITION...) {
+                return@run
+            }
+
+            ...DO SOMETHING...
+        }
+    }
+\end{lstlisting}
