@@ -1,5 +1,6 @@
 \newsection{Lambda Functions}
 \index{Lambda function}
+\label{kotlinlambda}
 Lambda functions are an~alternative for~standard \hyperref[kotlinanonymousfunction]{anonymous functions} with simpler syntax.
 The~syntax is \mbitqls{\{PARAMETERS;;;->;;;COMMANDS\}}.
 Last line holds the~return value, \mbox{the \textit{return}} keyword isn't used.
@@ -43,7 +44,7 @@ Such~function then looks like just a~sequence of~commands enclosed in~curly brac
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin]
     val noParamsFunction = {
-        ...DO SOMETHING...
+        ...
         RETURN_VALUE
     }
 \end{lstlisting}
@@ -173,24 +174,25 @@ It's~usable also with standard anonymous functions.
 \begin{lstlisting}[language=Kotlin, title={\textit{Run} with lambda function}]
     // Result holds the return value
     val result = run {
-        ...DO SOMETHING...
+        ...
         RETURN_VALUE
     }
 \end{lstlisting}
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Equivalent with standard anonymous function}]
     val result = run(fun() : RETURN_TYPE {
-        ...DO SOMETHING...
+        ...
         return RETURN_VALUE
     })
 \end{lstlisting}
 
 \newsubsection{Return at Labels}
 \index{Label}
+\label{kotlinreturnatlabel}
 You~may~have \mbit{if--then--else} branching in~a~lambda function and~you~may want to~exit the~function at~a~certain point before reaching the~end.
 And~because lambda functions don't~support the~standard \mbit{return} statement, it~isn't so~straightforward.
 You~must use return at~a~label.
-In~the~basic version the~lambda function must~be preceded with a~label in~the~syntax \mbitq{LABEL\_NAME@} (mind the~at~sign at~the~end).
+In~the~basic version the~lambda function must~be preceded with~a~label in~the~syntax \mbitq{LABEL\_NAME@} (mind the~at~sign at~the~end).
 Then, inside the~lambda function body, the~call \mbitqls{return@LABEL\_NAME;;;RETURN\_VALUE}, \mbox{or \itq{return@LABEL\_NAME}} without any~return value (returning \hyperref[kotlinunit]{Unit}), must~be made.
 
 \example[return at label]
@@ -248,7 +250,7 @@ Then, inside the~lambda function body, the~call \mbitqls{return@LABEL\_NAME;;;RE
             return@forEach
         }
 
-        ...DO SOMETHING...
+        ...
     }
 \end{lstlisting}
 
@@ -266,7 +268,7 @@ As~returning at~labels always jumps at~the~start of~the~lambda function, you~mus
                 return@run
             }
 
-            ...DO SOMETHING...
+            ...
         }
     }
 \end{lstlisting}

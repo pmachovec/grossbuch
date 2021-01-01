@@ -1,2 +1,25 @@
-\newsection{Labels on Loops}
+\newsection{Labels in Loops}
 \index{Label}
+If~you~have nested loops and~want to~\textit{break} or~\textit{continue} the~outer one from~the~inner one, you~need to~use labels.
+The~outer loop keyword (\textit{for}, \textit{while}, \dots) must~be preceded with~a~label in~the~syntax \mbitq{LABEL\_NAME@}, without any~space, the~keyword follows immediately after the~at~sign.
+Then, inside the~inner loop, you~use \mbitq{break@LABEL\_NAME} \mbox{or \itq{continue@LABEL\_NAME}}.
+
+\example[break of outer loop from inner loop]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    labelName@for (i in WHATEVER) {
+        for (j in WHATEVER) {
+            if (...SOME CONDITION...) {
+                break@labelName
+            }
+
+            ...
+        }
+    }
+\end{lstlisting}
+
+\note Opposite to~\hyperref[kotlinreturnatlabel]{returning at~labels in~lambda functions} there are no implicit label names here.
+The~label specification \mbitq{LABEL\_NAME@} must~be used every time.
+
+\warning \textit{Break} and~\textit{continue} keywords don't work when looping over collections with a~\hyperref[kotlinlambda]{lambda function}.
+For~such cases \hyperref[kotlinreturnatlabel]{returning at~labels} must~be used.
