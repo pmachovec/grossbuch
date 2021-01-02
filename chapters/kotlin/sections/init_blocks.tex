@@ -68,7 +68,7 @@ I.e.,~if it's a~first call of~the~object, initializer blocks are~called, otherwi
     ObjectWithInitBlock.doSomething()
 \end{lstlisting}
 
-\warning Remember that getting a~\hyperref[kotlincallablereference]{callable reference} from an~object doesn't instantiate the~object, therefore, initializer blocks aren't triggered in~such situations.
+\warning Remember that calling object name with~the~\hyperref[kotlinreflection]{reflection operator} doesn't instantiate the~object, therefore, initializer blocks aren't triggered in~such situations.
 
 \newsubsection{In~a~companion object}
 Initializer blocks of~a~\hyperref[kotlincompanionobject]{companion object} are similar to~those in~standard \hyperref[kotlinobject]{objects}.

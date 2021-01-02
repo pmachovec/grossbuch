@@ -94,3 +94,73 @@ I.e.,~it's coalesce operator for~two values.
     val second: String? = null
     val result: String? = first ?: second // result is null
 \end{lstlisting}
+
+\newsubsection{Reflection (::)}
+\index{Reflection}
+\index{Bound class reference}
+\index{Callable reference}
+\label{kotlinreflection}
+Two--value operator written in~the~infix notation.
+Used to~retrieve entities of~the~reflection API in~Kotlin.
+Basic usage is with~a~class name on~the~left side, allowing access references of~that class.
+Can~be also used with a~variable on~the~left side, in~that case it~gets references of~the~type class of~that variable.
+This is called \itq{bound class reference}.
+
+\example[retrieving instances of (classes implementing) the~interface \textit{KClass}]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    // Variable type is KClass<String>
+    val basicRef String::(*class*)
+
+    // Variable type is KClass<KClass<String>>
+    val boundRef = basicStringRef::(*class*)
+\end{lstlisting}
+\newline
+
+\noindent When used without the~class name on~the~left side, it~gets references to~the~current class.
+
+\example[accessing reference to the current class]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    class SimpleClass {
+        // Variable type is KClass<SimpleClass>
+        val thisRef = ::(*class*)
+    }
+\end{lstlisting}
+\newline
+
+\noindent When used with a~function name on~the~right side (with~or~without a~class name on~the~left side, that~doesn't matter), it~returns that~function (not~its return value, the~function isn't executed).
+It's~like having the~function written as~\hyperref[kotlinanonymousfunction]{anonymous} and~stored in~a~variable.
+This is called \itq{callable reference}.
+\newpage
+
+\example[getting callable reference to a function]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    class SimpleClass {
+        // Type of the function is (Unit) -> SOME_TYPE
+        fun doSomething() : SOME_TYPE {
+            ...
+        }
+    }
+
+    // Type of the variable is (Unit) -> SOME_TYPE
+    val callRef = SimpleClass::doSomething
+\end{lstlisting}
+\newline
+
+\noindent Can~be also used to~retrieve references to~class properties.
+It~also works in~the~bound format~--~with a~variable on~the~left side.
+
+When used with a~class name on~the~right side (and~with empty left side), it~returns a~reference to~the~class constructor.
+Constructors are also functions and~can~be referenced with~the~reflection.
+
+\example[getting constructor reference]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    class SimpleClass {
+        ...
+    }
+
+    val constRef = ::SimpleClass
+\end{lstlisting}
