@@ -167,7 +167,7 @@ It's~very similar to~having a~non--abstract method in~an~\hyperref[javaabstractc
 The~only difference is that default methods are~always public, they can't~have an~\hyperref[javaaccessmodifiers]{access modifier}.
 
 \hyperref[javaprivate]{Private} and~\hyperref[javastatic]{static} methods are~also newly available in~interfaces.
-Private to~be~called from~default methods, static to~be~called on~instances of~implementing classes stored in~variables of~the~interface type.
+Private to~be~called from~default methods, static to~be~called on~the~interface type (they~aren't available on~implementing classes).
 You~can~even have \hyperref[javaprivatestaticmethods]{private static methods} to~be~called from~other static methods.
 
 \warning Don't use default methods in~new~interfaces.
@@ -189,6 +189,7 @@ Default methods serve purely for~the~described scenario when~extending an~existi
             ...
         }
 
+        // Not available on implementing classes
         static int staticMethod() {
             ...
             return privateStaticMethod();
@@ -200,8 +201,9 @@ Default methods serve purely for~the~described scenario when~extending an~existi
     }
 \end{lstlisting}
 
-\note Private fields in~interfaces are~still forbidden.
+\notenonl Private fields in~interfaces are~still forbidden.
 Only methods can~be private.
+\newpage
 
 \newsubsection{Interfaces as Variable Types}
 Very often, \hyperref[datatypes]{data type} in~a~variable \hyperref[declarationdefinition]{declaration} is an~interface even when it~doesn't seem to~bring any advantage.

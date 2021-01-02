@@ -77,6 +77,8 @@ It~doesn't matter if~it's the~normal or~the~lambda format.
         a + b
     }
 \end{lstlisting}
+\newpage
+
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Equivalent with directly written anonymous function -- parameter types not needed}]
     val result = doSomething(1, 2, fun(a, b) {
@@ -168,6 +170,7 @@ Functions like \mbit{forEach} or~\mbit{filter} available on~collections take a~f
 This is a~function to~use when~you~need to~immediately run a~(parameterless) lambda function and~eventually get a~result from~it.
 It~takes a~parameterless function as~the~only parameter and~returns its return value.
 It's~usable also with standard anonymous functions.
+\newpage
 
 \example[\textit{run} function]
 %! language = TEXT
@@ -240,6 +243,7 @@ Then, inside the~lambda function body, the~call \mbitqls{return@LABEL\_NAME;;;RE
 \newline
 
 \noindent Returns at~labels can~be used to~simulate \textit{continue} when iterating over collections, i.e.,~to~stop processing current element and~start next iteration with the~next~one.
+
 \example[return at label in \textit{forEach}]
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin]
@@ -256,6 +260,7 @@ Then, inside the~lambda function body, the~call \mbitqls{return@LABEL\_NAME;;;RE
 
 \note Simulating \textit{break}, i.e.,~to~stop processing and~jump behind the~loop, is~also possible, but~more tricky.
 As~returning at~labels always jumps at~the~start of~the~lambda function, you~must wrap the~holding function call to~another lambda function, run that with~the~\hyperref[kotlinrun]{\textit{run}} function and~return at~that \textit{run}'s label.
+\newpage
 
 \example[break of \textit{forEach} simulation]
 %! language = TEXT

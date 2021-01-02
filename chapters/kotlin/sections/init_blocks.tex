@@ -3,7 +3,7 @@
 \index{Init block}
 \label{kotlininitblock}
 These are code blocks labeled by~the~keyword \itq{init}.
-They can~appear in~classes even in~\hyperref[kotlinobject]{objects} including \hyperref[companionobject]{companion objects}.
+They can~appear in~classes even in~\hyperref[kotlinobject]{objects} including \hyperref[kotlincompanionobject]{companion objects}.
 They're executed at~the~initialization of~their holding objects.
 They can~access \hyperref[variablefieldproperty]{fields} of~their holding structures (classes or~objects), but~if~these aren't initialized with the~holding structure (which can~happen for~\textit{lateinit} \hyperref[variablefieldproperty]{fields}), it~thows the~exception \itq{UninitializedPropertyAccessException}.
 
@@ -43,7 +43,7 @@ To~read an~\hyperref[parameterargument]{argument} of~a~standard constructor, the
 \label{objectinitblock}
 As~objects are~initialized only on~the~first call, initializer blocks of~objects are~called only in~that moment.
 There are no~constructor traps, because objects can't~have constructors.
-If~you~simulate a~constructor by~\hyperref[kotlinoperatoroverload]{overloading the~invocation operator}, the~behavior is the~same as~with an~ordinary function.
+If~you~simulate a~constructor by~\hyperref[kotlininvokeoverload]{overloading the~invocation operator}, the~behavior is the~same as~with an~ordinary function.
 I.e.,~if it's a~first call of~the~object, initializer blocks are~called, otherwise~not.
 
 \example[object with an~initializer block]
@@ -71,5 +71,5 @@ I.e.,~if it's a~first call of~the~object, initializer blocks are~called, otherwi
 \warning Remember that getting a~\hyperref[kotlincallablereference]{callable reference} from an~object doesn't instantiate the~object, therefore, initializer blocks aren't triggered in~such situations.
 
 \newsubsection{In~a~companion object}
-Initializer blocks of~a~\hyperref[companionobject]{companion object} are similar to~those in~standard \hyperref[kotlinobject]{objects}.
+Initializer blocks of~a~\hyperref[kotlincompanionobject]{companion object} are similar to~those in~standard \hyperref[kotlinobject]{objects}.
 They're~called on~the~first call of~the~class holding~it, no~matter what call it~is.

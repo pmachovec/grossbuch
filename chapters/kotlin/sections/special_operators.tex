@@ -1,4 +1,60 @@
 \newsection{Special Operators}
+\newsubsection{Safe Call (?.)}
+\index{Safe call}
+\label{kotlinsafecall}
+Alternative for~the~standard dot notation.
+Can~be~used on~variables of~nullable types.
+If~the~variable isn't null, the~safe call calls the~referenced function or~\hyperref[variablefieldproperty]{property} on~the~type instance stored in~the~variable.
+Otherwise, it~returns null.
+It~doesn't throw an~exception.
+
+\example[variable is not null]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val first: String? = "first"
+    val result: String? = first?.reversed() // result is "tsrif"
+\end{lstlisting}
+
+\example[variable is null]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val first: String? = null
+    val result: String? = first?.reversed() // result is null
+\end{lstlisting}
+\newpage
+
+\newsubsection{Non--null assertion (!!)}
+Kotlin code aims to~avoid a~null pointer exception as~much as~possible.
+Values must~be explicitly assigned to~non--nullable type variables, calls on~nullable type variables must~be done with the~\hyperref[kotlinsafecall]{safe call}~etc.
+If~there's a~possibility to~hit a~null pointer, the~compilation fails.
+
+\mbox{The~non--null} assertion operator can~be~used on~a~nullable type variable to~suppress the~null safety mechanism.
+By~using the~operator the~code author asserts that he's aware of the~null possibility.
+It~can~be~used in~an~assignment or~with the~dot notation.
+When the~asserted variable is null, using the~operator results \mbox{in \textit{KotlinNullPointerException}.}
+
+\example[usage in assignment]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val nullable: String? = "nullable"
+    // val nonNullable String = nullable // Not compilable
+    val nonNullable: String = nullable!!
+\end{lstlisting}
+
+\example[usage in dot notation]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val nullable: String? = "nullable"
+    val result: String = nullable!!.reversed()
+\end{lstlisting}
+
+\example[causing exception]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val nullable: String? = null
+    val nonNullable: String = nullable!! // KotlinNullPointerException
+\end{lstlisting}
+
 \newsubsection{Elvis Operator (?:)}
 \index{Elvis operator}
 Two--value operator written in~the~infix notation.
@@ -37,60 +93,4 @@ I.e.,~it's coalesce operator for~two values.
     val first: String? = null
     val second: String? = null
     val result: String? = first ?: second // result is null
-\end{lstlisting}
-
-\newsubsection{Safe Call (?.)}
-\index{Safe call}
-\label{kotlinsafecall}
-Alternative for~the~standard dot notation.
-Can~be~used on~variables of~nullable types.
-If~the~variable isn't null, the~safe call calls the~referenced function or~\hyperref[variablefieldproperty]{property} on~the~type instance stored in~the~variable.
-Otherwise, it~returns null.
-It~doesn't throw an~exception.
-
-\example[variable is not null]
-%! language = TEXT
-\begin{lstlisting}[language=Kotlin]
-    val first: String? = "first"
-    val result: String? = first?.reversed() // result is "tsrif"
-\end{lstlisting}
-
-\example[variable is null]
-%! language = TEXT
-\begin{lstlisting}[language=Kotlin]
-    val first: String? = null
-    val result: String? = first?.reversed() // result is null
-\end{lstlisting}
-
-\newsubsection{Non--null assertion (!!)}
-Kotlin code aims to~avoid a~null pointer exception as~much as~possible.
-Values must~be explicitly assigned to~non--nullable type variables, calls on~nullable type variables must~be done with the~\hyperref[kotlinsafecall]{safe call}~etc.
-If~there's a~possibility to~hit a~null pointer, the~compilation fails.
-
-\mbox{The~non--null} assertion operator can~be~used on~a~nullable type variable to~suppress the~null safety mechanism.
-By~using the~operator the~code author asserts that he's aware of the~null possibility.
-It~can~be~used in~an~assignment or~with the~dot notation.
-When the~asserted variable is null, using the~operator results \mbox{in \textit{KotlinNullPointerException}.}
-
-\example[usage in assignment]
-%! language = TEXT
-\begin{lstlisting}[language=Kotlin]
-    val nullable: String? = "nullable"
-    // val nonNullable String = nullable // Not compilable
-    val nonNullable: String = nullable!!
-\end{lstlisting}
-\newpage
-
-\example[usage in dot notation]
-%! language = TEXT
-\begin{lstlisting}[language=Kotlin]
-    val nullable: String? = "nullable"
-    val result: String = nullable!!.reversed()
-\end{lstlisting}
-
-\example[causing exception]
-%! language = TEXT
-\begin{lstlisting}[language=Kotlin]
-    val nullable: String? = null
-    val nonNullable: String = nullable!! // KotlinNullPointerException
 \end{lstlisting}

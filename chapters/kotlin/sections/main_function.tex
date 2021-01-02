@@ -21,12 +21,12 @@ Compare the~definition with the~Java definition of~the~\textit{main} method:
 \noindent The~problem is the~\hyperref[javastatic]{\textit{static} access modifier}.
 There's no \textit{static} in~Kotlin.
 Therefore, it~isn't possible to~\hyperref[declarationdefinition]{define} the~\textit{main} function as~a~standard class function.
-There~are two possibilities how to~create a~\textit{main} function in~Kotlin -- in~a~\hyperref[companionobject]{companion object} or~as~a~standalone function (without a~class).
+There~are two possibilities how to~create a~\textit{main} function in~Kotlin -- in~a~\hyperref[kotlincompanionobject]{companion object} or~as~a~standalone function (without a~class).
 
 \newsubsection{In~a~companion object}
 \index{JvmStatic}
 This is more old school Java approach.
-You~define a~\textit{main} function in~a~\hyperref[companionobject]{companion object} of~a~class.
+You~define a~\textit{main} function in~a~\hyperref[kotlincompanionobject]{companion object} of~a~class.
 You~must additionally annotate the~function with the~annotation \textit{@JvmStatic}.
 That's because object functions transformed to~Java methods aren't created as~static by~default, and~the~main method must~be static.
 With the~annotation the~keyword \textit{static} is~added to~the~generated method.

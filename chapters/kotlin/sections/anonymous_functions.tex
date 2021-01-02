@@ -1,5 +1,6 @@
-\newsection{Anonymous Functions}
+\newsection{Anonymous Functions and Function Types}
 \index{Anonymous function}
+\index{Function type}
 \label{kotlinanonymousfunction}
 Kotlin supports the~syntax similar to~JavaScript, where anonymous functions can~be assigned to~variables.
 Such~functions can~be then called by calling the~variable name or~passed to~another function as~\hyperref[parameterargument]{arguments}.
@@ -9,6 +10,8 @@ They're compulsory even when the~function has only one parameter, or~even zero.
 \hyperref[kotlinunit]{\textit{Unit}} (and~even \hyperref[kotlinnothing]{\textit{Nothing}}) type is available for~functions returning no value.
 
 \example
+\enlargethispage{10mm}
+\thispagestyle{empty}
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Function taking other functions as parameters}]
     fun doSomething(
@@ -20,6 +23,8 @@ They're compulsory even when the~function has only one parameter, or~even zero.
         return oneArgFunction(value)
     }
 \end{lstlisting}
+\newpage
+
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Usage}]
     // Type is "(Int) -> Int"

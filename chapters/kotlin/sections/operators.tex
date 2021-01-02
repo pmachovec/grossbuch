@@ -1,0 +1,78 @@
+\newsection{Operators}
+\index{Operator}
+An~operator is one or~more symbols, can~be even characters (like \itq{in} \mbox{or \itq{by}}), that either somehow changes a~value of~an~entity (unary operator) or~somehow combines values of~two entities (binary operator).
+Examples of~unary operators are~negation~(\itq{!}), increment~(\itq{++}) or~decrement~(\itq{-{}-}), examples of~binary operators are~arithmetic operations \mbox{(\itq{+}, \itq{-}, \dots)} or~comparators \mbox{(\itq{<}, \itq{>}, \dots)}.
+Some special bracket syntax constructions (see~\hyperref[kotlinindexedaccess]{further}) are~also considered to~be operators and~can~be overloaded.
+
+\newsubsection{Indexed access}
+\index{Indexed access}
+\label{kotlinindexedaccess}
+Square brackets, used to~access members of~indexed structures like arrays or~lists.
+Structures can~be multidimensional.
+For~example, accessing a~member of~a~three--dimensional array has~the~syntax \mbox{\itq{a[X,Y,Z]},} where \mbitq{X,Y,Z} are~integer numbers.
+
+\newsubsection{Invoke}
+\index{Invoke}
+\index{Invocation}
+\label{kotlininvoke}
+Standard brackets, used to~execute an~executable (invokable) entity, typically a~function, and~eventually pass \hyperref[parameterargument]{arguments} to~the~executed code.
+I.e.,~when~calling a~function, you're~calling the~\textit{invoke} operator.
+
+\newsubsection{Operator Overloading}
+\index{Operator overloading}
+\label{kotlinoperatoroverload}
+Each~operator, including \hyperref[kotlinindexedaccess]{\textit{indexed access}} \mbox{and \hyperref[kotlininvoke]{\textit{invoke}},} has~an~underlying function with~a~name, that~is~executed when~the~operator is~used.
+By~\hyperref[declarationdefinition]{defining} a~function with~the~same name and~the~keyword \mbitq{operator} preceding the~keyword\mbitq{fun} you~can~make the~operator working even with your own class instances.
+The~list of~function names can~be found \href{https://kotlinlang.org/docs/reference/operator-overloading.html}{in~the~corresponding section of~Kotlin documentation}.
+
+\example[overloading the \itq{+} operator]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Custom class with the operator overloading}]
+    class SimpleClass(val theValue: Int) {
+        operator fun plus(other: SimpleClass) : SimpleClass {
+            return SimpleClass(theValue + other.theValue)
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Equivalent with direct assignment simplification}]
+    class SimpleClass(val theValue: Int) {
+        operator fun plus(other: SimpleClass) = SimpleClass(theValue + other.theValue)
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Usage}]
+    val first = SimpleClass(...)
+    val second = SimpleClass(...)
+    val result = first + second
+\end{lstlisting}
+
+\noindent Notice that the~binary operator overloading \hyperref[declarationdefinition]{definition} takes one parameter.
+That's~the~parameter corresponding to~the~right side of~the~operator.
+The~left side is (an~instance~of) the~class in~which the~operator is overloaded.
+Similarly, unary operators overloading takes no~parameters.
+
+For~\hyperref[kotlinindexedaccess]{\textit{indexed access}} \mbox{and \hyperref[kotlininvoke]{\textit{invoke}}} operators, however, this isn't true.
+The~difference is that they~aren't written in~the~infix notation.
+
+\label{kotlininvokeoverload}
+Overloading the~\hyperref[kotlininvoke]{\textit{invoke}} operator, furthermore, provides one tricky effect~--~it~enables to~call executable code without a~method name.
+When used in~\hyperref[kotlinobject]{objects} or~\hyperref[kotlincompanionobject]{companion objects}, which~enable calling functions without instances, it~enables to~call executable code in~a~constructor--like syntax,
+This is especially tricky because objects and~companion objects don't allow constructors.
+
+\example[overloading \textit{invoke} operator in a class]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Custom class with \textit{invoke} operator overloading}]
+    class SimpleClass() {
+        operator fun invoke() {
+            ...
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Usage -- no conflict with constructor}]
+    val someInstance = SimpleClass() // Calling the constructor
+    someInstance() // Calling the invoke operator
+\end{lstlisting}
+
+\note For~a~constructor simulation in~an~object see the~example in~the~\hyperref[kotlinobject]{objects section}.
