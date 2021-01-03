@@ -57,8 +57,8 @@ The~difference is that they~aren't written in~the~infix notation.
 
 \label{kotlininvokeoverload}
 Overloading the~\hyperref[kotlininvoke]{\textit{invoke}} operator, furthermore, provides one tricky effect~--~it~enables to~call executable code without a~method name.
-When used in~\hyperref[kotlinobject]{objects} or~\hyperref[kotlincompanionobject]{companion objects}, which~enable calling functions without instances, it~enables to~call executable code in~a~constructor--like syntax,
-This is especially tricky because objects and~companion objects don't allow constructors.
+When used in~\hyperref[kotlinobject]{objects} or~\hyperref[kotlincompanionobject]{companion objects}, which~enable calling functions without instances, it~enables to~call executable code in~a~constructor--like syntax, which~in~fact doesn't behave as~a~constructor.
+For~examples see \hyperref[kotlinobject]{objects} and~\hyperref[kotlincompanionobject]{companion objects} sections.
 
 \example[overloading \textit{invoke} operator in a class]
 %! language = TEXT
@@ -74,5 +74,3 @@ This is especially tricky because objects and~companion objects don't allow cons
     val someInstance = SimpleClass() // Calling the constructor
     someInstance() // Calling the invoke operator
 \end{lstlisting}
-
-\note For~a~constructor simulation in~an~object see the~example in~the~\hyperref[kotlinobject]{objects section}.

@@ -18,5 +18,26 @@ Companion objects basically represent those special instances created by~Java fo
     ClassWithCompanionObject.simpleValue = "SOMETHING"
 \end{lstlisting}
 
-\note Class members outside a~companion object, and~therefore even instances of~the~class, can't~access members of~the~companion object.
+\note Class members outside a~companion object can't~access members of~the~companion object.
 This prevents unwanted overriding of~the~singleton instance \hyperref[variablefieldproperty]{fields}.
+
+\newsubsection{Overloading the \textit{invoke} operator}
+It~is~possible to~\hyperref[kotlininvokeoverload]{overload \mbox{the \textit{invoke}} operator} in~a~companion object.
+And~this can~create a~conflict with~a~constructor.
+In~that~case the~program uses the~constructor and~ignores the~overloaded operator.
+I.e.,~it~doesn't fail.
+
+\example[\textit{invoke} operator overloaded in a companion object]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    class ClassWithCompanionObject(...CONSTRUCTOR_STUFF...) {
+        companion object {
+            operator fun invoke(...CONSTRUCTOR_STUFF...) {
+                ...NOT_CALLED...
+            }
+        }
+    }
+
+    // This doesn't call the code of the overloaded operator
+    ClassWithCompanionObject(...)
+\end{lstlisting}
