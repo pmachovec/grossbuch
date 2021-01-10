@@ -1,0 +1,33 @@
+\newsection{Modularity}
+\label{javascriptmodularity}
+JavaScript was initially created as~a~\hyperref[scriptinglanguages]{scripting language} for~writing only small scripts incorporated to~ordinary \hyperref[internetweb]{web} pages.
+It~wasn't designed for~writing large code structures separated into multiple files.
+However, with the~\hyperref[internetweb]{web} evolution a~need for~complex JavaScript implementations actually came onto scene.
+And~the~JavaScript code modularity problem was~born\dots
+
+The~only multiple file solution supported by~the~original JavaScript is to~load each file -- module --  in~a~separate \mbit{script} element.
+Elements must~be specified in~the~correct order.
+For~example, consider three modules \textit{A}, \textit{B} and~\textit{C}.
+A~\hyperref[internetweb]{web} page uses some functionality \hyperref[declarationdefinition]{defined} in~the~module~\textit{A}.
+But~this functionality uses some other functionality from~the~module~\textit{B} and~that one uses some functionality from the~module~\textit{C}.
+Then you~must put exactly this into the~page:
+
+%! language = TEXT
+\begin{lstlisting}[language=XML,frame=no]
+    <script src="C.js"></script>
+    <script src="B.js"></script>
+    <script src="A.js"></script>
+\end{lstlisting}
+
+\noindent If~you somehow change the~order, the~page loading will fail, and~exactly at~this point.
+I.e.,~some mess can~be displayed in~the~browser.
+
+Furthermore, this module loading is~synchronous.
+Page loading waits for~each module until it's fully loaded and~only then it~continues with another~one.
+When modules are~big, it~has of~course a~negative impact to~the~performance.
+
+And~finally, this module loading doesn't check if~the~loaded module is~actually used.
+It~just loads it.
+Consider that you~remove the~dependency of~\textit{B} on~\textit{C} in~the~\textit{B}'s code in~the~previous example.
+You~don't need to~load the~module~\textit{C} any~more.
+But~until you~remove its \mbit{script} element from the~page source code, it~still will~be loaded and~affecting the~performance.

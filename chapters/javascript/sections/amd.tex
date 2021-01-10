@@ -1,0 +1,88 @@
+\newsection{Asynchronous Module Definition (AMD)}
+\index{Asynchronous module definition}
+\index{AMD}
+\label{amd}
+It's~a~\hyperref[protocolstandard]{standard} (sometimes also said to~be~\hyperref[api]{API}), which specifies writing JavaScript modules as~bodies of~large functions.
+These modules can~be~treated as~classes and~the~code can~follow the~\hyperref[objectorientedprogramming]{object--oriented programming paradigm}.
+Correct implementation of~the~standard should load modules asynchronously, in~the~correct order, only if~they're really used and~with minimal need of~adjusting \hyperref[internetweb]{web} pages source code.
+I.e.,~it~should address all~problems of~the~\hyperref[javascriptmodularity]{default JavaScript modularity}.
+
+\enlargethispage{20mm}
+\thispagestyle{empty}
+\newsubsection{Syntax}
+\label{amdsyntax}
+The~main function containing a~module -- equivalent of~a~class -- is~called \mbitq{define}.
+It~gets an~array of~paths to~other modules (dependencies), and~a~function callback, usually anonymous, which contains the~actual module functional body.
+\hyperref[parameterargument]{Parameters} of~the~callback are~handlers to~modules specified in~the~path array, the~order and~count must match.
+If~a~module doesn't use any functionality from other modules (it~has no~dependencies), it~isn't necessary to~specify an~empty array.
+The~\mbitq{define} function can~contain only the~callback without \hyperref[parameterargument]{parameters}.
+Return statement of~the~callback contains handlers to~module members, which should~be available on~the~module.
+Members with such handlers are~equivalent to~\hyperref[javapublic]{public} members of~a~class.
+Other members are~equivalent to~\hyperref[javaprivate]{private} members.
+\newpage
+
+\example[AMD module]
+%! language = TEXT
+\begin{lstlisting}[language=JavaScript]
+    define(['PATH_TO_OTHER_MODULE'], function((*\tmnbf{js1othmod1}{otherModuleHandler}*)) {
+      let privateVariable = ...;
+      let (*\tmnbf{js1modvar1}{publicVariable}*) = ...;
+
+      function privateFunction() {
+        ...
+        (*\tmnbf{js1othmod2}{otherModuleHandler}*).publicFunctionFromOtherModule();
+        ...
+      }
+
+      function (*\tmnbf{js1modfunc1}{publicFunction}*)() {
+        ...
+        privateFunction();
+        ...
+      }
+
+      return {
+        publicVariable: (*\tmnbf{js1modvar2}{publicVariable}*),
+        publicFunction: (*\tmnbf{js1modfunc2}{publicFunction}*)
+      }
+    });
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{js1othmod1.south}{[xshift=9mm] js1othmod2.north}
+    \drawarrow{[xshift=-3mm] js1modvar1.south}{[xshift=-9mm] js1modvar2.north}[red]
+    \drawarrow{[xshift=6mm] js1modfunc1.south}{js1modfunc2.north}[green]
+\end{tikzpicture}
+
+\example[AMD module without dependencies]
+\enlargethispage{10mm}
+%! language = TEXT
+\begin{lstlisting}[language=JavaScript]
+    define(function() {
+      let privateVariable = ...;
+      let (*\tmnbf{js2modvar1}{publicVariable}*) = ...;
+
+      function privateFunction() {
+        ...
+      }
+
+      function (*\tmnbf{js2modfunc1}{publicFunction}*)() {
+        ...
+        privateFunction();
+        ...
+      }
+
+      return {
+        publicVariable: (*\tmnbf{js2modvar2}{publicVariable}*),
+        publicFunction: (*\tmnbf{js2modfunc2}{publicFunction}*)
+      }
+    });
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{[xshift=-3mm] js2modvar1.south}{[xshift=-9mm] js2modvar2.north}
+    \drawarrow{[xshift=6mm] js2modfunc1.south}{js2modfunc2.north}[red]
+\end{tikzpicture}
+\newpage
+
+\newsubsection{Usage in web pages}
+AMD~modules can't~be included into a~\hyperref[internetweb]{web} page directly.
+They must~be called from another script and~this script can~be included into a~\hyperref[internetweb]{web} page.
+Syntax of~this main script isn't standardised and~in~each AMD implementation it~can~be different.

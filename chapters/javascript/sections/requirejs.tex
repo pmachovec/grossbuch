@@ -1,0 +1,78 @@
+\newsection{RequireJS}
+\index{RequireJS}
+\label{requirejs}
+\href{https://requirejs.org}{RequireJS} is widely used implementation of~\hyperref[amd]{AMD}.
+Modules syntax exactly follows the~\hyperref[amdsyntax]{AMD standard}.
+Using modules from a~\hyperref[internetweb]{web} page, however, is~specific.
+
+You~should have one main file, which is referred from a~\mbit{script} element inside~a~page \mbit{header} element.
+From this file you~should assign functionality to~elements in~the~corresponding \hyperref[internetweb]{web} page.
+And~from this file you can~also call \hyperref[amd]{AMD} modules.
+If~the~page design forces you to~have the~\mbit{script} element somewhere else than in~the~\mbit{header} element or~to~have multiple \mbit{script} elements, then the~design is~bad and~should~be changed.
+
+The~main file looks almost the~same as~a~standard \hyperref[amd]{AMD} module, only the~big enclosing function is~called \mbitq{requirejs}.
+It~also doesn't have the~\mbit{return} statement.
+It~can~contain RequireJS configuration (before the~main \mbit{requirejs} function), which usually specifies aliases for~paths to~third party libraries like \hyperref[jquery]{jQuery}.
+The~code inside \mbox{the \textit{requirejs}} function is~executed like in~a~standard JavaScript file from the~top to~the~bottom.
+
+Referring the~main file from a~page is~slightly different from \hyperref[javascriptmodularity]{standard JavaScript module referral}.
+The~\mbit{src} attribute of~the~\mbit{script} element must contain path to~the~RequireJS library file (called \mbitq{require.js} by~default).
+The~main script path is~specified in~the~\mbitq{data-main} element, and~it~can't contain the~\mbitq{.js} extension of~the~file.
+The~extension is~expected, if~the~file doesn't have it, it~won't~work.
+
+\note RequireJS is~usable even in~\hyperref[nodejs]{Node.js}.
+Node.js already contains \mbox{the \hyperref[commonjs]{CommonJS}} technique for~modularization, but~the~performance is generally worse than with RequireJS\@.
+Furthermore, when using RequireJS, you~can~develop a~functionality on~the~Node.js platform (server side), but~later use~it on~the~client side and~preserve the~effectiveness.
+
+\warning You~can~encounter a~JavaScript file loading modules with a~keyword \mbitq{require}.
+This is a \hyperref[nodejs]{NodeJS} feature called \hyperref[commonjs]{\mbit{CommonJS}}.
+It~isn't supported in~JavaScript by~default.
+
+However, to~make things even more confusing, RequireJS supports using \mbox{the \itq{require}} keyword as~a~replacement of~the~standard \mbitq{requirejs} keyword, if~the~executing \hyperref[engine]{engine} doesn't use it on~its~own.
+So~for~example, when~running RequireJS code in~a~\hyperref[internetweb]{web} browser, you~can~use \mbitq{require} instead of \mbitq{requirejs}.
+But~when~running the~same code in~\hyperref[nodejs]{NodeJS}, it~will fail.
+Therefore, it's~advisable to~use the~default \itq{requirejs} keyword every time when working with~RequireJS.
+\newpage
+
+\example[assigning action to~a~button with RequireJS and jQuery]
+%! language = TEXT
+\begin{lstlisting}[language=JavaScript,title={Main JavaScript file \textit{\tmnbf{js3mainscript}{main}.js}}]
+    requirejs.config({
+      paths: {
+        ...
+        (*\tmnbf{js3mainjquery1}{jquery}*): 'SOME_PATH/jquery-X.Y.Z.js'
+        ...
+      }
+    });
+
+    requirejs(['(*\tmnbf{js3mainjquery2}{jquery}[ForestGreen]*)', 'SOME_PATH/amd_module'],
+    function((*\$*), amdModuleHandler) {
+      (*\$*)('#(*\tmnbf{js3mainbutton}{buttonId}[ForestGreen]*)').click(function() {
+        ...
+        amdModuleHandler.amdModuleFunction();
+        ...
+      });
+    });
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=XML,title={Web page file loading the JavaScript file}]
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        ...
+        <script data-main="SOME_PATH/(*\tmnbf{js3htmlscript}{main}[ForestGreen]*)" src="SOME_OTHER_PATH/require.js"></script>
+        ...
+      </head>
+      <body>
+        ...
+        <button id="(*\tmnbf{js3htmlbutton}{buttonId}[ForestGreen]*)">BUTTON_LABEL</button>
+        ...
+      </body>
+    </html>
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{js3mainscript.south}{js3htmlscript.north}
+    \drawarrow{js3mainjquery1.south}{js3mainjquery2.north}[red]
+    \drawarrow{js3mainbutton.south}{js3htmlbutton.north}[green]
+\end{tikzpicture}
+\newpage

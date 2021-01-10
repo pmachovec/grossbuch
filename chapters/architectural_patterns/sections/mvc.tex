@@ -1,0 +1,38 @@
+\newsection{Model--View--Controller (MVC)}
+\index{Model--view--controller}
+\index{MVC}
+\label{mvc}
+This pattern is~used for~systems with a~user interface.
+Although initially used for~desktop applications, it's~popular also for~\hyperref[webserviceapplication]{web applications}.
+It~describes a~system separation to~three \hyperref[loosetightcoupling]{loosely coupled} components, where a~change in~one~component causes only minimal (ideally none) changes in~other two components.
+It~should be possible to~develop, maintain and~reuse each component separately.
+Components are as~expected:
+\begin{itemize}
+    \itembfd{Model} an~abstraction of~data with which the~system operates, for~example classes representing records in~database tables.
+             It's~independent of~other two~components.
+          \warningnonl It~does~\textbf{not} include the~database itself.
+    \itembfd{View} information displayed to~a~user, for~example a~\hyperref[web] page with results of~a~\hyperref[webserviceapplication]{web service} computation.
+             Often is a~part of~\hyperref[shellcligui]{GUI}, which also serves for~sending commands to~the~controller from the~user.
+    \itembfd{Controller} the~application \hyperref[businesslogic]{business logic}, receives commands from~a~user, based on~these commands performs computations with the~model and~based on~results updates the~view.
+\end{itemize}
+
+\enlargethispage{30mm}
+\thispagestyle{empty}
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (view) at (0, 0) {View};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (controller) at (6, 0) {Controller};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (model) at (12, 0) {Model};
+        \node [draw, minimum width=30mm, minimum height=23mm, line width=.3mm] (user) at (3,-5) {};
+        \node [bob, minimum size=10mm, monitor] (innerUser) at (3,-4.8) {User};
+        \node [cylinder, minimum height=30mm, minimum width=30mm, line width=.3mm, draw=black, shape border rotate=90, aspect=.3] (database) at (12,-5) {Database};
+
+        \diagramarrow{controller.west}{view.east}[Updates][above=3mm]
+        \diagramarrow{controller.east}{model.west}[Works with][above=3mm]
+        \diagramarrow[.3mm]{view.south east}{user.north}[Results][left]
+        \diagramarrow{user.north}{controller.south west}[Commands][right]
+        \diagramarrow{model.south}{database.north}[Based on][left]
+    \end{tikzpicture}
+    \captit{Schema of the MVC pattern connected with a user and a database}
+\end{figure}

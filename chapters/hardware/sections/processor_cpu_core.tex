@@ -1,0 +1,18 @@
+\newsection{Processor VS CPU VS Core}
+\index{Processor}
+\index{CPU}
+\index{Core}
+\label{processorcpucore}
+\begin{itemize}
+    \itembf{Processor} is a~general name of~any gadget that can read instructions and~perform actions according to~these instructions (i.e.,~that can process instructions).
+    \itembf{CPU} (Central Processing Unit) is a~specific type of~processor.
+            It's the main processor in a~computer controlling the~behavior of~all other parts of the~computer.
+            Nowadays CPU is treated as a~synonym of the~processor, but that's wrong.
+            Beside the~CPU there are~other processors in a~computer.
+            For~example, a~hard drive contains its own processor controlling data reading and~writing, graphic cards contain a~GPU (Graphics Processing Unit) performing calculations needed to render and~display images etc.
+    \itembf{Core} is the main computation component of the CPU performing instructions (with the~help of~other parts of~CPU like \hyperref[alu]{ALUs}).
+            Typically, one core can process one instruction at~a~time, although nowadays there are even cores enabling parallel instructions processing.
+            However, usually the~parallelism is still achieved by putting more cores to one CPU and~more CPUs to~one computer.
+            For~example, when you read the~typical "state--of--the--art" claim that a~computer has~quad--core processor, it means that there is a~single CPU with four cores in the~computer.
+            Beside cores CPUs also contain switch bridges (distributing instructions to~cores), caches and~other stuff.
+\end{itemize}

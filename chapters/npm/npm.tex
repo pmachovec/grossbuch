@@ -98,7 +98,7 @@ And~you sure want to~have at~least the~global packages installation folder commo
 
 \newsection{Creating Custom Registry}
 Similarly to~\hyperref[gradle]{Gradle} repositories, creating a~real NPM registry is~complicated and~must~be done with \href{https://jfrog.com/artifactory/}{Artifactory}.
-But~similarly to~\hyperref[gradle]{Gradle} it's also possible to~use a~local folder or~Github.
+But~similarly to~\hyperref[gradle]{Gradle} it's also possible to~use a~local folder or~GitHub.
 
 \newsubsection{Local Folder}
 \label{npmpublishlocal}
@@ -141,7 +141,7 @@ The~hash must~be stored in~the~pattern \mbitql{//npm.pkg.github.com/:;;\_authTok
 
 Then you~need to~configure the~project you~want to~publish in~its \mbit{package.json} file.
 The~basic structure is~the~same as~\hyperref[npmpublishlocal]{when publishing to~a~local folder}, but~the~package name must~be prefixed with your GitHub user name in~the~pattern \mbitq{@USER\_NAME/} (at~sign at~the~beginning, slash at~the~end).
-Additionally you~must configure registry and~repository~URLs.
+Additionally, you~must configure registry and~repository~URLs.
 The~registry URL is~a~GitHub global URL used for~the~NPM registry functionality.
 The~repository URL is~the~SSH URL to~a~concrete Git repository which serves as~your~package registry.
 If~the~repository has~the~same name as~the~project without the~user name prefix, you~don't have~to specify the~repository.
@@ -175,12 +175,12 @@ I.e.,~there must~be something like \mbitqls{registry=;;https://;;npm.pkg.github.
 GitHub registry is~connected with the~default NPM registry and~NPM~installation of~other features will still work.
 However, if~you~already have the~main registry configured to~some other URL,  you're screwed, see~\hyperref[multipleregistries]{further}.
 
-Additionally you~need a~token with reading rights for~the~account, even when the~repository is~public.
+Additionally, you~need a~token with reading rights for~the~account, even when the~repository is~public.
 It~doesn't have to~be the~same token with which the~package was~published (but~can~be, especially on~the~same computer).
 It~can~be even a~token only for~reading without writing rights, that~can~be distributed to~a~wide audience of~users.
 
 Packages installation is~the~same as~usual.
-Just use the~GitHub user name as~the~\hyperref[nsmscopedpackages]{scope}.
+Just use the~GitHub username as~the~\hyperref[nsmscopedpackages]{scope}.
 For~example, \mbitqls{npm;;;install;;;@USER\_NAME/;;simplepackage}.
 I.e.,~you~don't have configured a~scope, but~you~act like you~do.
 
@@ -211,4 +211,4 @@ When a~package is~\hyperref[npmpublishlocal]{published to~a~local folder}, it's~
 Just delete the~folder with the~package.
 But~when a~package is~\hyperref[npmpublishgithub]{published to~GitHub}, deleting it is complicated and~restricted in~certain ways.
 You~can't delete a~package with NPM at~all.
-You~must use the~GitHub \hyperref[graphql]{GraphQL}~\hyperref[api]{API} and~send queries for~\hyperref[githubdeletepackage]{general package removal}.
+You~must use GitHub \hyperref[graphql]{GraphQL}~\hyperref[api]{API} and~send queries for~\hyperref[githubdeletepackage]{general package removal}.

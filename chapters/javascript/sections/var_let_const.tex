@@ -1,0 +1,18 @@
+\newsection{Var VS Let VS Const}
+\index{Const}
+\index{Let}
+\index{Var}
+These are JavaScript key words starting a~variable \hyperref[declarationdefinition]{declaration}.
+They define the~variable scope visibility and~changeability.
+
+\begin{itemize}
+    \item \mbitq{Var}~variables are~visible in the nearest function block, but~\mbitq{let} and~\mbitq{const} variables are visible in the nearest enclosing block, which can~be smaller than a function block.
+          Accessing a~\mbitq{let} variable outside its enclosing block causes a~\mbit{ReferenceError} and~all the~following code isn't reached.
+    \item \mbitq{Var}~variables can~be redeclared in~the~same (function) block, i.e.~you~can declare \mbitqls{var a =;;;...;} more times in~the~same (function) block.
+          \mbitq{Let}~variables can~be only rewritten in~the~same (enclosing) block.
+          \mbitq{Const}~variables can't~be even rewritten.
+    \item \mbitq{Var}~variables can~be used even before their declaration, but~they're always \mbit{undefined}.
+          Assigning a~value to~a~\mbitq{var}~variable before its declaration results in~an~error.
+    \item Variables of~all~three types are~accessible from anywhere when declared in~the~executable code outside any~block.
+          However, only \mbitq{var}~variables are~available in~the~\mbit{window} object.
+\end{itemize}
