@@ -1,0 +1,46 @@
+\newsection{Model--View--Viewmodel (MVVM)}
+\index{Model--view--viewmodel}
+\index{Model--view--binder}
+\index{MVVM}
+\index{MVB}
+\label{mvvm}
+Known also as \mbitq{Model--View--Binder} (MVB), it's another pattern for~systems with user interface, used mainly in~desktop and~mobile \hyperref[applicationprocessprogramservicethread]{applications}.
+It~describes a~system separation to~three components -- a~model, a~view and~a~viewmodel (or~binder) -- where a~change in~one~component causes only minimal (ideally none) changes in~other two components.
+It~should be possible to~develop, maintain and~reuse each component separately.
+
+The~MVVM architecture is very similar to~the~better known \hyperref[mvc]{MVC}.
+The~main difference is that in~MVVM the~view receives commands from~users and~delegates them further to~the~system \hyperref[businesslogic]{business logic} (to~the~viewmodel).
+In~other words, the~viewmodel component binds the~view and~the~model components (that's why it's called \mbitq{viewmodel} \mbox{or \itq{binder}}).
+In~MVC, on~the~other hand, commands go to~the~\hyperref[businesslogic]{business logic} (to~the~controller) directly without the~view's participation.
+\newline
+
+\noindent Components in~detail:
+\begin{itemize}
+    \itembfd{Model} an~abstraction of~data with which the~system operates, for~example, classes representing records in~database tables.
+    \itembfd{View} information displayed to~a~user and~also functionality for~receiving commands from~the~user and~delegating them to~the~viewmodel, for~example, a~screen of~a~mobile \hyperref[applicationprocessprogramservicethread]{applications}.
+    \itembfd{Viewmodel} the~application \hyperref[businesslogic]{business logic}, receives commands from~the~view, based on~these commands performs computations with the~model and~based on~results updates the~view.
+\end{itemize}
+
+\warning Similarly to~\hyperref[mvc]{MVC}, there's no global consensus about how~the~interaction between components work.
+Namely, there's a~very widespread description of~MVVM saying that the~\hyperref[businesslogic]{business logic} of~the~system is~a~part of~the~model.
+
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (view) at (0, 0) {View};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (viewmodel) at (6, 0) {\fontsize{11}{11} \selectfont Viewmodel};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (model) at (12, 0) {Model};
+        \node [draw, minimum width=30mm, minimum height=23mm, line width=.3mm] (user) at (0,-4) {};
+        \node [bob, minimum size=10mm, monitor] (innerUser) at (0,-3.8) {User};
+        \node [cylinder, minimum height=24mm, minimum width=30mm, line width=.3mm, draw=black, shape border rotate=90, aspect=.3] (database) at (12,-4) {Database};
+
+        \diagramarrow{[yshift=2mm]view.east}{[yshift=2mm]viewmodel.west}[Commands][above=1mm]
+        \diagramarrow{[yshift=-2mm]viewmodel.west}{[yshift=-2mm]view.east}[Updates][below=1mm]
+        \diagramarrow{viewmodel.east}{model.west}[Works with][above=1mm]
+        \diagramarrow{[xshift=3mm]view.south}{[xshift=3mm]user.north}[Results][right]
+        \diagramarrow{[xshift=-3mm]user.north}{[xshift=-3mm]view.south}[Commands][left]
+        \diagramarrow{model.south}{database.north}[Based on][left, yshift=3mm]
+    \end{tikzpicture}
+    \captit{Schema of the MVVM pattern connected with a user and a database}
+\end{figure}
+\newpage

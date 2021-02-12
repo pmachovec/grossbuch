@@ -141,18 +141,18 @@ You~must download it or~load it as~a~dependency.
     context.close();
 \end{lstlisting}
 \begin{tikzpicture}[remember picture, overlay, shift={(current page.north west)}]
-    \coordinate(lc2java3singbeaniddummy1) at (lc2java1singbeaniddummy |-,0);
-    \coordinate(lc2java3singbeaniddummy2) at (lc2java1singbeaniddummy |-,-30mm);
-    \coordinate(lc2java3protbeaniddummy1) at (lc2java2protbeaniddummy |-,0);
-    \coordinate(lc2java3protbeaniddummy2) at (lc2java2protbeaniddummy |-,-30mm);
+    \coordinate(lc2java3singbeaniddummy1) at (lc2java1singbeaniddummy |-, 0);
+    \coordinate(lc2java3singbeaniddummy2) at (lc2java1singbeaniddummy |-, -30mm);
+    \coordinate(lc2java3protbeaniddummy1) at (lc2java2protbeaniddummy |-, 0);
+    \coordinate(lc2java3protbeaniddummy2) at (lc2java2protbeaniddummy |-, -30mm);
     \drawarrow[-]{[xshift=-9mm] lc2java3singbeaniddummy1}{[xshift=-9mm,yshift=-2mm] lc2java3singbeaniddummy2}
-    \drawarrow[-stealth]{[xshift=-9.3mm] lc2java3singbeaniddummy2}{[xshift=3mm]lc2java3singbeanid1.north west}
+    \drawarrow[-stealth]{[xshift=-9.3mm] lc2java3singbeaniddummy2}{[xshift=3mm] lc2java3singbeanid1.north west}
     \drawarrow[-stealth]{[xshift=-9.1mm] lc2java3singbeaniddummy2}{lc2java3singbeanid2.north west}
-    \drawarrow[-]{[xshift=9mm] lc2java3protbeaniddummy1}{[xshift=9mm,yshift=-2mm] lc2java3protbeaniddummy2}[red]
+    \drawarrow[-]{[xshift=9mm] lc2java3protbeaniddummy1}{[xshift=9mm, yshift=-2mm] lc2java3protbeaniddummy2}[red]
     \drawarrow[-stealth]{[xshift=9mm] lc2java3protbeaniddummy2}{[xshift=-3mm] lc2java3protbeanid1.north}[red]
     \drawarrow[-stealth]{[xshift=8.8mm] lc2java3protbeaniddummy2}{[xshift=6mm] lc2java3protbeanid2.north}[red]
-    \node at ([xshift=-9mm] lc2java1singbeaniddummy |-,-31mm)[circle,fill,inner sep=1.5pt]{};
-    \node at ([xshift=9mm] lc2java1singbeaniddummy |-,-31mm)[circle,fill,red,inner sep=1.5pt]{};
+    \node at ([xshift=-9mm] lc2java1singbeaniddummy |-, -31mm)[circle, fill, inner sep=1.5pt]{};
+    \node at ([xshift=9mm] lc2java1singbeaniddummy |-, -31mm)[circle, fill, red, inner sep=1.5pt]{};
 \end{tikzpicture}
 
 \noindent Again the~initialization method is~called three times -- once for~the~singleton instance and~twice for~prototype instances.

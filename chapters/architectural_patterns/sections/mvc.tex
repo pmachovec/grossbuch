@@ -2,37 +2,68 @@
 \index{Model--view--controller}
 \index{MVC}
 \label{mvc}
-This pattern is~used for~systems with a~user interface.
-Although initially used for~desktop applications, it's~popular also for~\hyperref[webserviceapplication]{web applications}.
-It~describes a~system separation to~three \hyperref[loosetightcoupling]{loosely coupled} components, where a~change in~one~component causes only minimal (ideally none) changes in~other two components.
+The~most well--known pattern for~systems with user interface.
+Although initially intended for~desktop \hyperref[applicationprocessprogramservicethread]{applications}, it's~most popular for~\hyperref[webserviceapplication]{web applications} nowadays.
+It~describes a~system separation to~three loosely coupled components -- a~model, a~view and~a~controller -- where a~change in~one~component causes only minimal (ideally none) changes in~other two components.
 It~should be possible to~develop, maintain and~reuse each component separately.
-Components are as~expected:
+\newline
+
+\noindent Components in~detail:
 \begin{itemize}
-    \itembfd{Model} an~abstraction of~data with which the~system operates, for~example classes representing records in~database tables.
-             It's~independent of~other two~components.
-          \warningnonl It~does~\textbf{not} include the~database itself.
-    \itembfd{View} information displayed to~a~user, for~example a~\hyperref[web] page with results of~a~\hyperref[webserviceapplication]{web service} computation.
-             Often is a~part of~\hyperref[shellcligui]{GUI}, which also serves for~sending commands to~the~controller from the~user.
+    \itembfd{Model} an~abstraction of~data with which the~system operates, for~example, classes representing records in~database tables.
+    \itembfd{View} information displayed to~a~user, often in~a~form of~\hyperref[shellcligui]{GUI}, for~example, a~\hyperref[internetweb]{web page} with results of~a~\hyperref[webserviceapplication]{web service} computation.
     \itembfd{Controller} the~application \hyperref[businesslogic]{business logic}, receives commands from~a~user, based on~these commands performs computations with the~model and~based on~results updates the~view.
 \end{itemize}
 
-\enlargethispage{30mm}
-\thispagestyle{empty}
+\note Although commands to~the~controller are usually passed through~\hyperref[shellcligui]{GUI}, the~view doesn't handle them.
+They always go directly to~the~controller.
+The~view only displays whatever instructed by~the~controller.
+For~example, in~a~\hyperref[webserviceapplication]{web application} \hyperref[http]{HTTP requests} are~commands.
+They're initiated through forms in~\hyperref[internetweb]{web pages} rendered by the~view, but~the~view itself doesn't handle them in~any~way.
+\newpage
+
 \begin{figure}[ht]
     \centering
     \begin{tikzpicture}
         \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (view) at (0, 0) {View};
         \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (controller) at (6, 0) {Controller};
         \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (model) at (12, 0) {Model};
-        \node [draw, minimum width=30mm, minimum height=23mm, line width=.3mm] (user) at (3,-5) {};
-        \node [bob, minimum size=10mm, monitor] (innerUser) at (3,-4.8) {User};
-        \node [cylinder, minimum height=30mm, minimum width=30mm, line width=.3mm, draw=black, shape border rotate=90, aspect=.3] (database) at (12,-5) {Database};
+        \node [draw, minimum width=30mm, minimum height=23mm, line width=.3mm] (user) at (3,-4) {};
+        \node [bob, minimum size=10mm, monitor] (innerUser) at (3,-3.8) {User};
+        \node [cylinder, minimum height=24mm, minimum width=30mm, line width=.3mm, draw=black, shape border rotate=90, aspect=.3] (database) at (12,-4) {Database};
 
-        \diagramarrow{controller.west}{view.east}[Updates][above=3mm]
-        \diagramarrow{controller.east}{model.west}[Works with][above=3mm]
+        \diagramarrow{controller.west}{view.east}[Updates][above=1mm]
+        \diagramarrow{controller.east}{model.west}[Works with][above=1mm]
         \diagramarrow[.3mm]{view.south east}{user.north}[Results][left]
         \diagramarrow{user.north}{controller.south west}[Commands][right]
-        \diagramarrow{model.south}{database.north}[Based on][left]
+        \diagramarrow{model.south}{database.north}[Based on][left, yshift=3mm]
     \end{tikzpicture}
     \captit{Schema of the MVC pattern connected with a user and a database}
 \end{figure}
+
+\warning This~is just one of~many possible descriptions of~the~MVC architecture.
+There's no global consensus about how~the~interaction between components work.
+You~can~encounter various triangular descriptions with~direct interaction between the~view and~the~model, and~in~both directions, stating that the~view updates the~model or~the~model forms the~view.
+Some descriptions also say that the~logic altering the~database belongs to~the~model (which~is~wrong because then the~model becomes tightly coupled to~the~controller).
+
+\begin{figure}[h!t]
+    \centering
+    \begin{tikzpicture}
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (model) at (6, 0) {Model};
+        \node [cylinder, minimum height=24mm, minimum width=30mm, line width=.3mm, draw=black, shape border rotate=90, aspect=.3] (database) at (12, 0) {Database};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (view) at (0, -4) {View};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (controller) at (12, -4) {Controller};
+        \node [draw, minimum width=30mm, minimum height=23mm, line width=.3mm] (user) at (6,-8) {};
+        \node [bob, minimum size=10mm, monitor] (innerUser) at (6,-7.8) {User};
+
+        \diagramarrow{model.east}{database.west}[Alters][above=1mm]
+        \diagramarrow{controller.west}{view.east}[Updates][above=1mm]
+        \diagramarrow[.3mm]{controller.north west}{model.south east}[Works with][right=1mm]
+        \diagramarrow[.3mm]{view.north east}{model.south west}[Updates][left=1mm][bend left=9mm]
+        \diagramarrow[.3mm]{model.south west}{view.north east}[Forms][right=1mm][bend left=9mm]
+        \diagramarrow[.3mm]{view.south east}{user.north}[Results][left=3mm]
+        \diagramarrow{user.north}{controller.south west}[Commands][right=3mm]
+    \end{tikzpicture}
+    \captit{Schema of triangular MVC pattern with the model altering the database}
+\end{figure}
+\newpage

@@ -1,0 +1,58 @@
+\newsection{Model--View--Presenter (MVP)}
+\index{Model--view--presenter}
+\index{MVP}
+Another pattern for~systems with user interface, used mainly in~desktop and~mobile \hyperref[applicationprocessprogramservicethread]{applications}.
+It~describes a~system separation to~three components -- a~model, a~view and~a~presenter -- where the~view and~the~presenter are more multi--subcomponent layers than single components.
+There are multiple views, and~for~each~view there's a~corresponding presenter handling a~part of the~system \hyperref[businesslogic]{business logic} corresponding to~the~view.
+This architecture a~more complex version of~the~already mentioned \hyperref[mvvm]{MVVM}.
+\newline
+
+\noindent Components in~detail:
+\begin{itemize}
+    \itembfd{Model} an~abstraction of~data with which the~system operates, for~example, classes representing records in~database tables.
+    \itembfd{View} multi--subcomponent layer displaying information to~a~user and~also receiving commands from~the~user and~delegating them to~the~presenter layer, for~example, a~set of~screens of~a~mobile \hyperref[applicationprocessprogramservicethread]{applications}.
+    \itembfd{Presenter} multi--subcomponent layer with components corresponding to~those in~the~view, handling a~specific part of~the~system \hyperref[businesslogic]{business logic} and~works with the~model.
+\end{itemize}
+
+\enlargethispage{30mm}
+\thispagestyle{empty}
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (model) at (6, 0) {Model};
+        \node [cylinder, minimum height=24mm, minimum width=30mm, line width=.3mm, draw=black, shape border rotate=90, aspect=.3] (database) at (12, 0) {Database};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (presenter1) at (0, -3) {Presenter 1};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (presenter2) at (5, -3) {Presenter 2};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (presenterX) at (12, -3) {Presenter X};
+        \node [circle, fill, inner sep=1pt] at (8, -3){};
+        \node [circle, fill, inner sep=1pt] at (8.5, -3){};
+        \node [circle, fill, inner sep=1pt] at (9, -3){};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (view1) at (0, -7) {View 1};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (view2) at (5, -7) {View 2};
+        \node [draw, minimum width=30mm, minimum height=20mm, line width=.3mm] (viewX) at (12, -7) {View X};
+        \node [circle, fill, inner sep=1pt] at (8, -7){};
+        \node [circle, fill, inner sep=1pt] at (8.5, -7){};
+        \node [circle, fill, inner sep=1pt] at (9, -7){};
+        \node [draw, minimum width=30mm, minimum height=23mm, line width=.3mm] (user) at (6,-10.5) {};
+        \node [bob, minimum size=10mm, monitor] (innerUser) at (6,-10.3) {User};
+
+        \diagramarrow{model.east}{database.west}[Based on][above=1mm]
+        \diagramarrow[.3mm]{presenter1.north east}{model.south west}[Works with][left=3mm]
+        \diagramarrow{presenter2.north}{model.south}[Works with][left=1mm, yshift=-1mm]
+        \diagramarrow[.3mm]{presenterX.north west}{model.south east}[Works with][right=3mm]
+        \diagramarrow{[xshift=-3mm]view1.north}{[xshift=-3mm]presenter1.south}[Commands][left]
+        \diagramarrow{[xshift=3mm]presenter1.south}{[xshift=3mm]view1.north}[Updates][right]
+        \diagramarrow{[xshift=-3mm]view2.north}{[xshift=-3mm]presenter2.south}[Commands][left]
+        \diagramarrow{[xshift=3mm]presenter2.south}{[xshift=3mm]view2.north}[Updates][right]
+        \diagramarrow{[xshift=-3mm]viewX.north}{[xshift=-3mm]presenterX.south}[Commands][left]
+        \diagramarrow{[xshift=3mm]presenterX.south}{[xshift=3mm]viewX.north}[Updates][right]
+        \diagramarrow{user.west}{view1.south}[Commands][left=1mm][bend left=9mm]
+        \diagramarrow[.3mm]{view1.south east}{user.north west}[Results][left=1mm]
+        \diagramarrow{user.north}{view2.south}[Commands][left=-1mm, yshift=-2mm]
+        \diagramarrow{[xshift=6mm]view2.south}{[xshift=6mm]user.north}[Results][right=-1mm, yshift=2mm]
+        \diagramarrow{user.east}{viewX.south}[Commands][right=1mm][bend right=9mm]
+        \diagramarrow[.3mm]{viewX.south west}{user.north east}[Results][right=1mm]
+    \end{tikzpicture}
+    \captit{Schema of the MVP pattern connected with a user and a database}
+\end{figure}
+\newpage
