@@ -1,0 +1,23 @@
+\newsection{Functional Programming}
+\index{Functional programming}
+\label{functionalprogramming}
+It's~a~variation of~the~\hyperref[declarativeprogramming]{declarative programming}.
+Functional programs can~be expressed as mathematical functions -- for~a~set of~inputs values they produce an~output value.
+For~one~specific set of~inputs the~output of~a~functional program is always the~same.
+There are no state changes or~mutable data.
+An~output can~be changed only by changing the~input.
+
+True functional languages, like Haskell or~Erlang, are used in the~academy and~science world rather than in~programming industry.
+When considering mainstream languages, JavaScript, Python or~Kotlin allow combining standalone functions (not~bound to~objects) with the~standard \hyperref[imperativeprogramming]{imperative paradigm}.
+
+\example[functional \textit{Hello World} in~JavaScript]
+%! language = TEXT
+\begin{lstlisting}[language=JavaScript]
+    var helloWorld = function() {
+        console.log('Hello World!');
+    }
+
+    helloWorld();
+\end{lstlisting}
+
+\noindent The~function taking zero input values and~producing no~output (which is a~valid output) is defined, referenced by~the~variable and~called.

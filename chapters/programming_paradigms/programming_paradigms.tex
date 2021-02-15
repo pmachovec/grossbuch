@@ -1,68 +1,8 @@
 \newchapter{Programming Paradigms}
 
-\newsection{Object--Oriented Programming (OOP)}
-See~the~\hyperref[objectorientedprogramming]{standalone chapter}.
-
-\newsection{Imperative Programming}
-\index{Imperative programming}
-\index{Control flow}
-\index{Flow of control}
-\label{imperativeprogramming}
-It's a~programming paradigm in which a~program behavior is changed by~specified statements.
-The~order of~executing statements is~called \textit{control flow}, or~also \textit{flow of~control}.
-It's~opposite of~the~\hyperref[declarativeprogramming]{declarative programming}.
-
-\warning It is \textbf{not}~contradictory to~\hyperref[objectorientedprogramming]{object--oriented programming}, imperative languages can~be object--oriented.
-Actually, today's most used object--oriented languages (Java, C\#, C++) are~imperative.
-
-\newsection{Procedural Programming}
-\index{Procedural programming}
-It's~a~variation of~the~\hyperref[imperativeprogramming]{imperative programming}.
-A~procedural program is~a~top--down sequence of~statements -- a~procedure -- that, based on~input \hyperref[parameterargument]{arguments}, performs a~certain action.
-The~main procedure can~break the~initial problem to~smaller subprocedures and~these can~be broken further until a~subprocedure is~simple enough to~be~solved.
-
-The~\hyperref[imperativeprogramming]{imperative} \hyperref[objectorientedprogramming]{object--oriented} programming partially uses the~procedural approach -- a~sequence of~steps is~executed from~the~start to~the~end.
-But~the~difference is in~data handling.
-In~real procedural programming tools for~data manipulation are~not~encapsulated together with data.
-Data are~passed through the~procedure in~a~form of~a~\hyperref[datastructure]{data structure}, also called \textit{record}, and~adjusted at~various places.
-
-The~procedural paradigm is easier to~grab than~the~object--oriented paradigm, but~its~main disadvantage is a~very tight coupling of~all~parts of~programs.
-When some step is changed at~the~beginning of~a~program procedure, it~can~affect data handling and~it~might be necessary to~adjust some following steps.
-The~bigger the~program~is, the~worse impact changes have.
-
-Old~programming languages are procedural, for~example Pascal, C or~Fortran.
-Even in~modern languages, and~even in~those told to~be object--oriented, it's~possible to~use the~procedural paradigm.
-When a~program is~small, for~example, a~\hyperref[scriptinglanguages]{script}, it's~more convenient to~handle it as~a~procedure.
-
-\newsection{Declarative Programming}
-\index{Declarative programming}
-\label{declarativeprogramming}
-It's a~programming paradigm in which programs describe their desired results without explicitly listing commands or steps that must be performed.
-It's~opposite of~the~\hyperref[imperativeprogramming]{imperative programming}.
-Typical examples of~declarative languages are~SQL or~Prolog.
-Oracle's PL/SQL is a~kind of~hybrid language using imperative statements combined with declarative SQL\@.
-Even declarative languages can~be \hyperref[objectorientedprogramming]{object--oriented} (there~is an~object extension for~Prolog).
-
-\newsection{Functional Programming}
-\index{Functional programming}
-\label{functionalprogramming}
-It's~a~variation of~the~\hyperref[declarativeprogramming]{declarative programming}.
-Functional programs can~be expressed as mathematical functions -- for~a~set of~inputs values they produce an~output value.
-For~one~specific set of~inputs the~output of~a~functional program is always the~same.
-There are no state changes or~mutable data.
-An~output can~be changed only by changing the~input.
-
-True functional languages, like Haskell or~Erlang, are used in the~academy and~science world rather than in~programming industry.
-When considering mainstream languages, JavaScript, Python or~Kotlin allow combining standalone functions (not~bound to~objects) with the~standard \hyperref[imperativeprogramming]{imperative paradigm}.
-
-\example[functional \textit{Hello World} in~JavaScript]
-%! language = TEXT
-\begin{lstlisting}[language=JavaScript]
-    var helloWorld = function() {
-        console.log('Hello World!');
-    }
-
-    helloWorld();
-\end{lstlisting}
-
-\noindent The~function taking zero input values and~producing no~output (which is a~valid output) is defined, referenced by~the~variable and~called.
+\inputsection{programming_paradigms}{oop}
+\inputsection{programming_paradigms}{imperative}
+\inputsection{programming_paradigms}{procedural}
+\inputsection{programming_paradigms}{declarative}
+\inputsection{programming_paradigms}{functional}
+\inputsection{programming_paradigms}{reactive}
