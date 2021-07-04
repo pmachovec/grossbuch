@@ -2,16 +2,24 @@
 \index{Anonymous function}
 \index{Function type}
 \label{kotlinanonymousfunction}
-Kotlin supports the~syntax similar to~JavaScript, where anonymous functions can~be assigned to~variables.
-Such~functions can~be then called by calling the~variable name or~passed to~another function as~\hyperref[parameterargument]{arguments}.
+Kotlin supports syntax similar to~JavaScript, where anonymous functions can~be assigned to~variables.
+Such~functions can~be then invoked by calling the~variable name or~passed to~another function as~\hyperref[parameterargument]{arguments}.
 When specifying a~type of~a~variable holding a~function (which is the~case especially for~function \hyperref[parameterargument]{parameters}, standalone variables usually don't need type specification), you~must follow the~syntax \mbitqls{(TYPE\_1,;;;TYPE\_2,;;;...);;;->;;;RETURN\_TYPE}, where \mbitqls{(TYPE\_1,;;;TYPE\_2,;;;...)} are~types of~the~function parameters \mbox{and \itq{RETURN\_TYPE}} is the~function return value type.
 Mind brackets by the~function parameter types.
 They're compulsory even when the~function has only one parameter, or~even zero.
 \hyperref[kotlinunit]{\textit{Unit}} (and~even \hyperref[kotlinnothing]{\textit{Nothing}}) type is available for~functions returning no value.
 
 \example
-\enlargethispage{10mm}
-\thispagestyle{empty}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    // Function of type "(Int) -> Int"
+    val multiplyByTwo = fun(a: Int) : Int {
+        return a*2
+    }
+
+    // Function of type "() -> Int"
+    val doNothing = fun() {}
+\end{lstlisting}
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Function taking other functions as parameters}]
     fun doSomething(
@@ -27,14 +35,10 @@ They're compulsory even when the~function has only one parameter, or~even zero.
 
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Usage}]
-    // Type is "(Int) -> Int"
-    val multiplyByTwo = fun(a: Int) : Int {
-        return a*2
-    }
+    // Standalone invocation
+    val result1 = multiplyByTwo(2) // Result is 4
+    doNothing() // Doesn't return a value
 
-    // Type is "() -> Int"
-    val doNothing = fun() {}
-
-    // Result is 4
-   val result = doSomething(2, multiplyByTwo, doNothing)
+    // Passing to another function
+    val result2 = doSomething(3, multiplyByTwo, doNothing) // Result is 6
 \end{lstlisting}

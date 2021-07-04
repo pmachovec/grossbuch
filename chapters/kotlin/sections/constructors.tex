@@ -7,9 +7,9 @@ Typical constructor usage in~Java is just assigning received \hyperref[parameter
 In~Kotlin there's a~syntax called \itq{primary constructor} for~simplifying this.
 It~works by~specifying variables with types in~brackets directly in~a~class header (see~the~example).
 
-When a~variable has \itq{var} \mbox{or \itq{val}} keyword, it~becomes \mbox{a \hyperref[variablefieldproperty]{property}} of~the~class.
-It~isn't necessary (and~even possible) to~specify the~property variable separately.
-When a~variable doesn't have \itq{var} \mbox{nor \itq{val}} keyword, it's~just an~immutable parameter of~the~constructor.
+When a~variable has \hyperref[kotlinvalvar]{\itq{val} \mbox{or \itq{var}}} keyword, it~becomes \mbox{a \hyperref[variablefieldproperty]{property}} of~the~class.
+It~isn't necessary (and~even possible) to~specify that~property variable separately (you~still can~specify other properties separately).
+When a~variable doesn't have \itq{val} \mbox{nor \itq{var}} keyword, it's~just an~immutable parameter of~the~constructor.
 It~can~be used only for~setting other class \hyperref[variablefieldproperty]{properties} (typically at~the~beginning of~the~class) or~inside \hyperref[kotlininitblock]{initializer blocks}.
 
 \example[Kotlin class with a primary constructor]
@@ -35,6 +35,7 @@ It~can~be used only for~setting other class \hyperref[variablefieldproperty]{pro
 \newpage
 
 \newsubsection{Secondary Constructor}
+\index{Secondary constructor}
 \label{kotlinsecondaryconstructor}
 A~constructor for~a~Kotlin class can~be also created by~the~keyword \itq{constructor}.
 Such~constructor is~called \itq{secondary constructor}.
@@ -55,7 +56,7 @@ Overloading of~secondary constructors by~different \hyperref[parameterargument]{
     }
 \end{lstlisting}
 
-\noindent A~class can~have both primary and~secondary constructors, but~secondary must always call the~primary~one.
+\noindent A~class can~have both primary and~secondary constructors, but~secondary must always call the~primary~one with the~keyword \mbitq{this}.
 Also, secondary must have different \hyperref[parameterargument]{parameters}, it's~still constructor overloading.
 
 \example[Kotlin class with primary and secondary constructors]

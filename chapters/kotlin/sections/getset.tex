@@ -1,0 +1,93 @@
+\newsection{Getters and Setters}
+\index{Get}
+\index{Set}
+\label{kotlingetset}
+In~Kotlin, basic getters and~setters (just retrieving from and~assigning to~a~\hyperref[variablefieldproperty]{property}) are~created automatically.
+The~code written in~the~direct property access style (retrieving by~dot notation, assigning with the~equals sign) is compiled to~\hyperref[javabytecode]{bytecode} corresponding to~Java code using getters and~setters.
+When~you \hyperref[declarationdefinition]{declare} the~property with the~\mbitq{val} keyword, the~setter isn't~created.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Direct property access in Kotlin}]
+    class SimpleClass {
+        var simpleMutable: String? = null
+        val simpleImmutable: = "Immutable value"
+    }
+    ...
+    val simpleClassInstance = SimpleClass()
+    simpleClassInstance.simpleMutable = "Mutable value" // Calling setter
+    println(simpleClassInstance.simpleMutable) // Calling getter
+    println(simpleClassInstance.simpleImmutable) // Calling getter
+\end{lstlisting}
+\newpage
+
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Java equivalent}]
+    public class SimpleClass {
+        private String simpleMutable = null;
+        private final String simpleImmutable = "Immutable value";
+
+        public String getSimpleMutable() {
+            return simpleMutable;
+        }
+
+        public void setSimpleMutable(String simpleMutable) {
+            this.simpleMutable = simpleMutable;
+        }
+
+        public String getSimpleImmutable() {
+            return simpleImmutable;
+        }
+    }
+    ...
+    private final SimpleClass simpleClassInstance = new SimpleClass();
+    simpleClassInstance.setSimpleMutable("Mutable value");
+    System.out.println(simpleClassInstance.getSimpleMutable());
+    System.out.println(simpleClassInstance.getSimpleImmutable());
+\end{lstlisting}
+\newline
+
+\noindent When~you~need some more sophisticated logic for~value retrieval and~assignment, in~Java you~have \mbit{get} \mbox{and \textit{set}} methods where you~can~write additional code.
+Kotlin enables adding more logic \mbox{by \itq{get}} \mbox{and \itq{set}} keywords written under the~affected property \hyperref[declarationdefinition]{declaration} and~followed by~a~function body.
+In~these function bodies the~keyword \mbitq{field} is available to~access the~current value of~the~corresponding \hyperref[variablefieldproperty]{field} variable.
+In~the~setter body you~must assign final desired value to~it -- setters don't return a~value (their return type \mbox{is \hyperref[kotlinunit]{\textit{Unit}}}).
+Furthermore, the~setter gets one \hyperref[parameterargument]{parameter} of~the~variable type.
+That represents the~set value.
+Getters must return a~value of~the~corresponding field variable type.
+\newpage
+
+\example[string property storing reversed value and returning uppercase]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Direct property access in Kotlin}]
+    class SimpleClass {
+        var complexValue: String? = null
+            get() {
+                return field.toUpperCase()
+            }
+            set(value) {
+                field = value.reversed()
+            }
+    }
+    ...
+    val simpleClassInstance = SimpleClass()
+    simpleClassInstance.complexValue = "abc" // 'complexValue' is 'cba'
+    println(simpleClassInstance.complexValue) // Prints 'CBA'
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Java equivalent}]
+    public class SimpleClass {
+        private String complexValue = null;
+
+        public String getComplexValue() {
+            return complexValue.toUpperCase();
+        }
+
+        public void setComplexValue(String value) {
+            this.complexValue = value;
+        }
+    }
+    ...
+    private final SimpleClass simpleClassInstance = new SimpleClass();
+    simpleClassInstance.setComplexValue("abc");
+    System.out.println(simpleClassInstance.getComplexValue());
+\end{lstlisting}

@@ -3,8 +3,10 @@ Like you~need the~\textit{main} method in~Java as~a~starting point of~a~program,
 It~seems simple at~the~first glance -- just \hyperref[declarationdefinition]{define} a~function:
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin]
-    fun main(args: Array<String>) {
-        ...
+    class MainClass {
+        fun main(args: Array<String>) {
+            ...
+        }
     }
 \end{lstlisting}
 
@@ -13,8 +15,10 @@ It~seems simple at~the~first glance -- just \hyperref[declarationdefinition]{def
 Compare the~definition with the~Java definition of~the~\textit{main} method:
 %! language = TEXT
 \begin{lstlisting}[language=Java]
-    public static void main(String[] args) {
-        ...
+    public class MainClass {
+        public static void main(String[] args) {
+            ...
+        }
     }
 \end{lstlisting}
 
@@ -44,10 +48,9 @@ The~class can~be then used as~the~main class.
     }
 \end{lstlisting}
 
-\newsubsection{As~a~standalone function}
-This is the~real Kotlin approach.
-Kotlin enables to~have functions outside classes.
-For~a~file containing these standalone functions a~class with \itq{-kt} at~the~end of~the~name is~generated and~each function has~a~corresponding static method.
+\newsubsection{As~a~\hyperref[kotlinstandalone]{standalone function}}
+This is the~real Kotlin approach -- define the~function in~a~Kotlin file outside any class.
+A~class with \mbox{the \itq{-Kt}} suffix is~generated during compilation and~it~contains the~desired static method.
 
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin,title={A~standalone main function in a~file \textit{Example.kt}}]
@@ -59,18 +62,19 @@ For~a~file containing these standalone functions a~class with \itq{-kt} at~the~e
 %! language = TEXT
 \begin{lstlisting}[language=Java,title={Corresponding Java code}]
     public final class ExampleKt {
-        public static final void main(@NotNull String[] args) {
+        public static final void main(@@>@NotNull<@@ String[] args) {
             Intrinsics.checkParameterIsNotNull(args, "args");
             ...SOME CODE...
         }
     }
 \end{lstlisting}
+\newline
 
 \noindent Since Kotlin~1.3 \mbit{args} can~be omitted when not needed.
 The~generated \hyperref[javabytecode]{bytecode}, however, still contains~it.
 
 %! language = TEXT
-\begin{lstlisting}[language=Kotlin,title={A~tandalone main function without \mbit{args}}]
+\begin{lstlisting}[language=Kotlin,title={A~standalone main function without \mbit{args}}]
     fun main() {
         ...SOME CODE...
     }
@@ -83,7 +87,6 @@ The~generated \hyperref[javabytecode]{bytecode}, however, still contains~it.
             ...SOME CODE...
         }
 
-        // (*\Sc[LimeGreen]*)FF: synthetic method
         public static void main(String[] var0) {
             main();
         }

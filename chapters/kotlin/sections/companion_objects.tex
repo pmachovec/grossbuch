@@ -3,8 +3,8 @@
 \label{kotlincompanionobject}
 It's~an~\hyperref[kotlinobject]{object} \hyperref[declarationdefinition]{defined} inside a~standard class.
 It~doesn't have own name, it's~just a~code block labeled as \itq{companion object}.
-\hyperref[variablefieldproperty]{Fields} and~functions \hyperref[declarationdefinition]{defined} inside a~companion object can~be~accessed over the~main class, like \hyperref[javastatic][static] members in~Java.
-Companion objects basically represent those special instances created by~Java for~\hyperref[javastatic][static] members.
+\hyperref[variablefieldproperty]{Fields} and~functions \hyperref[declarationdefinition]{defined} inside a~companion object can~be~accessed over the~main class, like \hyperref[javastatic]{static} members in~Java.
+Companion objects basically represent those special instances created by~Java for~\hyperref[javastatic]{static} members.
 
 \example[class with companion object]
 %! language = TEXT
@@ -20,6 +20,7 @@ Companion objects basically represent those special instances created by~Java fo
 
 \note Class members outside a~companion object can't~access members of~the~companion object.
 This prevents unwanted overriding of~the~singleton instance \hyperref[variablefieldproperty]{fields}.
+\newpage
 
 \newsubsection{Overloading the \textit{invoke} operator}
 It~is~possible to~\hyperref[kotlininvokeoverload]{overload \mbox{the \textit{invoke}} operator} in~a~companion object.

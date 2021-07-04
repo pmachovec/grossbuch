@@ -21,7 +21,6 @@ It~doesn't throw an~exception.
     val first: String? = null
     val result: String? = first?.reversed() // result is null
 \end{lstlisting}
-\newpage
 
 \newsubsection{Non--null assertion (!!)}
 Kotlin code aims to~avoid a~null pointer exception as~much as~possible.
@@ -32,6 +31,7 @@ If~there's a~possibility to~hit a~null pointer, the~compilation fails.
 By~using the~operator the~code author asserts that he's aware of the~null possibility.
 It~can~be~used in~an~assignment or~with the~dot notation.
 When the~asserted variable is null, using the~operator results \mbox{in \textit{KotlinNullPointerException}.}
+\newpage
 
 \example[usage in assignment]
 %! language = TEXT
@@ -77,7 +77,6 @@ I.e.,~it's coalesce operator for~two values.
     val second: String? = "second"
     val result: String? = first ?: second // result is "second"
 \end{lstlisting}
-\newpage
 
 \example[second argument is null]
 %! language = TEXT
@@ -94,6 +93,7 @@ I.e.,~it's coalesce operator for~two values.
     val second: String? = null
     val result: String? = first ?: second // result is null
 \end{lstlisting}
+\newpage
 
 \newsubsection{Reflection (::)}
 \index{Reflection}
@@ -132,7 +132,6 @@ This is called \itq{bound class reference}.
 \noindent When used with a~function name on~the~right side (with~or~without a~class name on~the~left side, that~doesn't matter), it~returns that~function (not~its return value, the~function isn't executed).
 It's~like having the~function written as~\hyperref[kotlinanonymousfunction]{anonymous} and~stored in~a~variable.
 This is called \itq{callable reference}.
-\newpage
 
 \example[getting callable reference to a function]
 %! language = TEXT
@@ -147,7 +146,7 @@ This is called \itq{callable reference}.
     // Type of the variable is (Unit) -> SOME_TYPE
     val callRef = SimpleClass::doSomething
 \end{lstlisting}
-\newline
+\newpage
 
 \noindent Can~be also used to~retrieve references to~class properties.
 It~also works in~the~bound format~--~with a~variable on~the~left side.

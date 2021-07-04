@@ -1,0 +1,84 @@
+\newsection{Standalone Functions and Variables}
+\label{kotlinstandalone}
+Kotlin enables to~\hyperref[declarationdefinition]{define} functions and~variables outside classes.
+They just must be defined in~a~Kotlin file (with \mbox{the \itq{.kt}} extension) in~a~package folder.
+Such~elements can~then be imported with the~package path and~used anywhere in~the~corresponding project.
+This~is convenient especially for~very general functions that don't need a~class for~their work.
+Having standalone variables can~occur for~some constants, in~that~case it's recommended to~\hyperref[declarationdefinition]{declare} them with \mbox{the \itq{const}} keyword.
+Mutable standalone variables, although possible, are~a~bad practise and~shouldn't be used.
+
+For~a~Kotlin file with standalone elements the~compilation process generates a~class with the~same name \mbox{and \itq{-Kt}} suffix.
+If~the~file name starts with a~lowercase letter, it's~changed to~uppercase in~the~class name.
+Eventual underscores in~the~file name are~preserved (even as~the~first character).
+The~generated class contains static final functions corresponding to~standalone functions from~the~Kotlin file.
+In~the~case of~a~standalone variable, if~it's defined with \mbox{the \itq{const}} keyword, a~public variable is generated for~it.
+If~it's defined only with \mbox{the \itq{val}} keyword, a~private variable and~a~getter method are~generated for~it.
+If~it's defined with \mbox{the \itq{var}} keyword, a~private variable, a~getter and a~setter methods are~generated for~it.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin,title={Kotlin file \itq{Example.kt} with standalone elements}]
+    package somepackage.subpackage
+
+    const val constant = "constant"
+    val withVal = "with val"
+    var withVar = "with var"
+
+    fun standaloneFunction(stringArg: String) {
+        ...
+    }
+\end{lstlisting}
+
+%! language = TEXT
+\begin{lstlisting}[language=Java,title={Java equivalent}]
+    package somepackage.subpackage
+
+    public final class ExampleKt {
+        public static final String constant = "constant";
+        private static final String withVal = "with val";
+        private static final String withVar = "with var";
+
+        public static final void standaloneFunction(@@>@NotNull<@@ String stringArg) {
+            ...
+        }
+
+        public static final String getWithVal() {
+            return withVal;
+        }
+
+        public static final String getWithVar() {
+            return withVar;
+        }
+
+        public static final void setWithVar(@@>@NotNull<@@ String var0) {
+            this.withVar = withVar;
+        }
+    }
+\end{lstlisting}
+\newpage
+
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin,title={Usage}]
+    package otherpackage.othersubpackage
+
+    import somepackage.subpackage.constant
+    import somepackage.subpackage.withVal
+    import somepackage.subpackage.withVar
+    import somepackage.subpackage.standaloneFunction
+
+    class SimpleClass {
+        fun doSomething() {
+            standaloneFunction("something")
+            println(constant)
+            println(withVal)
+            withVar = "something else"
+        }
+    }
+\end{lstlisting}
+\noindent Notice that all standalone elements are~imported.
+That's necessary no matter the~package structure.
+Even if elements are~\hyperref[declarationdefinition]{defined} in~a~file directly above in~the~package path, they must be imported.
+
+The~only possible exception is when a~standalone element is maliciously defined in~a~Kotlin file that contains also a~proper class or~\hyperref[kotlinobject]{object}.
+In~that case the~compilation resulting \mbit{.class} file contains two classes -- the~one corresponding to~the~class or~object and~the~one with the~file name \mbox{and the \itq{-Kt}} suffix.
+And~it's possible to~use the~standalone element in~the~class or~object.

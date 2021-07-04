@@ -1,7 +1,7 @@
 \newsection{Imports with Wildcards}
 \index{Import}
 \index{Wildcard}
-Some people say that when you import two or~more classes from one package, or~two or~more methods from one~class, you~should use the~wildcard import (i.e.,~something like \textit{import~package.*}).
+Some people say that when you import two or~more classes from one package, or~two or~more methods from one~class, you~should use the~wildcard import (i.e.,~something like \mbitqls{import;;;package.*}).
 It's~even written in~the~book \textit{Clean Code} by~Robert C.~Martin.
 However, there are many objections to~this approach.
 
@@ -43,9 +43,13 @@ And~now consider this code:
 \noindent Here it's~clear that the~\textit{MysteryClass} class comes from the~third package.
 So,~when observing problems, it's~clear where to~look.
 
-Now~consider that the~previous code with wildcard imports works, i.e.,~there~is a~class called \textit{MysteryClass} in~the~third package.
+Wildcard imports also bring a~danger of~ambiguity.
+Consider that the~previous code with wildcard imports works, i.e.,~there~is a~class called \textit{MysteryClass} in~the~third package.
 And~now the~author of~the~second package, which lives on~the~other side of~the~world and~you don't know each~other, gets the~amazing idea to~create a~class called \textit{MysteryClass} in~the~second package.
 Suddenly, there's an~ambiguity in~your code, compilation stops working and~you're screwed.
 But~with explicit imports the~code still works without a~need of~change.
+
+To~hit the~ambiguity problem the~code even doesn't have to~work initially and~break suddenly later.
+Generally any time, when you use wildcard import for~two or~more packages containing a~class with~a~same name, you~will have troubles.
 
 \note The~most favoured linter Ktlint for~\hyperref[kotlin]{Kotlin} language, which slowly starts to~push away Java, forbids wildcard imports in~the~default configuration.

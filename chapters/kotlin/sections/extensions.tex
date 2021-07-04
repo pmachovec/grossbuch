@@ -1,0 +1,208 @@
+\newsection{Extensions}
+\index{Extension}
+Extensions provide an~ability to~extend a~class with new functions without having to~change the~code of~the~class, inherit from the~class or~use design patterns such as \hyperref[decoratordp]{decorator}.
+It's~possible to~extend even classes from libraries, i.e.,~those which aren't~written in~the~current project.
+This is actually the~most usual usage of~extensions.
+When extending a~class with~a~function, you~just prepend the~desired function name with the~extended class name and~a~dot.
+
+\example[extending the \itq{String} class with a function]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Extension definition}]
+    fun String.newFunction(...) {
+        ...
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Usage}]
+    val simpleString = "Simple string"
+    simpleString.newFunction(...)
+\end{lstlisting}
+\newpage
+
+\newsubsection{Extension property}
+\index{Backing field}
+\label{kotlinextensionproperty}
+\noindent Extending a~class with~a~\hyperref[variablefieldproperty]{property} is possible, but~slightly more complicated.
+You~can't just assign values with~the~equals sign.
+You~need to~specify at~least \hyperref[kotlingetset]{getter} (for~immutable property \mbox{with the \itq{val}} keyword).
+Furthermore, \mbox{the \hyperref[kotlingetset]{\itq{field}}} keyword isn't available in~such getters and~setters.
+
+If~you want the~property to~be mutable (\mbox{with the \itq{var}} keyword), it's~even more complicated.
+You~of~course need to~specify also \hyperref[kotlingetset]{setter}, but~that's not enough.
+A~publicly accessible field (i.e.,~another property) convenient for~this purpose must be \hyperref[declarationdefinition]{declared} in~the~class.
+Such~field is~called \textit{backing field}.
+If~there's none available and~you~can't change the~class code (which~is usually the~case with~classes from~libraries), you~can't create a~mutable extension property.
+
+\example[extending a~class with properties]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Class with a~backing field}]
+    class SimpleClass {
+        var backingField: String? = null
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Extensions definition}]
+    val SimpleClass.immutableProperty: String
+        get() {
+            "Immutable property value"
+        }
+
+    var SimpleClass.mutableProperty: String?
+        get() {
+            return backingField
+        }
+        set(value) {
+            backingField = value
+        }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Usage}]
+    val simpleClassInstance = SimpleClass()
+    simpleClassInstance.mutableProperty = "Something"
+    println(simpleClassInstance.immutableProperty)
+    println(simpleClassInstance.mutableProperty)
+\end{lstlisting}
+\newpage
+
+\newsubsection{Object extensions}
+Extending an~\hyperref[kotlinobject]{object} is completely the~same as~with classes.
+You~just don't need an~instance to~call the~extension.
+
+\example[object extension]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Object to be extended}]
+    object SimpleObject {
+        ...
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Object extension definition}]
+    fun SimpleObject.newFunction(...) {
+        ...
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Usage}]
+    SimpleObject.newFunction(...)
+\end{lstlisting}
+
+\newsubsection{Companion object extensions}
+When~a~class contains explicitly declared \hyperref[kotlincompanionobject]{companion object}, it's~possible to~create an~extension even for~the~companion object.
+Such~extension is then accessible just with~the~class name, no~instance is needed.
+The~companion object doesn't have to~have a~body.
+Just those two keywords \mbitqls{companion;;;object} must appear in~the~class body.
+The~syntax is similar to~all previous cases, just the~keyword \mbitq{Companion} (with~capital~C) is inserted between the~class name and~extension name in~the~dot notation chain.
+
+\example[companion object extension]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Class with a~companion object without a~body}]
+    class SimpleClass {
+        ...
+        companion object
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Companion object extension definition}]
+    fun SimpleClass.Companion.newFunction(...) {
+        ...
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Usage}]
+    SimpleClass.newFunction(...)
+\end{lstlisting}
+
+\newsubsection{Scope}
+Usually, extensions are~\hyperref[declarationdefinition]{defined} as~\hyperref[kotlinstandalone]{standalone elements}, i.e.,~outside classes.
+And~in~that case they're handled as~standalone elements.
+That means that special classes \mbox{with the \itq{-Kt}} suffix in~names and~elaborated combination of~static methods are~generated for~them during compilation.
+Compiled code of~original classes or~objects (those being extended) isn't affected.
+I.e.,~although extensions look like members of~extended structures, they're members of~other classes.
+The~membership is just an~illusion created by generated names.
+The~visibility of~standalone extensions is~the~same as~for~other \hyperref[kotlinstandalone]{standalone elements}.
+No~matter where they're defined, they must be imported.
+
+\example[extending the \itq{String} class with a function]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Extension definition}]
+    package somepackage.subpackage
+
+    fun String.newFunction(...) {
+        ...
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Usage in a class}]
+    package otherpackage.othersubpackage
+
+    // The extended class (String) is not used in import
+    import somepackage.subpackage.newFunction
+
+    class SimpleClass {
+        fun doSomething() {
+            val simpleString = "Simple string"
+            simpleString.newFunction(...)
+        }
+    }
+\end{lstlisting}
+\newline
+
+\noindent It's~also possible to~\hyperref[declarationdefinition]{define} an~extension inside a~class, \hyperref[kotlinobject]{object} or~\hyperref[kotlincompanionobject]{companion object}.
+Such~extension is visible only inside the~enclosing structure, and, if~not~\hyperref[declarationdefinition]{declared} as~private, in~its descendants.
+It~isn't possible to~import or~call it from~outside.
+\newpage
+
+\example[extending the \itq{String} class inside another class]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Extension definition}]
+    class SimpleClass {
+        fun String.newFunction(...) {
+            ...
+        }
+
+        fun doSomething() {
+            val simpleString = "Simple string"
+            simpleString.newFunction(...)
+        }
+    }
+\end{lstlisting}
+
+\newsubsection{Conflicting definitions}
+Extensions can't override original members.
+I.e.,~if~you \hyperref[declarationdefinition]{define} an~extension, but~the~extended structure (class/object) already contains a~member with the~same name, the~original implementation of~the~member will~be~used.
+It~holds even for~\hyperref[kotlinextensionproperty]{extension properties}.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Class with some members}]
+    class SimpleClass {
+        val simpleProperty: String? = "Original property"
+
+        fun simpleFunction() {
+            println("Original function")
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Extensions with same names}]
+    fun SimpleClass.simpleFunction() {
+        println("Extension function")
+    }
+
+    val SimpleClass.simpleProperty
+        get() {
+            return ("Extension property")
+        }
+\end{lstlisting}
+\newpage
+
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Behavior}]
+    val simpleClassInstance = SimpleClass()
+
+    // Will print "Original function"
+    simpleClass.simpleFunction()
+
+    // Will print "Original property"
+    println(simpleClassInstance.simpleProperty)
+\end{lstlisting}

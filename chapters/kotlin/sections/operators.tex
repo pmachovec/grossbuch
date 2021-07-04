@@ -2,7 +2,7 @@
 \index{Operator}
 An~operator is one or~more symbols, can~be even characters (like \itq{in} \mbox{or \itq{by}}), that either somehow changes a~value of~an~entity (unary operator) or~somehow combines values of~two entities (binary operator).
 Examples of~unary operators are~negation~(\itq{!}), increment~(\itq{++}) or~decrement~(\itq{-{}-}), examples of~binary operators are~arithmetic operations \mbox{(\itq{+}, \itq{-}, \dots)} or~comparators \mbox{(\itq{<}, \itq{>}, \dots)}.
-Some special bracket syntax constructions (see~\hyperref[kotlinindexedaccess]{further}) are~also considered to~be operators and~can~be overloaded.
+Some special bracket syntax constructions (see~further) are~also considered to~be operators and~can~be overloaded.
 
 \newsubsection{Indexed access}
 \index{Indexed access}
@@ -46,6 +46,7 @@ The~list of~function names can~be found \href{https://kotlinlang.org/docs/refere
     val second = SimpleClass(...)
     val result = first + second
 \end{lstlisting}
+\newline
 
 \noindent Notice that the~binary operator overloading \hyperref[declarationdefinition]{definition} takes one parameter.
 That's~the~parameter corresponding to~the~right side of~the~operator.
@@ -59,6 +60,7 @@ The~difference is that they~aren't written in~the~infix notation.
 Overloading the~\hyperref[kotlininvoke]{\textit{invoke}} operator, furthermore, provides one tricky effect~--~it~enables to~call executable code without a~method name.
 When used in~\hyperref[kotlinobject]{objects} or~\hyperref[kotlincompanionobject]{companion objects}, which~enable calling functions without instances, it~enables to~call executable code in~a~constructor--like syntax, which~in~fact doesn't behave as~a~constructor.
 For~examples see \hyperref[kotlinobject]{objects} and~\hyperref[kotlincompanionobject]{companion objects} sections.
+\newpage
 
 \example[overloading \textit{invoke} operator in a class]
 %! language = TEXT

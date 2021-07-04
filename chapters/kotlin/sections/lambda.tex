@@ -39,6 +39,7 @@ And~these features can~cause confusions.
 When a~lambda function has no~parameters, then only the~commands section is needed.
 Even the~arrow is missing.
 Such~function then looks like just a~sequence of~commands enclosed in~curly brackets.
+\newpage
 
 \example[Lambda function without parameters]
 %! language = TEXT
@@ -77,7 +78,6 @@ It~doesn't matter if~it's the~normal or~the~lambda format.
         a + b
     }
 \end{lstlisting}
-\newpage
 
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Equivalent with directly written anonymous function -- parameter types not needed}]
@@ -85,6 +85,8 @@ It~doesn't matter if~it's the~normal or~the~lambda format.
         return a + b
     })
 \end{lstlisting}
+\newpage
+
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Equivalent with anonymous function in a variable -- parameter types must be used}]
     val plus = fun(a: Int, b: Int) : Int {
@@ -124,6 +126,7 @@ It~doesn't matter if~it's the~normal or~the~lambda format.
 
 \noindent If~the~parameter function isn't \hyperref[declarationdefinition]{declared} as~the~last one in~the~holding function header, then the~parameter function must~be included in~the~holding function parameter brackets at~the~corresponding position.
 If~there are multiple functions as~last parameters of~the~holding function, then only the~very last one can~be specified outside parameter brackets.
+\newpage
 
 \newsubsection{Implicit Parameter (\textit{it})}
 \index{It}
@@ -220,6 +223,7 @@ Then, inside the~lambda function body, the~call \mbitqls{return@LABEL\_NAME;;;RE
 \newline
 
 \noindent In~newer versions of~Kotlin the~name of~the~function that~gets the~lambda function as~a~parameter is~the~default label.
+\newpage
 
 \example[default label]
 %! language = TEXT
