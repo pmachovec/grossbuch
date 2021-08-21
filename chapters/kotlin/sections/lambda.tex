@@ -17,7 +17,7 @@ For~example, a~lambda equivalent of~the~function multiplying its parameter by tw
 \noindent When the~last line doesn't hold a~value, then~the~function returns the~\hyperref[kotlinunit]{Unit} instance.
 That happens, for~example, when~the~last line is an~assignment.
 
-\example[Lambda functions returning \hyperref[kotlinunit]{Unit} and fixed version]
+\example[lambda functions wrongly returning \hyperref[kotlinunit]{Unit} and fixed version]
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin]
     val wrongMultiplyByTwo = { a: Int ->
@@ -31,6 +31,32 @@ That happens, for~example, when~the~last line is an~assignment.
 \end{lstlisting}
 \newline
 
+\noindent When the~holding variable type is specified, it~isn't necessary to~specify types in~the~parameters section.
+They're inferred automatically.
+
+\example[parameter type inference]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val correctMultiplyByTwo: (Int) -> Int = { a ->
+        val b = a * 2
+        b
+    }
+\end{lstlisting}
+\newline
+
+\noindent When the~lambda function should have a~\hyperref[kotlinanonymousreceivertype]{receiver type}, then~the~holding variable type must~be specified.
+Opposite to~\hyperref[kotlinanonymousfunction]{standard anonymous functions} it~isn't possible to~specify the~receiver type in~the~function definition section -- after the equals sign.
+
+\example[lambda function with receiver type]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val multiplyByNumber: Int.(Int) -> Int = { a ->
+        val b = this * a
+        b
+    }
+\end{lstlisting}
+\newline
+
 \noindent So~far, it's quite understandable.
 However, there are some features aiming to~reduce the~boilerplate code or~to~address some drawbacks.
 And~these features can~cause confusions.
@@ -39,9 +65,8 @@ And~these features can~cause confusions.
 When a~lambda function has no~parameters, then only the~commands section is needed.
 Even the~arrow is missing.
 Such~function then looks like just a~sequence of~commands enclosed in~curly brackets.
-\newpage
 
-\example[Lambda function without parameters]
+\example[lambda function without parameters]
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin]
     val noParamsFunction = {
@@ -85,7 +110,6 @@ It~doesn't matter if~it's the~normal or~the~lambda format.
         return a + b
     })
 \end{lstlisting}
-\newpage
 
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Equivalent with anonymous function in a variable -- parameter types must be used}]

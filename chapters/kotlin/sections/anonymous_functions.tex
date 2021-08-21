@@ -13,12 +13,12 @@ They're compulsory even when the~function has only one parameter, or~even zero.
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin]
     // Function of type "(Int) -> Int"
-    val multiplyByTwo = fun(a: Int) : Int {
-        return a*2
+    val multiplyByTwo = fun (a: Int) : Int {
+        return a * 2
     }
 
-    // Function of type "() -> Int"
-    val doNothing = fun() {}
+    // Function of type "() -> Unit"
+    val doNothing = fun () {}
 \end{lstlisting}
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Function taking other functions as parameters}]
@@ -41,4 +41,43 @@ They're compulsory even when the~function has only one parameter, or~even zero.
 
     // Passing to another function
     val result2 = doSomething(3, multiplyByTwo, doNothing) // Result is 6
+\end{lstlisting}
+
+\warning It's~impossible to~get or~print the~function type from a~variable holding an~anonymous function.
+Kotlin approach to~retrieve a~variable type is based on~retrieving the~variable class by~\hyperref[kotlinreflection]{reflection}.
+But~anonymous functions aren't proper instances of~any class, therefore, the~approach doesn't work for~them.
+
+\newsubsection{Receiver Type}
+\index{Receiver type}
+\label{kotlinanonymousreceivertype}
+When defining an~anonymous function, it's~possible to~specify one concrete class denoted as \textit{receiver type} (like in~\hyperref[kotlinextensions]{extensions}).
+An~instance of~that class must then be given whenever the~function is invoked.
+It~can~be also viewed as the~function can~be called only on~instances of~the~receiver type.
+
+In~the~function \hyperref[declarationdefinition]{definition}, the~receiver type class name prepends parameter brackets with the~dot.
+When the~function is~called, the~receiver type instance must~be either given as~the~first \hyperref[parameterargument]{argument} (the~call gets one argument more than the~number of function parameters) or~the~function can~be called on~the~instance with~the~dot notation (the~variable holding the~anonymous function works like \hyperref[kotlinextensions]{extension}).
+
+The~receiver type is reflected in~the~function type.
+As~might~be expected, it~prepends the~parameter types brackets with the~dot.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    // Function of type "Int.(Int) -> Int"
+    val multiplyByNumber = fun Int.(a: Int) : Int {
+        return this*a
+    }
+
+    // Function of type "String.() -> Unit"
+    val doNothingOnString = fun String.() {}
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Usage with passing receiver types instances as arguments}]
+    multiplyByNumber(2,3) // Receiver type instance is "2"
+    doNothing("abc") // Receiver type instance is "abc"
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Equivalent usage calling on receiver types instances}]
+    2.multiplyByNumber(3)
+    "abc".doNothing()
 \end{lstlisting}

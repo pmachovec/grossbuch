@@ -1,23 +1,32 @@
 \newsection{Extensions}
 \index{Extension}
+\index{Receiver type}
+\label{kotlinextensions}
 Extensions provide an~ability to~extend a~class with new functions without having to~change the~code of~the~class, inherit from the~class or~use design patterns such as \hyperref[decoratordp]{decorator}.
 It's~possible to~extend even classes from libraries, i.e.,~those which aren't~written in~the~current project.
 This is actually the~most usual usage of~extensions.
 When extending a~class with~a~function, you~just prepend the~desired function name with the~extended class name and~a~dot.
+The~class is said to~be \textit{receiver type} of~the~extending function.
+Instance of~the~receiver type (on~which the~extension function is called) is accessible in~the~function body by~the~keyword \mbitq{this}.
 
 \example[extending the \itq{String} class with a function]
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Extension definition}]
     fun String.newFunction(...) {
+        // "String" is receiver type of "newFunction"
+        this.SOME_STRING_FUNCTION(...)
         ...
     }
 \end{lstlisting}
+\newpage
+
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Usage}]
     val simpleString = "Simple string"
     simpleString.newFunction(...)
 \end{lstlisting}
-\newpage
+
+\note Receiver types can also appear in~\hyperref[kotlinanonymousfunction]{anonymous functions}.
 
 \newsubsection{Extension property}
 \index{Backing field}
