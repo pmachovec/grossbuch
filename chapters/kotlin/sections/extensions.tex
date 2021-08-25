@@ -1,5 +1,6 @@
 \newsection{Extensions}
 \index{Extension}
+\index{Receiver}
 \index{Receiver type}
 \label{kotlinextensions}
 Extensions provide an~ability to~extend a~class with new functions without having to~change the~code of~the~class, inherit from the~class or~use design patterns such as \hyperref[decoratordp]{decorator}.
@@ -7,7 +8,7 @@ It's~possible to~extend even classes from libraries, i.e.,~those which aren't~wr
 This is actually the~most usual usage of~extensions.
 When extending a~class with~a~function, you~just prepend the~desired function name with the~extended class name and~a~dot.
 The~class is said to~be \textit{receiver type} of~the~extending function.
-Instance of~the~receiver type (on~which the~extension function is called) is accessible in~the~function body by~the~keyword \mbitq{this}.
+Instance of~the~receiver type (on~which the~extension function is called) is called \textit{receiver} and~is accessible in~the~function body by~the~keyword \mbitq{this}.
 
 \example[extending the \itq{String} class with a function]
 %! language = TEXT

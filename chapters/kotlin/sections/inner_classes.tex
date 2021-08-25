@@ -1,0 +1,42 @@
+\newsection{Inner Classes}
+\index{Inner class}
+\index{Outer class}
+\index{Nested class}
+When you \hyperref[declarationdefinition]{define} a~class inside another class, it's~called \textit{nested class}.
+\textit{Inner class} is a~nested class (i.e.,~it's~defined inside another class) with the~keyword \mbitq{inner}.
+The~difference is that without the~keyword the~nested class doesn't see members of~its enclosing outer class, not~even public.
+
+\example[a class with simple and inner nested classes]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    class OuterClass {
+        val outerClassMember = "..."
+        private val privateMember = "..."
+
+        fun outerClassFunction() {
+            ...
+        }
+
+        class SimpleNestedClass {
+            // Outer class members aren't available here
+            // println(outerClassMember)
+            // println(privateMember)
+            // outerClassFunction()
+        }
+
+        inner class InnerClass {
+            // Outer class members are available here, even private
+            println(outerClassMember)
+            println(privateMember)
+            outerClassFunction()
+        }
+    }
+\end{lstlisting}
+\newline
+
+\noindent Only classes can~be inner.
+\hyperref[kotlinobject]{Objects} and~interfaces can~be nested, but~not inner.
+I.e.,~you~can~\hyperref[declarationdefinition]{define} an~interface or~an~object inside a~class, but~you~can't access members of~the~outer class in~them.
+
+And~similarly, \hyperref[kotlinobject]{objects} and~interfaces can~contain nested structures (classes, objects, interfaces), but~not~inner classes.
+I.e.,~you~can~\hyperref[declarationdefinition]{define} a~class, an~object or~an~interface inside an~object or~an~interface,  but~you~can't access members of~the~outer structure in~them.
