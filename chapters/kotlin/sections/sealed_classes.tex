@@ -1,0 +1,154 @@
+\newsection{Sealed Classes}
+\index{Sealed class}
+Sealed class is an~abstract class (by~default, no~need of~using the~keyword \mbitq{abstract}), which can~be extended only from~the~same file where it's \hyperref[declarationdefinition]{defined}.
+It's~created by the~keyword \mbitq{sealed}.
+Child classes of~a~sealed class can~be either \hyperref[kotlininnerclass]{nested} or~on~the~same level in~the~same file.
+If~a~child of~a~sealed class is~\hyperref[declarationdefinition]{declared} as~open or~abstract, then this child can~be extended in~another file --~sealing isn't transitive.
+
+\enlargethispage{20mm}
+\thispagestyle{empty}
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={File with a~sealed class}]
+    package (*\tmnbf{sealed1kotlin1package}{somepackage.subpackage}*)
+
+    sealed class (*\tmnbf{sealed1kotlin1class1}{SealedClass}*) {
+        // Sealed class is abstract, abstract functions are allowed
+        abstract fun (*\tmnbf{sealed1kotlin1abstractfun1}{abstractFunction}*)()
+        ...
+        open class (*\tmnbf{sealed1kotlin1nestedclass}{NestedSealedChild}*) : (*\tmnbf{sealed1kotlin1class2}{SealedClass}*)() {
+            override fun (*\tmnbf{sealed1kotlin1abstractfun2}{abstractFunction}*)() {
+                ...
+            }
+        }
+    }
+
+    open class (*\tmnbf{sealed1kotlin1standardclass}{StandardSealedChild}*) : (*\tmnbf{sealed1kotlin1class3}{SealedClass}*)() {
+        override fun (*\tmnbf{sealed1kotlin1abstractfun3}{abstractFunction}*)() {
+            ...
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Another file with extensions of~children of~the~sealed class}]
+    package anotherpackage
+
+    import (*\tmnbf{sealed1kotlin2package}{somepackage.subpackage}*).(*\tmnbf{sealed1kotlin2class1}{SealedClass}*)
+
+    // Impossible in a different file
+    // class WrongSealedChild : SealedClass() {...}
+
+    class NestedSealedGrandChild : (*\tmnbf{sealed1kotlin2class2}{SealedClass}*).(*\tmnbf{sealed1kotlin2nestedclass}{NestedSealedChild}*)() {
+        override fun (*\tmnbf{sealed1kotlin2abstractfun1}{abstractFunction}*)() {
+            ...
+        }
+    }
+    ...
+    class StandardSealedGrandChild : (*\tmnbf{sealed1kotlin2class3}{SealedClass}*).(*\tmnbf{sealed1kotlin2standardclass}{StandardSealedChild}*)() {
+        override fun (*\tmnbf{sealed1kotlin2abstractfun2}{abstractFunction}*)() {
+            ...
+        }
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{[xshift=-6mm] sealed1kotlin1package.south}{[xshift=-6mm] sealed1kotlin2package.north}
+    \drawarrow{sealed1kotlin1class1.south east}{sealed1kotlin1class2.north}[red]
+    \drawarrow{sealed1kotlin1class1.south east}{[xshift=3mm] sealed1kotlin1class3.north west}[red]
+    \drawarrow{sealed1kotlin1class1.south east}{[xshift=3mm] sealed1kotlin2class1.north}[red]
+    \drawarrow{sealed1kotlin1class1.south east}{sealed1kotlin2class2.north}[red]
+    \drawarrow{sealed1kotlin1class1.south east}{[xshift=-3mm] sealed1kotlin2class3.north}[red]
+    \drawarrow{[xshift=-9mm] sealed1kotlin1abstractfun1.south}{[xshift=6mm] sealed1kotlin1abstractfun2.north west}[green]
+    \drawarrow{[xshift=-9mm] sealed1kotlin1abstractfun1.south}{sealed1kotlin1abstractfun3.north}[green]
+    \drawarrow{[xshift=-9mm] sealed1kotlin1abstractfun1.south}{sealed1kotlin2abstractfun1.north}[green]
+    \drawarrow{[xshift=-9mm] sealed1kotlin1abstractfun1.south}{[xshift=-6mm] sealed1kotlin2abstractfun2.north}[green]
+    \drawarrow{[xshift=-3mm] sealed1kotlin1nestedclass.south east}{sealed1kotlin2nestedclass.north}[blue]
+    \drawarrow{[xshift=-3mm] sealed1kotlin1standardclass.south}{sealed1kotlin2standardclass.north}[Magenta]
+\end{tikzpicture}
+\newpage
+
+\newsubsection{Sealed interfaces}
+\index{Sealed interface}
+Starting from \mbox{Kotlin 1.5} even~interfaces can~be sealed.
+Nothing differs from~sealed classes, all~implementations and~extensions of~a~sealed interface must~be \hyperref[declarationdefinition]{defined} in~the~same file as~the~interface.
+And~because the~\hyperref[compositionoverinheritance]{composition over inheritance} programming principle exists, it's~actually recommended to~use sealed interfaces rather \mbox{than classes}.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    sealed interface (*\tmnbf{sealed2kotlin1interface1}{SealedInterface}*) {
+        fun (*\tmnbf{sealed2kotlin1abstractfun1}{abstractFunction}*)()
+        ...
+        class NestedSealedChild : (*\tmnbf{sealed2kotlin1interface2}{SealedInterface}*) {
+            override fun (*\tmnbf{sealed2kotlin1abstractfun2}{abstractFunction}*)() {
+                ...
+            }
+        }
+    }
+
+    class StandardSealedChild : (*\tmnbf{sealed2kotlin1interface3}{SealedInterface}*) {
+        override fun (*\tmnbf{sealed2kotlin1abstractfun3}{abstractFunction}*)() {
+            ...
+        }
+    }
+\end{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+    \drawarrow{sealed2kotlin1interface1.south}{sealed2kotlin1interface2.north}
+    \drawarrow{sealed2kotlin1interface1.south}{[xshift=3mm] sealed2kotlin1interface3.north}
+    \drawarrow{sealed2kotlin1abstractfun1.south}{[xshift=-3mm] sealed2kotlin1abstractfun2.north}[red]
+    \drawarrow{sealed2kotlin1abstractfun1.south}{sealed2kotlin1abstractfun3.north}[red]
+\end{tikzpicture}
+
+\warning Similarly to~standard interfaces, sealed interfaces can't~contain \hyperref[kotlininnerclass]{inner classes} (sealed classes~can).
+
+\newsubsection{Usage}
+If~you're in~doubts about benefits of~sealing, because it~needs multiple structures definitions in~one file (which~is a~bad practice), then you're absolutely right.
+Sealing really directly enforces this antipattern.
+That's why you should limit its usage, ideally completely avoid~it.
+
+However, there's one commonly mentioned use case --~when you need to~have absolute control over children of~a~class or~interface.
+And~that is when you need something like enumeration, but~you want different fields and~logic for~each member.
+If~you~get to~such situation, try~to keep the~readability as~good as~possible.
+Use~sealed interface rather than class (if~possible), have all implementing structures nested, try~to keep them small and~don't \hyperref[declarationdefinition]{declare} them as~open.
+\newpage
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Sealed interface representing a~result}]
+    sealed interface Result {
+        class Good : Result {
+            ...
+            val value: Float = ...GET A FLOAT VALUE...
+            ...
+        }
+
+        class Bad : Result {
+            ...
+            val explanation: String = ...GET AN EXPLANATION STRING...
+            ...
+        }
+
+        class Terrible(exception: Exception) : Result {
+            ...
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Usage}]
+    val result: Result = ...GET A RESULT...
+
+    // In each case the 'result' is smart-casted to a correct class
+    when (result) {
+        is Result.Good -> {
+            ...DO SOMETHING WITH result.value...
+        }
+
+        is Result.Bad -> {
+            println(result.explanation)
+        }
+
+        is Result.Terrible {
+            result.exception.printStackTrace()
+            throw result.exception
+        }
+    }
+\end{lstlisting}

@@ -1,6 +1,6 @@
 # IntelliJ
 .idea/*
-!.idea/dictionaries
+!.idea/dictionaries/grossbuch.dic
 *.iml
 
 # Eclipse
