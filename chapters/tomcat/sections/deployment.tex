@@ -1,0 +1,18 @@
+\newsection{Application Deployment}
+\label{tomcatdeployment}
+To~deploy a~\hyperref[webserviceapplication]{web application} to~Tomcat you~must create a~folder for~it in~\mbitq{TOMCAT\_FOLDER/webapps} and~copy all application files to~that folder.
+\hyperref[jsp]{JSP}~and~HTML pages can~be located anywhere in~the~application folder, in~a~web browser you~access them by~an~address in~the~pattern \mbitq{HOST:PORT/APPLICATION\_FOLDER/REST\_OF\_PATH}.
+If~the~application contains some Java code (e.g.,~\hyperref[servlet]{servlets}), its~\textit{class} files must~be located in~\mbitq{APPLICATION\_FOLDER/WEB-INF/classes}.
+If~the~application uses some third party libraries (e.g.,~\hyperref[jstl]{JSTL}; yes,~Tomcat doesn't understand JSTL by~default), their jars must~be located in~\mbitq{APPLICATION\_FOLDER/WEB-INF/lib}.
+If~you deploy more applications using same external libraries, you~can put their jars directly to~\itq{TOMCAT\_FOLDER/lib} among other libraries available by~default.
+
+It~isn't necessary to~create folders and~copy files manually.
+A~\hyperref[webserviceapplication]{web application} is usually packed in~a~war archive, where the~correct folder structure already exists (IDEs~and~build tools construct it automatically).
+A~war archive can~be copied to~the~\mbitq{TOMCAT\_FOLDER/webapps} folder.
+Tomcat unpacks it automatically on~startup.
+
+\newsubsection{Deploying wars without restart}
+
+\newsubsection{Deployment from IntelliJ Idea}
+\warning Do not set the~application context under the~deployment tab to~plain slash.
+This~would override the~\textit{ROOT} folder under \textit{webapps} and~you would lose the~Tomcat default application.

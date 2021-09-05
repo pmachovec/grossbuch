@@ -1,0 +1,11 @@
+\newsection{Setup in IntelliJ Idea}
+First you must have enabled the~\textit{Tomcat and~TomEE Integration} plugin.
+Then you have to tell IntelliJ where Tomcat is installed on~your computer (if you don't use a~remote Tomcat).
+Go~to \textit{File $\rightarrow$ Settings $\rightarrow$ Build,~Execution,~Deployment $\rightarrow$ Application~Servers}, click on~the~\textit{plus} symbol, from the~displayed dropdown select \textit{Tomcat Server} and~set the~path to~the~Tomcat folder.
+
+As~IntelliJ is more focused to~have projects separated (opposite to~Eclipse, where you can have all projects in one window), you need a~project created and~you assign a~Tomcat installation to~that project.
+With a~project opened in~IntelliJ go~to \textit{Run $\rightarrow$ Edit~Configurations}, click on~the~\textit{plus} symbol, from displayed dropdown menu select \textit{Tomcat Server} $\rightarrow$ \textit{Local} (no~problem setting remote if you have~one), fill the~configuration form (it's~quite intuitive) and~click~\textit{OK}.
+
+\warning You~need the~ultimate edition of~IntelliJ\@.
+The~community (free) version doesn't support application server integration.
+So~basically if~you don't get a~license from your employer, you're screwed.

@@ -1,0 +1,13 @@
+\newsection{Dependency Injection}
+\index{Dependency injection}
+\index{Dependency}
+\label{dependencyinjection}
+An~object used by another object is~called \textit{dependency}.
+References to~dependencies are~stored in~\hyperref[variablefieldproperty]{fields}.
+And~setting concrete references to~these \hyperref[variablefieldproperty]{fields} from outside is the~dependency injection.
+I.e.,~when you instantiate a~class and~set an~instance of~another class to~a~\hyperref[variablefieldproperty]{field} inside the~first class instance by~a~constructor or~by~a~setter, you~perform the~dependency injection.
+
+The~purpose is to~separate construction and~use of~objects, which leads to~better readability and~reusability of~the~code.
+Dependency injection is a~special type of~the~\hyperref[inversionofcontrol]{inversion of~control} -- the~responsibility for~instantiating of~a~dependency is~delegated to~an~injector, which can~be seen as~the~reusable framework from the~original \hyperref[inversionofcontrol]{IoC} definition.
+
+The~\hyperref[springframework]{Java Spring framework} provides an~\hyperref[springdependencyinjection]{automated and~highly configurable dependency injection} implementation.

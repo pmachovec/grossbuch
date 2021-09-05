@@ -1,0 +1,14 @@
+\newsection{Inversion of~Control (IoC)}
+\index{Inversion of control}
+\index{IoC}
+\label{inversionofcontrol}
+Use a~general reusable framework to~call custom code (code written by a~programmer to~achieve a~concrete goal).
+The~custom code must exist in a~form of~components matching templates accepted by the~framework.
+This approach is reversed to~the~traditional \hyperref[imperativeprogramming]{imperative programming} control flow, where the~custom code calls reusable frameworks.
+In~IoC you of~course need at~least some small amount of~the~custom code to~initiate the~framework to~do~something (for~example, you~still need a~main method in~Java).
+
+The~purpose is to~achieve better modularity (less coupling), better maintainability and~simpler source code of~the~implemented program.
+This is possible because the~program exists in~the~form of~only very weakly dependent components.
+
+The~most typical example is~the~\hyperref[springinversionofcontrol]{inversion of~control from the~Java Spring framework}.
+In~this framework classes are~instantiated by~calling methods of~Spring containers instead of~directly calling constructors.

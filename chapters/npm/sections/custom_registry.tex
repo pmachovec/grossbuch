@@ -1,0 +1,116 @@
+\newsection{Creating Custom Registry}
+Similarly to~\hyperref[gradle]{Gradle} repositories, creating a~real NPM registry is~complicated and~must~be done with \href{https://jfrog.com/artifactory/}{Artifactory}.
+But~similarly to~\hyperref[gradle]{Gradle} it's also possible to~use a~local folder or~GitHub.
+
+\newsubsection{Local Folder}
+\label{npmpublishlocal}
+Simply choose a~folder and~copy the~project folder there.
+It~should contain the~\mbit{package.json} file and~source files.
+The~\mbit{node\_modules} doesn't have to~be~included.
+When the~project is~installed by~NPM, all~dependencies will~be~downloaded automatically.
+The~\mbit{package.json} file must contain package name, three--number version and~the~path to~the~root file.
+And~of~course dependencies must~be mentioned to~be~automatically downloaded.
+
+\example[\mbit{package.json} file of~a~distributable project]
+%! language = TEXT
+\begin{lstlisting}
+    {
+      "name": "simplepackage",
+      "main": "src/main/js/mainFile.js",
+      "version": "1.0.0",
+      "dependencies": {
+        "requirejs": "^2.3.6"
+      }
+    }
+\end{lstlisting}
+
+\note The~package name can~differ from the~copied project folder name.
+\newline
+
+\noindent To~install the~project as~an~NPM package use the~path to~the~copied project folder prefixed with \mbitq{file:} (with the~colon at~the~end).
+I.e.,~to~install it in~a~\hyperref[shellcligui]{shell} run \mbitqls{npm;;;install;;;file:FOLDER\_PATH} (you~don't use the~package name in~this case).
+To~include it to~\mbit{package.json} as~a~dependency use \mbitqls{"PACKAGE\_NAME":;;;"file:FOLDER\_PATH"}.
+The~path can~be relative to~the~\mbit{package.json} file location.
+It~doesn't copy the~downloaded project folder to~\mbit{node\_modules}, but~only creates symbolic link to~it there.
+If~the~downloaded project has~configured some dependencies in~its \mbit{package.json}, they're downloaded to~the~project folder when they're missing there.
+
+\newsubsection{Publishing to GitHub}
+\label{npmpublishgithub}
+First you need a~token with writing rights to~your GitHub account.
+You should store hash of~this token to~the~global \mbit{.npmrc} configuration (eventually to~a~\hyperref[npmprofile]{profile}) in~your system.
+You don't want to~distribute it with projects.
+The~hash must~be stored in~the~pattern \mbitql{//npm.pkg.github.com/:;;\_authToken=;;THE\_HASH}.
+
+Then you~need to~configure the~project you~want to~publish in~its \mbit{package.json} file.
+The~basic structure is~the~same as~\hyperref[npmpublishlocal]{when publishing to~a~local folder}, but~the~package name must~be prefixed with your GitHub user name in~the~pattern \mbitq{@USER\_NAME/} (at~sign at~the~beginning, slash at~the~end).
+Additionally, you~must configure registry and~repository~URLs.
+The~registry URL is~a~GitHub global URL used for~the~NPM registry functionality.
+The~repository URL is~the~SSH URL to~a~concrete Git repository which serves as~your~package registry.
+If~the~repository has~the~same name as~the~project without the~user name prefix, you~don't have~to specify the~repository.
+See~the~following example for~the~exact syntax.
+
+\example[\mbit{package.json} file of~a~project distributable to~GitHub]
+%! language = TEXT
+\begin{lstlisting}
+    {
+      "name": "@USER_NAME/simplepackage",
+      "main": "src/main/js/mainFile.js",
+      "version": "1.0.0",
+      "dependencies": {
+        "requirejs": "^2.3.6"
+      },
+      "publishConfig": {
+        "registry": "https://npm.pkg.github.com/"
+      },
+      "repository": {
+        "type": "git",
+        "url": "ssh://git@github.com/USER_NAME/REPO_NAME.git"
+      }
+    }
+\end{lstlisting}
+
+\noindent With the~\mbit{package.json} ready in~\hyperref[shellcligui]{CLI} go to~the~project root folder (where the~\mbit{package.json} should~be located) and~simply run \mbitq{npm publish}.
+\newline
+
+\noindent To~install the~package in~a~different project you must configure the~main NPM registry (the~one without a~\hyperref[npmscope]{scope}) to~the~user--specific GitHub NPM registry~URL\@.
+I.e.,~there must~be something like \mbitqls{registry=;;https://;;npm.pkg.github.com/;;USER\_NAME} in~global or~project--specific \mbit{.npmrc} file.
+GitHub registry is~connected with the~default NPM registry and~NPM~installation of~other features will still work.
+However, if~you~already have the~main registry configured to~some other URL,  you're screwed, see~\hyperref[multipleregistries]{further}.
+
+Additionally, you~need a~token with reading rights for~the~account, even when the~repository is~public.
+It~doesn't have to~be the~same token with which the~package was~published (but~can~be, especially on~the~same computer).
+It~can~be even a~token only for~reading without writing rights, that~can~be distributed to~a~wide audience of~users.
+
+Packages installation is~the~same as~usual.
+Just use the~GitHub username as~the~\hyperref[nsmscopedpackages]{scope}.
+For~example, \mbitqls{npm;;;install;;;@USER\_NAME/;;simplepackage}.
+I.e.,~you~don't have configured a~scope, but~you~act like you~do.
+
+\warning It~may~seem acceptable to~create a~read--only token and~commit~it in~a~project--specific \mbit{.npmrc} file, or~even commit~it to~the~repository which you~use as~NPM registry.
+However, don't do any~of~that.
+Committing tokens is~considered to~be a~security violation, no~matter what rights they guarantee.
+GitHub contains an~automatic security tool that can~discover a~committed token.
+And~if it does, it~will~revoke the~token without any~possibility to~take it back.
+
+\newsubsection{Multiple Registries}
+\label{multipleregistries}
+Only one main registry can~be configured at~a~time and~there's no way around.
+And~as~GitHub registries need to~be~configured as~main (can't~be hidden behind a~\hyperref[npmscope]{scope}), you~can't use a~different main registry than the~default~one (for~example, inside a~company), which~is connected with GitHub.
+The~only option here is switching \hyperref[npmprofile]{profiles}.
+
+What is possible is to~refer to~multiple GitHub user registries.
+Configure a~first user registry as~described above, but~for~others use user names as~scopes, not~as~final parts of~URLs.
+You~should~have something like this in \mbit{.npmrc} file:
+%! language = TEXT
+\begin{lstlisting}
+    registry=https://npm.pkg.github.com/USER1
+    @USER2:registry=//npm.pkg.github.com
+    @USER3:registry=//npm.pkg.github.com
+\end{lstlisting}
+
+\newsubsection{Deleting Published Packages}
+When a~package is~\hyperref[npmpublishlocal]{published to~a~local folder}, it's~simple.
+Just delete the~folder with the~package.
+But~when a~package is~\hyperref[npmpublishgithub]{published to~GitHub}, deleting it is complicated and~restricted in~certain ways.
+You~can't delete a~package with NPM at~all.
+You~must use GitHub \hyperref[graphql]{GraphQL}~\hyperref[api]{API} and~send queries for~\hyperref[githubdeletepackage]{general package removal}.

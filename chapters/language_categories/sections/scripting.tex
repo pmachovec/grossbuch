@@ -1,0 +1,31 @@
+\newsection{Scripting Languages}
+\index{Scripting language}
+\label{scriptinglanguages}
+There isn't an~exact definition what a~scripting language is, but~usually the~term denotes a~language, whose source code files -- scripts -- are~immediately available for~execution.
+I.e.,~it's~a~synonym for~an~\hyperref[compiledinterpretedlanguages]{interpreted language}.
+
+A~scripting language always has a~special run--time environment (an~\hyperref[compiledinterpretedlanguages]{interpreter}) capable of~real time execution of~scripts.
+Scripting languages aren't limited to~only small scripts, even large and~complex programs can~be written in~them.
+Examples of~languages generally considered to~be scripting are~JavaScript, \hyperref[powershell]{PowerShell}, Python, Groovy, \hyperref[shbash]{Bash} or~VisualBasic.
+
+Scripting languages are~popular for~tasks automation.
+A~developer writes a~script triggering multiple tasks.
+Then, instead~of executing each task separately, only the~script is~executed.
+
+\newsubsection{Shebang}
+\index{Shebang}
+\index{Hashbang}
+\label{shebang}
+Scripts in~Linux systems sometimes contain a~special first line starting with hash sign and~exclamation mark (\itq{\#!}), following a~name~of, or~full path~to, the~corresponding executing program.
+This line is~called \textit{shebang}, or~\textit{hashbang}.
+When the~script is~executed without specifying the~executor directly, \hyperref[os]{operating system} decides by~the~shebang what executor to~use.
+Shebang can~directly point to~a~specific program, or~can~tell the~system to~resolve the~path (the~executing program must~be included in~the~\textit{PATH} system variable).
+It~can~even contain switches.
+\newline
+
+\noindent \textbf{Examples:}
+\begin{itemize}
+    \item \textit{\#!/bin/sh} = \hyperref[shbash]{SH} symbolic link
+    \item \textit{\#!/bin/bash -v} = \hyperref[shbash]{Bash}, direct path, verbose output
+    \item \textit{\#!/usr/bin/env node} = \hyperref[nodejs]{Node.js}, resolved path
+\end{itemize}

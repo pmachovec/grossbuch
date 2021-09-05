@@ -1,0 +1,13 @@
+\newsection{Configuration}
+\label{npmconfiguration}
+NPM~configuration is~stored in~\mbitq{key=value} pairs.
+There's a~lot of~built--in pairs, but~you~can (and~often must) specify others.
+Pairs can~be defined in~a~special file called \mbitq{.npmrc} (with the~dot at~the~beginning).
+It~can~be created either in~user home directory (global configuration) or~per~project in~a~project root folder.
+
+\newsubsection{Configuration with CLI}
+Configurations can~be set even from~\hyperref[shellcligui]{CLI} by~the~command \mbitqls{npm;;;config;;;set;;;KEY;;;VALUE}.
+This will add the~pair to the~user--specific configuration file (global).
+Storing pairs to~a~project--specific \mbit{.npmrc} file is~possible only manually.
+
+\note System variables can~be used in~NPM configurations with the~syntax \mbitq{\$\{VARIABLE\}}.

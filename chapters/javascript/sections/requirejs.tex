@@ -21,11 +21,11 @@ The~main script path is~specified in~the~\mbitq{data-main} element, and~it~can't
 The~extension is~expected, if~the~file doesn't have it, it~won't~work.
 
 \note RequireJS is~usable even in~\hyperref[nodejs]{Node.js}.
-Node.js already contains \mbox{the \hyperref[commonjs]{CommonJS}} technique for~modularization, but~the~performance is generally worse than with RequireJS\@.
+Node.js already contains \mbox{the \hyperref[nodejscommonjs]{CommonJS}} technique for~modularization, but~the~performance is generally worse than with RequireJS\@.
 Furthermore, when using RequireJS, you~can~develop a~functionality on~the~Node.js platform (server side), but~later use~it on~the~client side and~preserve the~effectiveness.
 
 \warning You~can~encounter a~JavaScript file loading modules with a~keyword \mbitq{require}.
-This is a \hyperref[nodejs]{NodeJS} feature called \hyperref[commonjs]{\mbit{CommonJS}}.
+This is a \hyperref[nodejs]{NodeJS} feature called \hyperref[nodejscommonjs]{\mbit{CommonJS}}.
 It~isn't supported in~JavaScript by~default.
 
 However, to~make things even more confusing, RequireJS supports using \mbox{the \itq{require}} keyword as~a~replacement of~the~standard \mbitq{requirejs} keyword, if~the~executing \hyperref[engine]{engine} doesn't use it on~its~own.
@@ -36,7 +36,7 @@ Therefore, it's~advisable to~use the~default \itq{requirejs} keyword every time 
 
 \example[assigning action to~a~button with RequireJS and jQuery]
 %! language = TEXT
-\begin{lstlisting}[language=JavaScript,title={Main JavaScript file \textit{\tmnbf{js3mainscript}{main}.js}}]
+\begin{lstlisting}[language=JavaScript, title={Main JavaScript file \textit{\tmnbf{js3mainscript}{main}.js}}]
     requirejs.config({
       paths: {
         ...
@@ -55,7 +55,7 @@ Therefore, it's~advisable to~use the~default \itq{requirejs} keyword every time 
     });
 \end{lstlisting}
 %! language = TEXT
-\begin{lstlisting}[language=XML,title={Web page file loading the JavaScript file}]
+\begin{lstlisting}[language=XML, title={Web page file loading the JavaScript file}]
     <!DOCTYPE html>
     <html lang="en">
       <head>

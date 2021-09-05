@@ -37,7 +37,7 @@ With the~annotation the~keyword \textit{static} is~added to~the~generated method
 The~class can~be then used as~the~main class.
 
 %! language = TEXT
-\begin{lstlisting}[language=Kotlin,title={Main function in~a~companion object}]
+\begin{lstlisting}[language=Kotlin, title={Main function in~a~companion object}]
     class simpleClass {
         companion object {
             @>@JvmStatic
@@ -53,14 +53,14 @@ This is the~real Kotlin approach -- define the~function in~a~Kotlin file outside
 A~class with \mbox{the \itq{-Kt}} suffix is~generated during compilation and~it~contains the~desired static method.
 
 %! language = TEXT
-\begin{lstlisting}[language=Kotlin,title={A~standalone main function in a~file \textit{Example.kt}}]
+\begin{lstlisting}[language=Kotlin, title={A~standalone main function in a~file \textit{Example.kt}}]
     fun main(args: Array<String>) {
         ...SOME CODE...
     }
 \end{lstlisting}
 
 %! language = TEXT
-\begin{lstlisting}[language=Java,title={Corresponding Java code}]
+\begin{lstlisting}[language=Java, title={Corresponding Java code}]
     public final class ExampleKt {
         public static final void main(@@>@NotNull<@@ String[] args) {
             Intrinsics.checkParameterIsNotNull(args, "args");
@@ -74,14 +74,14 @@ A~class with \mbox{the \itq{-Kt}} suffix is~generated during compilation and~it~
 The~generated \hyperref[javabytecode]{bytecode}, however, still contains~it.
 
 %! language = TEXT
-\begin{lstlisting}[language=Kotlin,title={A~standalone main function without \mbit{args}}]
+\begin{lstlisting}[language=Kotlin, title={A~standalone main function without \mbit{args}}]
     fun main() {
         ...SOME CODE...
     }
 \end{lstlisting}
 
 %! language = TEXT
-\begin{lstlisting}[language=Java,title={Corresponding Java code}]
+\begin{lstlisting}[language=Java, title={Corresponding Java code}]
     public final class ExampleKt {
         public static final void main() {
             ...SOME CODE...

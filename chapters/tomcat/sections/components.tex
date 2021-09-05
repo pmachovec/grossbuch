@@ -1,0 +1,40 @@
+\newsection{Basic components}
+\newsubsection{Catalina}
+\index{Catalina}
+\index{Servlet container}
+Catalina is~a~\textit{servlet container} of~Tomcat.
+It's~the~part responsible for~creating, triggering and~destroying \hyperref[servlet]{servlets} and~handling their requests and~responses.
+I.e.,~it's~the~core of~Tomcat.
+
+When a~request comes to~running Tomcat from a~client, it~goes to~Catalina.
+Catalina checks if~the~requested servlet is~already running.
+If~not, it~starts the~servlet.
+Then it~triggers the~\textit{service} function and~delegates the~request to~it.
+When the~response comes back from the~servlet, Catalina passes it~to~the~client.
+\newpage
+
+\newsubsection{Coyote}
+\index{Coyote}
+\index{Connector}
+\label{coyote}
+Coyote~is a~\hyperref[http]{HTTP} connector of~Tomcat.
+It's~the~entry point for~HTTP requests coming from clients and~also the~terminating point sending responses back to~clients.
+
+\warning Do not get confused by the~standard Coyote description.
+That says that Coyote (a~\hyperref[http]{\textbf{HTTP}} connector) listens on \hyperref[tcp]{\textbf{TCP}} ports.
+That's actually correct.
+Both these \hyperref[protocolstandard]{protocols} are~used in~the~\hyperref[tcpip]{TCP/IP architecture}.
+The~\hyperref[http]{HTTP protocol} is in~a~higher layer an~uses information (services) provided by~the~\hyperref[tcp]{TCP protocol}.
+
+\newsubsection{Jasper}
+\index{Jasper}
+Jasper is an~\hyperref[engine]{engine} transforming \hyperref[jsp]{JSP} pages to~standard servlet classes.
+Java compilers nor~\hyperref[catalina]{Catalina} don't understand JSP source code, they require standard Java code.
+
+\newsection{Installation}
+Simply download the~correct zip or~tar archive and~extract its content (one~folder) anywhere on~your computer.
+You~don't have to~set~up any special configuration, Tomcat automatically uses the~Java version referenced by~the~JAVA\_HOME and~ports are~already configured in~\textit{TOMCAT\_FOLDER/conf/server.xml}.
+
+\warning In~Windows you can also download and~run the~installer.
+However, be~aware that~by~this approach Tomcat becomes one of~your Windows \hyperref[applicationprocessprogramservicethread]{services}, which starts automatically on~Windows startup, i.e.,~it~consumes performance continuously.
+And~it~isn't so~easy to~remove the~service later.

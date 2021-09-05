@@ -1,0 +1,28 @@
+\newsection{Create repository on a computer}
+\label{initrepo}
+To~convert an~ordinary folder to~a~Git repository simply navigate to~that folder in a~shell and~run:
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    git init
+\end{lstlisting}
+\noindent You now have the~repository folder with the~master branch.
+Before adding anything new it's advisable to~create the~\textit{.gitignore} file and~commit all the~current contents of~the~folder to the~master branch, i.e.,~to~do an~initial commit, and~then to~connect the~local repository to your Git hub.\\
+
+\noindent To~connect the~local repository to~your Git hub run:
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    git remote add origin GITHUB_ADDRESS:GITHUB_USER_NAME/REPOSITORY_NAME.git
+\end{lstlisting}
+\noindent Concrete example:
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    git remote add origin git@github.com:homer/donut-project.git
+\end{lstlisting}
+\noindent Then push the~master branch for~the~first time:
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    git push -u origin master
+\end{lstlisting}
+
+\warning The~repository with the~specified name must already exist on~the~Git hub, i.e.,~it~must be created manually in~advance.
+Creating repositories by~pushing is~not~possible.

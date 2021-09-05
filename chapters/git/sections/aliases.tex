@@ -1,0 +1,33 @@
+\newsection{Aliases}
+\index{Git Aliases}
+\index{Aliases in Git}
+When you tend to~use a~same long Git command with lots of~options many times, it's~convenient to~create an~alias for~it.
+Aliases are~configurations, i.e., they're stored into configuration files and~can~be set by~the~\textit{git config} command.
+The~syntax is \itq{git config \mbox{-{}-global} alias.name 'value'}.
+The~value doesn't contain the~keyword \textit{git}.
+The~global setting is not~necessary, but~aliases are~very rarely set as~local.
+Also the~value doesn't have to~be enclosed in~apostrophes when~not~containing spaces, but~that's rare when creating aliases.
+
+\example
+\noindent Consider a~very long Git command:
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    git VERY LONG COMMAND WITH MANY OPTIONS AND VALUES
+\end{lstlisting}
+\noindent You set~up an~alias like this:
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    git config --global alias.short 'VERY LONG COMMAND WITH MANY OPTIONS AND VALUES'
+\end{lstlisting}
+\noindent And now instead of~calling the~long command you~can just call:
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    git short
+\end{lstlisting}
+\noindent When you want to~remove the~alias, you~run:
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    git config --global --unset alias.short
+\end{lstlisting}
+
+\warning Aliases can't override existing commands.

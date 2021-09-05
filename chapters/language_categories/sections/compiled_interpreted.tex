@@ -1,0 +1,30 @@
+\newsection{Compiled VS Interpreted Languages}
+\index{Compiled language}
+\index{Interpreted language}
+\index{Compilation}
+\index{Compiler}
+\index{Interpreter}
+\label{compiledinterpretedlanguages}
+Each~source code in~any~language must~be somehow transferred to~a~machine code to~be~executed.
+This can~happen either as~a~separate step, or~directly as~a~part of~the~execution.
+
+The~process of~transforming a~source code to~some more machine--readable code before its execution is~called \textit{compilation}.
+There's a~software called \textit{compiler} performing the~transformation.
+A~language processed by~a~compiler is~called \textit{compiled language}.
+The~result of~the~compilation can~be either directly the~machine code, or~some other, further processed form.
+For~example, \mbox{C~or~C++} are~compiled directly to~the~machine code.
+Because of~that a~special compiler is~needed for~each~\hyperref[platform]{platform} for~these languages.
+On~the~other hand, Java or~C\# are~compiled to~an~intermediate form, which must~be further transferred to~the~machine code, but~the~intermediate form can~be the~same for~all~\hyperref[platform]{platforms} (see~\hyperref[javabytecode]{Java bytecode} for~example).
+
+A~source code of~some languages can~be seemingly executed directly on~the~fly, without any compilation.
+Such languages are~called \textit{interpreted languages}.
+There's a~software called \textit{interpreter}, which transfers the~source code to~the~machine code and~executes~it immediately.
+For~each such language a~special interpreter is~needed for~each~\hyperref[platform]{platform}.
+Developing a~working \hyperref[applicationprocessprogramservicethread]{program} in~an~interpreted language is generally simpler than in~a~compiled language, but~programs written in~interpreted languages are~usually slower than~equivalents written in~compiled languages.
+Interpreted languages are~therefore more suitable for~writing smaller and~simpler programs, for~example, \hyperref[scriptinglanguages]{scripts}.
+Examples of~typical interpreted languages are JavaScript, \hyperref[powershell]{PowerShell} or~\hyperref[shbash]{Bash}.
+
+\warning There is no pure compiled or~interpreted language.
+Compilation and~interpretation are just ways of~transforming some text following some syntax (i.e.,~a~source code) to~a~machine code.
+There can~theoretically exist both a~compiler and~an~interpreter for~any language.
+\newpage

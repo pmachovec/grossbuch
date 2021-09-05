@@ -1,0 +1,15 @@
+\newsection{Installing New Functionality}
+\index{PowerShellGallery}
+\index{PSGallery}
+A~repository called \textit{PowerShellGallery} (sometimes abbreviated to~\textit{PSGallery}) is~available online by~default (custom repositories can~be created, but~that's too~complicated).
+With~functions from~the~\textit{PowerShellGet} module you~can~install and~update modules and~standalone scripts.
+You~can~also search for~all tools available for~installation.
+For~a~complete list of~available operations run \itq{\mbox{Get-Command} \mbox{-module} PowerShellGet}.
+
+\warning Run PowerShell as~administrator when installing new functionality.
+Otherwise, the~installation usually fails.
+
+\newsubsection{Updating installed functionality}
+There are \textit{Update} functions available in~the~\textit{PowerShellGet} module.
+Sometimes, however, an~old version of~the~updated module or~script remains installed in~the~computer and~active.
+To~solve this go~to~\itq{Program Files/WindowsPowerShell} and~in~the~\textit{Modules} or~\textit{Scripts} delete all~files and~folders related to~the~old version.

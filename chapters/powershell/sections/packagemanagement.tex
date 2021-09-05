@@ -1,0 +1,30 @@
+\newsection{PackageManagement}
+\index{PackageManagement}
+\index{OneGet}
+\label{powershellpackagemanagement}
+The~\textit{PackageManagement} (it really is called like this), formerly \textit{OneGet}, is a~\hyperref[powershellmodule]{PowerShell module} acting as~a~\hyperref[packagemanager]{package manager} for~Windows.
+It~isn't a~standard package manager.
+It~doesn't have own any package repository, it~uses repositories of~real Windows package managers and~enables to~use all such managers (which generally have various \hyperref[api]{APIs}) under one common~\hyperref[api]{API}.
+Some people say that PackageManagement is~a~package manager manager.
+
+\warning Run PowerShell as~administrator when using the~PackageManagement.
+Otherwise, most~of its cmdLets don't work.
+
+\newsubsection{Adding a~New Package Provider}
+This means connecting a~repository of~a~Windows package manager to~your~PackageManagement.
+You~can~list currently connected providers by~\mbitq{Get-PackageProvider} and~those available for~connection by~\mbitq{Find-PackageProvider}.
+Sadly, you~can't explore a~repository in~PowerShell console until you connect it to~your PackageProvider.
+To~add a~provider run \itq{Import-PackageProvider PROVIDER\_NAME}.
+
+\newsubsection{Installing a~Package}
+Find the~name of~the~package using the~\textit{Find-Package} cmdLet.
+You~can~use even an~approximate name enclosed to~asterisks (\itq{\mbox{Find-Package} *APPROXIMATE\_NAME*}).
+You~must have a~provider offering the~package already registered.
+Then install the~package by~running \itq{\mbox{Find-Package} PACKAGE\_NAME}.
+
+\note You~can't~set a~location where the~application from~the~package is~installed~to.
+It's~always installed to~the~default location.
+
+\warning The~most popular package manager for~windows -- \href{https://chocolatey.org/}{Chocolatey} --  doesn't work properly with PackageManagement.
+It~sometimes only downloads installation files, but~it~doesn't trigger the~installation itself.
+To~deal with~this install the~module, the~provider and~the~package \textit{ChocolateyGet} instead (three things with the~same name).

@@ -1,0 +1,45 @@
+\newsection{Setting Servlet URLs}
+\label{tomcatservleturl}
+A~\hyperref[webserviceapplication]{web application} run by~Tomcat has~a~configuration file \mbit{web.xml} located in~the~\itq{\mbox{APPLICATION\_FOLDER/} \mbox{WEB-INF/}} folder.
+The~basic element of~this XML file enclosing everything else is~\mbitq{web-app}.
+As~a~direct descendant of~this~element there can~be the~\mbitq{servlet} element binding a~servlet class with some name.
+Then there's the~\mbitq{servlet-mapping} element which binds the~name with an~URL part, which must start with the~slash symbol.
+When this URL part is~appended to~the~application URL in~a~web browser, it~triggers the~\hyperref[servicedopostdoget]{\textit{doGet}} method of~the~corresponding servlet class.
+See the~example for~exact element names.
+
+\example[\textit{web.xml} file with servlet mapping]
+%! language = TEXT
+\begin{lstlisting}[language=XML]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <web-app ...>
+      <servlet>
+        <servlet-name>exampleServlet</servlet-name>
+        <servlet-class>package.subpackage.ServletClass</servlet-class>
+      </servlet>
+      <servlet-mapping>
+        <servlet-name>exampleServlet</servlet-name>
+        <url-pattern>/exampleurl</url-pattern>
+      </servlet-mapping>
+    </web-app>
+\end{lstlisting}
+
+\noindent An~example of~a~matching address in~a~web browser is~\itq{\mbox{locallhost:8080/} \mbox{exampleapp/} \mbox{exampleurl}}.
+
+A~different URL can~be set even for~a~\hyperref[jsp]{JSP} or~HTML page.
+The~configuration is almost the~same, only instead~of the~\mbitq{servlet-class} element there~is \mbitq{jsp-file} (even for~HTML pages).
+
+\example[servlet mapping for~a~JSP page]
+%! language = TEXT
+\begin{lstlisting}[language=XML]
+    <?xml version="1.0" encoding="UTF-8"?>
+    <web-app ...>
+      <servlet>
+        <servlet-name>examplePage</servlet-name>
+        <jsp-file>folder/subfolder/example.jsp</jsp-file>
+      </servlet>
+      <servlet-mapping>
+        <servlet-name>examplePage</servlet-name>
+        <url-pattern>/exampleurl</url-pattern>
+      </servlet-mapping>
+    </web-app>
+\end{lstlisting}

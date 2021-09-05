@@ -3,7 +3,7 @@
     \item Client triggers an~action sending a~request to~the~server.
     \item The~request comes to~a~\textit{front controller}.
           There's a~class called \textit{DispatchServlet} behind this controller.
-          This class is~fully provided by~Spring, you~only configure URL for~it \hyperref[servleturl]{like for~standard servlets}.
+          This class is~fully provided by~Spring, you~only configure URL for~it \hyperref[tomcatservleturl]{like for~standard servlets}.
     \item The~front controller creates a~model instance and~forwards it together with the~request to~a~custom controller, which is a~part of~a~concrete application.
     \item The~custom controller triggers the~server side logic and~inserts attributes to~the~model.
           At~the~end of~the~logic processing it~forwards the~filled model to~a~template engine.

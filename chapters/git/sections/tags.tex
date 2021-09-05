@@ -1,0 +1,144 @@
+\newsection{Tags}
+\index{Git tags}
+\index{Tags in Git}
+Tags in~Git are like aliases for~commits.
+A~tag can~be~used instead of~a~hash when referencing a~commit.
+It's~visible with other information by~its commit in~a~Git history showing tool.
+One~commit can~have more tags.
+There can't~be two same tags in~one repository, not~even in~different branches.
+Tags can't contain spaces and~usage of~special characters is~also restricted.
+
+The~basic command for~tagging is~\textit{git tag}.
+In~the~basic form without any~parameter or~switch it~displays a~list of~all~tags in~the~local repository, including those from other branches.
+
+\newsubsection{Lightweight Tags}
+A~lightweight tag is just a~commit alias.
+To~create a~lightweight tag use the~\textit{git~tag} command in~the~format \itq{git tag TAG\_NAME COMMIT\_HASH}.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    git tag exampleTag 1cra2y34ha5h6
+\end{lstlisting}
+
+\noindent Now you can~use the~alias \itq{simpleTag} instead of~the~commit hash, like for~showing differences, rebasing, cherry--picking etc.
+You~will also see something like this when observing the~commit in~Git~log:
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    commit 1cra2y34ha5h6 (tag: exampleTag, origin/...)
+\end{lstlisting}
+
+\newsubsection{Annotated Tags}
+\noindent An~annotated tag contains, beside a~commit alias, also information about the~author, time of~creation and~a~nonempty message.
+It's~also signed with~\hyperref[pgpgpg]{GPG} when \hyperref[gitbasicconfiguration]{configured}.
+To~create an~annotated tag use the~\textit{git~tag} command with the~switch~\itq{-a}.
+You~can also directly specify the~message with the~switch \itq{-m}.
+If~you don't do it, a~text editor window will~appear, like when committing without the~switch.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    git tag exampleTag 1cra2y34ha5h6 -a -m "Example message"
+\end{lstlisting}
+
+\noindent Additional information of~annotated tags isn't simply visible.
+To~see~it you must use the~\hyperref[gitshow]{\textit{show}} command with the~tag name.
+It~doesn't work with the~commit hash.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    git show exampleTag
+\end{lstlisting}
+
+\noindent This will show the~standard info about the~commit, but~with preceding information from the~tag:
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    tag exampleTag
+    Tagger: TAGGER NAME <tagger@email.com>
+    Date:   Sat Nov 16 19:58:59 2019 +0100
+
+    Example message
+
+    commit 1cra2y34ha5h6 (tag: exampleTag, origin/...)
+    ...
+\end{lstlisting}
+
+\noindent Annotated tag information can~be also viewed in~some Git graphical tools like~Gitk.
+
+\note When you want to~tag the~last commit in~the~actual branch, you~don't have to specify the~commit hash, not~even for~a~lightweight~tag.
+
+\newsubsection{Pushing Tags}
+The~standard \textit{git push} command doesn't publish tags to~remote repositories, not~even when you~push a~fresh commit (a~commit not~in~the~remote repository).
+Tags must be pushed separately by the~command in~the~format \textit{git push origin TAG\_NAME}.
+When you have more tags, you~can push them all at~once by~specifying the~option \mbitq{-{}-tags} instead of~a~concrete tag name.
+This will~push all~tags in~all branches you~have in~your local repository.
+
+\example[pushing a~concrete tag]
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    git push origin exampleTag
+\end{lstlisting}
+
+\example[pushing all tags from a~local repository to~a~remote repository]
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    git push origin --tags
+\end{lstlisting}
+
+\note Receiving new tags (not~deleted or~edited, see~\hyperref[gittagsynchronization]{further}) from~remote repositories by~fetching or~pulling doesn't require any special handling.
+It's~performed automatically with standard operations.
+
+\newsubsection{Deleting Tags}
+To~delete a~tag from~a~local repository use the~switch~\itq{-d}.
+To~delete a~tag from~a~remote repository act like when deleting a~branch, i.e.,~either push the~tag to~origin with the~\mbitq{-{}-delete} option or~with preceding colon (overriding by~nothing).
+
+\example{deleting local tag}
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    git tag exampleTag -d
+\end{lstlisting}
+
+\example{deleting remote tag}
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    git push origin exampleTag --delete
+\end{lstlisting}
+
+\example{deleting remote tag by overriding}
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    git push origin :exampleTag
+\end{lstlisting}
+
+\note Pushing deleted tags can't~be performed in~a~batch with the~\mbitq{--tags} switch.
+You~must alwasy push deleted tags one~by~one.
+
+\newsubsection{Editing Tags}
+There's no option to~rename a~tag in~one command.
+You~must tag the~corresponding commit with the~new name and~then delete the~old name.
+The~order can~be even reversed, but~with creating the~new tag first you can~use the~old tag as~a~commit reference instead of~the~commit hash.
+
+\example[expect that \textit{oldTag} already exists]
+%! language = TEXT
+\begin{lstlisting}[frame=no]
+    git tag newTag oldTag
+    git tag -d oldTag
+\end{lstlisting}
+
+\noindent And,~of~course, all~newly created and~deleted tags must~be explicitly pushed to~a~remote repository.
+
+\newsubsection{Synchronizing Tags with Remote Repositories}
+\label{gittagsynchronization}
+As~already mentioned, freshly fetched commits come even with tags.
+But~tags added later to, or~deleted from, existing commits, that you already have in~your local repository, must~be downloaded explicitly.
+To~perform the~synchronization run the~command \itq{git fetch \mbox{-{}-prune} \mbox{-{}-prune-tags}}.
+
+\newsubsection{Force Switch (-f)}
+When any tag command would result in~two different commits with the~same tag (creating a~new tag, synchronizing with a~remote repository,~\dots), the~command fails.
+But~when used with the~switch~\itq{-f}, it~deletes problematic tags from other locations so~that the~current command can~be performed.
+
+For~example, consider that in~your local repository you~have a~tag on~a~commit~\textit{A}.
+In~the~remote repository the~same tag exists on~a~different commit~\textit{B}, that you~also have in~the~repository.
+When you~run the~\hyperref[gittagsynchronization]{synchronization command} in~the~basic form, it~will fail complaining that it~"would clobber existing tag".
+But~when you~run it with the~switch~\itq{-f}, the~tag is~removed from the~commit~\textit{A} and~appears at~the~commit~\textit{B} in~your local repository.

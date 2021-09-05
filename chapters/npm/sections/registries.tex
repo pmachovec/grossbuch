@@ -1,0 +1,75 @@
+\newsection{Registries}
+A~repository with packages for~NPM is~called \textit{registry}.
+By~default NPM uses the~registry with the~url \href{https://registry.npmjs.org/}{\textit{https://registry.npmjs.org/}} available on~the~\hyperref[internetweb]{web}.
+Another registry can~be configured by~the~key \mbitq{registry}.
+There can~be only~one (main) registry configured at~a~time.
+If~you~need more, you~must use \hyperref[npmscope]{scopes} or~switch \hyperref[npmprofile]{profiles}.
+
+\newsubsection{Scopes}
+\index{Scope}
+\label{npmscope}
+To~set a~scope for~a~registry simply add \mbitq{@SCOPE\_NAME:} before the~key \mbitq{registry} when configuring the~registry (mind the~colon).
+You~should have something like \mbitql{@SCOPE\_NAME:registry=;;REGISTRY\_URL} in~the~\mbit{.npmrc} file.
+With (unique) scopes you~can~configure an~unlimited number of~registries.
+However, remember that packages installed from scoped registries have limitations, see~\hyperref[nsmscopedpackages]~further.
+
+\newsubsection{Installed Packages Usage}
+\label{npmpackageusage}
+Installed package are~available as~standard \hyperref[nodejscommonjs]{CommonJS} modules by~their names.
+Specifying a~whole path to~a~package is~not~needed.
+They can~be loaded even \hyperref[amd]{asynchronously}.
+
+\example[standard package loading]
+%! language = TEXT
+\begin{lstlisting}[language=JavaScript]
+    let packageHandler = require('PACKAGE_NAME');
+    packageHandler.doSomething(...);
+\end{lstlisting}
+
+\example[loading package with \hyperref[requirejs]{\textit{RequireJS}}]
+%! language = TEXT
+\begin{lstlisting}[language=JavaScript]
+    let requirejs = require('requirejs');
+    ...
+    requirejs(['PACKAGE_NAME'], function(packageHandler) {
+      packageHandler.doSomething(...);
+    });
+\end{lstlisting}
+
+\newsubsection{Scoped Packages}
+\label{nsmscopedpackages}
+To~install a~package from~a~scoped registry use \mbitqls{npm;;;install;;;@SCOPE\_NAME/;;PACKAGE\_NAME}.
+Such~package is~stored into a~subfolder \mbitq{@SCOPE} of~the~usual package folder (project--specific or~global).
+The~scope must~be used even in~the~code when working with the~package, i.e.,~something like \mbitqls{let;;;packageHandler =;;;require('@SCOPE\_NAME/;;PACKAGE\_NAME')}.
+
+\warning Avoid any~global usage of~scopes, both in~\hyperref[npmconfiguration]{configuration} and~installation.
+Always configure scoped registries in~project--level \mbit{.npmrc} files and~install scoped packages per~project.
+If~you~use scopes globally and~someone else works with your code in~a~different system, his~global scopes configuration will~have to~be exactly the~same as~yours.
+If~any~scope name or~registry URL is~different, the~code will~not~work.
+
+\enlargethispage{10mm}
+\thispagestyle{empty}
+\newsection{Configuration Profiles}
+\label{npmprofile}
+This~is the~only way how~to at~least somehow have multiple main registries.
+The~principle~is changing the~global \mbit{.npmrc} file and~switching between various global configurations.
+The~standard text version of~the~file is~replaced by~a~symbolic link with the~same name.
+The~link points to~one of~files in~the~folder \mbitq{HOME/.npmrcs}.
+These files have the~\mbit{key=value} structure and~each represents one~configuration -- one~profile.
+Their names define profile names, they don't have extensions.
+
+There's a~Node.js implementation of~this behavior called \mbitq{npmrc} (yes,~like the~configuration file) available in~the~default NPM~registry.
+Install~it globally as~any~other package.
+A~default profile called \mbitq{default} will~be created from~the~actual configuration.
+To~create a~new~profile run \mbitqls{npmrc -c;;;PROFILE\_NAME}.
+To~switch to~a~different profile run \mbitqls{npmrc;;;PROFILE\_NAME}.
+To~see a~list of~available profiles run \mbitq{npmrc} without any parameter.
+To~delete a~profile delete the~corresponding file under the~\mbitq{HOME/.npmrcs} folder.
+\newpage
+
+\warning You~need a~right to~create symbolic links in~the~home folder.
+After each profile switch the~old \mbit{.npmrc} link is~deleted and~new is~created.
+
+\warning There's no~way to~have some configuration common to~all profiles.
+If~you~want to~have some common configuration, you~must set the~corresponding \mbit{key=value} pair for~each profile -- to~each profile file.
+And~you sure want to~have at~least the~global packages installation folder common as~you~use a~globally installed package -- the~\mbit{npmrc}.

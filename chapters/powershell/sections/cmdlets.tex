@@ -1,0 +1,20 @@
+\newsection{CmdLets}
+\index{CmdLet}
+\label{powershellcmdlet}
+A~cmdLet (read as~\textit{command let}) is a~PowerShell console command in~the~pattern \mbitq{Verb-Noun}.
+In~the~background a~cmdLet is a~\hyperref[dotnet]{.NET} class implementing a~particular operation.
+To~get a~list of~all available cmdLets run \itq{Get-Command} (which itself is~a~cmdLet).
+The~complete list is~really long.
+If~you have some idea how~a~cmdLet can~be called, you~can~enclose the~approximate name to~asterisks to~filter the~complete list (\itq{Get-Command *APPROXIMATE\_NAME*}).
+
+When you know the~exact cmdLet name, you~can find~out more info about it by~using the~cmdLet \textit{Get-Help}, for~example, \itq{Get-Help Get-Command}.
+It~works even with a~partial cmdLet name (and~even without asterisks), but~it~displays help fo~all matching cmdLets and~the~result is~much less verbose.
+
+CmdLets are case--insensitive.
+Although almost all documentation describes them with first letters in~uppercase for~each word, even lowercase (or~any crazy combination of~uppercase and~lowercase letters) can~be used.
+This~is true even for~searching of~cmdLets and~getting help.
+
+\newsubsection{Cmdlet VS PowerShell Script}
+As~mentioned above, cmdLets are~\hyperref[dotnet]{.NET} classes.
+There's a~compiled implementation written in~some \hyperref[dotnet]{.NET} \hyperref[platform]{platform} language (C\#, Visual Basic,~\dots) behind a~cmdLet.
+On~the~other hand, PowerShell scripts are~written in~the~\hyperref[compiledinterpretedlanguages]{interpreted} PowerShell \hyperref[scriptinglanguages]{scripting language} and~can~be executed directly.

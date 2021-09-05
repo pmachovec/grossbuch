@@ -1,0 +1,77 @@
+\newsection{Configuration}
+\index{Git configuration}
+\label{gitconfig}
+The~behavior of~Git can~be adjusted by~the~\textit{git~config} command.
+Whenever you run the~command, some key--value configuration pair is~stored to~a~configuration file under~a~configuration section.
+The~syntax of~the~command is \itq{git config section.key value}.
+Values can~consist of~more words, in~that~case they must be enclosed in~apostrophes or~quotes.
+Sections can~be further specified in~subsections, the~syntax is \itq{git config section.subsection.key value}.
+Further separation to~subsubsections is~not~possible.
+Everything between the~first and~the~last dot is~considered as~one~subsection name, even~if~it~contains other dots.
+
+\example[simple configuration file]:
+%! language = TEXT
+\begin{lstlisting}
+    [section1]
+        key1 = value1
+        key2 = value2
+    [section2 "subsection"]
+        key3 = value3
+    [section2]
+        key4 = value4
+\end{lstlisting}
+\newline
+
+\enlargethispage{-8mm}
+\noindent You~can set either a~local or~a~global configuration value.
+The~only difference in~the~syntax is the~\mbitq{-{}-global} option just after the~command when setting a~global configuration (\textit{git config \mbox{-{}-global} section.key value}").
+Local configuration values are~valid only in a~single repository folder.
+The~command without the~\mbitq{-{}-global} option can~be run only from a~repository folder (not~necessarily the~root, it~works even from~its subfolders).
+Local configuration entries are~stored to~the~file \mbit{ROOT\_FOLDER/.git/config}.
+Global configuration values are~valid in all repository folders in~the~system where Git is~installed.
+The~command with the~\mbitq{-{}-global} option can~be run from anywhere.
+Global configuration entries are~stored to~the~file \mbit{HOME\_FOLDER/.gitconfig}.
+You can also directly edit configuration files with a~text editor.
+But~that should be done with caution, if~you~screw the~formatting somehow, your Git can~stop working.
+When you want to~remove some configuration, use the~\mbitq{-{}-unset} option.
+
+\warning Local configurations override global configurations.
+
+\newsubsection{Basic configuration}
+\label{gitbasicconfiguration}
+When you install Git, you should set at~least following configurations:
+\begin{itemize}
+    \item User name (usually with apostrophes or~quotes):
+        %! language = TEXT
+\begin{lstlisting}[frame=no, gobble=12]
+            git config --global user.name '...'
+        \end{lstlisting}
+    \item User email:
+        %! language = TEXT
+\begin{lstlisting}[frame=no, gobble=12]
+            git config --global user.email ...
+        \end{lstlisting}
+    \item Default editor:
+        %! language = TEXT
+\begin{lstlisting}[frame=no, gobble=12]
+            git config --global core.editor ...
+        \end{lstlisting}
+    \item GUI encoding (without this non--ASCII characters get screwed in~Gitk):
+        %! language = TEXT
+\begin{lstlisting}[frame=no, gobble=12]
+            git config --global gui.encoding utf-8
+        \end{lstlisting}
+\end{itemize}
+\noindent If~your repository requires \hyperref[gitgpg]{GPG~signing}, you~must set also this:
+\begin{itemize}
+    \item User sign key:
+        %! language = TEXT
+\begin{lstlisting}[frame=no, gobble=12]
+            git config --global user.signingkey ...
+        \end{lstlisting}
+    \item Automatic signing:
+        %! language = TEXT
+\begin{lstlisting}[frame=no, gobble=12]
+            git config --global commit.gpgsign true
+        \end{lstlisting}
+\end{itemize}
