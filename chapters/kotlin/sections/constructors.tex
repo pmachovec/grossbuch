@@ -57,7 +57,8 @@ Overloading of~secondary constructors by~different \hyperref[parameterargument]{
 \end{lstlisting}
 
 \noindent A~class can~have both primary and~secondary constructors, but~secondary must always call the~primary~one with the~keyword \mbitq{this}.
-Also, secondary must have different \hyperref[parameterargument]{parameters}, it's~still constructor overloading.
+Because of~that, it's~guaranteed that whenever an~instance of~the~class is created, the~primary constructor is used no~matter what.
+Also, secondary constructors must have different \hyperref[parameterargument]{parameters}, it's~still constructor \mbox{overloading.}
 
 \example[Kotlin class with primary and secondary constructors]
 %! language = TEXT
@@ -79,11 +80,14 @@ Also, secondary must have different \hyperref[parameterargument]{parameters}, it
 \end{lstlisting}
 \newline
 
+\enlargethispage{10mm}
+\thispagestyle{empty}
 \noindent Primary constructor can~be empty.
 That happens when you specify empty brackets in~a~class header.
 It's~equivalent to~specifying a~public parameterless constructor with empty body in~Java.
 Remember that, similarly to~Java, such~constructor exists by~default in~Kotlin classes, and~when you \hyperref[declarationdefinition]{define} another constructor (with the~\textit{constructor} keyword), the~default one disappears.
 When you're in~a~situation where you~need both the~default and~a~non--default constructor (for~example, in~\hyperref[hibernate]{Hibernate} entities), you~must use empty brackets for~the~default constructor.
+\newpage
 
 \example[empty primary constructor]
 %! language = TEXT

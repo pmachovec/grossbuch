@@ -1,0 +1,218 @@
+\newsection{Data Classes}
+\index{Data class}
+\label{kotlindataclass}
+Data classes serve for~situations when~you~need class instances just as~containers for~somehow related values, with~minimal, ideally none, additional logic.
+A~data class is created by~the~keyword \mbitq{data}.
+It~must have a~\hyperref[kotlinprimaryconstructor]{primary constructor} with~at~least one~\hyperref[parameterargument]{parameter}.
+All~parameters of~the~primary constructor must have \hyperref[kotlinvalvar]{\textit{val} \mbox{or \textit{var}}} keyword.
+Standard implementations \mbox{of \itq{\hyperref[kotlindataclasstostring]{toString}}}, \mbitq{\hyperref[kotlindataclassequals]{equals}}, \mbitq{\hyperref[kotlindataclasshashcode]{hashCode}} \mbox{and \itq{\hyperref[kotlindataclasscopy]{copy}}} functions \mbox{and \itq{componentN}} operators for~\hyperref[kotlindestdecl]{destructuring declarations}, are~automatically available on~data class instances (see~further for~examples).
+These implementations work with~\hyperref[parameterargument]{arguments} of~the~primary constructor.
+Eventual other fields of~the~class aren't used in~them.
+It's~possible to~override implementations and~write some custom.
+
+Although it's a~misuse, data classes can~have a~body with complex methods and~nested structures.
+They~also can~extend other classes and~implement interfaces.
+On~the~other hand, data classes can't~be \hyperref[declarationdefinition]{declared} as~open or~abstract and~therefore, they can't~be inherited.
+Because of that, eventual declaring them as~\hyperref[kotlinsealedclass]{sealed} would make no sense and~is also forbidden.
+Data classes can~be nested, but~not~\hyperref[kotlininnerclass]{inner}.
+
+\newsubsection{\textit{toString}}
+\label{kotlindataclasstostring}
+It~returns a~string in~the~format \mbitqls{ClassName(;;firstParameterName;;=;;firstParameterToString,;;;secondParameterToString;;=secondParameterValue, \dots)}.
+If~a~parameter type is a~class without proper implementation \mbox{of \itq{toString}}, it~uses the~default behavior for~the~parameter --~package path, at~sign and~an~address number.
+Other fields not~included in~the~primary constructor aren't included in~the~returned value.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Class without proper "toString" implementation}]
+    package somepackage.subpackage
+
+    class ClassWithoutToString(...) {
+        ...
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Data class}]
+    data class ExampleDataClass(
+        val stringProperty: String,
+        val intProperty: Int,
+        val classWithoutToString: ClassWithoutToString
+    ) {
+        var otherProperty = ...
+    }
+\end{lstlisting}
+\newpage
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={\itq{toString} behavior}]
+    val classWithoutToString = ClassWithoutToString(...)
+    val dataClass = ExampleDataClass("something", 1, classWithoutToString)
+
+    // Will print "ExampleDataClass(stringProperty=something, intProperty=1, classWithoutToString= somepackage.subpackage.ClassWithoutToString@SOME_MESS)"
+    println(dataClass)
+\end{lstlisting}
+\newline
+
+\newsubsection{\textit{equals}}
+\label{kotlindataclassequals}
+It~compares two data class instances by comparing individual \hyperref[parameterargument]{arguments} of~the~primary constructor.
+The~arguments comparison is done purely with \mbox{the \itq{equals}} function, \mbitq{hashcode} isn't used.
+I.e.,~even when~\mbitq{hashcode} returns different values for~compared arguments, \mbox{if \itq{equals}} returns \textit{true}, arguments are~considered as~equal (but~in~such case \mbox{the \itq{equals}} implementation in~the~corresponding parameter type class is~obviously wrong).
+If~a~parameter type is a~class without proper implementation \mbox{of \itq{equals}}, it~compares \mbox{the \hyperref[systemmemory]{memory}} address of~the~corresponding instance.
+Other fields not~included in~the~primary constructor aren't used in~the~instances comparison.
+\newline
+
+\example[parameter type class without \itq{equals} implementation]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Simple class without proper "equals" implementation}]
+    class ClassWithoutEquals(
+        var simpleProperty: String
+    )
+\end{lstlisting}
+\newline
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Data class}]
+    data class ExampleDataClass(
+        val stringProperty: String,
+        val intProperty: Int,
+        var classWithoutEquals: ClassWithoutEquals
+    )
+\end{lstlisting}
+\newpage
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={\itq{equals} behavior}]
+    val classWithoutEquals = ClassWithoutEquals("first string")
+    val dataClass1 = ExampleDataClass("second string", 1, classWithoutEquals)
+    classWithoutEquals.simpleProperty = "third string" // Doesn't change instance address
+    val dataClass2 = ExampleDataClass("second string", 1, classWithoutEquals)
+
+    // Will print "true", address of 'classWithoutEquals' hasn't changed
+    println(dataClass1 == dataClass2)
+
+    // Assigning new instance with different address
+    dataClass2.classWithoutEquals = ClassWithoutEquals("third string")
+
+    // Will print "false"
+    println(dataClass1 == dataClass2)
+\end{lstlisting}
+
+\example[parameter type class with \itq{equals} always returning false]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Simple class without proper "equals" implementation}]
+    class ClassWithWrongEquals {
+        override fun equals(other: Any?): Boolean {
+            return false
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Data class}]
+    data class ExampleDataClass(
+        val stringProperty: String,
+        val intProperty: Int,
+        var classWithWrongEquals: ClassWithWrongEquals
+    )
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={\itq{equals} behavior}]
+    val classWithWrongEquals = ClassWithWrongEquals()
+    val dataClass1 = ExampleDataClass("something", 1, classWithWrongEquals)
+    val dataClass2 = ExampleDataClass("something", 1, classWithWrongEquals)
+
+    // Will print "false"
+    println(dataClass1 == dataClass2)
+\end{lstlisting}
+
+\newsubsection{\textit{hashCode}}
+\label{kotlindataclasshashcode}
+It~computes the~instance hash code from~hash codes of~individual \hyperref[parameterargument]{arguments} of~the~primary constructor.
+That~means the~result always depends on~the~implementation \mbox{of \itq{hashCode}} of~individual parameter types.
+Other fields not~included in~the~primary constructor aren't used in~the~computation.
+The~concrete algorithm computing the~data class hash code isn't so simple and~it~isn't necessary to~know~it.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Data class}]
+    data class ExampleDataClass(
+        val stringProperty: String,
+        val intProperty: Int,
+        val boolProperty: Boolean
+    )
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={\itq{hashCode} behavior}]
+    val dataClass = ExampleDataClass("something", 1, true)
+
+    // Will print "-1688972774"
+    // It isn't important how this value was achieved
+    println(dataClass.hashCode())
+\end{lstlisting}
+\newline
+
+\newsubsection{\textit{copy}}
+\label{kotlindataclasscopy}
+It~creates a~copy of~the~current instance.
+Only \hyperref[parameterargument]{arguments} of~the~primary constructor are~copied, other fields not~included in~the~primary constructor are~not.
+All~copied values in~the~created copy are~links to~the~same object in~theory (Kotlin doesn't have \hyperref[javaprimitivetypes]{primitive types} like Java).
+That~doesn't matter with booleans, numbers and~strings.
+These types don't~have any mutable \hyperref[variablefieldproperty]{property} to~be~maliciously altered.
+However, it's~important fact to~consider when~the~data class constructor has~\hyperref[parameterargument]{parameters} of~other types.
+\newline
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={A class with mutable property}]
+    class SimpleClass(
+        var mutableProperty: String
+    )
+\end{lstlisting}
+\newpage
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Data class}]
+    data class ExampleDataClass(
+        val stringProperty: String,
+        val intProperty: Int,
+        val simpleClassProperty: SimpleClass
+    )
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={\itq{copy} behavior}]
+    val simpleClass = SimpleClass("one")
+    val dataClass = ExampleDataClass("something", 1, simpleClass)
+    val dataClassCopy = simpleClass.copy()
+
+    // Will print "something"
+    println(dataClassCopy.stringProperty)
+
+    // Will print "1"
+    println(dataClassCopy.intProperty)
+
+    // Will print "one"
+    println(dataClassCopy.simpleClassProperty.mutableProperty)
+
+    // Change made to the original instance
+    dataClass.simpleProperty.mutableProperty = "two"
+
+    // Will print "two" - change propagated even to the copy
+    println(dataClassCopy.simpleClassProperty.mutableProperty)
+\end{lstlisting}
+
+\warning Opposite to~other mentioned functions, \mbox{the \itq{copy}} function can~be overridden even without the~keyword \mbox{\itq{override}.}
+
+\example{overriding functions in a~data class}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    data class ExampleDataClass(
+        ...
+    ) {
+        // Must be declared with 'override'
+        override fun toString(): String {
+            ...RETURN STRING...
+        }
+
+        // Can be declared without 'override'
+        fun copy(): ExampleDataClass {
+            ...RETURN NEW INSTANCE...
+        }
+    }
+\end{lstlisting}
+\newpage
