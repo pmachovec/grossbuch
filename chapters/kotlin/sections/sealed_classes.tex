@@ -1,10 +1,10 @@
 \newsection{Sealed Classes}
 \index{Sealed class}
 \label{kotlinsealedclass}
-Sealed class is an~abstract class (by~default, no~need of~using the~keyword \mbitq{abstract}), which can~be extended only from~the~same file where it's \hyperref[declarationdefinition]{defined}.
+Sealed class is an~abstract class (by~default, no~need of~using the~keyword \mbitq{abstract}), which can~be extended only from~the~same file where it's defined.
 It's~created by the~keyword \mbitq{sealed}.
 Child classes of~a~sealed class can~be either \hyperref[kotlininnerclass]{nested} or~on~the~same level in~the~same file.
-If~a~child of~a~sealed class is~\hyperref[declarationdefinition]{declared} as~open or~abstract, then this child can~be extended in~another file --~sealing isn't transitive.
+If~a~child of~a~sealed class is~declared as~open or~abstract, then this child can~be extended in~another file --~sealing isn't transitive.
 
 \enlargethispage{20mm}
 \thispagestyle{empty}
@@ -70,7 +70,7 @@ If~a~child of~a~sealed class is~\hyperref[declarationdefinition]{declared} as~op
 \newsubsection{Sealed interfaces}
 \index{Sealed interface}
 Starting from \mbox{Kotlin 1.5} even~interfaces can~be sealed.
-Nothing differs from~sealed classes, all~implementations and~extensions of~a~sealed interface must~be \hyperref[declarationdefinition]{defined} in~the~same file as~the~interface.
+Nothing differs from~sealed classes, all~implementations and~extensions of~a~sealed interface must~be defined in~the~same file as~the~interface.
 And~because the~\hyperref[compositionoverinheritance]{composition over inheritance} programming principle exists, it's~actually recommended to~use sealed interfaces rather \mbox{than classes}.
 
 \example
@@ -109,7 +109,7 @@ That's why you should limit its usage, ideally completely avoid~it.
 However, there's one commonly mentioned use case --~when you need to~have absolute control over children of~a~class or~interface.
 And~that is when you need something like enumeration, but~you want different fields and~logic for~each member.
 If~you~get to~such situation, try~to keep the~readability as~good as~possible.
-Use~sealed interface rather than class (if~possible), have all implementing structures nested, try~to keep them small and~don't \hyperref[declarationdefinition]{declare} them as~open.
+Use~sealed interface rather than class (if~possible), have all implementing structures nested, try~to keep them small and~don't declare them as~open.
 \newpage
 
 \example

@@ -46,14 +46,14 @@ The~annotation extends the~\mbit{@Component} annotation, therefore, controller c
 Classes generally don't~extend any other class or~implement an~interface (they~can if~needed).
 
 Controller methods are~marked by~the~annotation \mbit{@RequestMapping} from the~package \mbitq{org.springframework.web.bind.annotation}.
-This annotation gets as~a~\hyperref[parameterargument]{parameter} a~string that defines the~URL by~which the~method is~accessed.
+This annotation gets as~a~parameter a~string that defines the~URL by~which the~method is~accessed.
 For~proper functionality this string must begin with a~slash.
 The~annotation can~be used even without the~parameter, it's~then equivalent to~specifying an~empty string.
 
-One~controller method can~get as~\hyperref[parameterargument]{parameters} a~whole request, separate request \hyperref[jspattributeparameter]{parameters} and~the~model instance.
-\hyperref[parameterargument]{Arguments} of~controller methods are~variable, they~can~get any~combination of~those objects.
+One~controller method can~get as~parameters a~whole request, separate request \hyperref[jspattributeparameter]{parameters} and~the~model instance.
+Arguments of~controller methods are~variable, they~can~get any~combination of~those objects.
 When using separate request parameters, each corresponding method parameter must~be marked by~the~annotation \mbit{@RequestParam} from the~package \mbitq{org.springframework.web.bind.annotation}.
-This annotation gets as~a~\hyperref[parameterargument]{parameter} a~string that must correspond to~the~key of~the~parameter in~the~request.
+This annotation gets as~a~parameter a~string that must correspond to~the~key of~the~parameter in~the~request.
 Methods can~have any name, but~they must return a~string that must~be the~name of~the~template file to~which the~model should~be forwarded.
 The~name is only the~plain file name, without any folder path and~even without an~extension.
 That's defined in~the~Spring configuration.

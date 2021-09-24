@@ -10,11 +10,11 @@ The~most typically used annotation is \hyperref[javaoverride]{\mbit{@Override}}.
 \newsubsection{Custom Annotations}
 \label{javacustomannotations}
 Annotations aren't just fixed, developers can~create their own.
-Annotation \hyperref[declarationdefinition]{definition} looks similar to~an~\hyperref[javainterface]{interface} \hyperref[declarationdefinition]{definition}.
+Annotation definition looks similar to~an~\hyperref[javainterface]{interface} definition.
 The~key word stating that an~annotation is~defined is \mbitq{@interface} (with the~at~sign at~the~beginning).
-Annotation classes can~contain method \hyperref[declarationdefinition]{declarations} (without a~body), which in~fact define annotation \hyperref[parameterargument]{parameters}.
+Annotation classes can~contain method declarations (without a~body), which in~fact define annotation parameters.
 These method headers are~always public and~can't~get an~\hyperref[javaaccessmodifiers]{access modifier}.
-They can~be~followed by~the~keyword \mbitq{default} followed by~a~default value of~the~corresponding \hyperref[parameterargument]{parameter}.
+They can~be~followed by~the~keyword \mbitq{default} followed by~a~default value of~the~corresponding parameter.
 The~default value type must match the~return type from the~method header.
 If~a~parameter method doesn't have assigned default value, then the~parameter is~compulsory when using the~annotation.
 
@@ -42,7 +42,7 @@ Each~annotation class automatically extends (yes,~\textbf{extends}, not~\textit{
 It~can't extend or~implement anything else, not~even another annotation class.
 \newpage
 
-\warning Although annotation \hyperref[declarationdefinition]{definitions} are much~closer to~interfaces (\mbitq{interface} in~the~keyword, methods without bodies, \textbf{extending} \mbox{the \itq{Annotation}} interface), those structures are still denoted as~annotation \textbf{classes}.
+\warning Although annotation definitions are much~closer to~interfaces (\mbitq{interface} in~the~keyword, methods without bodies, \textbf{extending} \mbox{the \itq{Annotation}} interface), those structures are still denoted as~annotation \textbf{classes}.
 
 \newsubsection{Processing Annotations During Runtime}
 This is relatively easy.
@@ -103,11 +103,11 @@ Only then you~can~start writing the~code that uses the~annotation.
 In~the~annotation program a~processor class must be created.
 The~class must~be annotated with (repeatable) annotation \mbitq{@SupportedAnnotationTypes}, which specifies processed annotation class (or~classes), and~with annotation \mbitq{@SupportedSourceVersion}, which specifies minimal Java version under which the~processed annotation is~available during compilation.
 The~class must also extend the~class \mbitq{AbstractProcessor} and~implement the~method \mbitq{process}.
-The~method can~access annotated elements and~annotation values from its~\hyperref[parameterargument]{parameters}, namely from the~rounding environment, and~perform some action when a~desired annotation is~detected.
+The~method can~access annotated elements and~annotation values from its~parameters, namely from the~rounding environment, and~perform some action when a~desired annotation is~detected.
 
 It's~desirable to~\hyperref[javaoverride]{override} the~\mbitq{init} method, retrieve the~processing environment messager in~it and~store the~messager to~a~global variable.
 Interactions with the~compilation process (breaking compilation, printing warnings, \dots) in~the~\mbit{process} method are~then done through this messager, namely through its method \mbitq{printMessage}.
-The~method can~take up~to~four \hyperref[parameterargument]{parameters}, but~only first two are~important:
+The~method can~take up~to~four parameters, but~only first two are~important:
 \begin{itemize}
     \itembfd{Kind} a~member of~the~enum \mbitq{Diagnostic.Kind}.
              Specifies the~action to~perform.
@@ -172,7 +172,7 @@ Inside this file there must~be package path to~the~processor class.
 
 \newsubsection{Parameter called \itq{value}}
 \label{javaannotationparamvalue}
-If~an~annotation contains only one \hyperref[parameterargument]{parameter} (method) called \mbitq{value}, it~isn't necessary to~specify the~parameter name when setting~it.
+If~an~annotation contains only one parameter (method) called \mbitq{value}, it~isn't necessary to~specify the~parameter name when setting~it.
 In~other words, it's~possible to~write directly the~value, without \mbox{the \itq{value = }} part.
 
 \example

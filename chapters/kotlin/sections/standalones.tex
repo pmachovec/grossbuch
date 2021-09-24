@@ -1,10 +1,10 @@
 \newsection{Standalone Functions and Variables}
 \label{kotlinstandalone}
-Kotlin enables to~\hyperref[declarationdefinition]{define} functions and~variables outside classes.
+Kotlin enables to~define functions and~variables outside classes.
 They just must be defined in~a~Kotlin file (with \mbox{the \itq{.kt}} extension) in~a~package folder.
 Such~elements can~then be imported with the~package path and~used anywhere in~the~corresponding project.
 This~is convenient especially for~very general functions that don't need a~class for~their work.
-Having standalone variables can~occur for~some constants, in~that~case it's recommended to~\hyperref[declarationdefinition]{declare} them with \mbox{the \itq{const}} keyword.
+Having standalone variables can~occur for~some constants, in~that~case it's recommended to~declare them with \mbox{the \itq{const}} keyword.
 Mutable standalone variables, although possible, are~a~bad practise and~shouldn't be used.
 
 For~a~Kotlin file with standalone elements the~compilation process generates a~class with the~same name \mbox{and \itq{-Kt}} suffix.
@@ -77,7 +77,7 @@ If~it's defined with \mbox{the \itq{var}} keyword, a~private variable, a~getter 
 \end{lstlisting}
 \noindent Notice that all standalone elements are~imported.
 That's necessary no matter the~package structure.
-Even if elements are~\hyperref[declarationdefinition]{defined} in~a~file directly above in~the~package path, they must be imported.
+Even if elements are~defined in~a~file directly above in~the~package path, they must be imported.
 
 The~only possible exception is when a~standalone element is maliciously defined in~a~Kotlin file that contains also a~proper class or~\hyperref[kotlinobject]{object}.
 In~that case the~compilation resulting \mbit{.class} file contains two classes -- the~one corresponding to~the~class or~object and~the~one with the~file name \mbox{and the \itq{-Kt}} suffix.

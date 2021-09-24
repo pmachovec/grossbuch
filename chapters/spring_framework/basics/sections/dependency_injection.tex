@@ -1,11 +1,11 @@
 \newsection{Dependency Injection}
 \index{Dependency injection}
 \label{springdependencyinjection}
-Spring bean classes can~contain some \hyperref[variablefieldproperty]{fields}.
-The~\hyperref[springcontainrer]{Spring container} can~automatically assign instances of~classes matching those \hyperref[variablefieldproperty]{fields} types.
+Spring bean classes can~contain some fields.
+The~\hyperref[springcontainrer]{Spring container} can~automatically assign instances of~classes matching those fields types.
 I.e., the~\hyperref[springcontainrer]{Spring container} can~perform an~automated \hyperref[dependencyinjection]{dependency injection}.
 
-Basically it must be configured what \hyperref[variablefieldproperty]{field} should get what class instance, this configuration is a~part of~the~XML configuration file.
+Basically it must be configured what field should get what class instance, this configuration is a~part of~the~XML configuration file.
 With the~\hyperref[autowiring]{autowiring feature} (see~further) it's~even possible to~completely avoid the~configuration if~the~correct class for~the~field can~be identified unambiguously.
 
 \note Dependencies injected by~Spring dependency injection must~be also Spring beans.
@@ -33,7 +33,7 @@ The~name of~the~setter method in the~wanted class must then be exactly \textit{s
 The~name of~the~field variable doesn't matter.
 
 \warning Dependency fields in~the~main bean class can't~be declared as~final when using the~setter injection.
-Final fields must be \hyperref[declarationdefinition]{defined} no~later than in~the~constructor, and~that can't happen with the~setter injection.
+Final fields must be defined no~later than in~the~constructor, and~that can't happen with the~setter injection.
 
 \enlargethispage{20mm}
 \thispagestyle{empty}
@@ -275,7 +275,7 @@ Nevertheless, it's~possible to~parse \textit{properties} files with annotations,
 \newsubsection{Field Injection}
 \index{Field injection}
 \label{fieldinjection}
-The~\hyperref[autowiring]{autowiring} annotation can~be used directly to~dependency \hyperref[variablefieldproperty]{fields} (class fields only, not~local variables inside methods).
+The~\hyperref[autowiring]{autowiring} annotation can~be used directly to~dependency fields (class fields only, not~local variables inside methods).
 These fields then don't need any~explicit setting, autowiring finds, creates and~assigns a~correct dependency class instance automatically.
 It's~like the~\hyperref[setterinjection]{setter injection} (i.e.,~with zero--parameter constructor), but~without \textit{set} methods.
 The~Spring implementation behind this "magic" uses \hyperref[reflection]{Java reflection}.

@@ -3,10 +3,10 @@
 \label{requirejs}
 \href{https://requirejs.org}{RequireJS} is widely used implementation of~\hyperref[amd]{AMD}.
 Modules syntax exactly follows the~\hyperref[amdsyntax]{AMD standard}.
-Using modules from a~\hyperref[internetweb]{web} page, however, is~specific.
+Using modules from a~web page, however, is~specific.
 
 You~should have one main file, which is referred from a~\mbit{script} element inside~a~page \mbit{header} element.
-From this file you~should assign functionality to~elements in~the~corresponding \hyperref[internetweb]{web} page.
+From this file you~should assign functionality to~elements in~the~corresponding web page.
 And~from this file you can~also call \hyperref[amd]{AMD} modules.
 If~the~page design forces you to~have the~\mbit{script} element somewhere else than in~the~\mbit{header} element or~to~have multiple \mbit{script} elements, then the~design is~bad and~should~be changed.
 
@@ -29,7 +29,7 @@ This is a \hyperref[nodejs]{NodeJS} feature called \hyperref[nodejscommonjs]{\mb
 It~isn't supported in~JavaScript by~default.
 
 However, to~make things even more confusing, RequireJS supports using \mbox{the \itq{require}} keyword as~a~replacement of~the~standard \mbitq{requirejs} keyword, if~the~executing \hyperref[engine]{engine} doesn't use it on~its~own.
-So~for~example, when~running RequireJS code in~a~\hyperref[internetweb]{web} browser, you~can~use \mbitq{require} instead of \mbitq{requirejs}.
+So~for~example, when~running RequireJS code in~a~web browser, you~can~use \mbitq{require} instead of \mbitq{requirejs}.
 But~when~running the~same code in~\hyperref[nodejs]{NodeJS}, it~will fail.
 Therefore, it's~advisable to~use the~default \itq{requirejs} keyword every time when working with~RequireJS.
 \newpage

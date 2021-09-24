@@ -4,7 +4,7 @@
 \label{kotlinsafecall}
 Alternative for~the~standard dot notation.
 Can~be~used on~variables of~nullable types.
-If~the~variable isn't null, the~safe call calls the~referenced function or~\hyperref[variablefieldproperty]{property} on~the~type instance stored in~the~variable.
+If~the~variable isn't null, the~safe call calls the~referenced function or~property on~the~type instance stored in~the~variable.
 Otherwise, it~returns null.
 It~doesn't throw an~exception.
 
@@ -58,8 +58,8 @@ When the~asserted variable is null, using the~operator results \mbox{in \textit{
 \newsubsection{Elvis Operator (?:)}
 \index{Elvis operator}
 Two--value operator written in~the~infix notation.
-Returns the~left side \hyperref[parameterargument]{argument} if~it~isn't null.
-Otherwise, returns the~right side \hyperref[parameterargument]{argument}, even when it's null.
+Returns the~left side argument if~it~isn't null.
+Otherwise, returns the~right side argument, even when it's null.
 I.e.,~it's coalesce operator for~two values.
 
 \example[no~argument is null]

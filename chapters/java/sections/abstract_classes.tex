@@ -10,14 +10,14 @@ An~instance of~such class can~be assigned to~a~variable of~the~abstract class ty
 
 As~abstract classes and~their usage are~based on~the~\hyperref[inheritance]{inheritance concept} (they use \hyperref[inheritance]{inheritance} to~achieve \hyperref[abstraction]{abstraction}), \mbox{non--abstract} members of~abstract classes are~normally available in~their descendants (if~not~\hyperref[javafinal]{final}).
 
-Abstract classes and~abstract methods are~\hyperref[declarationdefinition]{declared} with the~keyword \mbitq{abstract}.
+Abstract classes and~abstract methods are~declared with the~keyword \mbitq{abstract}.
 It's~advised (but~not~necessary) to~use the~\hyperref[javaoverride]{overriding} annotation for~methods providing implementations of~abstract methods from~predecessor abstract classes.
 
 Because of~the~class inheritance mechanism in~Java, it's~possible to~inherit always only from~one abstract class.
 If~you~manage to~end~up with an~abstract class, that contains only abstract members, it's~better to~change it to~an~\hyperref[javainterfaces]{interface}.
 
 \newsubsection{How (not) to use}
-A~common mistake, that developers do with abstract classes, is to~\hyperref[declarationdefinition]{define} a~common \mbox{non--abstract} method in~an~abstract class and~use this method inside descendants of~the~abstract class.
+A~common mistake, that developers do with abstract classes, is to~define a~common \mbox{non--abstract} method in~an~abstract class and~use this method inside descendants of~the~abstract class.
 This is wrong, because when the~common method is~changed for~whatever reason, all~descendants of~the~abstract class are~potentially affected.
 When you need some common behavior for~descendants, it's~better to~implement some common \hyperref[dependencyinjection]{dependency} or~\hyperref[javastatic]{static} method (\hyperref[compositionoverinheritance]{composition over inheritance}).
 The~danger of~a~change affecting multiple classes also exists in~this case, but~is smaller.

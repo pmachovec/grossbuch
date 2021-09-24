@@ -32,14 +32,14 @@ Instance of~the~receiver type (on~which the~extension function is called) is cal
 \newsubsection{Extension property}
 \index{Backing field}
 \label{kotlinextensionproperty}
-\noindent Extending a~class with~a~\hyperref[variablefieldproperty]{property} is possible, but~slightly more complicated.
+\noindent Extending a~class with~a~property is possible, but~slightly more complicated.
 You~can't just assign values with~the~equals sign.
 You~need to~specify at~least \hyperref[kotlingetset]{getter} (for~immutable property \mbox{with the \itq{val}} keyword).
 Furthermore, \mbox{the \hyperref[kotlingetset]{\itq{field}}} keyword isn't available in~such getters and~setters.
 
 If~you want the~property to~be mutable (\mbox{with the \itq{var}} keyword), it's~even more complicated.
 You~of~course need to~specify also \hyperref[kotlingetset]{setter}, but~that's not enough.
-A~publicly accessible field (i.e.,~another property) convenient for~this purpose must be \hyperref[declarationdefinition]{declared} in~the~class.
+A~publicly accessible field (i.e.,~another property) convenient for~this purpose must be declared in~the~class.
 Such~field is~called \textit{backing field}.
 If~there's none available and~you~can't change the~class code (which~is usually the~case with~classes from~libraries), you~can't create a~mutable extension property.
 
@@ -123,7 +123,7 @@ The~syntax is similar to~all previous cases, just the~keyword \mbitq{Companion} 
 \end{lstlisting}
 
 \newsubsection{Scope}
-Usually, extensions are~\hyperref[declarationdefinition]{defined} as~\hyperref[kotlinstandalone]{standalone elements}, i.e.,~outside classes.
+Usually, extensions are~defined as~\hyperref[kotlinstandalone]{standalone elements}, i.e.,~outside classes.
 And~in~that case they're handled as~standalone elements.
 That means that special classes \mbox{with the \itq{-Kt}} suffix in~names and~elaborated combination of~static methods are~generated for~them during compilation.
 Compiled code of~original classes or~objects (those being extended) isn't affected.
@@ -157,8 +157,8 @@ No~matter where they're defined, they must be imported.
 \end{lstlisting}
 \newline
 
-\noindent It's~also possible to~\hyperref[declarationdefinition]{define} an~extension inside a~class, \hyperref[kotlinobject]{object} or~\hyperref[kotlincompanionobject]{companion object}.
-Such~extension is visible only inside the~enclosing structure, and, if~not~\hyperref[declarationdefinition]{declared} as~private, in~its descendants.
+\noindent It's~also possible to~define an~extension inside a~class, \hyperref[kotlinobject]{object} or~\hyperref[kotlincompanionobject]{companion object}.
+Such~extension is visible only inside the~enclosing structure, and, if~not~declared as~private, in~its descendants.
 It~isn't possible to~import or~call it from~outside.
 \newpage
 
@@ -179,7 +179,7 @@ It~isn't possible to~import or~call it from~outside.
 
 \newsubsection{Conflicting definitions}
 Extensions can't override original members.
-I.e.,~if~you \hyperref[declarationdefinition]{define} an~extension, but~the~extended structure (class/object) already contains a~member with the~same name, the~original implementation of~the~member will~be~used.
+I.e.,~if~you define an~extension, but~the~extended structure (class/object) already contains a~member with the~same name, the~original implementation of~the~member will~be~used.
 It~holds even for~\hyperref[kotlinextensionproperty]{extension properties}.
 
 \example

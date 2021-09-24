@@ -23,7 +23,7 @@ But~when he provides a~certificate, a~receiver can~verify the~identity based on 
 \index{PKI}
 \index{Public Key Infrastructure}
 \label{tls}
-TLS,~standing for~\itq{Transport Layer Security}, is a~widely used \hyperref[protocolstandard]{cryptographic protocol} describing the~certification mechanism on~the~\hyperref[internetweb]{web}.
+TLS,~standing for~\itq{Transport Layer Security}, is a~widely used \hyperref[protocolstandard]{cryptographic protocol} describing the~certification mechanism on~the~web.
 You~can also meet the~abbreviation SSL, which stands for~\itq{Secure Sockets Layer}.
 It's~a~predecessor of~TLS created in~1990s by~\href{https://en.wikipedia.org/wiki/Netscape}{Netscape}.
 Although all versions of~the original SSL are~already deprecated and~Netscape is almost dead, the~abbreviation is still used.
@@ -38,7 +38,7 @@ They already have certificates from the~certification authority, so~if~they want
 Certificates of~\hyperref[certificationauthority]{certification authorities} are~called root certificates and~they're stored in~so~called root stores, or~trusted stores.
 These certificates are~self--signed -- the~certification authority signs its certificate with its own private key.
 Client programs (receivers) know root stores and~download root certificates from them.
-Major root stores are~run by~Microsoft, Google, Mozilla or~Apple, because typical clients are~\hyperref[internetweb]{web} browsers, where the~TLS protocol is~used as~a~part of~the~\hyperref[https]{HTTPS protocol}.
+Major root stores are~run by~Microsoft, Google, Mozilla or~Apple, because typical clients are~web browsers, where the~TLS protocol is~used as~a~part of~the~\hyperref[https]{HTTPS protocol}.
 All~the~certification authorities and~clients form so~called \itq{Public Key Infrastructure}~(PKI).
 
 \newsubsection{Chain of Trust}

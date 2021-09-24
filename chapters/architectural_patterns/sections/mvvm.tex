@@ -4,7 +4,7 @@
 \index{MVVM}
 \index{MVB}
 \label{mvvm}
-Known also as \mbitq{Model--View--Binder} (MVB), it's another pattern for~systems with user interface, used mainly in~desktop and~mobile \hyperref[applicationprocessprogramservicethread]{applications}.
+Known also as \mbitq{Model--View--Binder} (MVB), it's another pattern for~systems with user interface, used mainly in~desktop and~mobile applications.
 It~describes a~system separation to~three components -- a~model, a~view and~a~viewmodel (or~binder) -- where a~change in~one~component causes only minimal (ideally none) changes in~other two components.
 It~should be possible to~develop, maintain and~reuse each component separately.
 
@@ -17,7 +17,7 @@ In~MVC, on~the~other hand, commands go to~the~\hyperref[businesslogic]{business 
 \noindent Components in~detail:
 \begin{itemize}
     \itembfd{Model} an~abstraction of~data with which the~system operates, for~example, classes representing records in~database tables.
-    \itembfd{View} information displayed to~a~user and~also functionality for~receiving commands from~the~user and~delegating them to~the~viewmodel, for~example, a~screen of~a~mobile \hyperref[applicationprocessprogramservicethread]{applications}.
+    \itembfd{View} information displayed to~a~user and~also functionality for~receiving commands from~the~user and~delegating them to~the~viewmodel, for~example, a~screen of~a~mobile applications.
     \itembfd{Viewmodel} the~application \hyperref[businesslogic]{business logic}, receives commands from~the~view, based on~these commands performs computations with the~model and~based on~results updates the~view.
 \end{itemize}
 

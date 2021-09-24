@@ -3,7 +3,7 @@
 \index{MVC}
 \label{mvc}
 The~most well--known pattern for~systems with user interface.
-Although initially intended for~desktop \hyperref[applicationprocessprogramservicethread]{applications}, it's~most popular for~\hyperref[webserviceapplication]{web applications} nowadays.
+Although initially intended for~desktop applications, it's~most popular for~\hyperref[webserviceapplication]{web applications} nowadays.
 It~describes a~system separation to~three loosely coupled components -- a~model, a~view and~a~controller -- where a~change in~one~component causes only minimal (ideally none) changes in~other two components.
 It~should be possible to~develop, maintain and~reuse each component separately.
 \newline
@@ -11,7 +11,7 @@ It~should be possible to~develop, maintain and~reuse each component separately.
 \noindent Components in~detail:
 \begin{itemize}
     \itembfd{Model} an~abstraction of~data with which the~system operates, for~example, classes representing records in~database tables.
-    \itembfd{View} information displayed to~a~user, often in~a~form of~\hyperref[shellcligui]{GUI}, for~example, a~\hyperref[internetweb]{web page} with results of~a~\hyperref[webserviceapplication]{web service} computation.
+    \itembfd{View} information displayed to~a~user, often in~a~form of~\hyperref[shellcligui]{GUI}, for~example, a~web page with results of~a~\hyperref[webserviceapplication]{web service} computation.
     \itembfd{Controller} the~application \hyperref[businesslogic]{business logic}, receives commands from~a~user, based on~these commands performs computations with the~model and~based on~results updates the~view.
 \end{itemize}
 
@@ -19,7 +19,7 @@ It~should be possible to~develop, maintain and~reuse each component separately.
 They always go directly to~the~controller.
 The~view only displays whatever instructed by~the~controller.
 For~example, in~a~\hyperref[webserviceapplication]{web application} \hyperref[http]{HTTP requests} are~commands.
-They're initiated through forms in~\hyperref[internetweb]{web pages} rendered by the~view, but~the~view itself doesn't handle them in~any~way.
+They're initiated through forms in~web pages rendered by the~view, but~the~view itself doesn't handle them in~any~way.
 \newpage
 
 \begin{figure}[ht]

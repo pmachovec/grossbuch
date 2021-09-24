@@ -3,14 +3,14 @@
 \newsubsection{Primary Constructor}
 \index{Primary constructor}
 \label{kotlinprimaryconstructor}
-Typical constructor usage in~Java is just assigning received \hyperref[parameterargument]{arguments} to~class variables (\itq{this.someVariable = someVariable;}).
+Typical constructor usage in~Java is just assigning received arguments to~class variables (\itq{this.someVariable = someVariable;}).
 In~Kotlin there's a~syntax called \itq{primary constructor} for~simplifying this.
 It~works by~specifying variables with types in~brackets directly in~a~class header (see~the~example).
 
-When a~variable has \hyperref[kotlinvalvar]{\itq{val} \mbox{or \itq{var}}} keyword, it~becomes \mbox{a \hyperref[variablefieldproperty]{property}} of~the~class.
+When a~variable has \hyperref[kotlinvalvar]{\itq{val} \mbox{or \itq{var}}} keyword, it~becomes \mbox{a property} of~the~class.
 It~isn't necessary (and~even possible) to~specify that~property variable separately (you~still can~specify other properties separately).
 When a~variable doesn't have \itq{val} \mbox{nor \itq{var}} keyword, it's~just an~immutable parameter of~the~constructor.
-It~can~be used only for~setting other class \hyperref[variablefieldproperty]{properties} (typically at~the~beginning of~the~class) or~inside \hyperref[kotlininitblock]{initializer blocks}.
+It~can~be used only for~setting other class properties (typically at~the~beginning of~the~class) or~inside \hyperref[kotlininitblock]{initializer blocks}.
 
 \example[Kotlin class with a primary constructor]
 %! language = TEXT
@@ -40,7 +40,7 @@ It~can~be used only for~setting other class \hyperref[variablefieldproperty]{pro
 A~constructor for~a~Kotlin class can~be also created by~the~keyword \itq{constructor}.
 Such~constructor is~called \itq{secondary constructor}.
 This~is equivalent to~constructors in~Java.
-Overloading of~secondary constructors by~different \hyperref[parameterargument]{parameters} is~possible.
+Overloading of~secondary constructors by~different parameters is~possible.
 
 \example[Kotlin class with secondary constructors overloading]
 %! language = TEXT
@@ -58,7 +58,7 @@ Overloading of~secondary constructors by~different \hyperref[parameterargument]{
 
 \noindent A~class can~have both primary and~secondary constructors, but~secondary must always call the~primary~one with the~keyword \mbitq{this}.
 Because of~that, it's~guaranteed that whenever an~instance of~the~class is created, the~primary constructor is used no~matter what.
-Also, secondary constructors must have different \hyperref[parameterargument]{parameters}, it's~still constructor \mbox{overloading.}
+Also, secondary constructors must have different parameters, it's~still constructor \mbox{overloading.}
 
 \example[Kotlin class with primary and secondary constructors]
 %! language = TEXT
@@ -85,7 +85,7 @@ Also, secondary constructors must have different \hyperref[parameterargument]{pa
 \noindent Primary constructor can~be empty.
 That happens when you specify empty brackets in~a~class header.
 It's~equivalent to~specifying a~public parameterless constructor with empty body in~Java.
-Remember that, similarly to~Java, such~constructor exists by~default in~Kotlin classes, and~when you \hyperref[declarationdefinition]{define} another constructor (with the~\textit{constructor} keyword), the~default one disappears.
+Remember that, similarly to~Java, such~constructor exists by~default in~Kotlin classes, and~when you define another constructor (with the~\textit{constructor} keyword), the~default one disappears.
 When you're in~a~situation where you~need both the~default and~a~non--default constructor (for~example, in~\hyperref[hibernate]{Hibernate} entities), you~must use empty brackets for~the~default constructor.
 \newpage
 

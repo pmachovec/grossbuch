@@ -5,10 +5,10 @@
 These are code blocks labeled by~the~keyword \itq{init}.
 They can~appear in~classes even in~\hyperref[kotlinobject]{objects} including \hyperref[kotlincompanionobject]{companion objects}.
 They're executed at~the~initialization of~their holding objects.
-They can~access \hyperref[variablefieldproperty]{fields} of~their holding structures (classes or~objects), but~if~these aren't initialized with the~holding structure (which can~happen for~\textit{lateinit} \hyperref[variablefieldproperty]{fields}), it~thows the~exception \itq{UninitializedPropertyAccessException}.
+They can~access fields of~their holding structures (classes or~objects), but~if~these aren't initialized with the~holding structure (which can~happen for~\textit{lateinit} fields), it~thows the~exception \itq{UninitializedPropertyAccessException}.
 
 There can~be more initializer blocks in~one class or~object.
-In~that case they're executed in~the~top--down order of~their \hyperref[declarationdefinition]{definition}.
+In~that case they're executed in~the~top--down order of~their definition.
 
 \newsubsection{In~a~class}
 For~classes initializer blocks are~executed on~each \textbf{outside} constructor call.
@@ -17,8 +17,8 @@ If~a~constructor calls another constructor (inside constructor call chain), for~
 Initializer blocks are~executed before constructors, even when there's a~constructor call chain.
 When a~constructor~\textit{B} calls a~constructor~\textit{A}, and~it's~called from outside, first all~initializer blocks are~executed, then~the~constructor~\textit{A} and~then the~constructor~\textit{B}.
 
-Initializer blocks can~access \hyperref[parameterargument]{arguments} of~\hyperref[kotlinprimaryconstructor]{primary constructors}.
-To~read an~\hyperref[parameterargument]{argument} of~a~standard constructor, the~only way is to~pass it somehow to~the~\hyperref[kotlinprimaryconstructor]{primary~one}.
+Initializer blocks can~access arguments of~\hyperref[kotlinprimaryconstructor]{primary constructors}.
+To~read an~argument of~a~standard constructor, the~only way is to~pass it somehow to~the~\hyperref[kotlinprimaryconstructor]{primary~one}.
 
 \example[class with an~initializer block]
 %! language = TEXT

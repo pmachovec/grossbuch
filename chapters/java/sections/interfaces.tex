@@ -4,16 +4,16 @@
 Interfaces are newer Java tool to~achieve the~\hyperref[abstraction]{abstraction concept} of~\hyperref[objectorientedprogramming]{OOP}.
 They're very similar to~\hyperref[javaabstractclasses]{abstract classes}.
 An~interface is like an~abstract class with all methods abstract.
-I.e.,~interfaces contain only method \hyperref[declarationdefinition]{declarations}.
+I.e.,~interfaces contain only method declarations.
 These declarations don't have \hyperref[javaaccessmodifiers]{access modifiers}, all~methods are~treated as~\hyperref[javapublic]{public}.
-When methods are~\hyperref[declarationdefinition]{defined} in~classes, they must~be \hyperref[javapublic]{public}.
+When methods are~defined in~classes, they must~be \hyperref[javapublic]{public}.
 In~terminology classes don't extend interfaces, but~implement.
 The~keyword is~\mbitq{implements}.
 Even methods from classes implementing interfaces should (but~don't have~to) use the~\hyperref[javaoverride]{overriding} annotation.
 
 Opposite to~extending \hyperref[javaabstractclasses]{abstract classes}, a~class can~implement more interfaces.
-Such class must then contain \hyperref[declarationdefinition]{definitions} of~all methods in~all interfaces it~implements.
-If~more interfaces enforce the~same method with the~same \hyperref[declarationdefinition]{declaration}, only one method \hyperref[declarationdefinition]{definition} is~needed in~the~implementing class.
+Such class must then contain definitions of~all methods in~all interfaces it~implements.
+If~more interfaces enforce the~same method with the~same declaration, only one method definition is~needed in~the~implementing class.
 If~such methods have different return types in~interfaces, there will~be a~conflict and~the~implementing class won't~be compilable.
 \newpage
 
@@ -120,7 +120,7 @@ Any~instance of~a~class implementing that interface can~be assigned to~that vari
     \drawarrow{interface2class1.south}{interface2class2.north}[red]
 \end{tikzpicture}
 
-\noindent Interfaces can~contain \hyperref[variablefieldproperty]{fields}.
+\noindent Interfaces can~contain fields.
 However, such~fields must have assigned a~value and~they're always public, even on~implementing classes.
 Same as~methods, fields can't~have \hyperref[javaaccessmodofiers]{access modifiers}.
 Although public fields aren't a~real problem, the~Java convention is having fields \hyperref[javaprivate]{private}.
@@ -156,12 +156,12 @@ Therefore, having fields in~interfaces isn't convenient.
 
 \newsubsection{Default Methods}
 \index{Default method}
-Imagine a~situation when you~have an~interface implemented by many classes and~you~want to~add a~new~method \hyperref[declarationdefinition]{declaration} to~that interface.
-In~older versions of~Java, until you~had provided \hyperref[declarationdefinition]{definition} of~that method to~every class implementing the~interface, the~code was~uncompilable.
+Imagine a~situation when you~have an~interface implemented by many classes and~you~want to~add a~new~method declaration to~that interface.
+In~older versions of~Java, until you~had provided definition of~that method to~every class implementing the~interface, the~code was~uncompilable.
 To~address this problem so~called default methods were~introduced in~Java~8.
 
 Default methods are~marked by~the~keyword \mbitq{default}.
-They contain full method \hyperref[declarationdefinition]{definition}, i.e.,~with the~method body, although they reside in~interfaces.
+They contain full method definition, i.e.,~with the~method body, although they reside in~interfaces.
 Classes implementing interfaces don't need to~implement these methods nor~have to~be abstract.
 It's~very similar to~having a~non--abstract method in~an~\hyperref[javaabstractclasses]{abstract class}.
 The~only difference is that default methods are~always public, they can't~have an~\hyperref[javaaccessmodifiers]{access modifier}.
@@ -206,7 +206,7 @@ Only methods can~be private.
 \newpage
 
 \newsubsection{Interfaces as Variable Types}
-Very often, \hyperref[datatypes]{data type} in~a~variable \hyperref[declarationdefinition]{declaration} is an~interface even when it~doesn't seem to~bring any advantage.
+Very often, \hyperref[datatypes]{data type} in~a~variable declaration is an~interface even when it~doesn't seem to~bring any advantage.
 When debugging the~code, it~can~even make it harder.
 This is the~case especially with collections, a~collection is almost always declared and~instantiated somehow like \mbitqls{List<String>;;;someList;;;=;;;new;;;ArrayList<>();} (the~list on~the~left side is an~interface), \mbls{not;;;"\textit{ArrayList<String>};;;\textit{someList =...}"}.
 The~purpose is one of~\hyperref[abstraction]{the~abstraction OOP concept} purposes -- better changeability without affecting users of~the~changed object.
@@ -219,4 +219,4 @@ If~you declared the~variable as~List (interface), the~change won't~affect any pl
 But~if~you declared the~variable as~ArrayList, you~will~have to rework all places where it's~used.
 
 And~that's valid every time, not~only by~collections.
-Therefore, (wannabe) experts \hyperref[declarationdefinition]{declare} variables with interfaces whenever it's~possible.
+Therefore, (wannabe) experts declare variables with interfaces whenever it's~possible.

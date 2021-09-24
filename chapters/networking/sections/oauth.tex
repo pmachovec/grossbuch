@@ -5,7 +5,7 @@
 \index{Token}
 \index{Service provider}
 The~acronym stands for~\itq{Open Authentication}.
-It's~a~\hyperref[protocolstandard]{standard} for~\hyperref[authenticationauthorization]{\textbf{authorizing}} third party \hyperref[applicationprocessprogramservicethread]{applications} -- \textit{consumers} -- to~access certain resources at~a~\textit{service provider} on~behalf of~a~\textit{user}.
+It's~a~\hyperref[protocolstandard]{standard} for~\hyperref[authenticationauthorization]{\textbf{authorizing}} third party applications -- \textit{consumers} -- to~access certain resources at~a~\textit{service provider} on~behalf of~a~\textit{user}.
 Resources are normally accessible only after \hyperref[authenticationauthorization]{\textbf{authentication}} to~the~provider with~the~user's credentials.
 OAuth eliminates the~need of providing the~user's credentials to~the~consumer application, which is a~security risk.
 Instead, the~user authenticates directly to~the service provider.
@@ -58,7 +58,7 @@ The~service provider in~this case must~be some known system with big user number
 The~logic is that for~consumer's~\hyperref[authenticationauthorization]{authorization} the~user must \hyperref[authenticationauthorization]{authenticate} to~the~service provider.
 If~the~consumer gets the~access token, it~means that the~user successfully \hyperref[authenticationauthorization]{authenticated} to~the~service provider.
 And~as~the~service provider's authentication mechanism is known to~be~reliable, the~consumer accepts this as~an~authentication to~itself.
-This way the~user can~use one authentication to~access multiple \hyperref[applicationprocessprogramservicethread]{applications}, without a~need to~create a~registration to~each separately.
+This way the~user can~use one authentication to~access multiple applications, without a~need to~create a~registration to~each separately.
 Also consumers don't have to~implement own secure authentication mechanisms.
 They exploit those of~service providers.
 

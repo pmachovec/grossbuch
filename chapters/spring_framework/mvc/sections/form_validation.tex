@@ -1,8 +1,8 @@
 \newsection{Form Validation}
 The~\hyperref[hibernate]{Hibernate} project, which is more known for~its~JPA, also provides tools for~Spring~MVC form validations.
-It~consists~of special \hyperref[javaannotation]{annotations} that can~be added to~POJO class fields and~with specific \hyperref[parameterargument]{parameters} restrict the~field content and~define an~error message.
+It~consists~of special \hyperref[javaannotation]{annotations} that can~be added to~POJO class fields and~with specific parameters restrict the~field content and~define an~error message.
 For~example, you~can restrict a~String field to~contain only alphanumeric characters by~a~regular expression, or~you~can~restrict a~number field range by~specifying minimum and~maximum~etc.
-When such restriction isn't followed in~the~corresponding field input (a~user inserts a~non--matching value), an~error can~be detected on~an~instance of~the~class \mbit{BindingResult}, which is given to~the~form--processing controller method as~another \hyperref[parameterargument]{argument}.
+When such restriction isn't followed in~the~corresponding field input (a~user inserts a~non--matching value), an~error can~be detected on~an~instance of~the~class \mbit{BindingResult}, which is given to~the~form--processing controller method as~another argument.
 A~proper reaction can~then be carried~out.
 
 Typical use case is to~return to~the~form page and~display some warning with the~error message defined earlier.
@@ -76,7 +76,7 @@ In~the~form the~error on~the~field is~detected and~the~(initially invisible) \te
 Form validation doesn't have to~use only annotations provided by~Hibernate.
 It's~possible to~create \hyperref[javacustomannotations]{custom annotations} for~validation.
 The~annotation class target must~be \mbit{FIELD} and~the~retention must~be \mbit{RUNTIME}.
-The~class must~be also annotated with \mbitq{@Constraint}, which has~a~\hyperref[parameterargument]{parameter} \mbit{validatedBy}, which gets one~or~more references to~validator classes (there's rarely more than~one, see~further how~to~create~it).
+The~class must~be also annotated with \mbitq{@Constraint}, which has~a~parameter \mbit{validatedBy}, which gets one~or~more references to~validator classes (there's rarely more than~one, see~further how~to~create~it).
 The~class can~contain additional parameter methods, but~three are~compulsory:
 \begin{itemize}
     \itembfd{message} string, the~error message, used even in~Hibernate
@@ -84,7 +84,7 @@ The~class can~contain additional parameter methods, but~three are~compulsory:
     \itembfd{payload} array of~class references extending the~\mbitq{Payload} interface, custom details about validation failures (severity level, error code etc.)
 \end{itemize}
 \noindent It~isn't necessary to~interact with \mbit{groups} or~\mbit{payload} in~any~way.
-They just need to~be~\hyperref[declarationdefinition]{defined}.
+They just need to~be~defined.
 It's~OK to~simply set their default values to~empty arrays.
 
 At~least one validator class must~be created for~a~validation annotation.

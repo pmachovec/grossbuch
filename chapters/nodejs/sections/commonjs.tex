@@ -5,15 +5,15 @@ It's~Node.js native way of~separating code to~modules and~provide some sort of~\
 I.e.,~to~define and~use a~module in~CommonJS syntax you don't need any third party library in~Node.js, it~just works.
 
 To~define a~module create a~JavaScript file containing (only) variables and~functions, i.e.,~no~code for~"immediate" execution.
-At~the~end define a~handler for~each \hyperref[declarationdefinition]{definition} inside \mbit{module.exports} object.
+At~the~end define a~handler for~each definition inside \mbit{module.exports} object.
 It's~a~common practice to~call the~handler the~same as~the~handled entity.
 Module members included in~the~\mbit{module.exports} object are~public members, others are~private.
 
-To~load the~module in~a~different JavaScript file use the~\mbit{require} function with the~path to~the~module (without the~\itq{js} extension) as~the~\hyperref[parameterargument]{argument} and~assign the~result to~a~variable.
+To~load the~module in~a~different JavaScript file use the~\mbit{require} function with the~path to~the~module (without the~\itq{js} extension) as~the~argument and~assign the~result to~a~variable.
 The~variable is~a~handler of~the~module.
 By~calling module member handlers (defined previously in~the~\mbit{module.exports} object) on~the~module handler you~access individual members (functions and~variables) of~the~module.
 
-\example{CommonJS module \hyperref[declarationdefinition]{definition} and~usage}
+\example{CommonJS module definition and~usage}
 \enlargethispage{20mm}
 \thispagestyle{empty}
 %! language = TEXT
@@ -45,7 +45,7 @@ By~calling module member handlers (defined previously in~the~\mbit{module.export
 \newpage
 
 \note It's~possible and~recommended to~use \hyperref[amd]{AMD} modules and~\hyperref[requirejs]{RequireJS} implementation even in~Node.js.
-The~code is~then eventually reusable in~a~\hyperref[internetweb]{web} browser and~it~retains the~effectiveness.
+The~code is~then eventually reusable in~a~web browser and~it~retains the~effectiveness.
 There are implementations of~CommonJS for~browsers (like the~RequireJS library), but~the~performance is~generally worse than RequireJS\@.
 Also, RequireJS code has~better performance than CommonJS even directly in~Node.js (on~the~server side).
 

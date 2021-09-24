@@ -3,7 +3,7 @@
 \index{Generic type}
 \index{Generics}
 \label{javagenerics}
-\hyperref[javareferencetypes]{Reference type} of~a~\hyperref[variablefieldproperty]{variable} or~a~method return value doesn't have to~be always a~concrete class or~\hyperref[javainterfaces]{interface} (or~\hyperref[javaarray]{array} or~\hyperref[javaenum]{enumeration}).
+\hyperref[javareferencetypes]{Reference type} of~a~variable or~a~method return value doesn't have to~be always a~concrete class or~\hyperref[javainterfaces]{interface} (or~\hyperref[javaarray]{array} or~\hyperref[javaenum]{enumeration}).
 A~variable can~exist for~the~type itself.
 With a~variable instead~of a~concrete type you can~have one implementation, that can~work with various concrete types.
 I.e.,~you~can~achieve \hyperref[polymorphism]{parametrical polymorphism}.
@@ -19,11 +19,11 @@ Starting with a~digit or~standalone underscore isn't allowed.
 An~unofficial convention is to~use single capital letter, starting \mbox{from \itq{T}} \mbox{(as in \itq{Type})}, \mbox{like \itq{T}}, \mbox{\itq{U}, \itq{V} etc.}
 Indexed capital letters, \mbox{mostly \itq{T\dots}}, are~also used often, \mbox{like \itq{T1}}, \mbox{\itq{T2}, \itq{T3} etc.}
 
-To~say that some alphanumeric combination denotes a~type variable this~combination must~be enclosed between \mbitq{lower than} \mbox{and \itq{greater than}} operators \mbox{("<" and ">")} in~a~class/interface \hyperref[declarationdefinition]{declaration}, following the~class/interface name.
+To~say that some alphanumeric combination denotes a~type variable this~combination must~be enclosed between \mbitq{lower than} \mbox{and \itq{greater than}} operators \mbox{("<" and ">")} in~a~class/interface declaration, following the~class/interface name.
 Declared type variable can~be then used in~the~class/interface body.
 
 Assigning concrete types to~type variables declared in~a~class/interface can~be~done only \mbox{"from outside"}.
-That is when declaring a~variable of~the~class/interface type, including method \hyperref[parameterargument]{parameters}, or~a~method returning a~value of~such~type.
+That is when declaring a~variable of~the~class/interface type, including method parameters, or~a~method returning a~value of~such~type.
 The~\hyperref[datatypes]{data type} of~the~variable or~the~method return value is~said to~be \mbit{generic}.
 \newpage
 
@@ -87,7 +87,7 @@ Today Java runner can~infer types from the~left side of~the~command, even when t
 
 \newsubsection{Method or~Constructor Declaration}
 \label{javagenericmethod}
-An~alphanumeric combination can~be marked as~a~type variable also in~a~method/constructor \hyperref[declarationdefinition]{declaration}.
+An~alphanumeric combination can~be marked as~a~type variable also in~a~method/constructor declaration.
 It~must~be also enclosed between \mbitq{lower than} \mbox{and \itq{greater than}} operators.
 It~goes after the~last \hyperref[javaaccessmodifiers]{access modifier} and~before return type in~method, or~name in~constructor.
 A~method declaring a~variable type can~return this type.
@@ -95,10 +95,10 @@ A~method declaring a~variable type can~return this type.
 Assigning concrete types to~type variables declared in~a~method/constructor is~also done "from outside".
 That~is when calling the~method/constructor.
 But~opposite to~generic classes/interfaces this one doesn't need \mbitq{lower than} \mbox{and \itq{greater than}} operators.
-The~trick is that method/constructor variable types must appear among the~method/constructor \hyperref[parameterargument]{parameter} types.
+The~trick is that method/constructor variable types must appear among the~method/constructor parameter types.
 Values can't~be assigned to~variables of~variable types directly, you~can't call anything like \mbitqls{T;;;genericInstance;;;=;;;new;;;T();}, nor~anything similar with a~method returning a~value.
-The~only way how~to get a~value of~a~declared variable type to~its method/constructor, is~by~the~method/constructor \hyperref[parameterargument]{parameters}.
-When calling the~method/constructor, \hyperref[parameterargument]{arguments} of~concrete types are~provided.
+The~only way how~to get a~value of~a~declared variable type to~its method/constructor, is~by~the~method/constructor parameters.
+When calling the~method/constructor, arguments of~concrete types are~provided.
 From~them concrete types for~type variables are~inferred.
 
 \example[declaring and assigning variable types in~methods and~constructors]
@@ -138,6 +138,7 @@ The~concrete type specification appeared just before the~method name (see~the~fo
 This can~cause confusion when observed in~some older documentation, because generic methods/constructors didn't have retained the~diamond operator.
 
 \example[assigning variable types in~methods and~constructors in~the~old stype]
+%! language = TEXT
 \begin{lstlisting}[language=Java]
     // Calling the constructor.
     // T is set to String.
@@ -240,7 +241,7 @@ Consider following generic class with a~variable type:
 Compilation of~something like \mbitqls{GenericClass<Number>;;;parent;;;=;;;new;;;GenericClass<Integer>(1);} will~fail.
 
 To~enable such~\hyperref[covariance]{covariant} assignment the~concrete type on~the~left side of~the~command must~be prepended with question mark and~the~keyword \mbitq{extends}, i.e.,~something like \mbitqls{GenericClass<?;;;extends;;;Number>;;;parent;;;=;;;new;;;GenericClass<Integer>(1);}.
-The~question mark is called \mbitq{wildcard} and~the~\hyperref[declarationdefinition]{declared} generic type is called \mbitq{wildcard type}.
+The~question mark is called \mbitq{wildcard} and~the~declared generic type is called \mbitq{wildcard type}.
 When retrieving a~value of~the~variable type from~the~generic class instance, the~type extending the~wildcard is guaranteed.
 Because of type safety, it~isn't possible to~change a~value of~the~variable type inside the~instance.
 It's~only possible to~set~it in~a~constructor.
@@ -324,11 +325,11 @@ And~this thought is absolutely valid.
 Previous examples with generic instances assignments only illustrate the~type hierarchy.
 Using wildcards like this is pure stupidity.
 
-Usage of~wildcards makes sense only in~method/constructor \hyperref[parameterargument]{parameters}.
+Usage of~wildcards makes sense only in~method/constructor parameters.
 For~example, consider a~method that~reads numbers from a~list.
-When~the~method is~\hyperref[declarationdefinition]{declared} like \mbitqls{public;;;SOMETHING;;;theMethod(List<Number>;;;theList);;{\dots}}, it~accepts only lists \mbox{of \textit{Numbers}}.
+When~the~method is~declared like \mbitqls{public;;;SOMETHING;;;theMethod(List<Number>;;;theList);;{\dots}}, it~accepts only lists \mbox{of \textit{Numbers}}.
 If~it~gets a~list \mbox{of \textit{Integers}}, \mbit{Floats} or~some other more specific number type, the~compilation fails.
-But~when the~method is~\hyperref[declarationdefinition]{declared} like \mbitqls{public;;;SOMETHING;;;theMethod(List<?;;;extends;;;Number>;;;theList);;{\dots}}, it~can~accept even lists with more specific number types.
+But~when the~method is~declared like \mbitqls{public;;;SOMETHING;;;theMethod(List<?;;;extends;;;Number>;;;theList);;{\dots}}, it~can~accept even lists with more specific number types.
 \newpage
 
 \example[real usage of \itq{extends} keyword]
@@ -362,7 +363,7 @@ But~when the~method is~\hyperref[declarationdefinition]{declared} like \mbitqls{
 \newline
 
 \noindent As~a~real example \mbox{of the \itq{super}} keyword usage you can~consider a~method that writes \mbit{Integers} to~a~given list, but~it~should accept even a~list \mbox{of \textit{Numbers}}.
-When the~method is~\hyperref[declarationdefinition]{declared} like \mbitqls{public;;;SOMETHING;;;theMethod(List<?;;;super;;;Integer>;;;theList);;{\dots}}, it~will~accept a~list \mbox{of \textit{Numbers}}, but~also a~list \mbox{of \textit{Objects}}.
+When the~method is~declared like \mbitqls{public;;;SOMETHING;;;theMethod(List<?;;;super;;;Integer>;;;theList);;{\dots}}, it~will~accept a~list \mbox{of \textit{Numbers}}, but~also a~list \mbox{of \textit{Objects}}.
 When~only changing and~no~reading of~a~value of~a~variable type (e.g.,~adding to~a~collection) is expected in~a~method/constructor, it's~recommended to~use the~supered wildcard instead of simple concrete type to~provide more flexibility.
 That's why the~\mbitq{super} keyword often appears in~official Java documentation.
 \newpage

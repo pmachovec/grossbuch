@@ -2,9 +2,9 @@
 \index{Get}
 \index{Set}
 \label{kotlingetset}
-In~Kotlin, basic getters and~setters (just retrieving from and~assigning to~a~\hyperref[variablefieldproperty]{property}) are~created automatically.
+In~Kotlin, basic getters and~setters (just retrieving from and~assigning to~a~property) are~created automatically.
 The~code written in~the~direct property access style (retrieving by~dot notation, assigning with the~equals sign) is compiled to~\hyperref[javabytecode]{bytecode} corresponding to~Java code using getters and~setters.
-When~you \hyperref[declarationdefinition]{declare} the~property with the~\mbitq{val} keyword, the~setter isn't~created.
+When~you declare the~property with the~\mbitq{val} keyword, the~setter isn't~created.
 
 \example
 %! language = TEXT
@@ -48,10 +48,10 @@ When~you \hyperref[declarationdefinition]{declare} the~property with the~\mbitq{
 \newline
 
 \noindent When~you~need some more sophisticated logic for~value retrieval and~assignment, in~Java you~have \mbit{get} \mbox{and \textit{set}} methods where you~can~write additional code.
-Kotlin enables adding more logic \mbox{by \itq{get}} \mbox{and \itq{set}} keywords written under the~affected property \hyperref[declarationdefinition]{declaration} and~followed by~a~function body.
-In~these function bodies the~keyword \mbitq{field} is available to~access the~current value of~the~corresponding \hyperref[variablefieldproperty]{field} variable.
+Kotlin enables adding more logic \mbox{by \itq{get}} \mbox{and \itq{set}} keywords written under the~affected property declaration and~followed by~a~function body.
+In~these function bodies the~keyword \mbitq{field} is available to~access the~current value of~the~corresponding field variable.
 In~the~setter body you~must assign final desired value to~it -- setters don't return a~value (their return type \mbox{is \hyperref[kotlinunit]{\textit{Unit}}}).
-Furthermore, the~setter gets one \hyperref[parameterargument]{parameter} of~the~variable type.
+Furthermore, the~setter gets one parameter of~the~variable type.
 That represents the~set value.
 Getters must return a~value of~the~corresponding field variable type.
 \newpage

@@ -5,11 +5,11 @@
 \index{Class}
 \label{encapsulation}
 Encapsulation is the~essence of~OOP\@.
-It~means having data (\hyperref[variablefieldproperty]{fields}) and~tools for~manipulating these data (methods, functions) in~the~same object.
+It~means having data (fields) and~tools for~manipulating these data (methods, functions) in~the~same object.
 Object inner structures are~described \mbox{by \textit{classes}}.
 An~object is an~instance of~a~class, there can~exist many instances of~one~class.
 The~access to~data and~tools in~an~object is~restricted, typically by \hyperref[javaaccessmodifiers]{access modifiers} specified in~the~object class.
-\hyperref[variablefieldproperty]{Variables} in~an~object can~hold a~reference to~other objects.
+Variables in~an~object can~hold a~reference to~other objects.
 This way objects can~be included in~other objects.
 \hyperref[datatypes]{Data type} of~a~variable holding an~object reference is~the~class of~the~object.
 Purposes~are:
@@ -20,7 +20,7 @@ Purposes~are:
 \end{itemize}
 \newpage
 
-\warning Having all \hyperref[variablefieldproperty]{fields} in~an~object \hyperref[javaprivate]{private} and~providing getters and~setters for~them is not an~encapsulation.
+\warning Having all fields in~an~object \hyperref[javaprivate]{private} and~providing getters and~setters for~them is not an~encapsulation.
 This~is the~most orthodox \hyperref[abstraction]{abstraction} that most of~OOP languages follow as~a~convention.
 But~for~example Python, although an~OOP language, accesses fields directly by the~dot notation.
 
@@ -45,7 +45,7 @@ Purposes~are:
     \item The~code is more tightly coupled and~less agile.
           When some inherited functionality becomes unwanted in~one descendant class, but~is still required in~others, the~whole structure must~be reworked.
     \item The~code is difficult to~investigate.
-          When an~inherited method is~called on~or~inside a~descendant and~there~are some problems with~it, it~can~be problematic to~identify where exactly the~method is~\hyperref[declarationdefinition]{defined}.
+          When an~inherited method is~called on~or~inside a~descendant and~there~are some problems with~it, it~can~be problematic to~identify where exactly the~method is~defined.
 \end{itemize}
 For~these reasons it's~recommended to~avoid inheritance as~much as~possible.
 Implementing interfaces and~\hyperref[compositionoverinheritance]{composition} should~be used instead.
@@ -56,11 +56,11 @@ That's \hyperref[abstraction]{abstraction}.
 \newsubsection{Polymorphism}
 \index{Polymorphism}
 \label{polymorphism}
-It~means that one~method or~function of~an~object can~get \hyperref[parameterargument]{arguments} of~various different \hyperref[datatypes]{data types} in~same \hyperref[parameterargument]{parameter} positions.
+It~means that one~method or~function of~an~object can~get arguments of~various different \hyperref[datatypes]{data types} in~same parameter positions.
 For~example, basic numeric operations (addition, subtraction,~\dots) work with all available number types.
 Purposes are:
 \begin{itemize}
-    \itembfd{Simplicity} no~need to~have a~different method name for~each possible \hyperref[parameterargument]{argument} type combinations.
+    \itembfd{Simplicity} no~need to~have a~different method name for~each possible argument type combinations.
     \itembfd{Maintainability} same as~simplicity.
 \end{itemize}
 \newpage
@@ -73,7 +73,7 @@ Purposes are:
     \itembfd{Parametrical} method parameters have variable types (see~\hyperref[javagenerics]{generic types in~Java}), which substitute concrete \hyperref[datatypes]{types}.
              Correct concrete types are~decided by~used values in~runtime.
     \itembfd{Subtype} connected with \hyperref[inheritance]{inheritance}.
-             Instead of a~value of~the~exact type from~a~method \hyperref[declarationdefinition]{declaration}, it's~possible to~use a~value of~a~subtype as~the~method \hyperref[parameterargument]{argument}.
+             Instead of a~value of~the~exact type from~a~method declaration, it's~possible to~use a~value of~a~subtype as~the~method argument.
 \end{itemize}
 
 \newsubsection{Abstraction}
@@ -103,7 +103,7 @@ A~developer cares about abstraction during software \hyperref[architecturedesign
 Abstraction (hiding implementation) is~achieved by method headers, \hyperref[javaabstractclasses]{abstract classes} and~\hyperref[javainterfaces]{interfaces} and~encapsulation (restricting access) is~achieved by \hyperref[javaaccessmodifiers]{access modifiers}.
 
 Nevertheless, be~aware that deciding how~to~encapsulate \hyperref[javaprimitivetypes]{primitive} variables and~"smaller" objects into "bigger" objects is a~part of~the~\hyperref[architecturedesign]{design}, i.e.,~it~belongs under abstraction.
-With varying depth of~\hyperref[variablefieldproperty]{fields} in~the~encapsulation tree we~talk about different levels of~abstraction.
+With varying depth of~fields in~the~encapsulation tree we~talk about different levels of~abstraction.
 \newpage
 
 \example[abstraction without encapsulation in~Java]
