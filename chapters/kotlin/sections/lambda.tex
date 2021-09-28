@@ -85,6 +85,8 @@ This is true even when using normal \hyperref[kotlinanonymousfunction]{anonymous
 However, when the~parameter function isn't written directly as~a~part of~the~holding function call, but~is~specified earlier and~stored in~a~variable, then parameter types must~be used.
 It~doesn't matter if~it's the~normal or~the~lambda format.
 
+\enlargethispage{10mm}
+\thispagestyle{empty}
 \example
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Function taking other function as the~last parameter}]
@@ -103,13 +105,13 @@ It~doesn't matter if~it's the~normal or~the~lambda format.
         a + b
     }
 \end{lstlisting}
-
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Equivalent with directly written anonymous function -- parameter types not needed}]
     val result = doSomething(1, 2, fun(a, b) {
         return a + b
     })
 \end{lstlisting}
+\newpage
 
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Equivalent with anonymous function in a variable -- parameter types must be used}]
@@ -258,6 +260,8 @@ Then, inside the~lambda function body, the~call \mbitqls{return@LABEL\_NAME;;;RE
         return twoArgsFunction(1, 2)
     }
 \end{lstlisting}
+\newline
+
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Usage}]
     val result = doSomething { a, b ->
@@ -269,8 +273,10 @@ Then, inside the~lambda function body, the~call \mbitqls{return@LABEL\_NAME;;;RE
     }
 \end{lstlisting}
 \newline
+\newline
 
 \noindent Returns at~labels can~be used to~simulate \textit{continue} when iterating over collections, i.e.,~to~stop processing current element and~start next iteration with the~next~one.
+\newline
 
 \example[return at label in \textit{forEach}]
 %! language = TEXT
@@ -285,6 +291,7 @@ Then, inside the~lambda function body, the~call \mbitqls{return@LABEL\_NAME;;;RE
         ...
     }
 \end{lstlisting}
+\newline
 
 \note Simulating \textit{break}, i.e.,~to~stop processing and~jump behind the~loop, is~also possible, but~more tricky.
 As~returning at~labels always jumps at~the~start of~the~lambda function, you~must wrap the~holding function call to~another lambda function, run that with~the~\hyperref[kotlinrun]{\textit{run}} function and~return at~that \textit{run}'s label.

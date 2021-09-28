@@ -1,3 +1,310 @@
 \newsection{Destructuring Declarations}
 \index{Destructuring declaration}
+\index{ComponentN}
 \label{kotlindestdecl}
+In~Kotlin it's~possible to~declare multiple variables and~fill them with~values in~one~command by~assigning a~class instance to~a~group of~those variables.
+That's called \textit{destructuring declaration}.
+The~syntax is \mbitqls{val/var (var1, var2, \dots);;;=;;;classInstance}.
+\hyperref[datatypes]{Data types} of~individual variables are~inferred automatically.
+
+To~make this possible, the~class must provide so~called \mbit{componentN} \hyperref[kotlinoperator]{operators} corresponding to~the~number of~variables available for~the~destructuring declaration.
+For~example, if~a~three--variable destructuring declaration should~be possible for~a~class instance, the~class must provide operators \mbitq{component1}, \mbitq{component2} \mbox{and \itq{component3}}.
+
+By~default, only \hyperref[kotlindataclass]{data classes}, pairs and~triples provide \mbit{componentN} operators based on~their members (see~further).
+To~enable destructuring declarations for~a~general class or~\hyperref[kotlinobject]{object}, you~must use \hyperref[kotlinoperatoroverload]{operators overloading}.
+Overloaded operator functions don't~take parameters, but~they should return values.
+Defining an~operator without a~return type doesn't make sense, but~it's possible.
+The~corresponding variable in~the~destructuring declaration then~gets assigned \mbox{the \hyperref[kotlinunit]{\textit{Unit}}} instance.
+
+\enlargethispage{10mm}
+\thispagestyle{empty}
+\example[destructuring declaration with~a~general class]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Class supporting three \textit{componentN} operators}]
+    class SimpleClass {
+        operator fun component1(): String {
+            return "simple string"
+        }
+
+        operator fun component2(): Int {
+            return 1
+        }
+
+        operator fun component3() {
+            // Makes no sense, but possible
+            ...
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Destructuring declaration behavior}]
+    val simpleClass = SimpleClass()
+
+    // Destructuring declaration of three variables
+    val (one, two, three) = simpleClass
+
+    // The same with direct instance creation
+    val (four, five, six) = SimpleClass()
+
+    println(one)   // Will print "simple string"
+    println(two)   // Will print "1"
+    println(three) // Will print "kotlin.Unit"
+\end{lstlisting}
+\newpage
+
+\examplenonl[destructuring declaration as~\hyperref[kotlinextensions]{extensions} of~String]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Extending \textit{String} class with two \textit{componentN} operators}]
+    package somepackage.subpackage
+
+    operator fun String.component1(): Double {
+        return 3.14
+    }
+
+    operator fun String.component2(): Boolean {
+        return true
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Destructuring declaration behavior}]
+    import somepackage.subpackage.component1
+    import somepackage.subpackage.component2
+
+    // Destructuring declaration of two variables from a string
+    val (one, two) = "simple string"
+
+    println(one) // Will print "3.14"
+    println(two) // Will print "true"
+\end{lstlisting}
+\newline
+
+\noindent You~don't have to~always use all \mbit{componentN} operators that~a~class is~providing.
+If~you~want to~perform destructuring declaration only with~first few \mbit{componentN} operators, it's~possible to~declare only the~corresponding number of~variables.
+If~you don't need all \mbit{componentN} operators, but~needed are "behind" not~needed, you~can~skip those not~needed by putting underscore instead of a~variable name.
+In~following examples consider the~simple class from the~beginning.
+
+\example[using first two \textit{componentN} operators of three available]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    // Provides three componentN operators
+    val simpleClass = SimpleClass()
+
+    // Destructuring declaration of two variables
+    val (one, two) = simpleClass
+
+    println(one)   // Will print "simple string"
+    println(two)   // Will print "1"
+\end{lstlisting}
+\newpage
+
+\examplenonl[using only third \textit{componentN} operator]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    // Provides three componentN operators
+    val simpleClass = SimpleClass()
+
+    // Destructuring declaration of one variable
+    val (_, _, three) = simpleClass
+
+    println(three) // Will print "kotlin.Unit"
+\end{lstlisting}
+\newline
+
+\noindent \mbit{ComponentN} operators ordering in~the~class body doesn't matter.
+However, the~line of~numbers must~be consecutive.
+If~you omit a~number in~the~line, destructuring declarations will~work only up to~the~last correctly declared operator.
+For~example, if~you define operators \mbit{component1}, \mbit{component2} \mbox{and \textit{component4}}, \mbox{but not \textit{component3}}, only one--~or~two--variable destructuring declarations will~be possible.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Class with \textit{componentN} operators jumbled and \textit{component3} missing}]
+    class SimpleClass {
+        operator fun component2(): ... {
+            ...
+            return ...
+        }
+
+        operator fun component4(): ... {
+            ...
+            return ...
+        }
+
+        operator fun component1(): ... {
+            ...
+            return ...
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Destructuring declaration behavior}]
+    // Provides only two componentN operators
+    val simpleClass = SimpleClass()
+
+    // Destructuring declaration of three variables - doesn't work
+    // val (one, two, three) = simpleClass
+
+    // Destructuring declaration of two variables
+    val (one, two) = simpleClass
+\end{lstlisting}
+\newpage
+
+\newsubsection{With data classes}
+\hyperref[kotlindataclass]{Data classes} support \mbit{componentN} operators based on~\hyperref[kotlinprimaryconstructor]{primary constructor} parameters.
+For~example, when~the~constructor has~three parameters, then~the~data class automatically provides \mbit{component1} returning the~first constructor argument, \mbit{component2} returning the~second constructor argument \mbox{and \textit{component3}} returning the~third constructor argument.
+
+As~in~many other features of~data classes, eventual other fields of~classes aren't supported by~default.
+However, it's~possible to~define additional \mbit{componentN} operators in~the~class body and~these can~return other fields or~anything else.
+The~numbering must start above operators provided automatically based on~the~primary constructor, otherwise, the~code isn't compilable.
+For~example, when~the~constructor has~three parameters, the~first operator that~can~be defined is \mbit{component4}.
+\newline
+
+\example[destructuring declaration with~a~data class]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Data class with two parameters in the primary constructor and additional \mbit{component3}}]
+    data class SimpleDataClass(
+        stringParam: String,
+        intParam: Int
+    ) {
+        val booleanProperty = true
+
+        // Not allowed
+        // operator fun component2(): ... { ... }
+
+        operator fun component3(): Boolean {
+            return booleanProperty
+        }
+    }
+\end{lstlisting}
+\newline
+
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Destructuring declaration behavior}]
+    val simpleDataClass = SimpleDataClass("simple string", 1)
+
+    // Destructuring declaration of three variables
+    val (one, two, three) = simpleDataClass
+
+    println(one)   // Will print "simple string"
+    println(two)   // Will print "1"
+    println(three) // Will print "true"
+\end{lstlisting}
+\newpage
+
+\newsubsection{With pairs and triples}
+Tuples support destructuring declaration in~quite intuitive and~expectable way.
+\mbit{Pair} provides operators \mbit{component1} \mbox{and \textit{component2}} returning corresponding pair instance members, \mbit{Trippe} has the~same and~additionally provides \mbit{component3}.
+\newline
+
+\example[destructuring declaration with \textit{Pair} and \textit{Triple} instances]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val simplePair = Pair("pair one", "pair two")
+    val (pairOne, pairTwo) = simplePair
+
+    val simpleTriple = Triple("triple one", "triple two", "triple three")
+    val (_, _, tripleThree) = simpleTriple
+\end{lstlisting}
+\newline
+
+\newsubsection{In \textit{for} loops}
+\label{kotlindestdeclforloop}
+When you have an~iterable (array, collection, \hyperref[kotlinsequence]{sequence}), you~can~iterate over it \mbox{in a \textit{for} loop} \mbox{with the \itq{in}} operator.
+And~when the~iterable members type class supports destructuring declaration, you~can, instead of declaring one variable representing one whole member, provide destructuring declaration with~a~correct number of variables.
+This way, in~each iteration step, you~have access \mbox{to \textit{componentN}} operators results for~the~actual member.
+Remember that you can~use one x--or other.
+If~you~need to~use something else than \textit{componentN} operators results on~the~actual iteration member, then you can't~use destructuring declaration.
+\newline
+
+\example[iterating over a list of pairs]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val pairList: List<Pair<CLASS1, CLASS2>> = ...INIT THE LIST...
+
+    // Iterating over the list of pairs
+    for ((_, second) in pairList) {
+        // Accessing 2nd member of the current pair
+        ...DO SOMETHING WITH second...
+
+        // Current pair as a whole not available here
+        // pair.toString()
+    }
+\end{lstlisting}
+\newline
+\newline
+
+\noindent Iteration over a~map with destructuring declaration is~also possible.
+Each~map is an~iterable collection \mbox{of \itq{Map.Entry<K, V>}}.
+This type provides \mbit{component1} operator returning the~key \mbox{and \textit{component2}} operator returning the~value.
+\newpage
+
+\example[iterating over a map]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val theMap: Map<CLASS1, CLASS2> = ...INIT THE MAP...
+
+    // Iterating over the list of pairs
+    for ((key, value) in theMap) {
+        // Accessing key and value of the current entry
+        ...DO SOMETHING WITH key AND value...
+    }
+\end{lstlisting}
+\newline
+
+\newsubsection{In lambda functions}
+When you have a~function \hyperref[kotlinanonymousfunction]{taking other function as~a~parameter}, then you can~specify the~other function as~a~\hyperref[kotlinlambda]{lambda function}.
+And~when that other function has a~parameter of~a~type supporting destructuring declarations, you~can, instead of declaring one variable representing the~parameter value, provide destructuring declaration with~a~correct number of variables in~the~lambda parameters section (before the~arrow).
+This way you~have access \mbox{to \textit{componentN}} operators results of~the~parameter in~the~lambda body.
+When the~lambda function has more parameters, it's possible to~use destructuring declaration for~one and~standard variables for~others at~any~place.
+It~can~be also used on~iterable functions taking lambda like \mbox{\textit{forEach},} \mbox{\textit{filter}} \mbox{\textit{map} etc.}
+Remember that even this is x--or.
+If~you~need to~use something else than \textit{componentN} operators results on~the~parameter, then you can't~use destructuring declaration.
+\newline
+
+\example[destructuring declaration in lambda function parameters]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val thePair: Pair<CLASS1, CLASS2> = ...INIT THE PAIR...
+
+    // Function with another function as parameter
+    fun bigFunction(toBeLambda: (Int, Pair<CLASS1, CLASS2>, String) -> Unit) {
+        toBeLambda(1, thePair, "something")
+    }
+    ...
+    // Calling the big function with lambda
+    bigFunction { theInt, (first, second), theString ->
+        ...DO SOMETHING WITH first, second...
+
+        // The pair as a whole not available here
+        // pair.toString()
+    }
+\end{lstlisting}
+\newpage
+
+\example[alternative to~the~mentioned \hyperref[kotlindestdeclforloop]{\textit{for} loop} with \textit{forEach}]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val pairList: List<Pair<CLASS1, CLASS2>> = ...INIT THE LIST...
+
+    pairList.forEach { (_, second) ->
+        // Accessing 2nd member of the current pair
+        ...DO SOMETHING WITH second...
+
+        // Current pair as a whole not available here
+        // pair.toString()
+    }
+\end{lstlisting}
+
+\example[destructuring declaration with \textit{forEach} on a map]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val theMap: Map<CLASS1, CLASS2> = ...INIT THE MAP...
+
+    theMap.forEach { (key, value) ->
+        // Accessing key and value of the current entry
+        ...DO SOMETHING WITH key AND value...
+    }
+\end{lstlisting}
+
+\warning Destructuring declaration is possible only with lambda functions parameters.
+It~isn't allowed in~standard function headers.
+I.e.,~you can't~declare anything like \mbitqls{fun doSomething(;;(first,;;;second):;;;Pair<;;CLASS1,;;;CLASS2>)}.

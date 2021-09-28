@@ -1,0 +1,93 @@
+\newsection{Passing arguments by value and by reference}
+It's~generally known that in~Java arguments of \hyperref[javaprimitivetypes]{primitive types} are~passed by value and~arguments of \hyperref[javareferencetypes]{reference types} are~passed by reference.
+That~generally means when~you~change a~passed value of~a~primitive type inside a~method or~constructor body, the~change isn't propagated outside the~corresponding class instance, but~when~you change a~passed value of~a~primitive type, the~change takes effect even outside.
+However, there's a~trap.
+If~you~assign a~completely new value to~a~reference type parameter, then~this~assignment isn't propagated outside.
+It~only rewrites the~reference inside the~corresponding class instance.
+Only changes made to~the~state of~the~passed reference type instance, i.e.,~changes of~its properties, take global effect.
+Changes in~collections also belong to~this use~case.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Class to be a type of method parameter}]
+    public class SimpleClass {
+        private int theProperty = 1;
+
+        public int getTheProperty() {
+            return theProperty;
+        }
+
+        public void changeTheProperty() {
+            theProperty++;
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Class with method changing reference type parameters}]
+    public class AnotherClass {
+        public void doChanges(
+            SimpleClass rewrittenSimpleClass,
+            SimpleClass changedSimpleClass,
+            List<Integer> rewrittenList,
+            List<Integer> changedList
+        ) {
+            rewrittenSimpleClass = new SimpleClass();
+            rewrittenSimpleClass.changeTheProperty();
+            changedSimpleClass.changeTheProperty();
+            rewrittenList = new ArrayList<Integer>();
+            rewrittenList.add(1);
+            changedList.add(1);
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Behavior}]
+    private SimpleClass rewrittenSimpleClass = new SimpleClass();
+    private SimpleClass changedSimpleClass = new SimpleClass();
+    private List<Integer> rewrittenList = new ArrayList<>();
+    private List<Integer> changedList = new ArrayList<>();
+
+    private AnotherClass anotherClass = new AnotherClass();
+    anotherClass.doChanges(
+        rewrittenSimpleClass,
+        changedSimpleClass,
+        rewrittenList,
+        changedList
+    );
+
+    // Will print "1"
+    System.out.println(rewrittenSimpleClass.getTheProperty());
+
+    // Will print "2"
+    System.out.println(changedSimpleClass.getTheProperty());
+
+    // Will print "[]"
+    System.out.println(rewrittenList);
+
+    // Will print "[1]"
+    System.out.println(changedList);
+\end{lstlisting}
+
+\note Increase and~decrease operators (\mbitq{++} \mbox{and \itq{-{}-}}) are~value assignments,~too.
+Therefore, not~even changes made by them on~objects are~propagated outside.
+
+\example[Increase and~decrease operators on object]
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Class with method changing increasing \textit{Integer} instance}]
+    public class SomeClass {
+        public void changeInteger(
+            Integer theInteger
+        ) {
+            theInteger++;
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Behavior}]
+    private Integer theInteger = 1;
+    private SomeClass someClass = new SomeClass();
+    someClass.changeInteger(theInteger);
+
+    // Will print "1"
+    System.out.println(theInteger);
+\end{lstlisting}

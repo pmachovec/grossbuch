@@ -146,17 +146,20 @@ The~concrete algorithm computing the~data class hash code isn't so simple and~it
     // It isn't important how this value was achieved
     println(dataClass.hashCode())
 \end{lstlisting}
-\newline
 
 \newsubsection{\textit{copy}}
 \label{kotlindataclasscopy}
 It~creates a~copy of~the~current instance.
 Only arguments of~the~primary constructor are~copied, other fields not~included in~the~primary constructor are~not.
 All~copied values in~the~created copy are~links to~the~same object in~theory (Kotlin doesn't have \hyperref[javaprimitivetypes]{primitive types} like Java).
-That~doesn't matter with booleans, numbers and~strings.
+That~doesn't matter with~primitive wrappers like booleans, numbers or~strings.
 These types don't~have any mutable property to~be~maliciously altered.
 However, it's~important fact to~consider when~the~data class constructor has~parameters of~other types.
-\newline
+When~you~change a~property of~a~constructor parameter in~a~copy, the~change takes effect even in~the~original (and~even in~the~other direction when~changing the~original).
+
+On~the~other hand, when~a~constructor parameter is declared \mbox{with the \textit{var}} keyword and~a~new value is assigned to~it in~a~copy, then~the~parameter value in~the~original isn't affected.
+The~reference changes are~restricted to~the~actual instance.
+It's~the~same situation like with~\hyperref[kotlinvalvar]{passing arguments to~constructors by reference}.
 
 \example
 %! language = TEXT
@@ -166,6 +169,7 @@ However, it's~important fact to~consider when~the~data class constructor has~par
     )
 \end{lstlisting}
 \newpage
+
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Data class}]
     data class ExampleDataClass(

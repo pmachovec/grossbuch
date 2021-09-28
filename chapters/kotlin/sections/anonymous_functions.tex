@@ -31,8 +31,6 @@ They're compulsory even when the~function has only one parameter, or~even zero.
         return oneArgFunction(value)
     }
 \end{lstlisting}
-\newpage
-
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Usage}]
     // Standalone invocation
@@ -42,8 +40,9 @@ They're compulsory even when the~function has only one parameter, or~even zero.
     // Passing to another function
     val result2 = doSomething(3, multiplyByTwo, doNothing) // Result is 6
 \end{lstlisting}
+\newpage
 
-\warning It's~impossible to~get or~print the~function type from a~variable holding an~anonymous function.
+\warningnonl It's~impossible to~get or~print the~function type from a~variable holding an~anonymous function.
 Kotlin approach to~retrieve a~variable type is based on~retrieving the~variable class by~\hyperref[kotlinreflection]{reflection}.
 But~anonymous functions aren't proper instances of~any class, therefore, the~approach doesn't work for~them.
 

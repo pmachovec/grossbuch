@@ -31,7 +31,6 @@ If~there's a~possibility to~hit a~null pointer, the~compilation fails.
 By~using the~operator the~code author asserts that he's aware of the~null possibility.
 It~can~be~used in~an~assignment or~with the~dot notation.
 When the~asserted variable is null, using the~operator results \mbox{in \textit{KotlinNullPointerException}.}
-\newpage
 
 \example[usage in assignment]
 %! language = TEXT
@@ -85,6 +84,7 @@ I.e.,~it's coalesce operator for~two values.
     val second: String? = null
     val result: String? = first ?: second // result is "first"
 \end{lstlisting}
+\newpage
 
 \example[both arguments are null]
 %! language = TEXT
@@ -93,7 +93,6 @@ I.e.,~it's coalesce operator for~two values.
     val second: String? = null
     val result: String? = first ?: second // result is null
 \end{lstlisting}
-\newpage
 
 \newsubsection{Reflection (::)}
 \index{Reflection}
@@ -146,7 +145,6 @@ This is called \itq{callable reference}.
     // Type of the variable is (Unit) -> SOME_TYPE
     val callRef = SimpleClass::doSomething
 \end{lstlisting}
-\newpage
 
 \noindent Can~be also used to~retrieve references to~class properties.
 It~also works in~the~bound format~--~with a~variable on~the~left side.

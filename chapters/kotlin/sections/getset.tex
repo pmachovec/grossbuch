@@ -5,6 +5,7 @@
 In~Kotlin, basic getters and~setters (just retrieving from and~assigning to~a~property) are~created automatically.
 The~code written in~the~direct property access style (retrieving by~dot notation, assigning with the~equals sign) is compiled to~\hyperref[javabytecode]{bytecode} corresponding to~Java code using getters and~setters.
 When~you declare the~property with the~\mbitq{val} keyword, the~setter isn't~created.
+\newline
 
 \example
 %! language = TEXT
@@ -54,8 +55,9 @@ In~the~setter body you~must assign final desired value to~it -- setters don't re
 Furthermore, the~setter gets one parameter of~the~variable type.
 That represents the~set value.
 Getters must return a~value of~the~corresponding field variable type.
-\newpage
 
+\enlargethispage{20mm}
+\thispagestyle{empty}
 \example[string property storing reversed value and returning uppercase]
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Direct property access in Kotlin}]
@@ -73,6 +75,8 @@ Getters must return a~value of~the~corresponding field variable type.
     simpleClassInstance.complexValue = "abc" // 'complexValue' is 'cba'
     println(simpleClassInstance.complexValue) // Prints 'CBA'
 \end{lstlisting}
+\newpage
+
 %! language = TEXT
 \begin{lstlisting}[language=Java, title={Java equivalent}]
     public class SimpleClass {
@@ -91,3 +95,4 @@ Getters must return a~value of~the~corresponding field variable type.
     simpleClassInstance.setComplexValue("abc");
     System.out.println(simpleClassInstance.getComplexValue());
 \end{lstlisting}
+\newline

@@ -1,5 +1,6 @@
 \newsection{Operators}
 \index{Operator}
+\label{kotlinoperator}
 An~operator is one or~more symbols, can~be even characters (like \itq{in} \mbox{or \itq{by}}), that either somehow changes a~value of~an~entity (unary operator) or~somehow combines values of~two entities (binary operator).
 Examples of~unary operators are~negation~(\itq{!}), increment~(\itq{++}) or~decrement~(\itq{-{}-}), examples of~binary operators are~arithmetic operations \mbox{(\itq{+}, \itq{-}, \dots)} or~comparators \mbox{(\itq{<}, \itq{>}, \dots)}.
 Some special bracket syntax constructions (see~further) are~also considered to~be operators and~can~be overloaded.
@@ -17,9 +18,10 @@ For~example, accessing a~member of~a~three--dimensional array has~the~syntax \mb
 \label{kotlininvoke}
 Standard brackets, used to~execute an~executable (invokable) entity, typically a~function, and~eventually pass arguments to~the~executed code.
 I.e.,~when~calling a~function, you're~calling the~\textit{invoke} operator.
+\newpage
 
-\newsubsection{Operator Overloading}
-\index{Operator overloading}
+\newsubsection{Operators Overloading}
+\index{Operators overloading}
 \label{kotlinoperatoroverload}
 Each~operator, including \hyperref[kotlinindexedaccess]{\textit{indexed access}} \mbox{and \hyperref[kotlininvoke]{\textit{invoke}},} has~an~underlying function with~a~name, which~is~executed when~the~operator is~used.
 By~defining a~function with~the~same name and~the~keyword \mbitq{operator} preceding the~keyword\mbitq{fun} you~can~make the~operator working even with your own class instances.
@@ -34,6 +36,7 @@ The~list of~function names can~be found \href{https://kotlinlang.org/docs/refere
         }
     }
 \end{lstlisting}
+
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Equivalent with direct assignment simplification}]
     class SimpleClass(val theValue: Int) {
@@ -76,3 +79,6 @@ For~examples see \hyperref[kotlinobject]{objects} and~\hyperref[kotlincompaniono
     val someInstance = SimpleClass() // Calling the constructor
     someInstance() // Calling the invoke operator
 \end{lstlisting}
+
+\note Operators can~be overloaded also in~the~form of~\hyperref[kotlinextensions]{extensions}, therefore, not~requiring to~alter the~corresponding class code.
+This~is useful especially for~classes from~libraries.

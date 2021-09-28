@@ -123,6 +123,7 @@ The~syntax is similar to~all previous cases, just the~keyword \mbitq{Companion} 
 \end{lstlisting}
 
 \newsubsection{Scope}
+\label{kotlinextensionscope}
 Usually, extensions are~defined as~\hyperref[kotlinstandalone]{standalone elements}, i.e.,~outside classes.
 And~in~that case they're handled as~standalone elements.
 That means that special classes \mbox{with the \itq{-Kt}} suffix in~names and~elaborated combination of~static methods are~generated for~them during compilation.
@@ -131,6 +132,7 @@ I.e.,~although extensions look like members of~extended structures, they're memb
 The~membership is just an~illusion created by generated names.
 The~visibility of~standalone extensions is~the~same as~for~other \hyperref[kotlinstandalone]{standalone elements}.
 No~matter where they're defined, they must be imported.
+\newline
 
 \example[extending the \itq{String} class with a function]
 %! language = TEXT
@@ -141,6 +143,8 @@ No~matter where they're defined, they must be imported.
         ...
     }
 \end{lstlisting}
+\newline
+
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Usage in a class}]
     package otherpackage.othersubpackage
@@ -155,6 +159,7 @@ No~matter where they're defined, they must be imported.
         }
     }
 \end{lstlisting}
+\newline
 \newline
 
 \noindent It's~also possible to~define an~extension inside a~class, \hyperref[kotlinobject]{object} or~\hyperref[kotlincompanionobject]{companion object}.
@@ -179,12 +184,16 @@ It~isn't possible to~import or~call it from~outside.
 
 \newsubsection{Conflicting definitions}
 Extensions can't override original members.
-I.e.,~if~you define an~extension, but~the~extended structure (class/object) already contains a~member with the~same name, the~original implementation of~the~member will~be~used.
+I.e.,~if~you define an~extension, but~the~extended structure (class/object) already contains a~member with the~same name, the~original implementation of~the~member will~be~used, even when~imported.
 It~holds even for~\hyperref[kotlinextensionproperty]{extension properties}.
 
+\enlargethispage{20mm}
+\thispagestyle{empty}
 \example
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Class with some members}]
+    package somepackage.subpackage
+
     class SimpleClass {
         val simpleProperty: String? = "Original property"
 
@@ -195,6 +204,10 @@ It~holds even for~\hyperref[kotlinextensionproperty]{extension properties}.
 \end{lstlisting}
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Extensions with same names}]
+    package otherpackage.othersubpackage
+
+    import somepackage.subpackage.SimpleClass
+
     fun SimpleClass.simpleFunction() {
         println("Extension function")
     }
@@ -208,6 +221,10 @@ It~holds even for~\hyperref[kotlinextensionproperty]{extension properties}.
 
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Behavior}]
+    import otherpackage.othersubpackage.simpleFunction
+    import otherpackage.othersubpackage.simpleProperty
+    import somepackage.subpackage.SimpleClass
+
     val simpleClassInstance = SimpleClass()
 
     // Will print "Original function"
@@ -216,3 +233,33 @@ It~holds even for~\hyperref[kotlinextensionproperty]{extension properties}.
     // Will print "Original property"
     println(simpleClassInstance.simpleProperty)
 \end{lstlisting}
+\newline
+
+\noindent It's~possible to~define multiple extensions with~the~same name and~arguments for~different classes in~one~file.
+When~\hyperref[kotlinextensionscope]{importing}, only one import is required (multiple would~be identical), but~it~imports all same named extensions.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Same named extensions for different classes}]
+    package somepackage.subpackage
+
+    fun ClassOne.sameNamedFunction(...): ... {
+        ...
+    }
+
+    fun ClassTwo.sameNamedFunction(...): ... {
+        ...
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Usage}]
+    import somepackage.subpackage.sameNamedFunction
+
+    val classOne = ClassOne(...)
+    val classTwo = ClassTwo(...)
+
+    // Both calls will work
+    classOne.sameNamedFunction(...)
+    classTwo.sameNamedFunction(...)
+\end{lstlisting}
+\newpage

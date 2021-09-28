@@ -23,6 +23,7 @@ dropdown
 dropdowns
 elve
 erlang
+expectable
 fileproc
 fileprocpkg
 floatvalue
@@ -50,6 +51,8 @@ nestedclass
 npmjs
 npmrc
 npmrcs
+otherpackage
+othersubpackage
 overridden
 parameterargument
 parametrical

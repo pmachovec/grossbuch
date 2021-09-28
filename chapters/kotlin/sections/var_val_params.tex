@@ -1,9 +1,96 @@
 \newsection{\textit{Val} and \textit{var} keywords by parameters}
 \index{Val}
 \index{Var}
-\hyperref[kotlinvalvar]
+\label{kotlinvalvar}
 Only parameters of~\hyperref[kotlinprimaryconstructor]{primary constructors} can~have them.
 Parameters of \hyperref[kotlinsecondaryconstructor]{secondary constructors} and~functions are~treated as~immutable
 by~default and~they can't~have those keywords.
 The~idea is that assigning new values to~method parameters, which is possible in~Java, indicates wrong design, and~is therefore blocked in~Kotlin.
 If~you~need such behavior, then your design is wrong and~must~be changed, for~example, by~using a~new~property of~the~class, to~which the~original parameter can~be~assigned at~the~beginning.
+
+\newsubsection{Passing arguments by value and by reference}
+Opposite to~Java, Kotlin code doesn't provide \hyperref[javaprimitivetypes]{primitive types}.
+Therefore, every passed argument is actually passed by reference and~nothing else is possible.
+However, because of mentioned restrictions in~using \textit{val} and \textit{var} keywords, the~only possibility to~rewrite parameters is to~rewrite primary constructor parameters declared \mbox{with the \textit{var}} keyword.
+
+When a~primary constructor parameter is declared \mbox{with the \textit{var}} keyword, it's~possible to~assign a~new value to~the~variable in~an~executable code (e.g.,~in~a~function or~\hyperref[kotlininitblock]{init block}).
+This assignment changes the~reference only for~the~scope of~the~current instance.
+In~other words, the~change takes effect only inside the~corresponding class, it~isn't propagated outside the~instance, even when the~type of~the~parameter is a~complex class.
+Because of this it's possible to~pass variables declared with \textit{val} as~arguments even for~constructor parameters declared \mbox{with \textit{var}.}
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Class with \textit{var} parameter in the primary constructor}]
+    class SimpleClass(var theVar: Int) {
+        fun increaseVar() {
+            theVar += 1
+        }
+    }
+\end{lstlisting}
+\newpage
+
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Behavior}]
+    val theVarOutside = 1 // Can be 'val', even when passed to 'var'
+    val simpleClass = SimpleClass(theVarOutside)
+    simpleClass.increaseVar()
+
+    // Will print "2" - gets the var from inside after the change
+    println(simpleClass.theVar)
+
+    // Will print "1" - the change isn't propagated outside
+    println(theVarOutside)
+\end{lstlisting}
+
+\warning When~the~primary constructor parameter data type is a~complex class allowing changes of~its inner state (e.g.,~properties), then~changes of~that~inner state do propagate outside the~instance, even when~performed inside the~corresponding class or~even inside the parameter type class.
+The~parameter state can~be changed even when it's declared \mbox{with the \textit{val}} keyword.
+Changes of~mutable collections also belong to~this use case.
+
+\example
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Class to be a type of a constructor parameter}]
+    class DeeperClass {
+        var theVar = 1
+
+        fun increaseVarFromDeep() {
+            theVar += 1
+        }
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Class with complex parameters in the primary constructor}]
+    class ComplexClass(
+        val deeperClass: DeeperClass,
+        val theList: MutableList<Int>
+    ) {
+        fun increaseVar() {
+            deeperClass.theVar += 1
+        }
+
+        fun changeList() {
+            theList.add(1)
+        }
+    }
+\end{lstlisting}
+\newpage
+
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Behavior}]
+    val deeperClass = DeeperClass() // 'theVar' is 1
+    val theList = mutableListOf<Int>() // empty list
+    val complexClass = ComplexClass(deeperClass, theList)
+    complexClass.increaseVar()
+    complexClass.changeList()
+    complexClass.deeperClass.increaseVarFromDeep()
+
+    // Will print "3", was increased twice
+    println(deeperClass.theVar)
+
+    // Will print "[1]"
+    println(theList)
+\end{lstlisting}
+\newline
+
+\noindent In~a~simplified conclusion, when~you~assign a~new value directly to~a~\textit{var} constructor parameter inside the~corresponding class, the~assignment isn't propagated outside the~class.
+But~if~you~assign a~new value to~a~property of~the~constructor parameter, then~the~assignment is propagated outside the~class.
+\newline

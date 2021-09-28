@@ -20,7 +20,6 @@ Companion objects basically represent those special instances created by~Java fo
 
 \note Class members outside a~companion object can't~access members of~the~companion object.
 This prevents unwanted overriding of~the~singleton instance fields.
-\newpage
 
 \newsubsection{Overloading the \textit{invoke} operator}
 It~is~possible to~\hyperref[kotlininvokeoverload]{overload \mbox{the \textit{invoke}} operator} in~a~companion object.
@@ -42,3 +41,4 @@ I.e.,~it~doesn't fail.
     // This doesn't call the code of the overloaded operator
     ClassWithCompanionObject(...)
 \end{lstlisting}
+\newline
