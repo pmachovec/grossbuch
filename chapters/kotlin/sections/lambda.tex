@@ -5,7 +5,7 @@ Lambda functions are an~alternative for~standard \hyperref[kotlinanonymousfuncti
 The~syntax is \mbitqls{\{PARAMETERS;;;->;;;COMMANDS\}}.
 Last line holds the~return value, \mbox{the \textit{return}} keyword isn't used.
 Also, the~return value type isn't specified.
-For~example, a~lambda equivalent of~the~function multiplying its parameter by two from the~\hyperref[kotlinanonymousfunction]{anonymous functions} example looks like this:
+For~example, a~lambda equivalent of~the~function multiplying its parameter by two from the~\hyperref[kotlinanonymousfunction]{anonymous functions} example looks like the~following:
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin]
     val multiplyByTwo = { a: Int ->
@@ -111,7 +111,6 @@ It~doesn't matter if~it's the~normal or~the~lambda format.
         return a + b
     })
 \end{lstlisting}
-\newpage
 
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Equivalent with anonymous function in a variable -- parameter types must be used}]

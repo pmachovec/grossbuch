@@ -8,6 +8,7 @@ When specifying a~type of~a~variable holding a~function (which is the~case espec
 Mind brackets by the~function parameter types.
 They're compulsory even when the~function has only one parameter, or~even zero.
 \hyperref[kotlinunit]{\textit{Unit}} (and~even \hyperref[kotlinnothing]{\textit{Nothing}}) type is available for~functions returning no value.
+\newline
 
 \example
 %! language = TEXT
@@ -20,6 +21,8 @@ They're compulsory even when the~function has only one parameter, or~even zero.
     // Function of type "() -> Unit"
     val doNothing = fun () {}
 \end{lstlisting}
+\newline
+
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Function taking other functions as parameters}]
     fun doSomething(
@@ -31,6 +34,8 @@ They're compulsory even when the~function has only one parameter, or~even zero.
         return oneArgFunction(value)
     }
 \end{lstlisting}
+\newline
+
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Usage}]
     // Standalone invocation
@@ -55,9 +60,11 @@ It~can~be also viewed as the~function can~be called only on~instances of~the~rec
 
 In~the~function definition, the~receiver type class name prepends parameter brackets with the~dot.
 When the~function is~called, the~receiver type instance must~be either given as~the~first argument (the~call gets one argument more than the~number of function parameters) or~the~function can~be called on~the~instance with~the~dot notation (the~variable holding the~anonymous function works like \hyperref[kotlinextensions]{extension}).
+In~the~function body, the~receiver type instance is accessible by the~keyword~\textit{this}.
 
 The~receiver type is reflected in~the~function type.
 As~might~be expected, it~prepends the~parameter types brackets with the~dot.
+\newline
 
 \example
 %! language = TEXT
@@ -70,13 +77,18 @@ As~might~be expected, it~prepends the~parameter types brackets with the~dot.
     // Function of type "String.() -> Unit"
     val doNothingOnString = fun String.() {}
 \end{lstlisting}
+\newline
+
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Usage with passing receivers as arguments}]
     multiplyByNumber(2, 3) // Receiver is "2"
     doNothing("abc") // Receiver is "abc"
 \end{lstlisting}
+\newline
+
 %! language = TEXT
 \begin{lstlisting}[language=Kotlin, title={Equivalent with calling on receivers}]
     2.multiplyByNumber(3)
     "abc".doNothing()
 \end{lstlisting}
+\newpage
