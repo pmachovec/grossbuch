@@ -35,8 +35,7 @@ The~name of~the~field variable doesn't matter.
 \warning Dependency fields in~the~main bean class can't~be declared as~final when using the~setter injection.
 Final fields must be defined no~later than in~the~constructor, and~that can't happen with the~setter injection.
 
-\enlargethispage{20mm}
-\thispagestyle{empty}
+\emtwen
 \newsubsection{Injecting literal values}
 \label{injectingliteralvalues}
 You~can inject even values of primitive types and~strings directly using the~XML configuration file.
@@ -455,8 +454,6 @@ When using field injection, the~annotation is~applied directly to~the~field vari
 \newpage
 
 \examplenonl[autowired constructor injection with a qualifier]
-\enlargethispage{20mm}
-\thispagestyle{empty}
 %! language = TEXT
 \begin{lstlisting}[language=XML, title={Configuration XML}]
     <?xml version="1.0" encoding="UTF-8"?>
@@ -645,8 +642,7 @@ Always create the~\textit{Bean}--annotated method for~the~dependency bean class 
 Simply use literal values as~arguments of~the~bean class constructor or~setter methods.
 \newpage
 
-\enlargethispage{10mm}
-\thispagestyle{empty}
+\emten
 \example[Java code configuration -- constructor dependency injection]
 %! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class}]
@@ -713,8 +709,7 @@ Simply use literal values as~arguments of~the~bean class constructor or~setter m
 \newpage
 
 \newgeometry{top=15mm, left=25mm, right=25mm}
-\enlargethispage{20mm}
-\thispagestyle{empty}
+\emtwen
 \example[Java code configuration -- setter dependency injection]
 %! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class}]

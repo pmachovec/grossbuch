@@ -76,9 +76,8 @@ The~default behavior for~method--instantiated beans (without a~scope~set) is the
 When you configure a~bean in~the~configuration class using a~bean--creating method, the~scope is~taken from this method.
 And~when nothing is~configured for~the~method, the~bean will~be always singleton, even when you \hyperref[iocnoxml]{enable component scanning by~Java configuration} and~\hyperref[bsannotations]{set a~different scope by~an~annotation of~the~bean class}.
 
+\emten
 \example
-\enlargethispage{10mm}
-\thispagestyle{empty}
 %! language = TEXT
 \begin{lstlisting}[language=Java, title={Configuration class with a prototype bean--creating metod}]@>@Configuration
     @>@Configuration

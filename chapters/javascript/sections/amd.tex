@@ -7,8 +7,7 @@ These modules can~be~treated as~classes and~the~code can~follow the~\hyperref[ob
 Correct implementation of~the~standard should load modules asynchronously, in~the~correct order, only if~they're really used and~with minimal need of~adjusting web pages source code.
 I.e.,~it~should address all~problems of~the~\hyperref[javascriptmodularity]{default JavaScript modularity}.
 
-\enlargethispage{20mm}
-\thispagestyle{empty}
+\emtwen
 \newsubsection{Syntax}
 \label{amdsyntax}
 The~main function containing a~module -- equivalent of~a~class -- is~called \mbitq{define}.
@@ -52,8 +51,8 @@ Other members are~equivalent to~\hyperref[javaprivate]{private} members.
     \drawarrow{[xshift=6mm] js1modfunc1.south}{js1modfunc2.north}[green]
 \end{tikzpicture}
 
-\example[AMD module without dependencies]
 \enlargethispage{10mm}
+\example[AMD module without dependencies]
 %! language = TEXT
 \begin{lstlisting}[language=JavaScript]
     define(function() {

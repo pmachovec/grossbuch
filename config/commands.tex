@@ -97,4 +97,8 @@
 
 \NewDocumentCommand{\itembfd}{m}{\itembf{#1}~--}
 
-\newcommand{\chinese}[1]{\begin{CJK}{UTF8}{bsmi}#1\end{CJK}}
+\NewDocumentCommand{\chinese}{m}{\begin{CJK}{UTF8}{bsmi}#1\end{CJK}}
+
+\NewDocumentCommand{\emten}{}{\enlargethispage{10mm}\thispagestyle{empty}}
+
+\NewDocumentCommand{\emtwen}{}{\enlargethispage{20mm}\thispagestyle{empty}}
