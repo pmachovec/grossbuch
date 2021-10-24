@@ -18,11 +18,11 @@ The~process swipe is called \textit{context switch} and~the~whole illusional par
 Nowadays, \hyperref[processorcpucore]{CPUs} contain multiple \hyperref[processorcpucore]{cores} and~some computers even contain multiple CPUs, which~makes the~parallel task processing really happening.
 This real parallel processing is called \textit{multiprogramming}.
 However, the~number of~available CPUs is almost never high enough to~cover all parallel processes, even multiprogramming computers perform swaps of~processes on~individual~CPUs.
-\newline
 
 \newsubsection{Preemption}
 \index{Preemption}
 \index{Preemptive}
+\index{Non--preemptive}
 \label{preemption}
 Multitasking is \mbit{preemptive}, when~the~operating system solely decides which~process runs in~which~time, i.e,~which~process gets the~\hyperref[processorcpucore]{CPU}.
 Processes can't~do anything about the~decision of~the~OS\@.
@@ -30,14 +30,14 @@ Nowadays, multitasking is mostly preemptive.
 
 In~\mbit{non--preemptive} multitasking, it's a~responsibility of~a~running process to~stop in~a~short time interval and~give the~CPU control back to~the~OS\@.
 The~OS then~decides about the~next process to~run.
-Some mid--90s operating systems were working non-preemptively, for~example, \hyperref[32bvs64b]{32--bit} Windows~95 \mbox{or Mac OS} (that's something different \mbox{than today's} macOS).
+Some mid--90s operating systems were working non--preemptively, for~example, \hyperref[32bvs64b]{32--bit} Windows~95 \mbox{or Mac OS} (that's something different \mbox{than today's} macOS).
 
 In~general, preemptive multitasking is more stable.
 When a~running process gets stuck in~preemptive multitasking, nothing serious happens, because the~OS will~take the~CPU from~it in~a~short time.
 But~when a~running process gets stuck in~non--preemptive multitasking, it~never fulfills the~responsibility of~returning the~CPU control to~the~OS and~the~whole blocks the~whole~OS\@.
 On~the~other hand, preemptive multitasking requires much~more complex operating systems and~is much~more expensive.
-\newline
 
+\enlargethispage{10mm}
 \newsubsection{Multithreading}
 \index{Multithreading}
 \label{multithreading}
@@ -45,6 +45,5 @@ It's~a~technique of~writing individual programs so that processing of~multiple p
 General multitasking is performed by~\hyperref[os]{OS} automatically, without~programmers somehow actively preparing their programs to~that.
 In~the~past, when~a~programmer wanted to~use multitasking on~purpose, he~had to~write multiple programs and~make them communicate with~each other.
 However, process communication is generally hard to~manage, therefore, mainstream programming languages enable to~separate one program, and~therefore its run as~a~process, to~multiple sections, denoted \mbox{as \textit{threads}}, which~can~be processed in~the~multitasking way when~the~whole program is~run.
-
-Multithreading can~be preemptive or~non-preemptive, depending on~concrete programming language.
-For~example, \hyperref[javathread]{Java's threads} are~preemptive, but~\hyperref[kotlincoroutine]{Kotlin's coroutines} are non--preemptive.
+Multithreading is preemptive in~general --~the~main program manages threads branching from~it.
+\newpage

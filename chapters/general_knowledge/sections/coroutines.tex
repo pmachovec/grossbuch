@@ -1,0 +1,16 @@
+\newsection{Coroutines}
+\index{Coroutine}
+\index{Coprogram}
+\mbox{A \textit{coroutine}}, or~also \mbox{a \textit{coprogram},} is~a~sequence of~tasks, which can~be run asynchronously (the~whole sequence, individual tasks must~be executed one after another).
+The~order of~execution of~tasks is guaranteed.
+
+Coroutines provide a~\hyperref[preemption]{non--preemptive} multitasking environment as~an~alternative to~classic \hyperref[multithreading]{threads}.
+On~each task start, the~coroutine execution can~be suspended and~taken over by another thread, or~even later picked up by the~same thread.
+This way, the~potentially time and~resource consuming computation of~the~coroutine (coroutines are supposed to~be used for~such computations) doesn't block the~main thread.
+If~there's another thread available, it~takes over the~computation.
+If~not, then the~original thread first finishes its run and~then continues with~the~coroutine.
+The~decision which~thread to~use must be done in~the~source code when~the~coroutine logic \mbox{is written.}
+
+If~a~language has~a~good and~safe support for~coroutines eliminating risks of~non--preemption (like, for~example, \hyperref[kotlincoroutine]{Kotlin's coroutines}), it's better to~use coroutines instead of threads as~it's much cheaper.
+Threads consume \hyperref[systemmemory]{memory} and~their creation is \hyperref[processorcpucore]{CPU}--demanding.
+That isn't the~case for~coroutines.

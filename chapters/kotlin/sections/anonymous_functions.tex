@@ -54,12 +54,12 @@ But~anonymous functions aren't proper instances of~any class, therefore, the~app
 \newsubsection{Receiver Type}
 \index{Receiver type}
 \label{kotlinanonymousreceivertype}
-When defining an~anonymous function, it's~possible to~specify one concrete class denoted as \textit{receiver type} (like in~\hyperref[kotlinextensions]{extensions}).
+When defining an~anonymous function, it's~possible to~specify one concrete class denoted as \textit{receiver type}.
 An~instance of~that class --~a~\textit{receiver} --~must then be given whenever the~function is invoked.
 It~can~be also viewed as the~function can~be called only on~instances of~the~receiver type.
 
 In~the~function definition, the~receiver type class name prepends parameter brackets with the~dot.
-When the~function is~called, the~receiver type instance must~be either given as~the~first argument (the~call gets one argument more than the~number of function parameters) or~the~function can~be called on~the~instance with~the~dot notation (the~variable holding the~anonymous function works like \hyperref[kotlinextensions]{extension}).
+When the~function is~called, the~receiver type instance must~be either given as~the~first argument (the~call gets one argument more than the~number of function parameters) or~the~function can~be called on~the~instance with~the~dot notation (the~variable holding the~anonymous function works like \hyperref[kotlinextension]{extension}).
 In~the~function body, the~receiver type instance is accessible by the~keyword~\textit{this}.
 
 The~receiver type is reflected in~the~function type.
