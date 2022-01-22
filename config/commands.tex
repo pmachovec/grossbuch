@@ -17,6 +17,8 @@
 
 \NewDocumentCommand{\highlight}{m O{black}}{\noindent\textcolor{#2}{\textbf{\mbox{#1}}}}
 
+\NewDocumentCommand{\highlightit}{m O{black}}{\noindent\textit{\highlight{#1}[#2]}}
+
 \NewDocumentCommand{\nosp}{}{\kern-0.5ex }
 
 \NewDocumentCommand{\noindentnosp}{}{\nosp\noindent}
@@ -86,8 +88,6 @@
 \NewDocumentCommand{\drawarrow}{O{stealth-stealth} m m O{black} O{.3} O{}}{\draw[#1,line width=.6mm,shorten <=2pt,shorten >=2pt,#4,opacity=#5] (#2) to[#6] (#3);}
 
 \NewDocumentCommand{\diagramarrow}{O{0mm} m m O{} O{} O{}}{\draw[-{Stealth[length=7mm, width=4mm]}, line width=.3mm, shorten <=-#1] (#2) to[#6] node[#5] {\tiny{#4}} (#3);}
-
-\NewDocumentCommand{\includeindex}{}{\phantomsection\addcontentsline{toc}{chapter}{Index}\printindex}
 
 \NewDocumentCommand{\captit}{m}{\caption*{\textit{#1}}}
 
