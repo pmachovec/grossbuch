@@ -1,7 +1,7 @@
 \newsection{Operators}
 \index{Operator}
 \label{kotlinoperator}
-An~operator is one or~more symbols, can~be even characters (like \itq{in} \mbox{or \itq{by}}), that either somehow changes a~value of~an~entity (unary operator) or~somehow combines values of~two entities (binary operator).
+An~operator is one or~more symbols, can~be even characters (like \itq{in} or~\mbitq{by}), that either somehow changes a~value of~an~entity (unary operator) or~somehow combines values of~two entities (binary operator).
 Examples of~unary operators are~negation~(\itq{!}), increment~(\itq{++}) or~decrement~(\itq{-{}-}), examples of~binary operators are~arithmetic operations \mbox{(\itq{+}, \itq{-}, \dots)} or~comparators \mbox{(\itq{<}, \itq{>}, \dots)}.
 Some special bracket syntax constructions (see~further) are~also considered to~be operators and~can~be overloaded.
 
@@ -23,7 +23,7 @@ I.e.,~when~calling a~function, you're~calling the~\textit{invoke} operator.
 \newsubsection{Operators Overloading}
 \index{Operators overloading}
 \label{kotlinoperatoroverload}
-Each~operator, including \hyperref[kotlinindexedaccess]{\textit{indexed access}} \mbox{and \hyperref[kotlininvoke]{\textit{invoke}},} has~an~underlying function with~a~name, which~is~executed when~the~operator is~used.
+Each~operator, including \hyperref[kotlinindexedaccess]{\textit{indexed access}} and~\mbit{\hyperref[kotlininvoke]{invoke}}[,] has~an~underlying function with~a~name, which~is~executed when~the~operator is~used.
 By~defining a~function with~the~same name and~the~keyword \mbitq{operator} preceding the~keyword\mbitq{fun} you~can~make the~operator working even with your own class instances.
 The~list of~function names can~be found \href{https://kotlinlang.org/docs/reference/operator-overloading.html}{in~the~corresponding section of~Kotlin documentation}.
 
@@ -56,7 +56,7 @@ That's~the~parameter corresponding to~the~right side of~the~operator.
 The~left side is (an~instance~of) the~class in~which the~operator is overloaded.
 Similarly, unary operators overloading takes no~parameters.
 
-For~\hyperref[kotlinindexedaccess]{\textit{indexed access}} \mbox{and \hyperref[kotlininvoke]{\textit{invoke}}} operators, however, this isn't true.
+For~\hyperref[kotlinindexedaccess]{\textit{indexed access}} and~\mbit{\hyperref[kotlininvoke]{invoke}} operators, however, this~isn't true.
 The~difference is that they~aren't written in~the~infix notation.
 
 \label{kotlininvokeoverload}

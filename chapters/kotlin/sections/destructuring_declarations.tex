@@ -8,13 +8,13 @@ The~syntax is \mbitqls{val/var (var1, var2, \dots);;;=;;;classInstance}.
 \hyperref[datatypes]{Data types} of~individual variables are~inferred automatically.
 
 To~make this possible, the~class must provide so~called \mbit{componentN} \hyperref[kotlinoperator]{operators} corresponding to~the~number of~variables available for~the~destructuring declaration.
-For~example, if~a~three--variable destructuring declaration should~be possible for~a~class instance, the~class must provide operators \mbitq{component1}, \mbitq{component2} \mbox{and \itq{component3}}.
+For~example, if~a~three--variable destructuring declaration should~be possible for~a~class instance, the~class must provide operators \mbitq{component1}, \mbitq{component2} and~\mbitq{component3}.
 
 By~default, only \hyperref[kotlindataclass]{data classes}, pairs and~triples provide \mbit{componentN} operators based on~their members (see~further).
 To~enable destructuring declarations for~a~general class or~\hyperref[kotlinobject]{object}, you~must use \hyperref[kotlinoperatoroverload]{operators overloading}.
 Overloaded operator functions don't~take parameters, but~they should return values.
 Defining an~operator without a~return type doesn't make sense, but~it's possible.
-The~corresponding variable in~the~destructuring declaration then~gets assigned \mbox{the \hyperref[kotlinunit]{\textit{Unit}}} instance.
+The~corresponding variable in~the~destructuring declaration then~gets assigned the~\mbit{\hyperref[kotlinunit]{Unit}} instance.
 
 \emten
 \example[destructuring declaration with~a~general class]
@@ -110,7 +110,7 @@ In~following examples consider the~simple class from the~beginning.
 \noindent \mbit{ComponentN} operators ordering in~the~class body doesn't matter.
 However, the~line of~numbers must~be consecutive.
 If~you omit a~number in~the~line, destructuring declarations will~work only up to~the~last correctly declared operator.
-For~example, if~you define operators \mbit{component1}, \mbit{component2} \mbox{and \textit{component4}}, \mbox{but not \textit{component3}}, only one--~or~two--variable destructuring declarations will~be possible.
+For~example, if~you define operators \mbit{component1}, \mbit{component2} and~\mbit{component4}, but not~\mbit{component3}, only one--~or~two--variable destructuring declarations will~be possible.
 
 \example
 %! language = TEXT
@@ -146,7 +146,7 @@ For~example, if~you define operators \mbit{component1}, \mbit{component2} \mbox{
 
 \newsubsection{With data classes}
 \hyperref[kotlindataclass]{Data classes} support \mbit{componentN} operators based on~\hyperref[kotlinprimaryconstructor]{primary constructor} parameters.
-For~example, when~the~constructor has~three parameters, then~the~data class automatically provides \mbit{component1} returning the~first constructor argument, \mbit{component2} returning the~second constructor argument \mbox{and \textit{component3}} returning the~third constructor argument.
+For~example, when~the~constructor has~three parameters, then~the~data class automatically provides \mbit{component1} returning the~first constructor argument, \mbit{component2} returning the~second constructor argument and~\mbit{component3} returning the~third constructor argument.
 
 As~in~many other features of~data classes, eventual other fields of~classes aren't supported by~default.
 However, it's~possible to~define additional \mbit{componentN} operators in~the~class body and~these can~return other fields or~anything else.
@@ -185,7 +185,7 @@ For~example, when~the~constructor has~three parameters, the~first operator that~
 
 \newsubsection{With pairs and triples}
 Tuples support destructuring declaration in~quite intuitive and~expectable way.
-\mbit{Pair} provides operators \mbit{component1} \mbox{and \textit{component2}} returning corresponding pair instance members, \mbit{Trippe} has the~same and~additionally provides \mbit{component3}.
+\mbit{Pair} provides operators \mbit{component1} and~\mbit{component2} returning corresponding pair instance members, \mbit{Trippe} has the~same and~additionally provides \mbit{component3}.
 
 \example[destructuring declaration with \textit{Pair} and \textit{Triple} instances]
 %! language = TEXT
@@ -199,9 +199,9 @@ Tuples support destructuring declaration in~quite intuitive and~expectable way.
 
 \newsubsection{In \textit{for} loops}
 \label{kotlindestdeclforloop}
-When you have an~iterable (array, collection, \hyperref[kotlinsequence]{sequence}), you~can~iterate over it \mbox{in a \textit{for} loop} \mbox{with the \itq{in}} operator.
+When you have an~iterable (array, collection, \hyperref[kotlinsequence]{sequence}), you~can~iterate over it in a~\mbit{for}~loop with~the~\mbitq{in} operator.
 And~when the~iterable members type class supports destructuring declaration, you~can, instead of declaring one variable representing one whole member, provide destructuring declaration with~a~correct number of variables.
-This way, in~each iteration step, you~have access \mbox{to \textit{componentN}} operators results for~the~actual member.
+This way, in~each iteration step, you~have access to~\mbit{componentN} operators results for~the~actual member.
 Remember that you can~use one x--or other.
 If~you~need to~use something else than \textit{componentN} operators results on~the~actual iteration member, then you can't~use destructuring declaration.
 
@@ -222,8 +222,8 @@ If~you~need to~use something else than \textit{componentN} operators results on~
 \newline
 
 \noindent Iteration over a~map with destructuring declaration is~also possible.
-Each~map is an~iterable collection \mbox{of \itq{Map.Entry<K, V>}}.
-This type provides \mbit{component1} operator returning the~key \mbox{and \textit{component2}} operator returning the~value.
+Each~map is an~iterable collection of~\mbitq{Map.Entry<K, V>}[.]
+This type provides \mbit{component1} operator returning the~key and~\mbit{component2} operator returning the~value.
 
 \example[iterating over a map]
 %! language = TEXT
@@ -240,9 +240,9 @@ This type provides \mbit{component1} operator returning the~key \mbox{and \texti
 \newsubsection{In lambda functions}
 When you have a~function \hyperref[kotlinanonymousfunction]{taking other function as~a~parameter}, then you can~specify the~other function as~a~\hyperref[kotlinlambda]{lambda function}.
 And~when that other function has a~parameter of~a~type supporting destructuring declarations, you~can, instead of declaring one variable representing the~parameter value, provide destructuring declaration with~a~correct number of variables in~the~lambda parameters section (before the~arrow).
-This way you~have access \mbox{to \textit{componentN}} operators results of~the~parameter in~the~lambda body.
+This way you~have access to~\mbit{componentN} operators results of~the~parameter in~the~lambda body.
 When the~lambda function has more parameters, it's possible to~use destructuring declaration for~one and~standard variables for~others at~any~place.
-It~can~be also used on~iterable functions taking lambda like \mbox{\textit{forEach},} \mbox{\textit{filter}} \mbox{\textit{map} etc.}
+It~can~be also used on~iterable functions taking lambda like \mbit{forEach}[,] \mbit{filter}[,] \mbit{map}~etc.
 Remember that even this is x--or.
 If~you~need to~use something else than \textit{componentN} operators results on~the~parameter, then you can't~use destructuring declaration.
 

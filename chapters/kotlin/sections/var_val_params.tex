@@ -11,12 +11,12 @@ If~you~need such behavior, then your design is wrong and~must~be changed, for~ex
 \newsubsection{Passing arguments by value and by reference}
 Opposite to~Java, Kotlin code doesn't provide \hyperref[javaprimitivetypes]{primitive types}.
 Therefore, every passed argument is actually passed by reference and~nothing else is possible.
-However, because of mentioned restrictions in~using \textit{val} and \textit{var} keywords, the~only possibility to~rewrite parameters is to~rewrite primary constructor parameters declared \mbox{with the \textit{var}} keyword.
+However, because of mentioned restrictions in~using \textit{val} and \textit{var} keywords, the~only possibility to~rewrite parameters is to~rewrite primary constructor parameters declared with the~\mbit{var} keyword.
 
-When a~primary constructor parameter is declared \mbox{with the \textit{var}} keyword, it's~possible to~assign a~new value to~the~variable in~an~executable code (e.g.,~in~a~function or~\hyperref[kotlininitblock]{init block}).
+When a~primary constructor parameter is declared with the~\mbit{var} keyword, it's~possible to~assign a~new value to~the~variable in~an~executable code (e.g.,~in~a~function or~\hyperref[kotlininitblock]{init block}).
 This assignment changes the~reference only for~the~scope of~the~current instance.
 In~other words, the~change takes effect only inside the~corresponding class, it~isn't propagated outside the~instance, even when the~type of~the~parameter is a~complex class.
-Because of this it's possible to~pass variables declared with \textit{val} as~arguments even for~constructor parameters declared \mbox{with \textit{var}.}
+Because of this it's possible to~pass variables declared with \textit{val} as~arguments even for~constructor parameters declared with~\mbit{var}[.]
 
 \example
 %! language = TEXT
@@ -43,7 +43,7 @@ Because of this it's possible to~pass variables declared with \textit{val} as~ar
 \end{lstlisting}
 
 \warning When~the~primary constructor parameter data type is a~complex class allowing changes of~its inner state (e.g.,~properties), then~changes of~that~inner state do propagate outside the~instance, even when~performed inside the~corresponding class or~even inside the parameter type class.
-The~parameter state can~be changed even when it's declared \mbox{with the \textit{val}} keyword.
+The~parameter state can~be changed even when it's declared with the~\mbit{val} keyword.
 Changes of~mutable collections also belong to~this use case.
 
 \example

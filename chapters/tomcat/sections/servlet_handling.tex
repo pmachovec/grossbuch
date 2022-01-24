@@ -5,4 +5,4 @@ However, if~users are~adjusting some common resources, e.g., the~servlet writes 
 Therefore, servlet--triggered logic should be always written in~a~manner expecting this.
 
 \warning After a~servlet returns a~response, it~is \textbf{not} removed from the~\hyperref[systemmemory]{system memory}, i.e.,~its~method \textit{destroy} is~not~invoked.
-The~servlet stays loaded in~the~\hyperref[systemmemory]{memory} until explicitly terminated or until the~\hyperref[garbagecollector]{garbage collector} doesn't remove it.
+The~servlet stays loaded in~the~\hyperref[systemmemory]{memory} until explicitly terminated or until the~\hyperref[garbagecollector]{garbage collector} removes~it.

@@ -69,8 +69,8 @@ To~set a~destroy method put the~method's name to~the~attribute \textit{destroy-m
     \drawarrow{lc1xml1protdestroy}{[xshift=-6mm] lc1java1destroy.north}[blue]
 \end{tikzpicture}
 
-\noindent The~initialization method is~called three times -- once for~the~singleton instance and~twice for~prototype instances.
-The~destroy method is~called only once -- for~the~singleton instance, although configured even for~prototype beans.
+\noindent The~initialization method is~called three times --~once for~the~singleton instance and~twice for~prototype instances.
+The~destroy method is~called only once --~for~the~singleton instance, although configured even for~prototype beans.
 Destroy methods of~prototype beans don't work.
 
 \newsubsection{Using Java Annotations}
@@ -156,7 +156,7 @@ You~must download it or~load it as~a~dependency.
 \end{tikzpicture}
 
 \noindent Again the~initialization method is~called three times -- once for~the~singleton instance and~twice for~prototype instances.
-The~destroy method is~called only once -- for~the~singleton instance.
+The~destroy method is~called only once --~for~the~singleton instance.
 
 \note There's one significant difference between annotation--based and~XML--based bean life cycle methods  One~bean class can~contain more than one annotated \textit{initialization} or~\textit{destroy} method.
 When the~time of~their execution comes (bean instantiation, context closing), all~such methods are~triggered.
@@ -271,4 +271,4 @@ If~the~bean scope was~set to~prototype, \textit{destroy} methods wouldn't be tri
 \end{tikzpicture}
 
 \noindent And~again the~initialization method is~called three times -- once for~the~singleton instance and~twice for~prototype instances.
-The~destroy method is~called only once -- for~the~singleton instance.
+The~destroy method is~called only once --~for~the~singleton instance.

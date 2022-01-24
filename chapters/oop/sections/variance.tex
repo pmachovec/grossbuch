@@ -7,28 +7,28 @@ Variance describes how \hyperref[inheritance]{inheritance} and~subtype relations
 \newsubsection{Covariance}
 \index{Covariance}
 \label{covariance}
-We~say that a~complex structure \mbox{is \textit{covariant}}, if~it~preserves the~subtype relation of~contained simpler types.
+We~say that a~complex structure is~\mbit{covariant}, if~it~preserves the~subtype relation of~contained simpler types.
 For example, in~Java, \hyperref[javaarray]{arrays} are covariant.
-\mbox{I.e., when \itq{B}} is a~subclass \mbox{of \itq{A}}, then~also \mbitq{B[]} is a~subclass \mbox{of \itq{A[]}}.
-In~\hyperref[javagenerics]{Java generics}, covariance is supported only when using \hyperref[javagenericswildcards]{wildcards} \mbox{and the \itq{extends}} keyword.
-For~example, \itq{List<B>} is a~subclass \mbox{of \itq{List<? extends A>}}.
+\mbox{I.e., when \itq{B}} is a~subclass of~\mbitq{A}, then~also \mbitq{B[]} is a~subclass of~\mbitq{A[]}[.]
+In~\hyperref[javagenerics]{Java generics}, covariance is supported only when using \hyperref[javagenericswildcards]{wildcards} and the~\mbitq{extends} keyword.
+For~example, \itq{List<B>} is a~subclass of~\mbitq{List<? extends A>}[.]
 
 \newsubsection{Contravariance}
 \index{Contravariance}
-We~say that a~complex structure \mbox{is \textit{contravariant}}, if~it~reverses the~subtype relation of~contained simpler types.
+We~say that a~complex structure is~\mbit{contravariant}, if~it~reverses the~subtype relation of~contained simpler types.
 This~is quite unintuitive and~an~example is harder to~find.
-\hyperref[javagenerics]{Java generics} support contravariance when using \hyperref[javagenericswildcards]{wildcards} \mbox{and the \itq{super}} keyword.
-For~example, \mbox{when \itq{B}} is a~subclass \mbox{of \itq{A}}, \mbox{then \itq{List<A>}} is a~subclass \mbox{of \itq{List<? super B>}}.
+\hyperref[javagenerics]{Java generics} support contravariance when using \hyperref[javagenericswildcards]{wildcards} and the~\mbitq{super} keyword.
+For~example, when~\mbitq{B} is a~subclass of~\mbitq{A}, then~\mbitq{List<A>} is a~subclass of~\mbitq{List<? super B>}[.]
 
 \newsubsection{Bivariance}
 \index{Bivariance}
-We~say that a~complex structure \mbox{is \textit{bivariant}}, if~it~both preserves and~reverses the~subtype relation of~contained simpler types.
+We~say that a~complex structure is~\mbit{bivariant}, if~it~both preserves and~reverses the~subtype relation of~contained simpler types.
 This~is mostly a~theoretical thing not~occurring in~any~mainstream OOP language.
-For~example, \hyperref[javaarray]{Java arrays} \highlight{would be} bivariant, \mbox{if with \itq{B}} being a~subclass \mbox{of \itq{A}}, \mbitq{B[]} was a~subclass \mbox{of \itq{A[]}} and~even \mbitq{A[]} was a~subclass \mbox{of \itq{B[]}}.
+For~example, \hyperref[javaarray]{Java arrays} \highlight{would be} bivariant, if with~\mbitq{B} being a~subclass of~\mbitq{A}, \mbitq{B[]} was a~subclass of~\mbitq{A[]} and~even \mbitq{A[]} was a~subclass of~\mbitq{B[]}[.]
 
 \newsubsection{Invariance}
 \index{Invariance}
 \label{invariance}
-We~say that a~complex structure \mbox{is \textit{invariant}}, if~there's no subtype relation among two such structures containing simpler types, that~do~have a~subtype relation among them.
+We~say that a~complex structure is~\mbit{invariant}, if~there's no subtype relation among two such structures containing simpler types, that~do~have a~subtype relation among them.
 For~example, in~Java, simple \hyperref[javagenerics]{generics} without \hyperref[javagenericswildcards]{wildcards} are~invariant.
-\mbox{When \itq{B}} is a~subclass \mbox{of \itq{A}}, \itq{List<B>} has~no~subtype relation \mbox{with \itq{List<A>}}.
+When~\mbitq{B} is a~subclass of~\mbitq{A}, \itq{List<B>} has~no~subtype relation with~\mbitq{List<A>}[.]

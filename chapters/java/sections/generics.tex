@@ -16,10 +16,10 @@ They're just names.
 Type variable name can~contain any alphanumeric character and~underscore.
 It~must start with a~letter or~the~underscore.
 Starting with a~digit or~standalone underscore isn't allowed.
-An~unofficial convention is to~use single capital letter, starting \mbox{from \itq{T}} \mbox{(as in \itq{Type})}, \mbox{like \itq{T}}, \mbox{\itq{U}, \itq{V} etc.}
-Indexed capital letters, \mbox{mostly \itq{T\dots}}, are~also used often, \mbox{like \itq{T1}}, \mbox{\itq{T2}, \itq{T3} etc.}
+An~unofficial convention is to~use single capital letter, starting from~\mbitq{T} \mbox{(as in \itq{Type})}, like~\mbitq{T}, \mbox{\itq{U}, \itq{V} etc.}
+Indexed capital letters, mostly~\mbitq{T\dots}, are~also used often, like~\mbitq{T1}, \mbox{\itq{T2}, \itq{T3} etc.}
 
-To~say that some alphanumeric combination denotes a~type variable this~combination must~be enclosed between \mbitq{lower than} \mbox{and \itq{greater than}} operators \mbox{("<" and ">")} in~a~class/interface declaration, following the~class/interface name.
+To~say that some alphanumeric combination denotes a~type variable this~combination must~be enclosed between \mbitq{lower than} and~\mbitq{greater than} operators \mbox{("<" and ">")} in~a~class/interface declaration, following the~class/interface name.
 Declared type variable can~be then used in~the~class/interface body.
 
 Assigning concrete types to~type variables declared in~a~class/interface can~be~done only \mbox{"from outside"}.
@@ -77,7 +77,7 @@ The~\hyperref[datatypes]{data type} of~the~variable or~the~method return value i
 \newpage
 
 \index{Diamond operator}
-\noindentnosp Notice empty \mbitq{lower than} \mbox{and \itq{greater than}} operators when calling the~class constructor.
+\noindentnosp Notice empty \mbitq{lower than} and~\mbitq{greater than} operators when calling the~class constructor.
 That's called \textit{diamond operator}.
 This must be used when creating an~instance of~a~generic class or~an~interface.
 Up~to~Java~6 it~was~necessary to~repeat concrete types inside.
@@ -88,13 +88,13 @@ Today Java runner can~infer types from the~left side of~the~command, even when t
 \newsubsection{Method or~Constructor Declaration}
 \label{javagenericmethod}
 An~alphanumeric combination can~be marked as~a~type variable also in~a~method/constructor declaration.
-It~must~be also enclosed between \mbitq{lower than} \mbox{and \itq{greater than}} operators.
+It~must~be also enclosed between \mbitq{lower than} and~\mbitq{greater than} operators.
 It~goes after the~last \hyperref[javaaccessmodifiers]{access modifier} and~before return type in~method, or~name in~constructor.
 A~method declaring a~variable type can~return this type.
 
 Assigning concrete types to~type variables declared in~a~method/constructor is~also done "from outside".
 That~is when calling the~method/constructor.
-But~opposite to~generic classes/interfaces this one doesn't need \mbitq{lower than} \mbox{and \itq{greater than}} operators.
+But~opposite to~generic classes/interfaces this one doesn't need \mbitq{lower than} and~\mbitq{greater than} operators.
 The~trick is that method/constructor variable types must appear among the~method/constructor parameter types.
 Values can't~be assigned to~variables of~variable types directly, you~can't call anything like \mbitqls{T;;;genericInstance;;;=;;;new;;;T();}, nor~anything similar with a~method returning a~value.
 The~only way how~to get a~value of~a~declared variable type to~its method/constructor, is~by~the~method/constructor parameters.
@@ -130,7 +130,7 @@ From~them concrete types for~type variables are~inferred.
     // U is set to Double.
     Double doubleVariable = classVariable.declareAndReturnGenericType(3.14);
 \end{lstlisting}
-\notenonl Default type of~a~decimal number \mbox{is \textit{Double}}.
+\notenonl Default type of~a~decimal number is~\mbit{Double}.
 In~the~class example \mbit{Float} was~stated explicitly.
 
 \note Similarly as~it~was necessary to~write concrete types by generic classes constructors up~to~Java~6, it~was also necessary to~write concrete types by generic methods/constructors.
@@ -157,7 +157,7 @@ This can~cause confusion when observed in~some older documentation, because gene
 As~concrete types are~assigned to~type variables from~outside, the~replacement of variables inside holding structures (classes, \mbox{methods, \dots)} is~done in~runtime.
 During compilation replacing concrete types are unknown.
 Therefore, by~default a~type variable is~treated as~\hyperref[javaobject]{\textit{Object}}.
-Actually, the~compiler replaces all type variables with \mbox{the \textit{Object}} class.
+Actually, the~compiler replaces all type variables with the~\mbit{Object} class.
 This mechanism is~called \itq{type erasure}.
 Calling any other method than available in~\hyperref[javaobject]{\textit{Object}} on~a~generic type instance causes a~compilation error.
 
@@ -171,7 +171,7 @@ The~bounding is~done by~the~keyword \mbitq{extends} following the~variable in~th
 Then the~common superclass or~interface is specified.
 Variable type instances then act as being of~the~bounding type.
 When assigning a~concrete type from outside, only descendants of~the~bounding type or~the~type itself are~allowed.
-Type erasure is~also performed in~this case, but~type variables are~replaced by bounding types, \mbox{not by \textit{Object}}.
+Type erasure is~also performed in~this case, but~type variables are~replaced by bounding types, not by~\mbit{Object}.
 
 \example[bounded type parameters in addition implementation]
 %! language = TEXT
@@ -237,7 +237,7 @@ Consider following generic class with a~variable type:
         }
     }
 \end{lstlisting}
-\noindent \textit{Integer} is a~subtype \mbox{of \textit{Number}}, \mbox{but \textit{GenericClass<Integer>}} is~not a~subtype \mbox{of \textit{GenericClass<Number>}} (and~absolutely~not a~supertype).
+\noindent \textit{Integer} is a~subtype of~\mbit{Number}, but~\mbit{GenericClass<Integer>} is~not a~subtype of~\mbit{GenericClass<Number>} (and~absolutely~not a~supertype).
 Compilation of~something like \mbitqls{GenericClass<Number>;;;parent;;;=;;;new;;;GenericClass<Integer>(1);} will~fail.
 
 To~enable such~\hyperref[covariance]{covariant} assignment the~concrete type on~the~left side of~the~command must~be prepended with question mark and~the~keyword \mbitq{extends}, i.e.,~something like \mbitqls{GenericClass<?;;;extends;;;Number>;;;parent;;;=;;;new;;;GenericClass<Integer>(1);}.
@@ -286,8 +286,8 @@ The~wildcard is said to~be \mbit{unbounded} in~this case.
 \newline
 
 \noindent Generics support even \hyperref[contravariance]{contravariance}.
-When \mbox{the \itq{super}} keyword is used instead of \mbitq{extends}, then~such a~generic type is a~supertype for~all generic types having any superclass of~the~supered concrete type.
-I.e.,~\mbitqls{GenericClass<?;;;super;;;Integer>} is~a~supertype for~\mbitq{GenericClass<Integer>}, \mbitq{GenericClass<Number>}, but~also \mbox{for \itq{GenericClass<Object>}}.
+When the~\mbitq{super} keyword is used instead of \mbitq{extends}, then~such a~generic type is a~supertype for~all generic types having any superclass of~the~supered concrete type.
+I.e.,~\mbitqls{GenericClass<?;;;super;;;Integer>} is~a~supertype for~\mbitq{GenericClass<Integer>}, \mbitq{GenericClass<Number>}, but~also for~\mbitq{GenericClass<Object>}[.]
 It's~possible to~set a~value of~the~variable type in~such generic class instance and~it's~possible to~add members to~collections.
 The~value type must~be the~supered type or~its subtype.
 It's~also possible to~retrieve a~value of~the~variable type from~the~generic class instance, but~its type isn't guaranteed, such~retrieved value has~type \mbit{Object}.
@@ -314,7 +314,7 @@ It's~also possible to~retrieve a~value of~the~variable type from~the~generic cla
 \newline
 
 \index{PECS}
-\noindent When summarized, \mbox{with the \itq{extends}} keyword it's possible to~retrieve a~variable type value with~the~extended type guaranteed, \mbox{with the \itq{super}} keyword it's possible to~set a~value of~the~supered type.
+\noindent When summarized, with the~\mbitq{extends} keyword it's possible to~retrieve a~variable type value with~the~extended type guaranteed, with the~\mbitq{super} keyword it's possible to~set a~value of~the~supered type.
 This is called \mbit{PECS} rule -- \itq{Producer Extend, Consumer Super}.
 If~both retrieval and~setting of~the~value is needed, then~no~wildcard should be used.
 
@@ -327,8 +327,8 @@ Using wildcards like this is pure stupidity.
 
 Usage of~wildcards makes sense only in~method/constructor parameters.
 For~example, consider a~method that~reads numbers from a~list.
-When~the~method is~declared like \mbitqls{public;;;SOMETHING;;;theMethod(List<Number>;;;theList);;{\dots}}, it~accepts only lists \mbox{of \textit{Numbers}}.
-If~it~gets a~list \mbox{of \textit{Integers}}, \mbit{Floats} or~some other more specific number type, the~compilation fails.
+When~the~method is~declared like \mbitqls{public;;;SOMETHING;;;theMethod(List<Number>;;;theList);;{\dots}}, it~accepts only lists of~\mbit{Numbers}.
+If~it~gets a~list of~\mbit{Integers}, \mbit{Floats} or~some other more specific number type, the~compilation fails.
 But~when the~method is~declared like \mbitqls{public;;;SOMETHING;;;theMethod(List<?;;;extends;;;Number>;;;theList);;{\dots}}, it~can~accept even lists with more specific number types.
 \newpage
 
@@ -362,8 +362,8 @@ But~when the~method is~declared like \mbitqls{public;;;SOMETHING;;;theMethod(Lis
 \end{lstlisting}
 \newline
 
-\noindent As~a~real example \mbox{of the \itq{super}} keyword usage you can~consider a~method that writes \mbit{Integers} to~a~given list, but~it~should accept even a~list \mbox{of \textit{Numbers}}.
-When the~method is~declared like \mbitqls{public;;;SOMETHING;;;theMethod(List<?;;;super;;;Integer>;;;theList);;{\dots}}, it~will~accept a~list \mbox{of \textit{Numbers}}, but~also a~list \mbox{of \textit{Objects}}.
+\noindent As~a~real example of the~\mbitq{super} keyword usage you can~consider a~method that writes \mbit{Integers} to~a~given list, but~it~should accept even a~list of~\mbit{Numbers}.
+When the~method is~declared like \mbitqls{public;;;SOMETHING;;;theMethod(List<?;;;super;;;Integer>;;;theList);;{\dots}}, it~will~accept a~list of~\mbit{Numbers}, but~also a~list of~\mbit{Objects}.
 When~only changing and~no~reading of~a~value of~a~variable type (e.g.,~adding to~a~collection) is expected in~a~method/constructor, it's~recommended to~use the~supered wildcard instead of simple concrete type to~provide more flexibility.
 That's why the~\mbitq{super} keyword often appears in~official Java documentation.
 \newpage
@@ -393,4 +393,4 @@ Something like \mbitqls{SomeClass.<?;;;extends;;;SOMETYPE>;;genericMethod();} wo
 
 \warning Don't confuse the~wildcard syntax with the~\hyperref[javagenericsbound]{bounded type parameters} syntax.
 It~looks similar, but~contains concrete type variables.
-Also, bounded type parameters don't exist with \mbox{the \itq{super}} keyword, only with \mbitq{extends}.
+Also, bounded type parameters don't exist with the~\mbitq{super} keyword, only with \mbitq{extends}.

@@ -48,10 +48,10 @@ When~you declare the~property with the~\mbitq{val} keyword, the~setter isn't~cre
 \end{lstlisting}
 \newline
 
-\noindent When~you~need some more sophisticated logic for~value retrieval and~assignment, in~Java you~have \mbit{get} \mbox{and \textit{set}} methods where you~can~write additional code.
-Kotlin enables adding more logic \mbox{by \itq{get}} \mbox{and \itq{set}} keywords written under the~affected property declaration and~followed by~a~function body.
+\noindent When~you~need some more sophisticated logic for~value retrieval and~assignment, in~Java you~have \mbit{get} and~\mbit{set} methods where you~can~write additional code.
+Kotlin enables adding more logic by~\mbitq{get} and~\mbitq{set} keywords written under the~affected property declaration and~followed by~a~function body.
 In~these function bodies the~keyword \mbitq{field} is available to~access the~current value of~the~corresponding field variable.
-In~the~setter body you~must assign final desired value to~it -- setters don't return a~value (their return type \mbox{is \hyperref[kotlinunit]{\textit{Unit}}}).
+In~the~setter body you~must assign final desired value to~it -- setters don't return a~value (of~their return type is~\mbit{\hyperref[kotlinunit]{Unit}}[).]
 Furthermore, the~setter gets one parameter of~the~variable type.
 That represents the~set value.
 Getters must return a~value of~the~corresponding field variable type.

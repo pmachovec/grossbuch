@@ -7,9 +7,9 @@ Typical constructor usage in~Java is just assigning received arguments to~class 
 In~Kotlin there's a~syntax called \itq{primary constructor} for~simplifying this.
 It~works by~specifying variables with types in~brackets directly in~a~class header (see~the~example).
 
-When a~variable has \hyperref[kotlinvalvar]{\itq{val} \mbox{or \itq{var}}} keyword, it~becomes \mbox{a property} of~the~class.
+When a~variable has \hyperref[kotlinvalvar]{\itq{val} or~\mbitq{var}} keyword, it~becomes \mbox{a property} of~the~class.
 It~isn't necessary (and~even possible) to~specify that~property variable separately (you~still can~specify other properties separately).
-When a~variable doesn't have \itq{val} \mbox{nor \itq{var}} keyword, it's~just an~immutable parameter of~the~constructor.
+When a~variable doesn't have \itq{val} nor~\mbitq{var} keyword, it's~just an~immutable parameter of~the~constructor.
 It~can~be used only for~setting other class properties (typically at~the~beginning of~the~class) or~inside \hyperref[kotlininitblock]{initializer blocks}.
 
 \example[Kotlin class with a primary constructor]

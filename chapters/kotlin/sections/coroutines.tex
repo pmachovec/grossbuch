@@ -33,22 +33,22 @@ However, it's~possible to~create one in~advance with~the~factory function \mbit{
 \index{Coroutine context}
 \label{kotlincoroutinecontext}
 It's~a~collection of~various elements related to~one coroutine.
-Each~\hyperref[kotlincoroutinescope]{scope} contains a~corresponding context in~the~property \mbit{coroutineContext} of~the~type \mbox{of \textit{CoroutineContext}} interface.
-Each~element is an~instance of~some extension \mbox{of the \textit{Element}} interface.
-The~context itself is a~map, where~keys are~formed by classes extending \mbox{the \textit{Element}} interface.
+Each~\hyperref[kotlincoroutinescope]{scope} contains a~corresponding context in~the~property \mbit{coroutineContext} of~the~type of~\mbit{ CoroutineContext} interface.
+Each~element is an~instance of~some extension of the~\mbit{Element} interface.
+The~context itself is a~map, where~keys are~formed by classes extending the~\mbit{Element} interface.
 
 For~example, coroutines can~have names.
-There's the~class \mbit{CoroutineName} (extending \mbox{the~\textit{Element}} interface over multiple steps) holding the~name inside the~property \mbox{\textit{name}.}
+There's the~class \mbit{CoroutineName} (extending the~\mbit{Element} interface over multiple steps) holding the~name inside the~property \mbit{name}[.]
 To~retrieve the~name (the~string) from~a~context, you~use something like \mbitqls{val theName;;;=;;;theContext[CoroutineName];;?.name} (the~map output is nullable, because there's no warranty that~the~context contains any~name).
 
-\mbox{The~\textit{CoroutineContext}} interface \hyperref[kotlinoperatoroverload]{overloads the~\textit{plus} operator} so~that it's~possible to~join two~contexts to~one with~it.
+The~\mbit{CoroutineContext} interface \hyperref[kotlinoperatoroverload]{overloads the~\textit{plus} operator} so~that it's~possible to~join two~contexts to~one with~it.
 If~joined contexts contain a~same key, the~conflict is resolved in~favor of~the~other one, i.e.,~the~one on~the~right side of~the~\textit{plus} operator.
 
-To~make everything even more confusing, \mbox{the~\textit{Element}} interface extends \mbox{the \textit{CoroutineContext}} interface.
+To~make everything even more confusing, the \textit{Element} interface extends the~\mbit{CoroutineContext} interface.
 I.e.,~a~context is de~facto a~collection of~contexts.
 This~is because of~the~already mentioned \hyperref[kotlincoroutinescope]{\mbit{CoroutineScope}} factory function.
 The~function takes a~context as~its parameter.
-\mbox{With \textit{Element}} extending \mbit{CoroutineContext}, it's~possible to~pass a~standalone element.
+With \textit{Element} extending \mbit{CoroutineContext}, it's~possible to~pass a~standalone element.
 And~because of the~overloaded \textit{plus} operator, it's~possible to~pass multiple elements joined by the~operator.
 Context elements, which~aren't passed, but~are~necessary, are~set to~default values automatically.
 
@@ -79,9 +79,9 @@ A~coroutine must be created by one of~special functions from~the~coroutines libr
 These functions are~called \textit{coroutine builders}.
 They take a~parameterless callback function as~the~last (but~not~necessarily the~only) parameter, and~commands inside this callback are~commands run in~the~created coroutine scope.
 It's~convenient to~pass the~callback function in~the~\hyperref[kotlinlambda]{lambda format}.
-There are three coroutine builders --~\mbox{\textit{runBlocking},} \mbit{launch} \mbox{and \textit{async}}.
+There are three coroutine builders --~\mbit{runBlocking}[,] \mbit{launch} and~\mbit{async}.
 
-Coroutine builders are~defined so that the~corresponding instance \mbox{of \textit{CoroutineScope}} is available in~the~callback function body under \mbox{the \textit{this}} keyword --~the~callback \hyperref[kotlinanonymousreceivertype]{receiver type} is declared to~be \mbox{\textit{CoroutineScope}.}
+Coroutine builders are~defined so that the~corresponding instance of~\mbit{CoroutineScope} is available in~the~callback function body under the~\mbit{this} keyword --~the~callback \hyperref[kotlinanonymousreceivertype]{receiver type} is declared to~be \mbit{CoroutineScope}[.]
 When~running program executes the~callback function --~the~coroutine body --~it~passes a~scope instance to~it.
 
 \newsubsection{\textit{runBlocking}}
@@ -93,7 +93,7 @@ It's~something like a~bridge between simple top--down executed code and~asynchro
 It~doesn't produce any asynchronous behavior, commands inside its callback are~simply executed on~the~same thread where~the~builder was~called, respecting their order.
 However, the~callback is treated as~a~full-value coroutine with~a~scope.
 It's~used to~start other coroutines by other builders.
-Such~coroutines then~run in~the~scope of~the~coroutine created by \mbox{the \textit{runBlocking}} builder.
+Such~coroutines then~run in~the~scope of~the~coroutine created by the~\mbit{runBlocking} builder.
 It~blocks its thread until all descendant coroutines aren't finished.
 Opposite to~other builders, it~can~also return a~value from~the~callback.
 
@@ -121,11 +121,11 @@ It~suspends the~code in~the~callback so~that it's~executed later when~a~thread i
 By~default, it~doesn't produce a~new~thread.
 The~code just waits until the~current thread is released (see~\hyperref[kotlincoroutinedispatcher]{dispatchers} for~assigning another thread), that~is, when~the~outer block is~completed.
 
-For~example, when~used inside \mbit{runBlocking}, all~commands \mbox{of the \textit{runBlocking}} are~executed first and~only after that commands \mbox{of the \textit{launch}} are~executed.
+For~example, when~used inside \mbit{runBlocking}, all~commands of the~\mbit{runBlocking} are~executed first and~only after that commands of the~\mbit{launch} are~executed.
 When~executed inside another \mbit{launch}, then~commands of~the~outer \mbit{launch} are~executed first.
 And~when there~are multiple such \mbit{launch} hierarchies, higher levels are~executed first.
 
-In~these situations --~calling inside another parent builder \mbox{-- the \textit{launch}} builder is~called on~the~parent \mbit{CoroutineScope} instance available in~the~enclosing callback of~the~parent builder.
+In~these situations --~calling inside another parent builder --~the~\mbit{launch} builder is~called on~the~parent \mbit{CoroutineScope} instance available in~the~enclosing callback of~the~parent builder.
 Most of parent context members are~inherited to~the~child context (but~not~all, see~\hyperref[kotlincoroutinejob]{jobs}).
 
 \example[two--level \textit{launch} followed by another inside \textit{runBlocking}]
@@ -173,7 +173,7 @@ Most of parent context members are~inherited to~the~child context (but~not~all, 
 \end{lstlisting}
 \newline
 
-\noindent If~you~have \mbox{a \hyperref[kotlincoroutinecontext]{\textit{Context}}} instance, you~can~pass it \mbox{to the \hyperref[kotlincoroutinescope]{\textit{CoroutineScope}}} factory function and~call the~builder on~the~result.
+\noindent If~you~have a~\mbit{\hyperref[kotlincoroutinecontext]{Context}} instance, you~can~pass it to~the~\mbit{\hyperref[kotlincoroutinescope]{CoroutineScope}} factory function and~call the~builder on~the~result.
 This construction occurs mainly with~\hyperref[kotlincoroutinedispatcher]{dispatchers} and~multiple threads.
 Be~aware that when~you~do this on~a~main program thread, it~can~reach its end before processing the~builder callback.
 In~that~case, the~callback won't~be executed.
@@ -217,8 +217,8 @@ However, this should~be rather avoided.
     // END OF THE MAIN THREAD
 \end{lstlisting}
 
-\warning If~you~construct a~scope inside \mbit{runBlocking}, \mbox{the \textit{runBlocking}} won't wait for~coroutines triggered on~that~new scope.
-Such~coroutines don't belong to~the~scope \mbox{of the \textit{runBlocking}.}
+\warning If~you~construct a~scope inside \mbit{runBlocking}, the~\mbit{runBlocking} won't wait for~coroutines triggered on~that~new scope.
+Such~coroutines don't belong to~the~scope of the~\mbit{runBlocking}[.]
 
 \example[\textit{launch} called on new scopes inside \textit{runBlocking}]
 %! language = TEXT
@@ -234,9 +234,9 @@ Such~coroutines don't belong to~the~scope \mbox{of the \textit{runBlocking}.}
     }
 \end{lstlisting}
 
-\note \mbox{The \textit{runBlocking}} builder waits for~all~previously suspended code waiting to~be~run on~the~same thread.
+\note The~\mbit{runBlocking} builder waits for~all~previously suspended code waiting to~be~run on~the~same thread.
 And~it~can~be even the~main program thread.
-Because of~that, when~you~construct a~standalone scope, create a~coroutine on~it and~then~use unrelated \mbit{runBlocking}, the~coroutine will~be completed before \mbox{the \textit{runBlocking}} starts.
+Because of~that, when~you~construct a~standalone scope, create a~coroutine on~it and~then~use unrelated \mbit{runBlocking}, the~coroutine will~be completed before the~\mbit{runBlocking} starts.
 
 \example[\textit{launch} called on standalone simple scope followed by \textit{runBlocking}]
 %! language = TEXT
@@ -259,7 +259,7 @@ Because of~that, when~you~construct a~standalone scope, create a~coroutine on~it
 \index{Async}
 \index{Deferred}
 \label{kotlincoroutineasync}
-\mbox{The \textit{async}} builder basically works in~the~same way \mbox{as \textit{launch}}.
+The~\mbit{async} builder basically works in~the~same way as~\mbit{launch}.
 The~difference is that, when~called, it~returns an~instance (of~a~class implementing) the~interface \mbit{Deferred}.
 This~instance provides the~function \mbit{await}, which, when~called, stops the~parent coroutine at~that~place and~performs the~builder callback.
 Then~the~parent coroutine run continues.
@@ -343,10 +343,10 @@ I.e.,~instead of letting the~parent coroutine to~reach the~end end before starti
 \end{lstlisting}
 \newline
 
-\noindent \mbox{The \textit{Deferred}} instance returned by the~function \mbit{await} can~return a~value.
-The~interface real signature is \mbitq{Deferred<out T>}, \mbox{where the \itq{T}} represents the~return type.
-\mbox{The \textit{await}} function then~returns a~value \mbox{of this type \itq{T}}.
-The~return value is specified \mbox{in the \textit{async}} callback as~in~any other \hyperref[kotlinlambda]{lambda function} --~written on~the~last line \mbox{without the \textit{return}} keyword.
+\noindent The~\mbit{Deferred} instance returned by the~function \mbit{await} can~return a~value.
+The~interface real signature is \mbitq{Deferred<out T>}, where the~\mbitq{T} represents the~return type.
+The~\mbit{await} function then~returns a~value of this type~\mbitq{T}.
+The~return value is specified in the~\mbit{async} callback as~in~any other \hyperref[kotlinlambda]{lambda function} --~written on~the~last line without the~\mbit{return} keyword.
 
 \example[\textit{await} returning a value]
 %! language = TEXT
@@ -372,10 +372,10 @@ The~return value is specified \mbox{in the \textit{async}} callback as~in~any ot
 \end{lstlisting}
 \newline
 
-\warning Having \mbox{the \textit{await}} function blocking the~run at~a~desired place, it~may~seem unnecessary to~enclose~it \mbox{to a \textit{runBlocking}} callback (or~another builder callback).
+\warning Having the~\mbit{await} function blocking the~run at~a~desired place, it~may~seem unnecessary to~enclose~it to a~\mbit{runBlocking} callback (or~another builder callback).
 At~the~first glance, constructing a~standalone scope, invoking \mbit{async} on~it and~run \mbit{await} later looks feasible.
 However, this is not~possible.
-\mbox{The \textit{await}} function is so~called \hyperref[kotlinsuspendfunction]{suspended function}, which~means it~can~be called only from~a~coroutine (i.e.,~from~a~builder callback) or~from~another suspended function.
+The~\mbit{await} function is so~called \hyperref[kotlinsuspendfunction]{suspended function}, which~means it~can~be called only from~a~coroutine (i.e.,~from~a~builder callback) or~from~another suspended function.
 If~you~try to~use it outside, the~compilation will~fail.
 
 \example[attempt to have \textit{async/await} outside builder callbacks]
@@ -389,7 +389,7 @@ If~you~try to~use it outside, the~compilation will~fail.
     deferredInstance.await()
 \end{lstlisting}
 
-\warning All~three coroutine builders can~take \mbox{a \textit{Context}} instance as~a~parameter.
+\warning All~three coroutine builders can~take a~\mbit{Context} instance as~a~parameter.
 When~used, almost every time an~element from~the~given context sets or~overrides the~same element, which~would~be otherwise inherited from~the~parent coroutine context or~set to~a~default value.
 But~this doesn't hold every time.
 There's a~malicious behavior with~\hyperref[kotlincoroutinejob]{jobs} and~\hyperref[kotlincoroutinedispatcher]{dispatchers} (see~corresponding sections).
@@ -445,7 +445,7 @@ Although documentations, tutorials and~(wannabe) experts say otherwise, it~has \
 
 There are some functions in~the~coroutines library which~are declared as~suspended.
 And~basically the~only situation when~you~must declare your function as~suspended is when~your function calls some of~those functions from~the~library.
-Otherwise, when~using your~function inside a~coroutine, the~code will~work exactly the~same with~or~without \mbox{the \textit{suspend}} modifier.
+Otherwise, when~using your~function inside a~coroutine, the~code will~work exactly the~same with~or~without the~\mbit{suspend} modifier.
 Some \mbox{IDEs} will~even mark the~modifier as~redundant when~not~calling another suspended function.
 Even~those suspended functions from~the~coroutines library could~be rewritten without~the~modifier.
 Very~base functions from~deep down of~the~library, doing \mbox{"the magic"} by primitive operations (declared as~suspended), would~also have the~modifier marked \mbox{as redundant}.
@@ -457,10 +457,10 @@ When~you implement some expensive operations, like big files processing, databas
 This~will~make your~function more idiot--proof when~used by someone else --~he~will have~to wrap your~function call to~a~coroutine.
 Most likely you~will, however, have~to put~up with~your IDE complaining about the~redundant \mbox{modifier.}
 
-\warning The~idiocy resistance of~suspended functions has~one weak spot \mbox{-- the \textit{\hyperref[kotlincoroutinerunblocking]{runBlocking}}} builder.
-\mbox{The \textit{runBlocking}} callback is treated as~a~valid coroutine, therefore, it's~possible to~call a~suspended function from~it.
+\warning The~idiocy resistance of~suspended functions has~one weak spot -- the~\mbit{\hyperref[kotlincoroutinerunblocking]{runBlocking}} builder.
+The~\mbit{runBlocking} callback is treated as~a~valid coroutine, therefore, it's~possible to~call a~suspended function from~it.
 But~the~callback also runs sequentially within other code.
-Because of~that, when~the~suspended function really does something blocking the~thread, and~when~called directly \mbox{from a \textit{runBlocking}} callback, it~will~block the~main \mbox{thread.}
+Because of~that, when~the~suspended function really does something blocking the~thread, and~when~called directly from a~\mbit{runBlocking} callback, it~will~block the~main \mbox{thread.}
 
 \example[wrong usage of suspended function]
 %! language = TEXT
@@ -483,7 +483,7 @@ Because of~that, when~the~suspended function really does something blocking the~
 \newsubsection{\textit{withContext}}
 \index{WithContext}
 It's~a~\hyperref[kotlinsuspendfunction]{suspended function} to~be~used inside a~coroutine when~you~need some code block to~be~completed before proceeding with~the~coroutine computation.
-The~code block is~best to~be~passed in~the~\hyperref[kotlinlambda]{lambda format}, it~can~even return a~value, which~is~returned \mbox{by the \textit{withContext}} function itself, similarly like when~returning a~value \mbox{from \hyperref[kotlincoroutinerunblocking]{\textit{runBlocking}}.}
+The~code block is~best to~be~passed in~the~\hyperref[kotlinlambda]{lambda format}, it~can~even return a~value, which~is~returned by the~\mbit{withContext} function itself, similarly like when~returning a~value from~\mbit{\hyperref[kotlincoroutinerunblocking]{\textit{runBlocking}}}[.]
 Beside the~callback it~also requires some \hyperref[kotlincoroutinecontext]{context} instance.
 The~callback block runs in~the~\hyperref[kotlincoroutinescope]{scope} of~the~enclosing coroutine, but~with~a~different context created by joining the~original coroutine context and~the~one passed.
 Conflicting values take precedence from~the~given new~context.
@@ -494,41 +494,53 @@ Conflicting values take precedence from~the~given new~context.
 \newsubsection{Jobs}
 \index{Job}
 \label{kotlincoroutinejob}
-Each~coroutine has~assigned a~job of~the~interface \mbox{type \textit{Job}}.
+Each~coroutine has~assigned a~job of~the~interface type~\mbit{Job}.
 A~coroutine's job is a~handle to~the~coroutine life cycle, mainly for~its monitoring, but~can~be also used for~partial coroutine run control.
 
-Life cycle of~a~coroutine is monitored by three Boolean properties --~\mbit{isActive}, \mbit{isCompleted} \mbox{and \textit{isCancelled}}.
+Life cycle of~a~coroutine is monitored by three Boolean properties --~\mbit{isActive}, \mbit{isCompleted} and~\mbit{isCancelled}.
 Combinations of~values of~these properties define various coroutine states.
 
 \begin{table}[ht]
     \begin{adjustbox}{center}
-        \begin{tabu}{|[2pt]c|c|c|c|[2pt]}
-            \tabucline[2pt]{-}
-            \multicolumn{1}{|[2pt]c}{\diagbox[linewidth=2pt, width=60mm]{\textbf{State}}{\textbf{Property}}} & \multicolumn{1}{|[1pt]p{25mm}|}{\centering\textit{isActive}} & \multicolumn{1}{p{25mm}|}{\centering\textit{isCompleted}} & \multicolumn{1}{p{25mm}|[2pt]}{\centering\textit{isCancelled}}\\
-            \tabucline[1pt]{-}
-            \multicolumn{1}{|[2pt]l}{\textit{new} (optional initial state)} & \multicolumn{1}{|[1pt]c|}{false} & false & false\\
-            \tabucline{-}
-            \multicolumn{1}{|[2pt]l}{\textit{active} (default initial state)} & \multicolumn{1}{|[1pt]c|}{true} & false & false\\
-            \tabucline{-}
-            \multicolumn{1}{|[2pt]l}{\textit{completing} (transient state)} & \multicolumn{1}{|[1pt]c|}{true} & false & false\\
-            \tabucline{-}
-            \multicolumn{1}{|[2pt]l}{\textit{cancelling} (transient state)} & \multicolumn{1}{|[1pt]c|}{false} & false & true\\
-            \tabucline{-}
-            \multicolumn{1}{|[2pt]l}{\textit{cancelled} (final state)} & \multicolumn{1}{|[1pt]c|}{false} & true & true\\
-            \tabucline{-}
-            \multicolumn{1}{|[2pt]l}{\textit{completed} (final state)} & \multicolumn{1}{|[1pt]c|}{false} & true & false\\
-            \tabucline[2pt]{-}
-        \end{tabu}
+        \renewcommand{\arraystretch}{1.4}
+        \renewcommand{\arrayrulewidth}{1pt}
+        \begin{NiceTabular}{|lr|M{25mm}|M{25mm}|M{25mm}|}
+            \CodeBefore
+                \rowcolor{yellow!50}{1} % First row background
+                \columncolor{yellow!50}{1-2} % First multicolumn background
+            \Body
+                \hline
+                {\fontsize{10}{10}\selectfont\textbf{State}}
+                    & {\fontsize{10}{20}\selectfont\raisebox{1mm}{\textbf{Property}}}
+                    & \itbf{isActive}
+                    & \itbf{isCompleted}
+                    & \itbf{isCancelled} \\
+                \hline
+                \multicolumn{2}{|l|}{\itbf{new} (optional initial state)} & false & false & false \\
+                \hline
+                \multicolumn{2}{|l|}{\itbf{active} (default initial state)} & true & false & false \\
+                \hline
+                \multicolumn{2}{|l|}{\itbf{completing} (transient state)} & true & false & false \\
+                \hline
+                \multicolumn{2}{|l|}{\itbf{cancelling} (transient state)} & false & false & true \\
+                \hline
+                \multicolumn{2}{|l|}{\itbf{cancelled} (final state)} & false & true & true \\
+                \hline
+                \multicolumn{2}{|l|}{\itbf{completed} (final state)} & false & true & false
+            \CodeAfter
+                \tikz \draw[line width=1pt, black](1-|1) to (2-|3); % Diagonal rule in the top left cell
+                \tikz \draw[line width=1pt, black](8-|1) to (8-|6); % Bottom rule
+        \end{NiceTabular}
     \end{adjustbox}
 \end{table}
 
-\note Yes,~\textit{active} and~\textit{completing} states have identical property values and~can't~be distinguished.
+\notenonl Yes,~\textit{active} and~\textit{completing} states have identical property values and~can't~be distinguished.
 When the~combination of~values is reached, it's~always considered to~be the~\textit{active} state.
 The~\textit{completing} state exists purely for~confusion.
 \newline
 
 \noindent A job is an~element of~the~corresponding \hyperref[kotlincoroutinecontext]{coroutine context}.
-Beside retrieving it by the~map syntax (\mbitq{theContext[Job]}) it's~also returned by the~\hyperref[kotlincoroutinelaunch]{\mbit{launch}} builder, and~actually even by the~\hyperref[kotlincoroutineasync]{\mbit{async}} builder \mbox{-- the \textit{Deferred}} interface extends \mbox{the \textit{Job}} interface.
+Beside retrieving it by the~map syntax (\mbitq{theContext[Job]}) it's~also returned by the~\hyperref[kotlincoroutinelaunch]{\mbit{launch}} builder, and~actually even by the~\hyperref[kotlincoroutineasync]{\mbit{async}} builder -- the~\mbit{Deferred} interface extends the~\mbit{Job} interface.
 \mbox{The \hyperref[kotlincoroutinerunblocking]{\mbit{runBlocking}}} builder doesn't return a~job, unless explicitly returned in~its~callback.
 Retrieving the~job from~the~context is convenient inside the~coroutine, retrieving from~the~builder outside.
 
@@ -541,12 +553,12 @@ Retrieving the~job from~the~context is convenient inside the~coroutine, retrievi
             val jobInside = coroutineContext[Job]!!
 
             if (jobInside.isCancelled) {
-                ...THAT'S BAD...
+                (*...THAT\textquotesingle{}S BAD...*)
             }
         }
 
         if (jobInside.isCompleted) {
-            ...THAT'S GOOD...
+            (*...THAT\textquotesingle{}S GOOD...*)
         }
     }
 \end{lstlisting}
@@ -562,7 +574,7 @@ Retrieving the~job from~the~context is convenient inside the~coroutine, retrievi
 
 \warning When a~coroutine is created by a~builder, it~always gets a~new~job.
 There's no way how to~assign an~existing job to~a~created coroutine.
-As~jobs are context elements, and,~therefore, are~instances \mbox{of the \textit{Context}} interface, it's~possible to~pass a~job to~a~builder parameter.
+As~jobs are context elements, and,~therefore, are~instances of the~\mbit{Context} interface, it's~possible to~pass a~job to~a~builder parameter.
 However, this~will~make the~passed job only a~parent job of~the~created coroutine, not~directly the~coroutine~job.
 
 \example[passing a job to a builder]
@@ -582,7 +594,7 @@ However, this~will~make the~passed job only a~parent job of~the~created coroutin
 
 \warning Parent cancellation\ldots
 
-\note \mbox{The \textit{Job}} function creates an~instance of~the~interface \mbit{CompletableJob}.
+\note The~\mbit{Job} function creates an~instance of~the~interface \mbit{CompletableJob}.
 That's a~job with~available function \mbit{cancel} to~forcibly cancel the~corresponding coroutine.
 Default jobs (of~the~type \mbit{Job}) don't provide this~function.
 
@@ -600,7 +612,7 @@ Default jobs (of~the~type \mbit{Job}) don't provide this~function.
         simpleJob.isActive
         && SOME_BAD_CONDITION
     ) {
-        // Passing the exception isn't necessary, but it's conveniet.
+        // Passing the exception isn't necessary, but it's convenient.
         simpleJob.cancel(
             CancellationException("Something went wrong")
         )

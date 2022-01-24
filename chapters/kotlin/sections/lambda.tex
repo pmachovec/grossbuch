@@ -3,7 +3,7 @@
 \label{kotlinlambda}
 Lambda functions are an~alternative for~standard \hyperref[kotlinanonymousfunction]{anonymous functions} with simpler syntax.
 The~syntax is \mbitqls{\{PARAMETERS;;;->;;;COMMANDS\}}.
-Last line holds the~return value, \mbox{the \textit{return}} keyword isn't used.
+Last line holds the~return value, the~\mbit{return} keyword isn't used.
 Also, the~return value type isn't specified.
 For~example, a~lambda equivalent of~the~function multiplying its parameter by two from the~\hyperref[kotlinanonymousfunction]{anonymous functions} example looks like the~following:
 %! language = TEXT
@@ -157,7 +157,7 @@ If~there are multiple functions as~last parameters of~the~holding function, then
 This one is a~very tricky feature.
 If~the~parameter function is specified as~the~last one in~the~holding function header and~if~it takes only one parameter, then, when~written in~the~lambda format, the~parameters section can~be omitted, including the~arrow.
 I.e.,~the~lambda function looks like taking no~parameters at~the~first glance, but~it~takes one in~fact.
-The~parameter is accessible in~the~commands section under \mbox{the keyword \itq{it}}.
+The~parameter is accessible in~the~commands section under the keyword~\mbitq{it}.
 
 \example
 %! language = TEXT
@@ -223,7 +223,7 @@ You~may~have \mbit{if--then--else} branching in~a~lambda function and~you~may wa
 And~because lambda functions don't~support the~standard \mbit{return} statement, it~isn't so~straightforward.
 You~must use return at~a~label.
 In~the~basic version the~lambda function must~be preceded with~a~label in~the~syntax \mbitq{LABEL\_NAME@} (mind the~at~sign at~the~end).
-Then, inside the~lambda function body, the~call \mbitqls{return@LABEL\_NAME;;;RETURN\_VALUE}, \mbox{or \itq{return@LABEL\_NAME}} without any~return value (returning \hyperref[kotlinunit]{Unit}), must~be made.
+Then, inside the~lambda function body, the~call \mbitqls{return@LABEL\_NAME;;;RETURN\_VALUE}, or~\mbitq{return@LABEL\_NAME} without any~return value (returning \hyperref[kotlinunit]{Unit}), must~be made.
 
 \example[return at label]
 %! language = TEXT

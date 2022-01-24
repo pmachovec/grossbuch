@@ -1,19 +1,19 @@
 \newsection{Standalone Functions and Variables}
 \label{kotlinstandalone}
 Kotlin enables to~define functions and~variables outside classes.
-They just must be defined in~a~Kotlin file (with \mbox{the \itq{.kt}} extension) in~a~package folder.
+They just must be defined in~a~Kotlin file (with the~\mbitq{.kt} extension) in~a~package folder.
 Such~elements can~then be imported with the~package path and~used anywhere in~the~corresponding project.
 This~is convenient especially for~very general functions that don't need a~class for~their work.
-Having standalone variables can~occur for~some constants, in~that~case it's recommended to~declare them with \mbox{the \itq{const}} keyword.
+Having standalone variables can~occur for~some constants, in~that~case it's recommended to~declare them with the~\mbitq{const} keyword.
 Mutable standalone variables, although possible, are~a~bad practise and~shouldn't be used.
 
-For~a~Kotlin file with standalone elements the~compilation process generates a~class with the~same name \mbox{and \itq{-Kt}} suffix.
+For~a~Kotlin file with standalone elements the~compilation process generates a~class with the~same name and~\mbitq{--Kt} suffix.
 If~the~file name starts with a~lowercase letter, it's~changed to~uppercase in~the~class name.
 Eventual underscores in~the~file name are~preserved (even as~the~first character).
 The~generated class contains static final functions corresponding to~standalone functions from~the~Kotlin file.
-In~the~case of~a~standalone variable, if~it's defined with \mbox{the \itq{const}} keyword, a~public variable is generated for~it.
-If~it's defined only with \mbox{the \itq{val}} keyword, a~private variable and~a~getter method are~generated for~it.
-If~it's defined with \mbox{the \itq{var}} keyword, a~private variable, a~getter and a~setter methods are~generated for~it.
+In~the~case of~a~standalone variable, if~it's defined with the~\mbitq{const} keyword, a~public variable is generated for~it.
+If~it's defined only with the~\mbitq{val} keyword, a~private variable and~a~getter method are~generated for~it.
+If~it's defined with the~\mbitq{var} keyword, a~private variable, a~getter and a~setter methods are~generated for~it.
 \newpage
 
 \example
@@ -82,5 +82,5 @@ That's necessary no matter the~package structure.
 Even if elements are~defined in~a~file directly above in~the~package path, they must be imported.
 
 The~only possible exception is when a~standalone element is maliciously defined in~a~Kotlin file that contains also a~proper class or~\hyperref[kotlinobject]{object}.
-In~that case the~compilation resulting \mbit{.class} file contains two classes -- the~one corresponding to~the~class or~object and~the~one with the~file name \mbox{and the \itq{-Kt}} suffix.
+In~that case the~compilation resulting \mbit{.class} file contains two classes -- the~one corresponding to~the~class or~object and~the~one with the~file name and the~\mbitq{--Kt} suffix.
 And~it's possible to~use the~standalone element in~the~class or~object.

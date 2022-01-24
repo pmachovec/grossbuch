@@ -4,8 +4,8 @@
 Data classes serve for~situations when~you~need class instances just as~containers for~somehow related values, with~minimal, ideally none, additional logic.
 A~data class is created by~the~keyword \mbitq{data}.
 It~must have a~\hyperref[kotlinprimaryconstructor]{primary constructor} with~at~least one~parameter.
-All~parameters of~the~primary constructor must have \hyperref[kotlinvalvar]{\textit{val} \mbox{or \textit{var}}} keyword.
-Standard implementations \mbox{of \itq{\hyperref[kotlindataclasstostring]{toString}}}, \mbitq{\hyperref[kotlindataclassequals]{equals}}, \mbitq{\hyperref[kotlindataclasshashcode]{hashCode}} \mbox{and \itq{\hyperref[kotlindataclasscopy]{copy}}} functions \mbox{and \itq{componentN}} operators for~\hyperref[kotlindestdecl]{destructuring declarations}, are~automatically available on~data class instances (see~further for~examples).
+All~parameters of~the~primary constructor must have \hyperref[kotlinvalvar]{\textit{val} or~\mbit{var}} keyword.
+Standard implementations of~\mbitq{\hyperref[kotlindataclasstostring]{toString}}[,] \mbitq{\hyperref[kotlindataclassequals]{equals}}[,] \mbitq{\hyperref[kotlindataclasshashcode]{hashCode}} and~\mbitq{\hyperref[kotlindataclasscopy]{copy}} functions and~\mbitq{componentN} operators for~\hyperref[kotlindestdecl]{destructuring declarations}, are~automatically available on~data class instances (see~further for~examples).
 These implementations work with~arguments of~the~primary constructor.
 Eventual other fields of~the~class aren't used in~them.
 It's~possible to~override implementations and~write some custom.
@@ -19,7 +19,7 @@ Data classes can~be nested, but~not~\hyperref[kotlininnerclass]{inner}.
 \newsubsection{\textit{toString}}
 \label{kotlindataclasstostring}
 It~returns a~string in~the~format \mbitqls{ClassName(;;firstParameterName;;=;;firstParameterToString,;;;secondParameterToString;;=secondParameterValue, \dots)}.
-If~a~parameter type is a~class without proper implementation \mbox{of \itq{toString}}, it~uses the~default behavior for~the~parameter --~package path, at~sign and~an~address number.
+If~a~parameter type is a~class without proper implementation of~\mbitq{toString}, it~uses the~default behavior for~the~parameter --~package path, at~sign and~an~address number.
 Other fields not~included in~the~primary constructor aren't included in~the~returned value.
 
 \example
@@ -55,9 +55,9 @@ Other fields not~included in~the~primary constructor aren't included in~the~retu
 \newsubsection{\textit{equals}}
 \label{kotlindataclassequals}
 It~compares two data class instances by comparing individual arguments of~the~primary constructor.
-The~arguments comparison is done purely with \mbox{the \itq{equals}} function, \mbitq{hashcode} isn't used.
-I.e.,~even when~\mbitq{hashcode} returns different values for~compared arguments, \mbox{if \itq{equals}} returns \textit{true}, arguments are~considered as~equal (but~in~such case \mbox{the \itq{equals}} implementation in~the~corresponding parameter type class is~obviously wrong).
-If~a~parameter type is a~class without proper implementation \mbox{of \itq{equals}}, it~compares \mbox{the \hyperref[systemmemory]{memory}} address of~the~corresponding instance.
+The~arguments comparison is done purely with the~\mbitq{equals} function, \mbitq{hashcode} isn't used.
+I.e.,~even when~\mbitq{hashcode} returns different values for~compared arguments, if~\mbitq{equals} returns \textit{true}, arguments are~considered as~equal (but~in~such case the~\mbitq{equals} implementation in~the~corresponding parameter type class is~obviously wrong).
+If~a~parameter type is a~class without proper implementation of~\mbitq{equals}, it~compares \mbox{the \hyperref[systemmemory]{memory}} address of~the~corresponding instance.
 Other fields not~included in~the~primary constructor aren't used in~the~instances comparison.
 \newline
 
@@ -125,7 +125,7 @@ Other fields not~included in~the~primary constructor aren't used in~the~instance
 \newsubsection{\textit{hashCode}}
 \label{kotlindataclasshashcode}
 It~computes the~instance hash code from~hash codes of~individual arguments of~the~primary constructor.
-That~means the~result always depends on~the~implementation \mbox{of \itq{hashCode}} of~individual parameter types.
+That~means the~result always depends on~the~implementation of~\mbitq{hashCode} of~individual parameter types.
 Other fields not~included in~the~primary constructor aren't used in~the~computation.
 The~concrete algorithm computing the~data class hash code isn't so simple and~it~isn't necessary to~know~it.
 
@@ -157,7 +157,7 @@ These types don't~have any mutable property to~be~maliciously altered.
 However, it's~important fact to~consider when~the~data class constructor has~parameters of~other types.
 When~you~change a~property of~a~constructor parameter in~a~copy, the~change takes effect even in~the~original (and~even in~the~other direction when~changing the~original).
 
-On~the~other hand, when~a~constructor parameter is declared \mbox{with the \textit{var}} keyword and~a~new value is assigned to~it in~a~copy, then~the~parameter value in~the~original isn't affected.
+On~the~other hand, when~a~constructor parameter is declared with the~\mbit{var} keyword and~a~new value is assigned to~it in~a~copy, then~the~parameter value in~the~original isn't affected.
 The~reference changes are~restricted to~the~actual instance.
 It's~the~same situation like with~\hyperref[kotlinvalvar]{passing arguments to~constructors by reference}.
 
@@ -200,7 +200,7 @@ It's~the~same situation like with~\hyperref[kotlinvalvar]{passing arguments to~c
     println(dataClassCopy.simpleClassProperty.mutableProperty)
 \end{lstlisting}
 
-\warning Opposite to~other mentioned functions, \mbox{the \itq{copy}} function can~be overridden even without the~keyword \mbox{\itq{override}.}
+\warning Opposite to~other mentioned functions, the~\mbitq{copy} function can~be overridden even without the~keyword \mbox{\itq{override}.}
 
 \example{overriding functions in a~data class}
 %! language = TEXT

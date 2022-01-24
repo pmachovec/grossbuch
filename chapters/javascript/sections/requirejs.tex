@@ -13,7 +13,7 @@ If~the~page design forces you to~have the~\mbit{script} element somewhere else t
 The~main file looks almost the~same as~a~standard \hyperref[amd]{AMD} module, only the~big enclosing function is~called \mbitq{requirejs}.
 It~also doesn't have the~\mbit{return} statement.
 It~can~contain RequireJS configuration (before the~main \mbit{requirejs} function), which usually specifies aliases for~paths to~third party libraries like \hyperref[jquery]{jQuery}.
-The~code inside \mbox{the \textit{requirejs}} function is~executed like in~a~standard JavaScript file from the~top to~the~bottom.
+The~code inside the~\mbit{requirejs} function is~executed like in~a~standard JavaScript file from the~top to~the~bottom.
 
 Referring the~main file from a~page is~slightly different from \hyperref[javascriptmodularity]{standard JavaScript module referral}.
 The~\mbit{src} attribute of~the~\mbit{script} element must contain path to~the~RequireJS library file (called \mbitq{require.js} by~default).
@@ -28,7 +28,7 @@ Furthermore, when using RequireJS, you~can~develop a~functionality on~the~Node.j
 This is a \hyperref[nodejs]{NodeJS} feature called \hyperref[nodejscommonjs]{\mbit{CommonJS}}.
 It~isn't supported in~JavaScript by~default.
 
-However, to~make things even more confusing, RequireJS supports using \mbox{the \itq{require}} keyword as~a~replacement of~the~standard \mbitq{requirejs} keyword, if~the~executing \hyperref[engine]{engine} doesn't use it on~its~own.
+However, to~make things even more confusing, RequireJS supports using the~\mbitq{require} keyword as~a~replacement of~the~standard \mbitq{requirejs} keyword, if~the~executing \hyperref[engine]{engine} doesn't use it on~its~own.
 So~for~example, when~running RequireJS code in~a~web browser, you~can~use \mbitq{require} instead of \mbitq{requirejs}.
 But~when~running the~same code in~\hyperref[nodejs]{NodeJS}, it~will fail.
 Therefore, it's~advisable to~use the~default \itq{requirejs} keyword every time when working with~RequireJS.

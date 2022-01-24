@@ -41,17 +41,19 @@
 
 \NewDocumentCommand{\todo}{}{\newline\todononl}
 
-\NewDocumentCommand{\examplenonl}{O{}}{\ifthenelse{\isempty{#1}}{\highlight{Example: }}{\highlight{Example -- #1: }}}
+\NewDocumentCommand{\examplenonl}{o}{\IfNoValueTF{#1}{\highlight{Example: }}{\highlight{Example -- #1: }}}
 
-\NewDocumentCommand{\example}{O{}}{\newline\examplenonl[#1]}
+\NewDocumentCommand{\example}{o}{\newline\examplenonl[#1]}
 
 \NewDocumentCommand{\tmnbf}{m m O{black}}{\tikzmarknode{#1}{\textbfcolor{#3}{#2}}}
+
+\NewDocumentCommand{\itbf}{m}{\textit{\textbf{#1}}}
 
 \NewDocumentCommand{\itq}{m}{"\textit{#1}"}
 
 \NewDocumentCommand{\itqs}{m}{\textquotesingle\textit{#1}\textquotesingle}
 
-\NewDocumentCommand{\mbit}{m}{\mbox{\textit{#1}}} % mbox textit
+\NewDocumentCommand{\mbit}{m o}{\IfNoValueTF{#2}{\mbox{\textit{#1}}}{\mbox{\textit{#1}#2}}} % mbox textit
 
 \NewDocumentCommand{\mbl}{>{\SplitList{;;}}m}{\ProcessList{#1}{\mbox}} % mbox list, separated by ;;
 
@@ -69,9 +71,11 @@
 
 \NewDocumentCommand{\mbls}{>{\SplitList{;;;}}m}{\ProcessList{#1}{\spacembox}\firstitemtrue} % mbox list spaces (space on ;;;)
 
-\NewDocumentCommand{\mbitq}{m}{\mbox{\itq{#1}}} % mbox textit quotes
+\NewDocumentCommand{\mbitq}{m o}{\IfNoValueTF{#2}{\mbox{\itq{#1}}}{\mbox{\itq{#1}#2}}} % mbox textit quotes
 
-\NewDocumentCommand{\mbitqs}{m}{\mbox{\itqs{#1}}} % mbox textit quotes single
+\NewDocumentCommand{\mbitqsfront}{o m}{\IfNoValueTF{#1}{\mbox{\itqs{#2}}}{\mbox{#1 \itqs{#2}}}} % mbox textit quotes single front
+
+\NewDocumentCommand{\mbitqs}{o m o}{\IfNoValueTF{#3}{\mbitqsfront[#1]{#2}}{\mbitqsfront[#1]{#2}#3}} % mbox textit quotes single
 
 \NewDocumentCommand{\mbitl}{m}{\textit{\mbl{#1}}} % mbox textit list, separated by ;;
 
