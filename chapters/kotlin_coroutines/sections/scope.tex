@@ -1,0 +1,14 @@
+\newsection{Scope}
+\index{Scope}
+\index{Coroutine scope}
+\label{kotlincoroutinescope}
+Kotlin coroutine is just a~sequence of~commands.
+We~say that these commands run in~the~scope of~that~coroutine.
+If~a~command in~a~coroutine scope creates another coroutine, then the~new coroutine also runs in~the~scope of~the~original coroutine.
+This~way, coroutines are~organized in~a~parent--child hierarchy.
+When~a~coroutine is terminated (reaches the~end, fails~etc.), even its descendant coroutines are terminated.
+
+There's an~interface \mbit{CoroutineScope}.
+Each~coroutine has~assigned an~instance of~a~specific implementation of~this interface based on the~coroutine type, allowing to~manipulate with~the~scope programmatically.
+The~scope of~a~coroutine is typically created automatically and~made accessible inside the~coroutine's \hyperref[kotlincoroutinebuilder]{builder}.
+However, it's~possible to~create one in~advance with~the~factory function \mbit{CoroutineScope} and~use a~\hyperref[kotlincoroutinebuilder]{builder} with~it (see~further for~examples).

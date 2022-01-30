@@ -1,0 +1,11 @@
+\newsection{Dispatchers}
+\index{Dispatcher}
+\label{kotlincoroutinedispatcher}
+Dispatchers are a~tool for~threading control in~coroutines.
+By~default, a~pool of~threads is~initiated at~the~first coroutine library access and~coroutines are~executed in~these~threads.
+The~number of~threads in~the~pool normally corresponds to~the~number of~\hyperref[processorcpucore]{cores} of~the~computer on~which~the~program is~running, but~there~are always at~least~two.
+When~a~coroutine is~started with~a~\hyperref[kotlincoroutinebuilder]{builder}, a~free~thread from~the~pool is~assigned to~it, or~when~there's~none, the~code has~to~wait.
+
+To~run a~coroutine outside the~thread pool, i.e.,~in~the~main thread or~own custom created, a~dispatcher must~be specified to~the~coroutine builder.
+Dispatchers are just constants from~the~package \mbitqls{kotlinx.;;coroutines.;;Dispatchers}[.]
+They~extend \mbit[the]{Element} interface, and~can~be, therefore, specified as~the~context parameters for~\hyperref[kotlincoroutinebuilder]{builders} or~eventually \mbit[the]{\hyperref[kotlincoroutinescope]{CoroutineScope}} factory function.

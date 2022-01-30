@@ -1,0 +1,43 @@
+\newsection{Context}
+\index{Context}
+\index{Coroutine context}
+\label{kotlincoroutinecontext}
+It's~a~collection of~various elements related to~one coroutine.
+Each~\hyperref[kotlincoroutinescope]{scope} contains a~corresponding context in~the~property \mbit{coroutineContext} of~the~type of~\mbit{ CoroutineContext} interface.
+Each~element is an~instance of~some extension of the~\mbit{Element} interface.
+The~context itself is a~map, where~keys are~formed by classes extending the~\mbit{Element} interface.
+
+For~example, coroutines can~have names.
+There's the~class \mbit{CoroutineName} (extending the~\mbit{Element} interface over multiple steps) holding the~name inside the~property \mbit{name}[.]
+To~retrieve the~name (the~string) from~a~context, you~use something like \mbitqls{val theName;;;=;;;theContext[CoroutineName];;?.name} (the~map output is nullable, because there's no warranty that~the~context contains any~name).
+
+The~\mbit{CoroutineContext} interface \hyperref[kotlinoperatoroverload]{overloads the~\textit{plus} operator} so~that it's~possible to~join two~contexts to~one with~it.
+If~joined contexts contain a~same key, the~conflict is resolved in~favor of~the~other one, i.e.,~the~one on~the~right side of~the~\textit{plus} operator.
+
+To~make everything even more confusing, the \textit{Element} interface extends the~\mbit{CoroutineContext} interface.
+I.e.,~a~context is de~facto a~collection of~contexts.
+This~is because of~the~already mentioned \hyperref[kotlincoroutinescope]{\mbit{CoroutineScope}} factory function.
+The~function takes a~context as~its parameter.
+With \textit{Element} extending \mbit{CoroutineContext}, it's~possible to~pass a~standalone element.
+And~because of the~overloaded \textit{plus} operator, it's~possible to~pass multiple elements joined by the~operator.
+Context elements, which~aren't passed, but~are~necessary, are~set to~default values automatically.
+
+\example[various context operations]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    // Creating two scopes with coroutine names
+    val firstScope = CoroutineScope(CoroutineName("First"))
+    val secondScope = CoroutineScope(CoroutineName("Second"))
+
+    // Joining two contexts
+    val contextJoin = firstScope.coroutineContext + secondScope.coroutineContext
+    println(contextJoin[CoroutineName]?.name) // Will print "Second"
+
+    // Creating scope of the join with fixed name
+    val scopeJoin = (
+        firstScope.coroutineContext
+        + secondScope.coroutineContext
+        + CoroutineName("Joined") // Must be last to override previous
+    )
+\end{lstlisting}
+\newpage

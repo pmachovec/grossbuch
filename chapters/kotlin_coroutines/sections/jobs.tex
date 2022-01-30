@@ -1,0 +1,127 @@
+\newsection{Jobs}
+\index{Job}
+\label{kotlincoroutinejob}
+Each~coroutine has~assigned a~job of~the~interface type~\mbit{Job}.
+A~coroutine's job is a~handle to~the~coroutine life cycle, mainly for~its monitoring, but~can~be also used for~partial coroutine run control.
+
+Life cycle of~a~coroutine is monitored by three Boolean properties --~\mbit{isActive}, \mbit{isCompleted} and~\mbit{isCancelled}.
+Combinations of~values of~these properties define various coroutine states.
+
+\begin{table}[ht]
+    \begin{adjustbox}{center}
+        \renewcommand{\arraystretch}{1.4}
+        \renewcommand{\arrayrulewidth}{1pt}
+        \begin{NiceTabular}{|lr|M{25mm}|M{25mm}|M{25mm}|}
+            \CodeBefore
+                \rowcolor{black!20}{1} % First row background
+                \columncolor{black!20}{1-2} % First multicolumn background
+            \Body
+                \hline
+                {\fontsize{10}{10}\selectfont\textbf{State}}
+                    & {\fontsize{10}{20}\selectfont\raisebox{1mm}{\textbf{Property}}}
+                    & \itbf{isActive}
+                    & \itbf{isCompleted}
+                    & \itbf{isCancelled} \\
+                \hline
+                \multicolumn{2}{|l|}{\itbf{new} (optional initial state)} & false & false & false \\
+                \hline
+                \multicolumn{2}{|l|}{\itbf{active} (default initial state)} & true & false & false \\
+                \hline
+                \multicolumn{2}{|l|}{\itbf{completing} (transient state)} & true & false & false \\
+                \hline
+                \multicolumn{2}{|l|}{\itbf{cancelling} (transient state)} & false & false & true \\
+                \hline
+                \multicolumn{2}{|l|}{\itbf{cancelled} (final state)} & false & true & true \\
+                \hline
+                \multicolumn{2}{|l|}{\itbf{completed} (final state)} & false & true & false
+            \CodeAfter
+                \tikz \draw[line width=1pt, black](1-|1) to (2-|3); % Diagonal rule in the top left cell
+                \tikz \draw[line width=1pt, black](8-|1) to (8-|6); % Bottom rule
+        \end{NiceTabular}
+    \end{adjustbox}
+\end{table}
+
+\notenonl Yes,~\textit{active} and~\textit{completing} states have identical property values and~can't~be distinguished.
+When the~combination of~values is reached, it's~always considered to~be the~\textit{active} state.
+The~\textit{completing} state exists purely for~confusion.
+\newline
+
+\noindent A job is an~element of~the~corresponding \hyperref[kotlincoroutinecontext]{coroutine context}.
+Beside retrieving it by the~map syntax (\mbitq{theContext[Job]}) it's~also returned by the~\hyperref[kotlincoroutinelaunch]{\mbit{launch}} builder, and~actually even by the~\hyperref[kotlincoroutineasync]{\mbit{async}} builder -- the~\mbit{Deferred} interface extends the~\mbit{Job} interface.
+\mbox{The \hyperref[kotlincoroutinerunblocking]{\mbit{runBlocking}}} builder doesn't return a~job, unless explicitly returned in~its~callback.
+Retrieving the~job from~the~context is convenient inside the~coroutine, retrieving from~the~builder outside.
+
+\example[coroutine job retrieval and usage]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    runBlocking {
+        val jobOutside = launch {
+            // It's the same object as jobOutside, but the map result is nullable
+            val jobInside = coroutineContext[Job]!!
+
+            if (jobInside.isCancelled) {
+                (*...THAT\textquotesingle{}S BAD...*)
+            }
+        }
+
+        if (jobInside.isCompleted) {
+            (*...THAT\textquotesingle{}S GOOD...*)
+        }
+    }
+\end{lstlisting}
+
+\example[returning a job from \textit{runBlocking}]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val jobOutside = runBlocking {
+        ...
+        coroutineContext[Job]!!
+    }
+\end{lstlisting}
+
+\warning When a~coroutine is created by a~builder, it~always gets a~new~job.
+There's no way how to~assign an~existing job to~a~created coroutine.
+As~jobs are context elements, and,~therefore, are~instances of~the~\mbit{Context} interface, it's~possible to~pass a~job to~a~builder parameter.
+However, this~will~make the~passed job only a~parent job of~the~created coroutine, not~directly the~coroutine~job.
+
+\example[passing a job to a builder]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    runBlocking {
+        // Using the factory function Job() to create a standalone job
+        val standaloneJob = Job()
+
+        val launchJob = launch(standaloneJob) {
+            ...
+        }
+
+        // standaloneJob and launchJob are different objects
+    }
+\end{lstlisting}
+
+\warning Parent cancellation\ldots
+
+\note The~\mbit{Job} function creates an~instance of~the~interface \mbit{CompletableJob}.
+That's a~job with~available function \mbit{cancel} to~forcibly cancel the~corresponding coroutine.
+Default jobs (of~the~type \mbit{Job}) don't provide this~function.
+
+\todo invokeOnCompletion
+
+\example[creation, retrieval and~force cancellation of~a~job]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val simpleJob = Job()
+    val scopeWithJob = CoroutineScope(simpleJob)
+    ...RUN COROUTINE...
+
+    // If the job is active and something is wrong, cancel the job.
+    if (
+        simpleJob.isActive
+        && SOME_BAD_CONDITION
+    ) {
+        // Passing the exception isn't necessary, but it's convenient.
+        simpleJob.cancel(
+            CancellationException("Something went wrong")
+        )
+    }
+\end{lstlisting}

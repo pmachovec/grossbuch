@@ -1,0 +1,77 @@
+\newsection{\textit{coroutineScope}}
+\index{coroutineScope}
+\label{kotlincoroutinescopefun}
+It's~a~\hyperref[kotlinsuspendfunction]{suspended function} to~be~used inside a~coroutine when~you~need some code block to~be~completed before proceeding with~the~coroutine computation.
+The~code block is~best to~be~passed in~the~\hyperref[kotlinlambda]{lambda format}, it~can~even return a~value, which~is~returned \mbox{by the \textit{withContext}} function itself, similarly like when~returning a~value from~\mbit{\hyperref[kotlincoroutinerunblocking]{runBlocking}}[.]
+
+At~the~first glance, it~may seem identical to~\mbit{runBlocking}[.]
+The~difference is (beside that~\mbit{coroutineScope} being suspended, and~therefore, impossible to~call from~outside a~coroutine) is that~\mbit{runBlocking} waits for~all waiting suspended code to~be~completed before executing its callback.
+The~\mbit{coroutineScope}, on~the~other hand, executes its callback immediately.
+It~only releases the~thread for~waiting code on~the~same level when~there's a~suspended code \mbox{(e.g.,}~\mbit{launch}[)] inside its own callback.
+When~the~waiting code contains another suspended code, the~suspended code from~\mbit{coroutineScope} is~executed first.
+
+\example[\textit{coroutineScope} behavior]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Numbers represent the~order of~execution}]
+    runBlocking {
+        launch {
+            ...4...
+
+            launch {
+                // Suspended code from the same level in "coroutineScope" is executed first.
+                ...7...
+            }
+
+            ...5...
+        }
+
+        ...1...
+
+        // Executes its callback immediately.
+        coroutineScope {
+            ...2...
+
+            // Waits for suspended code only from higher levels.
+            launch {
+                ...6...
+            }
+
+            ...3...
+        }
+
+        // Is executed after "coroutineScope" and everything before it finishes.
+        ...8...
+    }
+\end{lstlisting}
+
+\example[same situation, but \textit{coroutineScope} is replaced with \textit{runBlocking}]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Numbers represent the~order of~execution}]
+    runBlocking {
+        launch {
+            ...2...
+
+            launch {
+                ...4...
+            }
+
+            ...3...
+        }
+
+        ...1...
+
+        // Is executed after everything preceding finishes.
+        runBlocking {
+            ...5...
+
+             launch {
+                ...7...
+            }
+
+            ...6...
+        }
+
+        // Is executed after "runBlocking" and everything before it finishes.
+        ...8...
+    }
+\end{lstlisting}

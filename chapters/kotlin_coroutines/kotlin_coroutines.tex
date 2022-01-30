@@ -1,0 +1,25 @@
+\newchapter{Kotlin Coroutines}
+\index{Coroutine}
+\label{kotlincoroutine}
+Although this belongs under~Kotlin, it's~so~complex topic that it~deserves its own chapter.
+Kotlin provides a~library (not~a~part of~the~core) for~handling \hyperref[concurrentparallelasynchronous]{asynchronous programming} as~\hyperref[coroutines]{coroutines}.
+It's~an~alternative to~"good" old \hyperref[coroutines]{threads}, which~are expensive and~hard to~maintain, and~also to~various \hyperref[reactiveprogramming]{reactive programming} approaches (Future, Promise, RxKotlin), which~are~generally good, but~with~large amount of~functions for~various situations and~therefore hard to~use.
+Also, reactive programming tools tend to~have poor to~no documentation, making their usage even harder.
+
+\note Some sources, including official Kotlin web, claim that passing functions as~parameters to~other functions (i.e.,~callbacks) provides asynchronous behavior.
+This~is somehow true.
+If~you pass a~function as~callback, the~function will~be~executed inside the~wrapping function, not~at~the~place of~the~pass.
+I.e.,~it~will~be executed at~a~different position than~it's~written.
+And~that's asynchronicity.
+
+\warning It's~important to~realize that, opposite to~threads, you~can't~hold a~reference to~a~coroutine, there's nothing like \mbit{Coroutine} class.
+You~only can~have references to~various objects related to~a~concrete coroutine.
+
+\inputsection{kotlin_coroutines}{scope}
+\inputsection{kotlin_coroutines}{context}
+\inputsection{kotlin_coroutines}{builders}
+\inputsection{kotlin_coroutines}{suspended_functions}
+\inputsection{kotlin_coroutines}{dispatchers}
+\inputsection{kotlin_coroutines}{coroutinescope}
+\inputsection{kotlin_coroutines}{withcontext}
+\inputsection{kotlin_coroutines}{jobs}

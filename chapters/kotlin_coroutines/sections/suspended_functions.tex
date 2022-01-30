@@ -1,0 +1,66 @@
+\newsection{Suspended functions}
+\index{Suspend}
+\label{kotlinsuspendfunction}
+This is probably the~most confusing feature of~Kotlin coroutines.
+You~can~declare a~function with~the~keyword \mbitq{suspend}.
+With~that done, the~function will~be callable only from~a~coroutine (i.e.,~from~a~builder callback) or~from~another function declared as~suspended.
+
+\example[suspended function]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    fun runOnMainThread() {
+        runBlocking {
+            launch {
+                suspendedFun()
+            }
+        }
+
+        // Will cause compilation error.
+        suspendedFun()
+    }
+
+    private suspend fun suspendedFun() {
+        ...
+    }
+\end{lstlisting}
+\newline
+
+\enlargethispage{5mm}
+\noindent Remember!
+It's~only a~marker, by~which the~function author is saying that~the~corresponding function does something, which~can~freeze current thread for~some time (it~doesn't~have to~be~true), and,~therefore, should~be run asynchronously.
+Although documentations, tutorials and~(wannabe) experts say otherwise, it~has \textbf{absolutely no effect} on how~the~function, the~enclosing coroutine, or~even the~whole program, \mbox{behave.}
+
+There are some functions in~the~coroutines library which~are declared as~suspended.
+And~basically the~only situation when~you~must declare your function as~suspended is when~your function calls some of~those functions from~the~library.
+Otherwise, when~using your~function inside a~coroutine, the~code will~work exactly the~same with~or~without the~\mbit{suspend} modifier.
+Some \mbox{IDEs} will~even mark the~modifier as~redundant when~not~calling another suspended function.
+Even~those suspended functions from~the~coroutines library could~be rewritten without~the~modifier.
+Very~base functions from~deep down of~the~library, doing \mbox{"the magic"} by primitive operations (declared as~suspended), would~also have the~modifier marked \mbox{as redundant}.
+
+Some sources say not~to~declare a~function as~suspended, unless the~compiler forces you to~do~so.
+That~is, unless you need to~call a~suspended function from~the~coroutines \mbox{library.}
+
+When~you implement some expensive operations, like big files processing, database handling or~network communication, you~can~declare your functions suspended even standalone.
+This~will~make your~function more idiot--proof when~used by someone else --~he~will have~to wrap your~function call to~a~coroutine.
+Most likely you~will, however, have~to put~up with~your IDE complaining about the~redundant \mbox{modifier.}
+\newpage
+
+\warning The~idiocy resistance of~suspended functions has~one weak spot -- the~\mbit{\hyperref[kotlincoroutinerunblocking]{runBlocking}} builder.
+The~\mbit{runBlocking} callback is treated as~a~valid coroutine, therefore, it's~possible to~call a~suspended function from~it.
+But~the~callback also runs sequentially within other code.
+Because of~that, when~the~suspended function really does something blocking the~thread, and~when~called directly from a~\mbit{runBlocking} callback, it~will~block the~main \mbox{thread.}
+
+\example[wrong usage of suspended function]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    fun runOnMainThread() {
+        runBlocking {
+            // Will cause the program to stuck.
+            suspendedFun()
+        }
+    }
+
+    private suspend fun suspendedFun() {
+        ...LONG EXPENSIVE COMPUTATION...
+    }
+\end{lstlisting}

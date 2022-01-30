@@ -59,7 +59,10 @@ Multithreading is preemptive in~general --~threads are managed by~\hyperref[os]{
             The~concurrent run is typically only illusional, the~illusion is achieved by very quick swaps of~tasks in~the~\hyperref[processorcpucore]{CPU}.
     \itembf{Parallel} is a~synonym for~\textit{concurrent}, its~meaning is the~same.
     \itembf{Asynchronous} means postponing execution of~actual task and~continuing processing following task.
-            I.e.,~it's something like cutting out the~actual task from~the~running thread.
+            I.e.,~the~postponed code is~executed at~a~different position than~it's~written.
+            It's~something like cutting~out a~task from~the~running thread.
             The~postponed task can~be run concurrently (in~another thread) or~wait until the~original thread picks it up again.
 \end{itemize}
+
+\note Although asynchronous behavior is~possible to~reach even in~a~single--threaded environment with~absolutely no~parallelism, asynchronicity is still considered to~be~multitasking.
 \newline

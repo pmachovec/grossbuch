@@ -1,0 +1,13 @@
+\newsection{\textit{withContext}}
+\index{withContext}
+It's~an~alternative to~the~\mbit{\hyperref[kotlincoroutinescopefun]{coroutineScope}} function, when~you~need to~alter the~context of~the~callback.
+Beside the~callback, it~also requires some \hyperref[kotlincoroutinecontext]{context} instance.
+The~callback block runs in~the~\hyperref[kotlincoroutinescope]{scope} of~the~enclosing coroutine, but~with~a~different context created by joining the~original coroutine context and~the~one passed.
+Conflicting values take precedence from~the~given new~context.
+This~is useful especially when~switching threads with~\mbit{\hyperref[kotlincoroutinedispatcher]{dispatchers}}[.]
+
+\todo example with dispatchers
+
+\note In~fact, \mbit{coroutineScope} is an~alternative of~\mbit{withContext}[,] but~it's~more understandable when~explained in~the~reversed order.
+As~there's the~\mbit{\hyperref[kotlincoroutinecontext]{coroutineContext}} property accessible in~builders' callbacks, \mbitq{coroutineScope \{\dots\}} is~equivalent to~\mbitq{withContext(coroutineContext) \{\dots\}}[.]
+Don't wander why they haven't created only one overloaded function like by~\hyperref[kotlincoroutinebuilder]{builders}, just put~up with~it.

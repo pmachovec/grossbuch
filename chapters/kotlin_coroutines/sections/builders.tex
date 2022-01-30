@@ -1,0 +1,313 @@
+\newsection{Builders}
+\index{Builder}
+\index{Coroutine builder}
+\label{kotlincoroutinebuilder}
+A~coroutine must be created by one of~special functions from~the~coroutines library.
+These functions are~called \textit{coroutine builders}.
+They take a~parameterless callback function as~the~last (but~not~necessarily the~only) parameter, and~commands inside this callback are~commands run in~the~created coroutine scope.
+It's~convenient to~pass the~callback function in~the~\hyperref[kotlinlambda]{lambda format}.
+There are three coroutine builders --~\mbit{runBlocking}[,] \mbit{launch} and~\mbit{async}.
+
+Coroutine builders are~defined so that the~corresponding instance of~\mbit{CoroutineScope} is available in~the~callback function body under the~\mbit{this} keyword --~the~callback \hyperref[kotlinanonymousreceivertype]{receiver type} is declared to~be \mbit{CoroutineScope}[.]
+When~running program executes the~callback function --~the~coroutine body --~it~passes a~scope instance to~it.
+
+\newsubsection{\textit{runBlocking}}
+\index{RunBlocking}
+\label{kotlincoroutinerunblocking}
+It's~the~only builder not~declared as~an~\hyperref[kotlinextension]{extension} of~\textit{CoroutineScope}.
+Because of~this, it~can~be simply imported and~called anywhere, just as~it~is.
+It's~something like a~bridge between simple top--down executed code and~asynchronously executed code in~coroutines.
+It~doesn't produce any asynchronous behavior, commands inside its callback are~executed in~the~order of~commands.
+However, the~callback is treated as~a~full-value coroutine with~a~scope.
+It's~used to~start other coroutines by other builders.
+Such~coroutines then~run in~the~scope of~the~coroutine created by the~\mbit{runBlocking} builder.
+Opposite to~other builders, it~can~also return a~value from~the~callback.
+
+\example[\textit{runBlocking}]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    fun runOnMainThread() {
+        ...
+
+        val runBlockingResult = runBlocking {
+            ...
+            "result" // Returning a value from the callback
+        }
+
+        println(runBlockingResult) // Will print "result"
+    }
+\end{lstlisting}
+
+\enlargethispage{5mm}
+\newsubsection{\textit{launch}}
+\index{Launch}
+\label{kotlincoroutinelaunch}
+It~suspends the~code in~the~callback so~that it's~executed later when~a~thread is~free.
+By~default, it~doesn't produce a~new~thread.
+The~code just waits until the~current thread is released (see~\hyperref[kotlincoroutinedispatcher]{dispatchers} for~assigning another thread), that~is, when~the~outer block is~completed.
+
+For~example, when~used inside \mbit{runBlocking}, all~commands of the~\mbit{runBlocking} are~executed first and~only after that commands of the~\mbit{launch} are~executed.
+When~executed inside another \mbit{launch}, then~commands of~the~outer \mbit{launch} are~executed first.
+And~when there~are multiple such \mbit{launch} hierarchies, higher levels are~executed first.
+
+In~these situations --~calling inside another parent builder --~the~\mbit{launch} builder is~called on~the~parent \mbit{CoroutineScope} instance available in~the~enclosing callback of~the~parent builder.
+Most of parent context members are~inherited to~the~child context (but~not~all, see~\hyperref[kotlincoroutinejob]{jobs}).
+
+\enlargethispage{5mm}
+\example[two--level \textit{launch} followed by another inside \textit{runBlocking}]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Numbers represent the~order of~execution}]
+    fun runOnMainThread() {
+        ...1...
+
+        runBlocking { // CoroutineScope instance available as "this"
+            ...2...
+
+            // Launch on the first level
+            launch { // Equivalent of "this.launch {..."
+                ...4...
+
+                // Launch on the second level
+                // Waits for all first level commands to finish
+                launch {
+                    ...8...
+                }
+
+                ...5...
+            }
+
+            // Another launch on the first level
+            launch {
+                ...6...
+
+                // Another launch on the second level
+                launch {
+                    ...9...
+                }
+
+                ...7...
+            }
+
+            ...3...
+        }
+
+        ...10...
+    }
+\end{lstlisting}
+\newpage
+
+\noindent If~you~have a~\mbit{\hyperref[kotlincoroutinecontext]{Context}} instance, you~can~pass it to~the~\mbit{\hyperref[kotlincoroutinescope]{CoroutineScope}} factory function and~call the~builder on~the~result.
+This construction occurs mainly with~\hyperref[kotlincoroutinedispatcher]{dispatchers} and~multiple threads.
+Be~aware that when~you~do this on~a~main program thread, it~can~reach its end before processing the~builder callback.
+In~that~case, the~callback won't~be executed.
+
+\example[\textit{launch} called on standalone simple scope]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    fun runOnMainThread() {
+        // Primitive scope with only coroutine name in the context
+        CoroutineScope(CoroutineName("Simple name")).launch {
+            // This won't be reached.
+        }
+    }
+
+    // Something like "Thread.sleep" here would release the thread and the callback would run.
+
+    // END OF THE MAIN THREAD
+\end{lstlisting}
+\newline
+
+\noindent Kotlin coroutines library also provides the~object \mbit{GlobalScope}, which~is basically some general scope with~a~general context, and~it's~possible to~call builders on~it.
+However, this should~be rather avoided.
+
+\example[\textit{launch} called on \textit{GlobalScope}]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    fun runOnMainThread() {
+        GlobalScope.launch {
+            // This won't be reached.
+        }
+    }
+
+    // Something like "Thread.sleep" here would release the thread and the callback would run.
+
+    // END OF THE MAIN THREAD
+\end{lstlisting}
+
+\warning If~you~construct a~scope inside \mbit{runBlocking}, the~\mbit{runBlocking} won't wait for~coroutines triggered on~that~new scope.
+Such~coroutines don't belong to~the~scope of the~\mbit{runBlocking}[.]
+\newpage
+
+\example[\textit{launch} called on new scopes inside \textit{runBlocking}]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    runBlocking {
+        CoroutineScope(CoroutineName("Simple name")).launch {
+            // This won't be reached.
+        }
+
+        GlobalScope.launch {
+            // This won't be reached.
+        }
+    }
+\end{lstlisting}
+
+\note The~\mbit{runBlocking} builder waits for~all~previously suspended code, even~for~code to~be~run on~a~different thread (see~\hyperref[kotlincoroutinedispatcher]{dispatchers}).
+Because of~that, when~you~construct a~standalone scope, create a~coroutine on~it and~then~use unrelated \mbit{runBlocking}, the~coroutine will~be completed before the~\mbit{runBlocking} starts.
+
+\example[\textit{launch} called on standalone simple scope followed by \textit{runBlocking}]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Numbers represent the~order of~execution}]
+    fun runOnMainThread() {
+        CoroutineScope(CoroutineName("Simple name")).launch {
+            ...1...
+        }
+
+        runBlocking {
+            ...2...
+        }
+    }
+\end{lstlisting}
+
+\newsubsection{\textit{async}}
+\index{Async}
+\index{Deferred}
+\label{kotlincoroutineasync}
+The~\mbit{async} builder basically works in~the~same way as~\mbit{launch}.
+The~difference is that, when~called, it~returns an~instance (of~a~class implementing) the~interface \mbit{Deferred}.
+This~instance provides the~function \mbit{await}, which, when~called, stops the~parent coroutine at~that~place and~performs the~builder callback.
+Then~the~parent coroutine run continues.
+I.e.,~instead of letting the~parent coroutine to~reach the~end end before starting its own run, it~starts its run at~the~specific moment of~the~parent coroutine~run.
+\newpage
+
+\example[simple \textit{async} inside \textit{runBlocking}]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Numbers represent the~order of~execution}]
+    fun runOnMainThread() {
+        runBlocking {
+            ...1...
+
+            val deferredInstance = async {
+                ...3...
+            }
+
+            ...2...
+            deferredInstance.await()
+            ...4...
+        }
+    }
+\end{lstlisting}
+
+\example[\textit{async} inside \textit{launch} inside \textit{runBlocking}]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Numbers represent the~order of~execution}]
+    fun runOnMainThread() {
+        runBlocking {
+            ...1...
+
+            launch {
+                ...3...
+
+                val deferredInstance = async {
+                    ...5...
+                }
+
+                ...4...
+                deferredInstance.await()
+                ...6...
+            }
+
+            ...2...
+        }
+    }
+\end{lstlisting}
+\newpage
+
+\example[\textit{launch} inside \textit{async} inside \textit{runBlocking}]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin, title={Numbers represent the~order of~execution}]
+    fun runOnMainThread() {
+        runBlocking {
+            ...1...
+
+            val deferredInstance = async {
+                ...3...
+
+                launch {
+                    ...5...
+                }
+
+                ...4...
+            }
+
+            ...2...
+            deferredInstance.await()
+            ...6...
+        }
+    }
+\end{lstlisting}
+\newline
+
+\noindent The~\mbit{Deferred} instance returned by the~function \mbit{await} can~return a~value.
+The~interface real signature is \mbitq{Deferred<out T>}, where the~\mbitq{T} represents the~return type.
+The~\mbit{await} function then~returns a~value of this type~\mbitq{T}.
+The~return value is specified in the~\mbit{async} callback as~in~any other \hyperref[kotlinlambda]{lambda function} --~written on~the~last line without the~\mbit{return} keyword.
+
+\example[\textit{await} returning a value]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    fun runOnMainThread() {
+        runBlocking {
+            ...
+
+            val deferredInstance = async {
+                ...
+                "something"
+            }
+
+            ...
+            // The result will be "something".
+            val result = deferredInstance.await()
+            ...
+        }
+    }
+\end{lstlisting}
+\newline
+
+\warning Having the~\mbit{await} function blocking the~run at~a~desired place, it~may~seem unnecessary to~enclose~it to a~\mbit{runBlocking} callback (or~another builder callback).
+At~the~first glance, constructing a~standalone scope, invoking \mbit{async} on~it and~run \mbit{await} later looks feasible.
+However, this is not~possible.
+The~\mbit{await} function is so~called \hyperref[kotlinsuspendfunction]{suspended function}, which~means it~can~be called only from~a~coroutine (i.e.,~from~a~builder callback) or~from~another suspended function.
+If~you~try to~use it outside, the~compilation will~fail.
+
+\example[attempt to have \textit{async/await} outside builder callbacks]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    val deferredInstance = CoroutineScope(...).async {
+        ...
+    }
+
+    // Will cause compilation error.
+    deferredInstance.await()
+\end{lstlisting}
+
+\warning All~three coroutine builders can~take a~\mbit{Context} instance as~a~parameter.
+When~used, almost every time an~element from~the~given context sets or~overrides the~same element, which~would~be otherwise inherited from~the~parent coroutine context or~set to~a~default value.
+But~this doesn't hold every time.
+There's a~malicious behavior with~\hyperref[kotlincoroutinejob]{jobs}.
+However, it's~convenient for~setting other coroutine characteristics like, for~example, the~coroutine name, or~for~threading control with~\hyperref[kotlincoroutinedispatcher]{dispatchers}.
+
+\example[setting coroutine names by builders]
+%! language = TEXT
+\begin{lstlisting}[language=Kotlin]
+    runBlocking(CoroutineName("Outer bridge")) {
+        ...
+
+        launch(CoroutineName("Real coroutine")) {
+            ...
+        }
+
+        ...
+    }
+\end{lstlisting}
+\newpage
