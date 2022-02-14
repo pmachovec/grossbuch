@@ -219,11 +219,11 @@ It's~usable also with standard anonymous functions.
 \newsubsection{Return at Labels}
 \index{Label}
 \label{kotlinreturnatlabel}
-You~may~have \mbit{if--then--else} branching in~a~lambda function and~you~may want to~exit the~function at~a~certain point before reaching the~end.
-And~because lambda functions don't~support the~standard \mbit{return} statement, it~isn't so~straightforward.
+You~may~have \mbitq{if--then--else} branching in~a~lambda function and~you~may want to~exit the~function at~a~certain point before reaching the~end.
+And~because lambda functions don't~support the~standard \mbitq{return} statement, it~isn't so~straightforward.
 You~must use return at~a~label.
 In~the~basic version the~lambda function must~be preceded with~a~label in~the~syntax \mbitq{LABEL\_NAME@} (mind the~at~sign at~the~end).
-Then, inside the~lambda function body, the~call \mbitqls{return@LABEL\_NAME;;;RETURN\_VALUE}, or~\mbitq{return@LABEL\_NAME} without any~return value (returning \hyperref[kotlinunit]{Unit}), must~be made.
+Then, inside the~lambda function body, the~call \mbitqls{return@LABEL\_NAME;;;RETURN\_VALUE}, or~\mbitq{return@LABEL\_NAME} without any~return value (returning \hyperref[kotlinunit]{\mbit{Unit}}), must~be made.
 
 \example[return at label]
 %! language = TEXT

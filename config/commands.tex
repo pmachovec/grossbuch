@@ -85,9 +85,9 @@
 
 \NewDocumentCommand{\mbitqsl}{m}{\itqs{\mbl{#1}}} % mbox textit quotes single list, separated by ;;
 
-\NewDocumentCommand{\mbitqls}{m}{"\textit{\mbls{#1}}"} % mbox textit quotes list spaces (space on ;;;)
+\NewDocumentCommand{\mbitqls}{m o}{\IfNoValueTF{#2}{"\textit{\mbls{#1}}"}{"\textit{\mbls{#1}}"#2}} % mbox textit quotes list spaces (space on ;;;)
 
-\NewDocumentCommand{\mbitqsls}{m}{\textquotesingle\textit{\mbls{#1}}\textquotesingle} % mbox textit quotes single list spaces (space on ;;;)
+\NewDocumentCommand{\mbitqsls}{m o}{\IfNoValueTF{#2}{\textquotesingle\textit{\mbls{#1}}\textquotesingle}{\textquotesingle\textit{\mbls{#1}}\textquotesingle#2}} % mbox textit quotes single list spaces (space on ;;;)
 
 \NewDocumentCommand{\drawarrow}{O{stealth-stealth} m m O{black} O{.3} O{}}{\draw[#1,line width=.6mm,shorten <=2pt,shorten >=2pt,#4,opacity=#5] (#2) to[#6] (#3);}
 

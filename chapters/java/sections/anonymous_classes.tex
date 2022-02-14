@@ -1,0 +1,88 @@
+\newsection{Anonymous Classes}
+\index{Anonymous class}
+\label{javaanonymousclass}
+Anonymous class is an~extension of~another class or~implementation of~an~\hyperref[javainterfaces]{interface} written directly on~the~fly and~immediately assigned to~a~variable --~all~in~one command.
+Type of~the~variable is the~parent class or~interface.
+The~syntax is \mbitqls{PARENT\_TYPE;;;variableName;;;= new PARENT\_TYPE(...);;;\{ ... \};}[.]
+Mind the~semicolon at~the~end.
+
+\example[parent class and its anonymous extension]
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={A simple class}]
+    public class ParentClass {
+        // Constructor with string parameter
+        public ParentClass(String theParameter) {
+            ...
+        }
+
+        // Simple method
+        public void doSomething() {
+            ...DO SOMETHING...
+        }
+    }
+\end{lstlisting}
+\newpage
+
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Anonymous extension of the simple class}]
+    // Passing argument to the parent class constructor
+    ParentClass theAnonymous = new ParentClass("something") {
+        // Overriding the parent class method
+        @>@Override
+        public void doSomething() {
+            ...DO SOMETHING...
+        }
+    };
+\end{lstlisting}
+
+\warning In~the~case of~writing anonymous interface implementations something like interface constructor appears.
+That's~a~nonsense on~its~own, interfaces can't~have constructors.
+However, in~this~case, it~really exists and~it's~correct.
+It's~always formed by empty brackets, such~"constructors" can't~have parameters.
+
+\example[interface and its anonymous implementation]
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={A simple interface}]
+    public interface TheInterface {
+        void doSomething();
+    }
+\end{lstlisting}
+%! language = TEXT
+\begin{lstlisting}[language=Java, title={Anonymous implementation of the interface}]
+    // Calling the interface "constructor"
+    TheInterface theAnonymous = new TheInterface() {
+        // Implementing the interface method
+        @>@Override
+        public void doSomething() {
+            ...DO SOMETHING ELSE...
+        }
+    };
+\end{lstlisting}
+\newline
+
+\noindent Anonymous classes can~access variables from~outer structures in~which~they're encapsulated.
+It's~said that~anonymous classes capture members of~their closures.
+It~works even over multiple encapsulation levels.
+\newpage
+
+\example[capturing closure member]
+%! language = TEXT
+\begin{lstlisting}[language=Java]
+    public class BigClass {
+        private final String BIG_CONSTANT = "Something";
+
+        public void bigMethod() {
+            TheInterface theAnonymous = new TheInterface() {
+                @Override
+                public void doSomething(String something) {
+                    ...USE BIG_CONSTANT SOMEHOW...
+                }
+            };
+        }
+    }
+\end{lstlisting}
+\newline
+
+\noindent An~anonymous class can~always extend or~implement exactly one~parent class or~interface.
+The~anonymous class instance is unique, you~can't~create more (except when~providing some cloning implementation inside the~anonymous class body).
+Static members in~anonymous classes are~allowed only final, i.e.,~as~constants.

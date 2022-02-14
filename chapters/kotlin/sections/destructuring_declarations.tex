@@ -240,11 +240,11 @@ This type provides \mbit{component1} operator returning the~key and~\mbit{compon
 \newsubsection{In lambda functions}
 When you have a~function \hyperref[kotlinanonymousfunction]{taking other function as~a~parameter}, then you can~specify the~other function as~a~\hyperref[kotlinlambda]{lambda function}.
 And~when that other function has a~parameter of~a~type supporting destructuring declarations, you~can, instead of declaring one variable representing the~parameter value, provide destructuring declaration with~a~correct number of variables in~the~lambda parameters section (before the~arrow).
-This way you~have access to~\mbit{componentN} operators results of~the~parameter in~the~lambda body.
+This~way you~have access to~\mbit{componentN} operators results of~the~parameter in~the~lambda body.
 When the~lambda function has more parameters, it's possible to~use destructuring declaration for~one and~standard variables for~others at~any~place.
 It~can~be also used on~iterable functions taking lambda like \mbit{forEach}[,] \mbit{filter}[,] \mbit{map}~etc.
-Remember that even this is x--or.
-If~you~need to~use something else than \textit{componentN} operators results on~the~parameter, then you can't~use destructuring declaration.
+Remember that even this is \mbox{x--or.}
+If~you~need to~use something else than~\textit{componentN} operators results on~the~parameter, then~you can't~use destructuring declaration.
 
 \example[destructuring declaration in lambda function parameters]
 %! language = TEXT
